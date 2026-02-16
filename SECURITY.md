@@ -4,18 +4,7 @@ If you believe you've found a security issue in Nova Engine, please report it pr
 
 ## Reporting
 
-Report vulnerabilities directly to the repository where the issue lives:
-
-- **Core CLI and gateway** — [nova-engine/nova-engine](https://github.com/nova-engine/nova-engine)
-- **macOS desktop app** — [nova-engine/nova-engine](https://github.com/nova-engine/nova-engine) (apps/macos)
-- **iOS app** — [nova-engine/nova-engine](https://github.com/nova-engine/nova-engine) (apps/ios)
-- **Android app** — [nova-engine/nova-engine](https://github.com/nova-engine/nova-engine) (apps/android)
-- **ClawHub** — [nova-engine/clawhub](https://github.com/nova-engine/clawhub)
-- **Trust and threat model** — [nova-engine/trust](https://github.com/nova-engine/trust)
-
-For issues that don't fit a specific repo, or if you're unsure, email **security@nova-engine.ai** and we'll route it.
-
-For full reporting instructions see our [Trust page](https://trust.nova-engine.ai).
+Report vulnerabilities to **stefan@vermulstgroup.com**.
 
 ### Required in Reports
 
@@ -32,7 +21,7 @@ Reports without reproduction steps, demonstrated impact, and remediation advice 
 
 ## Security & Trust
 
-**Jamieson O'Reilly** ([@theonejvo](https://twitter.com/theonejvo)) is Security & Trust at Nova Engine. Jamieson is the founder of [Dvuln](https://dvuln.com) and brings extensive experience in offensive security, penetration testing, and security program development.
+Security contact: **Stefan Vermulst** — stefan@vermulstgroup.com
 
 ## Bug Bounties
 
