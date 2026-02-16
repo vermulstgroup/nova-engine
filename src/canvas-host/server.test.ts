@@ -73,8 +73,8 @@ describe("canvas host", () => {
     const out = injectCanvasLiveReload("<html><body>Hello</body></html>");
     expect(out).toContain(CANVAS_WS_PATH);
     expect(out).toContain("location.reload");
-    expect(out).toContain("nova-engineCanvasA2UIAction");
-    expect(out).toContain("nova-engineSendUserAction");
+    expect(out).toContain("novaEngineCanvasA2UIAction");
+    expect(out).toContain("novaEngineSendUserAction");
   });
 
   it("creates a default index.html when missing", async () => {
@@ -93,7 +93,7 @@ describe("canvas host", () => {
       const html = await res.text();
       expect(res.status).toBe(200);
       expect(html).toContain("Interactive test page");
-      expect(html).toContain("nova-engineSendUserAction");
+      expect(html).toContain("novaEngineSendUserAction");
       expect(html).toContain(CANVAS_WS_PATH);
     } finally {
       await server.close();
@@ -260,7 +260,7 @@ describe("canvas host", () => {
     try {
       await fs.stat(bundlePath);
     } catch {
-      await fs.writeFile(bundlePath, "window.nova-engineA2UI = {};", "utf8");
+      await fs.writeFile(bundlePath, "window.novaEngineA2UI = {};", "utf8");
       createdBundle = true;
     }
 
@@ -280,14 +280,14 @@ describe("canvas host", () => {
       const html = await res.text();
       expect(res.status).toBe(200);
       expect(html).toContain("nova-engine-a2ui-host");
-      expect(html).toContain("nova-engineCanvasA2UIAction");
+      expect(html).toContain("novaEngineCanvasA2UIAction");
 
       const bundleRes = await fetch(
         `http://127.0.0.1:${server.port}/__nova-engine__/a2ui/a2ui.bundle.js`,
       );
       const js = await bundleRes.text();
       expect(bundleRes.status).toBe(200);
-      expect(js).toContain("nova-engineA2UI");
+      expect(js).toContain("novaEngineA2UI");
       const traversalRes = await fetch(
         `http://127.0.0.1:${server.port}${A2UI_PATH}/%2e%2e%2fpackage.json`,
       );

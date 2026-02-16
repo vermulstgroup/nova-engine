@@ -41,7 +41,7 @@ const buttonShadow = isAndroid ? "0 2px 10px rgba(6, 182, 212, 0.14)" : "0 10px 
 const statusShadow = isAndroid ? "0 2px 10px rgba(0, 0, 0, 0.18)" : "0 10px 24px rgba(0, 0, 0, 0.25)";
 const statusBlur = isAndroid ? "10px" : "14px";
 
-const nova-engineTheme = {
+const novaEngineTheme = {
   components: {
     AudioPlayer: emptyClasses(),
     Button: emptyClasses(),
@@ -161,7 +161,7 @@ class NovaEngineA2UIHost extends LitElement {
   #processor = v0_8.Data.createSignalA2uiMessageProcessor();
   themeProvider = new ContextProvider(this, {
     context: themeContext,
-    initialValue: nova-engineTheme,
+    initialValue: novaEngineTheme,
   });
 
   surfaces = [];
@@ -280,7 +280,7 @@ class NovaEngineA2UIHost extends LitElement {
       reset: () => this.reset(),
       getSurfaces: () => Array.from(this.#processor.getSurfaces().keys()),
     };
-    globalThis.nova-engineA2UI = api;
+    globalThis.novaEngineA2UI = api;
     this.addEventListener("a2uiaction", (evt) => this.#handleA2UIAction(evt));
     this.#statusListener = (evt) => this.#handleActionStatus(evt);
     for (const eventName of ["nova-engine:a2ui-action-status"]) {
@@ -397,15 +397,15 @@ class NovaEngineA2UIHost extends LitElement {
       ...(Object.keys(context).length ? { context } : {}),
     };
 
-    globalThis.__nova-engineLastA2UIAction = userAction;
+    globalThis.__novaEngineLastA2UIAction = userAction;
 
     const handler =
-      globalThis.webkit?.messageHandlers?.nova-engineCanvasA2UIAction ??
-      globalThis.nova-engineCanvasA2UIAction;
+      globalThis.webkit?.messageHandlers?.novaEngineCanvasA2UIAction ??
+      globalThis.novaEngineCanvasA2UIAction;
     if (handler?.postMessage) {
       try {
         // WebKit message handlers support structured objects; Android's JS interface expects strings.
-        if (handler === globalThis.nova-engineCanvasA2UIAction) {
+        if (handler === globalThis.novaEngineCanvasA2UIAction) {
           handler.postMessage(JSON.stringify({ userAction }));
         } else {
           handler.postMessage({ userAction });

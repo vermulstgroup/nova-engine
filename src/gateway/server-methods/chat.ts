@@ -217,7 +217,7 @@ function appendAssistantTranscriptMessage(params: {
     ...(params.idempotencyKey ? { idempotencyKey: params.idempotencyKey } : {}),
     ...(params.abortMeta
       ? {
-          nova-engineAbort: {
+          novaEngineAbort: {
             aborted: true,
             origin: params.abortMeta.origin,
             runId: params.abortMeta.runId,

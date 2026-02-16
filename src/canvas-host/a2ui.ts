@@ -63,9 +63,9 @@ export function injectCanvasLiveReload(html: string): string {
 (() => {
   // Cross-platform action bridge helper.
   // Works on:
-  // - iOS: window.webkit.messageHandlers.nova-engineCanvasA2UIAction.postMessage(...)
-  // - Android: window.nova-engineCanvasA2UIAction.postMessage(...)
-  const handlerNames = ["nova-engineCanvasA2UIAction"];
+  // - iOS: window.webkit.messageHandlers.novaEngineCanvasA2UIAction.postMessage(...)
+  // - Android: window.novaEngineCanvasA2UIAction.postMessage(...)
+  const handlerNames = ["novaEngineCanvasA2UIAction"];
   function postToNode(payload) {
     try {
       const raw = typeof payload === "string" ? payload : JSON.stringify(payload);
@@ -95,8 +95,8 @@ export function injectCanvasLiveReload(html: string): string {
   globalThis.Nova Engine = globalThis.Nova Engine ?? {};
   globalThis.Nova Engine.postMessage = postToNode;
   globalThis.Nova Engine.sendUserAction = sendUserAction;
-  globalThis.nova-enginePostMessage = postToNode;
-  globalThis.nova-engineSendUserAction = sendUserAction;
+  globalThis.novaEnginePostMessage = postToNode;
+  globalThis.novaEngineSendUserAction = sendUserAction;
 
   try {
     const proto = location.protocol === "https:" ? "wss" : "ws";

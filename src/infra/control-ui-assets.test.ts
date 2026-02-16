@@ -111,12 +111,12 @@ describe("control UI assets helpers (fs-mocked)", () => {
   });
 
   it("uses resolveNovaEnginePackageRoot when available", async () => {
-    const nova-engineRoot = await import("./nova-engine-root.js");
+    const novaEngineRoot = await import("./nova-engine-root.js");
     const { resolveControlUiDistIndexPath } = await import("./control-ui-assets.js");
 
     const pkgRoot = abs("fixtures/nova-engine");
     (
-      nova-engineRoot.resolveNovaEnginePackageRoot as unknown as ReturnType<typeof vi.fn>
+      novaEngineRoot.resolveNovaEnginePackageRoot as unknown as ReturnType<typeof vi.fn>
     ).mockResolvedValueOnce(pkgRoot);
 
     await expect(resolveControlUiDistIndexPath(abs("fixtures/bin/nova-engine"))).resolves.toBe(
@@ -180,12 +180,12 @@ describe("control UI assets helpers (fs-mocked)", () => {
   });
 
   it("resolves control-ui root for dist bundle argv1 and moduleUrl candidates", async () => {
-    const nova-engineRoot = await import("./nova-engine-root.js");
+    const novaEngineRoot = await import("./nova-engine-root.js");
     const { resolveControlUiRootSync } = await import("./control-ui-assets.js");
 
     const pkgRoot = abs("fixtures/nova-engine-bundle");
     (
-      nova-engineRoot.resolveNovaEnginePackageRootSync as unknown as ReturnType<typeof vi.fn>
+      novaEngineRoot.resolveNovaEnginePackageRootSync as unknown as ReturnType<typeof vi.fn>
     ).mockReturnValueOnce(pkgRoot);
 
     const uiDir = path.join(pkgRoot, "dist", "control-ui");

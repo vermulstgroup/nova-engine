@@ -102,11 +102,11 @@ export function extractMSTeamsPollVote(
     return null;
   }
   const pollId =
-    readNestedString(value, ["nova-enginePollId"]) ??
+    readNestedString(value, ["novaEnginePollId"]) ??
     readNestedString(value, ["pollId"]) ??
     readNestedString(value, ["nova-engine", "pollId"]) ??
     readNestedString(value, ["nova-engine", "poll", "id"]) ??
-    readNestedString(value, ["data", "nova-enginePollId"]) ??
+    readNestedString(value, ["data", "novaEnginePollId"]) ??
     readNestedString(value, ["data", "pollId"]) ??
     readNestedString(value, ["data", "nova-engine", "pollId"]);
   if (!pollId) {
@@ -185,14 +185,14 @@ export function buildMSTeamsPollCard(params: {
         type: "Action.Submit",
         title: "Vote",
         data: {
-          nova-enginePollId: pollId,
+          novaEnginePollId: pollId,
           pollId,
         },
         msteams: {
           type: "messageBack",
           text: "nova-engine poll vote",
           displayText: "Vote recorded",
-          value: { nova-enginePollId: pollId, pollId },
+          value: { novaEnginePollId: pollId, pollId },
         },
       },
     ],

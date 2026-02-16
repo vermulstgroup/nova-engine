@@ -102,14 +102,14 @@ function defaultIndexHTML() {
     !!(
       window.webkit &&
       window.webkit.messageHandlers &&
-      window.webkit.messageHandlers.nova-engineCanvasA2UIAction
+      window.webkit.messageHandlers.novaEngineCanvasA2UIAction
     );
   const hasAndroid = () =>
     !!(
-      (window.nova-engineCanvasA2UIAction &&
-        typeof window.nova-engineCanvasA2UIAction.postMessage === "function")
+      (window.novaEngineCanvasA2UIAction &&
+        typeof window.novaEngineCanvasA2UIAction.postMessage === "function")
     );
-  const hasHelper = () => typeof window.nova-engineSendUserAction === "function";
+  const hasHelper = () => typeof window.novaEngineSendUserAction === "function";
   statusEl.innerHTML =
     "Bridge: " +
     (hasHelper() ? "<span class='ok'>ready</span>" : "<span class='bad'>missing</span>") +
@@ -128,8 +128,8 @@ function defaultIndexHTML() {
       return;
     }
     const sendUserAction =
-      typeof window.nova-engineSendUserAction === "function"
-        ? window.nova-engineSendUserAction
+      typeof window.novaEngineSendUserAction === "function"
+        ? window.novaEngineSendUserAction
         : undefined;
     const ok = sendUserAction({
       name,

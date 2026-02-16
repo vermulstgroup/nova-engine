@@ -426,7 +426,7 @@ export function collectHooksHardeningFindings(
     tailscaleMode: cfg.gateway?.tailscale?.mode ?? "off",
     env,
   });
-  const nova-engineGatewayToken =
+  const novaEngineGatewayToken =
     typeof env.NOVA_GATEWAY_TOKEN === "string" && env.NOVA_GATEWAY_TOKEN.trim()
       ? env.NOVA_GATEWAY_TOKEN.trim()
       : null;
@@ -435,8 +435,8 @@ export function collectHooksHardeningFindings(
     typeof gatewayAuth.token === "string" &&
     gatewayAuth.token.trim()
       ? gatewayAuth.token.trim()
-      : nova-engineGatewayToken
-        ? nova-engineGatewayToken
+      : novaEngineGatewayToken
+        ? novaEngineGatewayToken
         : null;
   if (token && gatewayToken && token === gatewayToken) {
     findings.push({

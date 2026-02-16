@@ -199,9 +199,9 @@ export function resolveDefaultConfigCandidates(
   }
 
   const candidates: string[] = [];
-  const nova-engineStateDir = env.NOVA_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
-  if (nova-engineStateDir) {
-    const resolved = resolveUserPath(nova-engineStateDir, env, effectiveHomedir);
+  const novaEngineStateDir = env.NOVA_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  if (novaEngineStateDir) {
+    const resolved = resolveUserPath(novaEngineStateDir, env, effectiveHomedir);
     candidates.push(path.join(resolved, CONFIG_FILENAME));
     candidates.push(...LEGACY_CONFIG_FILENAMES.map((name) => path.join(resolved, name)));
   }

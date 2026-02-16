@@ -9,7 +9,7 @@ type EnvSnapshot = {
   userProfile: string | undefined;
   homeDrive: string | undefined;
   homePath: string | undefined;
-  nova-engineHome: string | undefined;
+  novaEngineHome: string | undefined;
   stateDir: string | undefined;
 };
 
@@ -19,7 +19,7 @@ function snapshotEnv(): EnvSnapshot {
     userProfile: process.env.USERPROFILE,
     homeDrive: process.env.HOMEDRIVE,
     homePath: process.env.HOMEPATH,
-    nova-engineHome: process.env.NOVA_HOME,
+    novaEngineHome: process.env.NOVA_HOME,
     stateDir: process.env.NOVA_STATE_DIR,
   };
 }
@@ -36,7 +36,7 @@ function restoreEnv(snapshot: EnvSnapshot) {
   restoreKey("USERPROFILE", snapshot.userProfile);
   restoreKey("HOMEDRIVE", snapshot.homeDrive);
   restoreKey("HOMEPATH", snapshot.homePath);
-  restoreKey("NOVA_HOME", snapshot.nova-engineHome);
+  restoreKey("NOVA_HOME", snapshot.novaEngineHome);
   restoreKey("NOVA_STATE_DIR", snapshot.stateDir);
 }
 

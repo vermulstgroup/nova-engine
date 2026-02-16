@@ -135,7 +135,7 @@ describe("chat abort transcript persistence", () => {
     expect(persisted[0]).toMatchObject({
       stopReason: "stop",
       idempotencyKey: `${runId}:assistant`,
-      nova-engineAbort: {
+      novaEngineAbort: {
         aborted: true,
         origin: "rpc",
         runId,
@@ -195,7 +195,7 @@ describe("chat abort transcript persistence", () => {
 
     expect(runAPersisted).toMatchObject({
       idempotencyKey: "run-a:assistant",
-      nova-engineAbort: {
+      novaEngineAbort: {
         aborted: true,
         origin: "rpc",
         runId: "run-a",
@@ -249,7 +249,7 @@ describe("chat abort transcript persistence", () => {
 
     expect(persisted).toMatchObject({
       idempotencyKey: "run-stop-1:assistant",
-      nova-engineAbort: {
+      novaEngineAbort: {
         aborted: true,
         origin: "stop-command",
         runId: "run-stop-1",
