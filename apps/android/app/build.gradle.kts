@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-  namespace = "ai.nova-engine.android"
+  namespace = "ai.novaengine.android"
   compileSdk = 36
 
   sourceSets {
@@ -18,7 +18,7 @@ android {
   }
 
   defaultConfig {
-    applicationId = "ai.nova-engine.android"
+    applicationId = "ai.novaengine.android"
     minSdk = 31
     targetSdk = 36
     versionCode = 202602160

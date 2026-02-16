@@ -1,5 +1,5 @@
 # ── App classes ───────────────────────────────────────────────────
--keep class ai.nova-engine.android.** { *; }
+-keep class ai.novaengine.android.** { *; }
 
 # ── Bouncy Castle ─────────────────────────────────────────────────
 -keep class org.bouncycastle.** { *; }
