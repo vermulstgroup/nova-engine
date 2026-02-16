@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MsgContext } from "../templating.js";
 import type { ReplyPayload } from "../types.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
@@ -33,7 +33,7 @@ type ActiveBashJob =
 
 let activeJob: ActiveBashJob | null = null;
 
-function resolveForegroundMs(cfg: Nova EngineConfig): number {
+function resolveForegroundMs(cfg: NovaEngineConfig): number {
   const raw = cfg.commands?.bashForegroundMs;
   if (typeof raw !== "number" || Number.isNaN(raw)) {
     return DEFAULT_FOREGROUND_MS;
@@ -97,7 +97,7 @@ function parseBashRequest(raw: string): BashRequest | null {
 
 function resolveRawCommandBody(params: {
   ctx: MsgContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId?: string;
   isGroup: boolean;
 }) {
@@ -176,7 +176,7 @@ function buildUsageReply(): ReplyPayload {
 
 export async function handleBashChatCommand(params: {
   ctx: MsgContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId?: string;
   sessionKey: string;
   isGroup: boolean;

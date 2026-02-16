@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveBrewExecutable } from "../infra/brew.js";
 import { runCommandWithTimeout, type CommandOptions } from "../process/exec.js";
 import { scanDirectoryWithSummary } from "../security/skill-scanner.js";
@@ -20,7 +20,7 @@ export type SkillInstallRequest = {
   skillName: string;
   installId: string;
   timeoutMs?: number;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
 };
 
 export type SkillInstallResult = {

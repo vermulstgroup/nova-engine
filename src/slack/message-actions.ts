@@ -1,9 +1,9 @@
 import type { ChannelMessageActionName, ChannelToolSend } from "../channels/plugins/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { createActionGate } from "../agents/tools/common.js";
 import { listEnabledSlackAccounts } from "./accounts.js";
 
-export function listSlackMessageActions(cfg: Nova EngineConfig): ChannelMessageActionName[] {
+export function listSlackMessageActions(cfg: NovaEngineConfig): ChannelMessageActionName[] {
   const accounts = listEnabledSlackAccounts(cfg).filter(
     (account) => account.botTokenSource !== "none",
   );

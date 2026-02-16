@@ -3,8 +3,8 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import type { Nova EngineConfig } from "../config/config.js";
-import { ensureNova EngineModelsJson } from "./models-config.js";
+import type { NovaEngineConfig } from "../config/config.js";
+import { ensureNovaEngineModelsJson } from "./models-config.js";
 
 vi.mock("@mariozechner/pi-ai", async () => {
   const actual = await vi.importActual<typeof import("@mariozechner/pi-ai")>("@mariozechner/pi-ai");
@@ -134,9 +134,9 @@ const makeOpenAiConfig = (modelIds: string[]) =>
         },
       },
     },
-  }) satisfies Nova EngineConfig;
+  }) satisfies NovaEngineConfig;
 
-const ensureModels = (cfg: Nova EngineConfig) => ensureNova EngineModelsJson(cfg, agentDir) as unknown;
+const ensureModels = (cfg: NovaEngineConfig) => ensureNovaEngineModelsJson(cfg, agentDir) as unknown;
 
 const nextSessionFile = () => {
   sessionCounter += 1;
@@ -197,7 +197,7 @@ describe("runEmbeddedPiAgent", () => {
           },
         },
       },
-    } satisfies Nova EngineConfig;
+    } satisfies NovaEngineConfig;
 
     await expect(
       runEmbeddedPiAgent({
@@ -228,7 +228,7 @@ describe("runEmbeddedPiAgent", () => {
           workspace: fallbackWorkspace,
         },
       },
-    } satisfies Nova EngineConfig;
+    } satisfies NovaEngineConfig;
     await ensureModels(cfg);
 
     const result = await runEmbeddedPiAgent({
@@ -265,7 +265,7 @@ describe("runEmbeddedPiAgent", () => {
           },
         ],
       },
-    } satisfies Nova EngineConfig;
+    } satisfies NovaEngineConfig;
     await ensureModels(cfg);
 
     await expect(

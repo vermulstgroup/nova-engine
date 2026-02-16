@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { prependSystemEvents } from "../auto-reply/reply/session-updates.js";
 import { resolveMainSessionKey } from "../config/sessions.js";
 import { isCronSystemEvent } from "./heartbeat-runner.js";
 import { enqueueSystemEvent, peekSystemEvents, resetSystemEventsForTest } from "./system-events.js";
 
-const cfg = {} as unknown as Nova EngineConfig;
+const cfg = {} as unknown as NovaEngineConfig;
 const mainKey = resolveMainSessionKey(cfg);
 
 describe("system events (session routing)", () => {

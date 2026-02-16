@@ -1,7 +1,7 @@
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-  Nova EngineConfig,
+  NovaEngineConfig,
 } from "nova-engine/plugin-sdk";
 import {
   createActionGate,
@@ -23,13 +23,13 @@ import { resolveGoogleChatOutboundSpace } from "./targets.js";
 
 const providerId = "googlechat";
 
-function listEnabledAccounts(cfg: Nova EngineConfig) {
+function listEnabledAccounts(cfg: NovaEngineConfig) {
   return listEnabledGoogleChatAccounts(cfg).filter(
     (account) => account.enabled && account.credentialSource !== "none",
   );
 }
 
-function isReactionsEnabled(accounts: ReturnType<typeof listEnabledAccounts>, cfg: Nova EngineConfig) {
+function isReactionsEnabled(accounts: ReturnType<typeof listEnabledAccounts>, cfg: NovaEngineConfig) {
   for (const account of accounts) {
     const gate = createActionGate(
       (account.config.actions ??

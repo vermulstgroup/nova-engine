@@ -63,4 +63,4 @@ xcodebuild test -project Nova Engine.xcodeproj -scheme Nova Engine -destination 
 
 ## Shared Code
 
-- `apps/shared/Nova EngineKit` contains the shared transport/types used by the iOS app.
+- `apps/shared/NovaEngineKit` contains the shared transport/types used by the iOS app.

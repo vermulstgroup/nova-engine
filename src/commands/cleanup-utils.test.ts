@@ -1,6 +1,6 @@
 import path from "node:path";
 import { describe, expect, it, test } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { buildCleanupPlan } from "./cleanup-utils.js";
 import { applyAgentDefaultPrimaryModel } from "./model-default.js";
 
@@ -14,7 +14,7 @@ describe("buildCleanupPlan", () => {
       },
     };
     const plan = buildCleanupPlan({
-      cfg: cfg as unknown as Nova EngineConfig,
+      cfg: cfg as unknown as NovaEngineConfig,
       stateDir: path.join(tmpRoot, "nova-engine-state"),
       configPath: path.join(tmpRoot, "nova-engine-state", "nova-engine.json"),
       oauthDir: path.join(tmpRoot, "nova-engine-oauth"),
@@ -33,14 +33,14 @@ describe("buildCleanupPlan", () => {
 
 describe("applyAgentDefaultPrimaryModel", () => {
   it("does not mutate when already set", () => {
-    const cfg = { agents: { defaults: { model: { primary: "a/b" } } } } as Nova EngineConfig;
+    const cfg = { agents: { defaults: { model: { primary: "a/b" } } } } as NovaEngineConfig;
     const result = applyAgentDefaultPrimaryModel({ cfg, model: "a/b" });
     expect(result.changed).toBe(false);
     expect(result.next).toBe(cfg);
   });
 
   it("normalizes legacy models", () => {
-    const cfg = { agents: { defaults: { model: { primary: "legacy" } } } } as Nova EngineConfig;
+    const cfg = { agents: { defaults: { model: { primary: "legacy" } } } } as NovaEngineConfig;
     const result = applyAgentDefaultPrimaryModel({
       cfg,
       model: "a/b",

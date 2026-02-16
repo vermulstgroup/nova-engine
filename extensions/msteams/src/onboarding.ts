@@ -1,7 +1,7 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  Nova EngineConfig,
+  NovaEngineConfig,
   DmPolicy,
   WizardPrompter,
   MSTeamsTeamConfig,
@@ -21,7 +21,7 @@ import { resolveMSTeamsCredentials } from "./token.js";
 
 const channel = "msteams" as const;
 
-function setMSTeamsDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy) {
+function setMSTeamsDmPolicy(cfg: NovaEngineConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open"
       ? addWildcardAllowFrom(cfg.channels?.msteams?.allowFrom)?.map((entry) => String(entry))
@@ -39,7 +39,7 @@ function setMSTeamsDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy) {
   };
 }
 
-function setMSTeamsAllowFrom(cfg: Nova EngineConfig, allowFrom: string[]): Nova EngineConfig {
+function setMSTeamsAllowFrom(cfg: NovaEngineConfig, allowFrom: string[]): NovaEngineConfig {
   return {
     ...cfg,
     channels: {
@@ -90,9 +90,9 @@ async function promptMSTeamsCredentials(prompter: WizardPrompter): Promise<{
 }
 
 async function promptMSTeamsAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const existing = params.cfg.channels?.msteams?.allowFrom ?? [];
   await params.prompter.note(
     [
@@ -168,9 +168,9 @@ async function noteMSTeamsCredentialHelp(prompter: WizardPrompter): Promise<void
 }
 
 function setMSTeamsGroupPolicy(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   groupPolicy: "open" | "allowlist" | "disabled",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return {
     ...cfg,
     channels: {
@@ -185,9 +185,9 @@ function setMSTeamsGroupPolicy(
 }
 
 function setMSTeamsTeamsAllowlist(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   entries: Array<{ teamKey: string; channelKey?: string }>,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const baseTeams = cfg.channels?.msteams?.teams ?? {};
   const teams: Record<string, { channels?: Record<string, unknown> }> = { ...baseTeams };
   for (const entry of entries) {

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type {
   ChannelCapabilities,
   ChannelCommandAdapter,
@@ -54,11 +54,11 @@ export type ChannelDock = {
   elevated?: ChannelElevatedAdapter;
   config?: {
     resolveAllowFrom?: (params: {
-      cfg: Nova EngineConfig;
+      cfg: NovaEngineConfig;
       accountId?: string | null;
     }) => Array<string | number> | undefined;
     formatAllowFrom?: (params: {
-      cfg: Nova EngineConfig;
+      cfg: NovaEngineConfig;
       accountId?: string | null;
       allowFrom: Array<string | number>;
     }) => string[];

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { readConfigFileSnapshot } from "../config/config.js";
@@ -7,7 +7,7 @@ export function createQuietRuntime(runtime: RuntimeEnv): RuntimeEnv {
   return { ...runtime, log: () => {} };
 }
 
-export async function requireValidConfig(runtime: RuntimeEnv): Promise<Nova EngineConfig | null> {
+export async function requireValidConfig(runtime: RuntimeEnv): Promise<NovaEngineConfig | null> {
   const snapshot = await readConfigFileSnapshot();
   if (snapshot.exists && !snapshot.valid) {
     const issues =

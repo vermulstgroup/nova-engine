@@ -1,7 +1,7 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export function resolveChannelAccountConfigBasePath(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   channelKey: string;
   accountId: string;
 }): string {

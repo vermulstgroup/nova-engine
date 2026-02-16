@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   estimateUsageCost,
   formatTokenCount,
@@ -35,7 +35,7 @@ describe("usage-format", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const cost = resolveModelCostConfig({
       provider: "test",

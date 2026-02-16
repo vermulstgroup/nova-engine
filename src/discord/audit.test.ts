@@ -27,7 +27,7 @@ describe("discord audit", () => {
           },
         },
       },
-    } as unknown as import("../config/config.js").Nova EngineConfig;
+    } as unknown as import("../config/config.js").NovaEngineConfig;
 
     const collected = collectDiscordAuditChannelIds({
       cfg,

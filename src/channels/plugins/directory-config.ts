@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/types.js";
+import type { NovaEngineConfig } from "../../config/types.js";
 import type { ChannelDirectoryEntry } from "./types.js";
 import { resolveDiscordAccount } from "../../discord/accounts.js";
 import { resolveSlackAccount } from "../../slack/accounts.js";
@@ -8,7 +8,7 @@ import { isWhatsAppGroupJid, normalizeWhatsAppTarget } from "../../whatsapp/norm
 import { normalizeSlackMessagingTarget } from "./normalize/slack.js";
 
 export type DirectoryConfigParams = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;

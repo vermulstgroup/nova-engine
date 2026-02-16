@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MemoryCitationsMode } from "../../config/types.memory.js";
 import type { MemorySearchResult } from "../../memory/types.js";
 import type { AnyAgentTool } from "./common.js";
@@ -22,7 +22,7 @@ const MemoryGetSchema = Type.Object({
   lines: Type.Optional(Type.Number()),
 });
 
-function resolveMemoryToolContext(options: { config?: Nova EngineConfig; agentSessionKey?: string }) {
+function resolveMemoryToolContext(options: { config?: NovaEngineConfig; agentSessionKey?: string }) {
   const cfg = options.config;
   if (!cfg) {
     return null;
@@ -38,7 +38,7 @@ function resolveMemoryToolContext(options: { config?: Nova EngineConfig; agentSe
 }
 
 export function createMemorySearchTool(options: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   agentSessionKey?: string;
 }): AnyAgentTool | null {
   const ctx = resolveMemoryToolContext(options);
@@ -97,7 +97,7 @@ export function createMemorySearchTool(options: {
 }
 
 export function createMemoryGetTool(options: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   agentSessionKey?: string;
 }): AnyAgentTool | null {
   const ctx = resolveMemoryToolContext(options);
@@ -137,7 +137,7 @@ export function createMemoryGetTool(options: {
   };
 }
 
-function resolveMemoryCitationsMode(cfg: Nova EngineConfig): MemoryCitationsMode {
+function resolveMemoryCitationsMode(cfg: NovaEngineConfig): MemoryCitationsMode {
   const mode = cfg.memory?.citations;
   if (mode === "on" || mode === "off" || mode === "auto") {
     return mode;

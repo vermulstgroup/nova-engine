@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { HookHandler } from "../../hooks.js";
 import { makeTempWorkspace, writeWorkspaceFile } from "../../../test-helpers/workspace.js";
 import { createHookEvent } from "../../hooks.js";
@@ -42,7 +42,7 @@ function createMockSessionContent(
 
 async function runNewWithPreviousSession(params: {
   sessionContent: string;
-  cfg?: (tempDir: string) => Nova EngineConfig;
+  cfg?: (tempDir: string) => NovaEngineConfig;
 }): Promise<{ tempDir: string; files: string[]; memoryContent: string }> {
   const tempDir = await makeTempWorkspace("nova-engine-session-memory-");
   const sessionsDir = path.join(tempDir, "sessions");
@@ -58,7 +58,7 @@ async function runNewWithPreviousSession(params: {
     params.cfg?.(tempDir) ??
     ({
       agents: { defaults: { workspace: tempDir } },
-    } satisfies Nova EngineConfig);
+    } satisfies NovaEngineConfig);
 
   const event = createHookEvent("command", "new", "agent:main:main", {
     cfg,

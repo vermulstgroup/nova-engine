@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   formatUserTime,
   resolveUserTimeFormat,
@@ -32,7 +32,7 @@ export type SystemPromptRuntimeParams = {
 };
 
 export function buildSystemPromptParams(params: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   agentId?: string;
   runtime: Omit<RuntimeInfoInput, "agentId">;
   workspaceDir?: string;
@@ -59,7 +59,7 @@ export function buildSystemPromptParams(params: {
 }
 
 function resolveRepoRoot(params: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   workspaceDir?: string;
   cwd?: string;
 }): string | undefined {

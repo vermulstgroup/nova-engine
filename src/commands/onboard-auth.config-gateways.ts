@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   buildCloudflareAiGatewayModelDefinition,
   resolveCloudflareAiGatewayBaseUrl,
@@ -12,7 +12,7 @@ import {
   VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF,
 } from "./onboard-auth.credentials.js";
 
-export function applyVercelAiGatewayProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyVercelAiGatewayProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF] = {
     ...models[VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF],
@@ -32,9 +32,9 @@ export function applyVercelAiGatewayProviderConfig(cfg: Nova EngineConfig): Nova
 }
 
 export function applyCloudflareAiGatewayProviderConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { accountId?: string; gatewayId?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF] = {
     ...models[CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF],
@@ -77,15 +77,15 @@ export function applyCloudflareAiGatewayProviderConfig(
   });
 }
 
-export function applyVercelAiGatewayConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyVercelAiGatewayConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyVercelAiGatewayProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, VERCEL_AI_GATEWAY_DEFAULT_MODEL_REF);
 }
 
 export function applyCloudflareAiGatewayConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { accountId?: string; gatewayId?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const next = applyCloudflareAiGatewayProviderConfig(cfg, params);
   return applyAgentDefaultModelPrimary(next, CLOUDFLARE_AI_GATEWAY_DEFAULT_MODEL_REF);
 }

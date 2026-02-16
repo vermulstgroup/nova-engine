@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { emptyPluginConfigSchema } from "nova-engine/plugin-sdk";
 import { twitchPlugin } from "./src/plugin.js";
 import { setTwitchRuntime } from "./src/runtime.js";
@@ -10,7 +10,7 @@ const plugin = {
   name: "Twitch",
   description: "Twitch channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     setTwitchRuntime(api.runtime);
     // oxlint-disable-next-line typescript/no-explicit-any
     api.registerChannel({ plugin: twitchPlugin as any });

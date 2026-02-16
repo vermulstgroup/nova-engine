@@ -1,5 +1,5 @@
 import { afterEach, beforeEach } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 export async function withModelsTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
@@ -79,7 +79,7 @@ export const MODELS_CONFIG_IMPLICIT_ENV_VARS = [
   "AWS_SHARED_CREDENTIALS_FILE",
 ];
 
-export const CUSTOM_PROXY_MODELS_CONFIG: Nova EngineConfig = {
+export const CUSTOM_PROXY_MODELS_CONFIG: NovaEngineConfig = {
   models: {
     providers: {
       "custom-proxy": {

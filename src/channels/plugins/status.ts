@@ -1,10 +1,10 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { ChannelAccountSnapshot, ChannelPlugin } from "./types.js";
 
 // Channel docking: status snapshots flow through plugin.status hooks here.
 export async function buildChannelAccountSnapshot<ResolvedAccount>(params: {
   plugin: ChannelPlugin<ResolvedAccount>;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   runtime?: ChannelAccountSnapshot;
   probe?: unknown;

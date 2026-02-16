@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -54,14 +54,14 @@ function createMockRuntime(): { runtime: PluginRuntime; mocks: RuntimeMocks } {
   };
 }
 
-function createConfig(overrides?: Record<string, unknown>): Nova EngineConfig {
+function createConfig(overrides?: Record<string, unknown>): NovaEngineConfig {
   return {
     channels: {
       bluebubbles: {
         ...overrides,
       },
     },
-  } as unknown as Nova EngineConfig;
+  } as unknown as NovaEngineConfig;
 }
 
 async function makeTempDir(): Promise<string> {

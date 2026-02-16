@@ -7,7 +7,7 @@ import {
   restoreRedactedValues as restoreRedactedValues_orig,
 } from "./redact-snapshot.js";
 import { __test__ } from "./schema.hints.js";
-import { Nova EngineSchema } from "./zod-schema.js";
+import { NovaEngineSchema } from "./zod-schema.js";
 
 const { mapSensitivePaths } = __test__;
 
@@ -876,12 +876,12 @@ describe("restoreRedactedValues", () => {
 
 describe("realredactConfigSnapshot_real", () => {
   it("main schema redact works (samples)", () => {
-    const schema = Nova EngineSchema.toJSONSchema({
+    const schema = NovaEngineSchema.toJSONSchema({
       target: "draft-07",
       unrepresentable: "any",
     });
-    schema.title = "Nova EngineConfig";
-    const hints = mapSensitivePaths(Nova EngineSchema, "", {});
+    schema.title = "NovaEngineConfig";
+    const hints = mapSensitivePaths(NovaEngineSchema, "", {});
 
     const snapshot = makeSnapshot({
       agents: {

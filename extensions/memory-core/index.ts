@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { emptyPluginConfigSchema } from "nova-engine/plugin-sdk";
 
 const memoryCorePlugin = {
@@ -7,7 +7,7 @@ const memoryCorePlugin = {
   description: "File-backed memory search tools and CLI",
   kind: "memory",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     api.registerTool(
       (ctx) => {
         const memorySearchTool = api.runtime.tools.createMemorySearchTool({

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { DiscordGuildChannelConfig, DiscordGuildEntry } from "../config/types.js";
 import { isRecord } from "../utils.js";
 import { resolveDiscordAccount } from "./accounts.js";
@@ -66,7 +66,7 @@ function listConfiguredGuildChannelKeys(
 }
 
 export function collectDiscordAuditChannelIds(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
 }) {
   const account = resolveDiscordAccount({

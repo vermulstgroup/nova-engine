@@ -103,7 +103,7 @@ function resolveOnboardingMode(): boolean {
 }
 
 @customElement("nova-engine-app")
-export class Nova EngineApp extends LitElement {
+export class NovaEngineApp extends LitElement {
   @state() settings: UiSettings = loadSettings();
   @state() password = "";
   @state() tab: Tab = "chat";

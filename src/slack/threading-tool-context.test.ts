@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { buildSlackThreadingToolContext } from "./threading-tool-context.js";
 
-const emptyCfg = {} as Nova EngineConfig;
+const emptyCfg = {} as NovaEngineConfig;
 
 describe("buildSlackThreadingToolContext", () => {
   it("uses top-level replyToMode by default", () => {
@@ -10,7 +10,7 @@ describe("buildSlackThreadingToolContext", () => {
       channels: {
         slack: { replyToMode: "first" },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,
@@ -27,7 +27,7 @@ describe("buildSlackThreadingToolContext", () => {
           replyToModeByChatType: { direct: "all" },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,
@@ -44,7 +44,7 @@ describe("buildSlackThreadingToolContext", () => {
           replyToModeByChatType: { direct: "all" },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,
@@ -60,7 +60,7 @@ describe("buildSlackThreadingToolContext", () => {
           replyToMode: "first",
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,
@@ -77,7 +77,7 @@ describe("buildSlackThreadingToolContext", () => {
           dm: { replyToMode: "all" },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,
@@ -91,7 +91,7 @@ describe("buildSlackThreadingToolContext", () => {
       channels: {
         slack: { replyToMode: "off" },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = buildSlackThreadingToolContext({
       cfg,
       accountId: null,

@@ -1,5 +1,5 @@
 import type { SeverityNumber } from "@opentelemetry/api-logs";
-import type { DiagnosticEventPayload, Nova EnginePluginService } from "nova-engine/plugin-sdk";
+import type { DiagnosticEventPayload, NovaEnginePluginService } from "nova-engine/plugin-sdk";
 import { metrics, trace, SpanStatusCode } from "@opentelemetry/api";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
@@ -39,7 +39,7 @@ function resolveSampleRate(value: number | undefined): number | undefined {
   return value;
 }
 
-export function createDiagnosticsOtelService(): Nova EnginePluginService {
+export function createDiagnosticsOtelService(): NovaEnginePluginService {
   let sdk: NodeSDK | null = null;
   let logProvider: LoggerProvider | null = null;
   let stopLogTransport: (() => void) | null = null;
@@ -629,5 +629,5 @@ export function createDiagnosticsOtelService(): Nova EnginePluginService {
         sdk = null;
       }
     },
-  } satisfies Nova EnginePluginService;
+  } satisfies NovaEnginePluginService;
 }

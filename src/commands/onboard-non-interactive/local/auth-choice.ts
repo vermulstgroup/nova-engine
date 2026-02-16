@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { AuthChoice, OnboardOptions } from "../../onboard-types.js";
 import { upsertAuthProfile } from "../../../agents/auth-profiles.js";
@@ -60,12 +60,12 @@ import { detectZaiEndpoint } from "../../zai-endpoint-detect.js";
 import { resolveNonInteractiveApiKey } from "../api-keys.js";
 
 export async function applyNonInteractiveAuthChoice(params: {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   authChoice: AuthChoice;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: Nova EngineConfig;
-}): Promise<Nova EngineConfig | null> {
+  baseConfig: NovaEngineConfig;
+}): Promise<NovaEngineConfig | null> {
   const { authChoice, opts, runtime, baseConfig } = params;
   let nextConfig = params.nextConfig;
 
@@ -454,8 +454,8 @@ export async function applyNonInteractiveAuthChoice(params: {
   }
 
   const applyMoonshotApiKeyChoice = async (
-    applyConfig: (cfg: Nova EngineConfig) => Nova EngineConfig,
-  ): Promise<Nova EngineConfig | null> => {
+    applyConfig: (cfg: NovaEngineConfig) => NovaEngineConfig,
+  ): Promise<NovaEngineConfig | null> => {
     const resolved = await resolveNonInteractiveApiKey({
       provider: "moonshot",
       cfg: baseConfig,

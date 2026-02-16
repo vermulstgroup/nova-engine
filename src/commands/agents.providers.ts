@@ -1,5 +1,5 @@
 import type { ChannelId } from "../channels/plugins/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { AgentBinding } from "../config/types.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import {
@@ -43,7 +43,7 @@ function formatProviderState(entry: ProviderAccountStatus): string {
 }
 
 export async function buildProviderStatusIndex(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
 ): Promise<Map<string, ProviderAccountStatus>> {
   const map = new Map<string, ProviderAccountStatus>();
 
@@ -91,7 +91,7 @@ export async function buildProviderStatusIndex(
   return map;
 }
 
-function resolveDefaultAccountId(cfg: Nova EngineConfig, provider: ChannelId): string {
+function resolveDefaultAccountId(cfg: NovaEngineConfig, provider: ChannelId): string {
   const plugin = getChannelPlugin(provider);
   if (!plugin) {
     return DEFAULT_ACCOUNT_ID;
@@ -99,7 +99,7 @@ function resolveDefaultAccountId(cfg: Nova EngineConfig, provider: ChannelId): s
   return resolveChannelDefaultAccountId({ plugin, cfg });
 }
 
-function shouldShowProviderEntry(entry: ProviderAccountStatus, cfg: Nova EngineConfig): boolean {
+function shouldShowProviderEntry(entry: ProviderAccountStatus, cfg: NovaEngineConfig): boolean {
   const plugin = getChannelPlugin(entry.provider);
   if (!plugin) {
     return Boolean(entry.configured);
@@ -120,7 +120,7 @@ function formatProviderEntry(entry: ProviderAccountStatus): string {
   return `${label}: ${formatProviderState(entry)}`;
 }
 
-export function summarizeBindings(cfg: Nova EngineConfig, bindings: AgentBinding[]): string[] {
+export function summarizeBindings(cfg: NovaEngineConfig, bindings: AgentBinding[]): string[] {
   if (bindings.length === 0) {
     return [];
   }
@@ -145,7 +145,7 @@ export function summarizeBindings(cfg: Nova EngineConfig, bindings: AgentBinding
 
 export function listProvidersForAgent(params: {
   summaryIsDefault: boolean;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   bindings: AgentBinding[];
   providerStatus: Map<string, ProviderAccountStatus>;
 }): string[] {

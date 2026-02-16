@@ -1,5 +1,5 @@
 import type { GatewayAuthChoice } from "../commands/onboard-types.js";
-import type { GatewayBindMode, GatewayTailscaleMode, Nova EngineConfig } from "../config/config.js";
+import type { GatewayBindMode, GatewayTailscaleMode, NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type {
   GatewayWizardSettings,
@@ -36,8 +36,8 @@ const DEFAULT_DANGEROUS_NODE_DENY_COMMANDS = [
 
 type ConfigureGatewayOptions = {
   flow: WizardFlow;
-  baseConfig: Nova EngineConfig;
-  nextConfig: Nova EngineConfig;
+  baseConfig: NovaEngineConfig;
+  nextConfig: NovaEngineConfig;
   localPort: number;
   quickstartGateway: QuickstartGatewayDefaults;
   prompter: WizardPrompter;
@@ -45,7 +45,7 @@ type ConfigureGatewayOptions = {
 };
 
 type ConfigureGatewayResult = {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   settings: GatewayWizardSettings;
 };
 

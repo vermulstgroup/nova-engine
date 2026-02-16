@@ -25,7 +25,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
 });
 
 import "./test-helpers/fast-core-tools.js";
-import { createNova EngineTools } from "./nova-engine-tools.js";
+import { createNovaEngineTools } from "./nova-engine-tools.js";
 import {
   addSubagentRunForTests,
   listSubagentRunsForRequester,
@@ -73,7 +73,7 @@ describe("nova-engine-tools: subagents steer failure", () => {
       return {};
     });
 
-    const tool = createNova EngineTools({
+    const tool = createNovaEngineTools({
       agentSessionKey: "agent:main:main",
       agentChannel: "discord",
     }).find((candidate) => candidate.name === "subagents");

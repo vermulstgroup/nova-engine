@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   applyModelAllowlist,
   applyModelFallbacksFromSelection,
@@ -56,7 +56,7 @@ describe("promptDefaultModel", () => {
       return first?.value ?? "";
     });
     const prompter = makePrompter({ select });
-    const config = { agents: { defaults: {} } } as Nova EngineConfig;
+    const config = { agents: { defaults: {} } } as NovaEngineConfig;
 
     await promptDefaultModel({
       config,
@@ -92,7 +92,7 @@ describe("promptDefaultModel", () => {
       .mockResolvedValueOnce("sk-vllm-test")
       .mockResolvedValueOnce("meta-llama/Meta-Llama-3-8B-Instruct");
     const prompter = makePrompter({ select, text: text as never });
-    const config = { agents: { defaults: {} } } as Nova EngineConfig;
+    const config = { agents: { defaults: {} } } as NovaEngineConfig;
 
     const result = await promptDefaultModel({
       config,
@@ -141,7 +141,7 @@ describe("promptModelAllowlist", () => {
       params.options.map((option: { value: string }) => option.value),
     );
     const prompter = makePrompter({ multiselect });
-    const config = { agents: { defaults: {} } } as Nova EngineConfig;
+    const config = { agents: { defaults: {} } } as NovaEngineConfig;
 
     await promptModelAllowlist({ config, prompter });
 
@@ -177,7 +177,7 @@ describe("promptModelAllowlist", () => {
       params.options.map((option: { value: string }) => option.value),
     );
     const prompter = makePrompter({ multiselect });
-    const config = { agents: { defaults: {} } } as Nova EngineConfig;
+    const config = { agents: { defaults: {} } } as NovaEngineConfig;
 
     await promptModelAllowlist({
       config,
@@ -203,7 +203,7 @@ describe("applyModelAllowlist", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const next = applyModelAllowlist(config, ["openai/gpt-5.2"]);
     expect(next.agents?.defaults?.models).toEqual({
@@ -220,7 +220,7 @@ describe("applyModelAllowlist", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const next = applyModelAllowlist(config, []);
     expect(next.agents?.defaults?.models).toBeUndefined();
@@ -235,7 +235,7 @@ describe("applyModelFallbacksFromSelection", () => {
           model: { primary: "anthropic/claude-opus-4-5" },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const next = applyModelFallbacksFromSelection(config, [
       "anthropic/claude-opus-4-5",
@@ -254,7 +254,7 @@ describe("applyModelFallbacksFromSelection", () => {
           model: { primary: "anthropic/claude-opus-4-5", fallbacks: ["openai/gpt-5.2"] },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const next = applyModelFallbacksFromSelection(config, ["openai/gpt-5.2"]);
     expect(next.agents?.defaults?.model).toEqual({

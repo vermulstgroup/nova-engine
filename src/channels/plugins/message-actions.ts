@@ -1,9 +1,9 @@
 import type { AgentToolResult } from "@mariozechner/pi-agent-core";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { ChannelMessageActionContext, ChannelMessageActionName } from "./types.js";
 import { getChannelPlugin, listChannelPlugins } from "./index.js";
 
-export function listChannelMessageActions(cfg: Nova EngineConfig): ChannelMessageActionName[] {
+export function listChannelMessageActions(cfg: NovaEngineConfig): ChannelMessageActionName[] {
   const actions = new Set<ChannelMessageActionName>(["send", "broadcast"]);
   for (const plugin of listChannelPlugins()) {
     const list = plugin.actions?.listActions?.({ cfg });
@@ -17,7 +17,7 @@ export function listChannelMessageActions(cfg: Nova EngineConfig): ChannelMessag
   return Array.from(actions);
 }
 
-export function supportsChannelMessageButtons(cfg: Nova EngineConfig): boolean {
+export function supportsChannelMessageButtons(cfg: NovaEngineConfig): boolean {
   for (const plugin of listChannelPlugins()) {
     if (plugin.actions?.supportsButtons?.({ cfg })) {
       return true;
@@ -26,7 +26,7 @@ export function supportsChannelMessageButtons(cfg: Nova EngineConfig): boolean {
   return false;
 }
 
-export function supportsChannelMessageCards(cfg: Nova EngineConfig): boolean {
+export function supportsChannelMessageCards(cfg: NovaEngineConfig): boolean {
   for (const plugin of listChannelPlugins()) {
     if (plugin.actions?.supportsCards?.({ cfg })) {
       return true;

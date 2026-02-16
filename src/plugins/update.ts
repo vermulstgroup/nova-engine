@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { UpdateChannel } from "../infra/update-channels.js";
 import { resolveUserPath } from "../utils.js";
-import { discoverNova EnginePlugins } from "./discovery.js";
+import { discoverNovaEnginePlugins } from "./discovery.js";
 import { installPluginFromNpmSpec, resolvePluginInstallDir } from "./install.js";
 import { recordPluginInstall } from "./installs.js";
 import { loadPluginManifest } from "./manifest.js";
@@ -24,7 +24,7 @@ export type PluginUpdateOutcome = {
 };
 
 export type PluginUpdateSummary = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   changed: boolean;
   outcomes: PluginUpdateOutcome[];
 };
@@ -37,7 +37,7 @@ export type PluginChannelSyncSummary = {
 };
 
 export type PluginChannelSyncResult = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   changed: boolean;
   summary: PluginChannelSyncSummary;
 };
@@ -61,7 +61,7 @@ async function readInstalledPackageVersion(dir: string): Promise<string | undefi
 function resolveBundledPluginSources(params: {
   workspaceDir?: string;
 }): Map<string, BundledPluginSource> {
-  const discovery = discoverNova EnginePlugins({ workspaceDir: params.workspaceDir });
+  const discovery = discoverNovaEnginePlugins({ workspaceDir: params.workspaceDir });
   const bundled = new Map<string, BundledPluginSource>();
 
   for (const candidate of discovery.candidates) {
@@ -138,7 +138,7 @@ function buildLoadPathHelpers(existing: string[]) {
 }
 
 export async function updateNpmInstalledPlugins(params: {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   logger?: PluginUpdateLogger;
   pluginIds?: string[];
   skipIds?: Set<string>;
@@ -311,7 +311,7 @@ export async function updateNpmInstalledPlugins(params: {
 }
 
 export async function syncPluginsForUpdateChannel(params: {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   channel: UpdateChannel;
   workspaceDir?: string;
   logger?: PluginUpdateLogger;

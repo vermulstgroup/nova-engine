@@ -7,7 +7,7 @@
  */
 
 import type * as LanceDB from "@lancedb/lancedb";
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { Type } from "@sinclair/typebox";
 import { randomUUID } from "node:crypto";
 import OpenAI from "openai";
@@ -290,7 +290,7 @@ const memoryPlugin = {
   kind: "memory" as const,
   configSchema: memoryConfigSchema,
 
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     const cfg = memoryConfigSchema.parse(api.pluginConfig);
     const resolvedDbPath = api.resolvePath(cfg.dbPath!);
     const vectorDim = vectorDimsForModel(cfg.embedding.model ?? "text-embedding-3-small");

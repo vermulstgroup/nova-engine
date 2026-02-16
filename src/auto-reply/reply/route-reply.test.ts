@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ChannelOutboundAdapter, ChannelPlugin } from "../../channels/plugins/types.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { PluginRegistry } from "../../plugins/registry.js";
 import { discordOutbound } from "../../channels/plugins/outbound/discord.js";
 import { imessageOutbound } from "../../channels/plugins/outbound/imessage.js";
@@ -169,7 +169,7 @@ describe("routeReply", () => {
     mocks.sendMessageSlack.mockClear();
     const cfg = {
       messages: { responsePrefix: "[nova-engine]" },
-    } as unknown as Nova EngineConfig;
+    } as unknown as NovaEngineConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "slack",
@@ -195,7 +195,7 @@ describe("routeReply", () => {
         ],
       },
       messages: {},
-    } as unknown as Nova EngineConfig;
+    } as unknown as NovaEngineConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "slack",
@@ -342,7 +342,7 @@ describe("routeReply", () => {
           enabled: true,
         },
       },
-    } as unknown as Nova EngineConfig;
+    } as unknown as NovaEngineConfig;
     await routeReply({
       payload: { text: "hi" },
       channel: "msteams",

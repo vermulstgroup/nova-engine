@@ -6,7 +6,7 @@ Sources/Gateway/KeychainStore.swift
 Sources/Camera/CameraController.swift
 Sources/Chat/ChatSheet.swift
 Sources/Chat/IOSGatewayChatTransport.swift
-Sources/Nova EngineApp.swift
+Sources/NovaEngineApp.swift
 Sources/Location/LocationService.swift
 Sources/Model/NodeAppModel.swift
 Sources/Model/NodeAppModel+Canvas.swift
@@ -25,37 +25,37 @@ Sources/Status/VoiceWakeToast.swift
 Sources/Voice/VoiceTab.swift
 Sources/Voice/VoiceWakeManager.swift
 Sources/Voice/VoiceWakePreferences.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatComposer.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatMarkdownRenderer.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatMarkdownPreprocessor.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatMessageViews.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatModels.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatPayloadDecoding.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatSessions.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatSheets.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatTheme.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatTransport.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatView.swift
-../shared/Nova EngineKit/Sources/Nova EngineChatUI/ChatViewModel.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/AnyCodable.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/BonjourEscapes.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/BonjourTypes.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/BridgeFrames.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CameraCommands.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CanvasA2UIAction.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CanvasA2UICommands.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CanvasA2UIJSONL.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CanvasCommandParams.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/CanvasCommands.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/Capabilities.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/Nova EngineKitResources.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/DeepLinks.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/JPEGTranscoder.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/NodeError.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/ScreenCommands.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/StoragePaths.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/SystemCommands.swift
-../shared/Nova EngineKit/Sources/Nova EngineKit/TalkDirective.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatComposer.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatMarkdownRenderer.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatMarkdownPreprocessor.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatMessageViews.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatModels.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatPayloadDecoding.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatSessions.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatSheets.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatTheme.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatTransport.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatView.swift
+../shared/NovaEngineKit/Sources/NovaEngineChatUI/ChatViewModel.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/AnyCodable.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/BonjourEscapes.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/BonjourTypes.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/BridgeFrames.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CameraCommands.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CanvasA2UIAction.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CanvasA2UICommands.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CanvasA2UIJSONL.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CanvasCommandParams.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/CanvasCommands.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/Capabilities.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/NovaEngineKitResources.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/DeepLinks.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/JPEGTranscoder.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/NodeError.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/ScreenCommands.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/StoragePaths.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/SystemCommands.swift
+../shared/NovaEngineKit/Sources/NovaEngineKit/TalkDirective.swift
 ../../Swabble/Sources/SwabbleKit/WakeWordGate.swift
 Sources/Voice/TalkModeManager.swift
 Sources/Voice/TalkOrbOverlay.swift

@@ -1,7 +1,7 @@
 import type { AgentTool, AgentToolResult } from "@mariozechner/pi-agent-core";
 import type { TSchema } from "@sinclair/typebox";
 import type { MsgContext } from "../../auto-reply/templating.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { PollInput } from "../../polls.js";
 import type { GatewayClientMode, GatewayClientName } from "../../utils/message-channel.js";
 import type { ChatType } from "../chat-type.js";
@@ -14,7 +14,7 @@ export type ChannelOutboundTargetMode = "explicit" | "implicit" | "heartbeat";
 
 export type ChannelAgentTool = AgentTool<TSchema, unknown>;
 
-export type ChannelAgentToolFactory = (params: { cfg?: Nova EngineConfig }) => ChannelAgentTool[];
+export type ChannelAgentToolFactory = (params: { cfg?: NovaEngineConfig }) => ChannelAgentTool[];
 
 export type ChannelSetupInput = {
   name?: string;
@@ -154,7 +154,7 @@ export type ChannelLogSink = {
 };
 
 export type ChannelGroupContext = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   groupId?: string | null;
   /** Human label for channel-like group conversations (e.g. #general). */
   groupChannel?: string | null;
@@ -191,7 +191,7 @@ export type ChannelSecurityDmPolicy = {
 };
 
 export type ChannelSecurityContext<ResolvedAccount = unknown> = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
   account: ResolvedAccount;
 };
@@ -199,13 +199,13 @@ export type ChannelSecurityContext<ResolvedAccount = unknown> = {
 export type ChannelMentionAdapter = {
   stripPatterns?: (params: {
     ctx: MsgContext;
-    cfg: Nova EngineConfig | undefined;
+    cfg: NovaEngineConfig | undefined;
     agentId?: string;
   }) => string[];
   stripMentions?: (params: {
     text: string;
     ctx: MsgContext;
-    cfg: Nova EngineConfig | undefined;
+    cfg: NovaEngineConfig | undefined;
     agentId?: string;
   }) => string;
 };
@@ -219,7 +219,7 @@ export type ChannelStreamingAdapter = {
 
 export type ChannelThreadingAdapter = {
   resolveReplyToMode?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     chatType?: string | null;
   }) => "off" | "first" | "all";
@@ -235,7 +235,7 @@ export type ChannelThreadingAdapter = {
    */
   allowTagsWhenOff?: boolean;
   buildToolContext?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     context: ChannelThreadingContext;
     hasRepliedRef?: { value: boolean };
@@ -281,7 +281,7 @@ export type ChannelMessagingAdapter = {
 };
 
 export type ChannelAgentPromptAdapter = {
-  messageToolHints?: (params: { cfg: Nova EngineConfig; accountId?: string | null }) => string[];
+  messageToolHints?: (params: { cfg: NovaEngineConfig; accountId?: string | null }) => string[];
 };
 
 export type ChannelDirectoryEntryKind = "user" | "group" | "channel";
@@ -301,7 +301,7 @@ export type ChannelMessageActionName = ChannelMessageActionNameFromList;
 export type ChannelMessageActionContext = {
   channel: ChannelId;
   action: ChannelMessageActionName;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   params: Record<string, unknown>;
   accountId?: string | null;
   gateway?: {
@@ -322,10 +322,10 @@ export type ChannelToolSend = {
 };
 
 export type ChannelMessageActionAdapter = {
-  listActions?: (params: { cfg: Nova EngineConfig }) => ChannelMessageActionName[];
+  listActions?: (params: { cfg: NovaEngineConfig }) => ChannelMessageActionName[];
   supportsAction?: (params: { action: ChannelMessageActionName }) => boolean;
-  supportsButtons?: (params: { cfg: Nova EngineConfig }) => boolean;
-  supportsCards?: (params: { cfg: Nova EngineConfig }) => boolean;
+  supportsButtons?: (params: { cfg: NovaEngineConfig }) => boolean;
+  supportsCards?: (params: { cfg: NovaEngineConfig }) => boolean;
   extractToolSend?: (params: { args: Record<string, unknown> }) => ChannelToolSend | null;
   handleAction?: (ctx: ChannelMessageActionContext) => Promise<AgentToolResult<unknown>>;
 };
@@ -339,7 +339,7 @@ export type ChannelPollResult = {
 };
 
 export type ChannelPollContext = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   to: string;
   poll: PollInput;
   accountId?: string | null;

@@ -1,4 +1,4 @@
-import type { Nova EnginePluginConfigSchema } from "./types.js";
+import type { NovaEnginePluginConfigSchema } from "./types.js";
 
 type Issue = { path: Array<string | number>; message: string };
 
@@ -10,7 +10,7 @@ function error(message: string): SafeParseResult {
   return { success: false, error: { issues: [{ path: [], message }] } };
 }
 
-export function emptyPluginConfigSchema(): Nova EnginePluginConfigSchema {
+export function emptyPluginConfigSchema(): NovaEnginePluginConfigSchema {
   return {
     safeParse(value: unknown): SafeParseResult {
       if (value === undefined) {

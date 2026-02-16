@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { getChannelPlugin, listChannelPlugins } from "../channels/plugins/index.js";
 import { formatCliCommand } from "../cli/command-format.js";
@@ -9,9 +9,9 @@ import { confirm, select } from "./configure.shared.js";
 import { guardCancel } from "./onboard-helpers.js";
 
 export async function removeChannelConfigWizard(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   runtime: RuntimeEnv,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   let next = { ...cfg };
 
   const listConfiguredChannels = () =>
@@ -68,7 +68,7 @@ export async function removeChannelConfigWizard(
     next = {
       ...next,
       channels: Object.keys(nextChannels).length
-        ? (nextChannels as Nova EngineConfig["channels"])
+        ? (nextChannels as NovaEngineConfig["channels"])
         : undefined,
     };
 

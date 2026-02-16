@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ChannelGroupPolicy } from "../config/group-policy.js";
 import type { TelegramAccountConfig } from "../config/types.js";
 import type { RuntimeEnv } from "../runtime.js";
@@ -48,7 +48,7 @@ describe("registerTelegramNativeCommands (plugin auth)", () => {
 
     registerTelegramNativeCommands({
       bot: bot as unknown as Parameters<typeof registerTelegramNativeCommands>[0]["bot"],
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
       runtime: { log } as RuntimeEnv,
       accountId: "default",
       telegramCfg: {} as TelegramAccountConfig,
@@ -101,7 +101,7 @@ describe("registerTelegramNativeCommands (plugin auth)", () => {
       },
     } as const;
 
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     const telegramCfg = {} as TelegramAccountConfig;
     const resolveGroupPolicy = () =>
       ({

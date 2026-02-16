@@ -91,25 +91,25 @@ vi.mock("node:fs/promises", async (importOriginal) => {
   return { ...wrapped, default: wrapped };
 });
 
-describe("resolveNova EnginePackageRoot", () => {
+describe("resolveNovaEnginePackageRoot", () => {
   beforeEach(() => {
     state.entries.clear();
     state.realpaths.clear();
   });
 
   it("resolves package root from .bin argv1", async () => {
-    const { resolveNova EnginePackageRootSync } = await import("./nova-engine-root.js");
+    const { resolveNovaEnginePackageRootSync } = await import("./nova-engine-root.js");
 
     const project = fx("bin-scenario");
     const argv1 = path.join(project, "node_modules", ".bin", "nova-engine");
     const pkgRoot = path.join(project, "node_modules", "nova-engine");
     setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "nova-engine" }));
 
-    expect(resolveNova EnginePackageRootSync({ argv1 })).toBe(pkgRoot);
+    expect(resolveNovaEnginePackageRootSync({ argv1 })).toBe(pkgRoot);
   });
 
   it("resolves package root via symlinked argv1", async () => {
-    const { resolveNova EnginePackageRootSync } = await import("./nova-engine-root.js");
+    const { resolveNovaEnginePackageRootSync } = await import("./nova-engine-root.js");
 
     const project = fx("symlink-scenario");
     const bin = path.join(project, "bin", "nova-engine");
@@ -117,34 +117,34 @@ describe("resolveNova EnginePackageRoot", () => {
     state.realpaths.set(abs(bin), abs(path.join(realPkg, "nova-engine.mjs")));
     setFile(path.join(realPkg, "package.json"), JSON.stringify({ name: "nova-engine" }));
 
-    expect(resolveNova EnginePackageRootSync({ argv1: bin })).toBe(realPkg);
+    expect(resolveNovaEnginePackageRootSync({ argv1: bin })).toBe(realPkg);
   });
 
   it("prefers moduleUrl candidates", async () => {
-    const { resolveNova EnginePackageRootSync } = await import("./nova-engine-root.js");
+    const { resolveNovaEnginePackageRootSync } = await import("./nova-engine-root.js");
 
     const pkgRoot = fx("moduleurl");
     setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "nova-engine" }));
     const moduleUrl = pathToFileURL(path.join(pkgRoot, "dist", "index.js")).toString();
 
-    expect(resolveNova EnginePackageRootSync({ moduleUrl })).toBe(pkgRoot);
+    expect(resolveNovaEnginePackageRootSync({ moduleUrl })).toBe(pkgRoot);
   });
 
   it("returns null for non-nova-engine package roots", async () => {
-    const { resolveNova EnginePackageRootSync } = await import("./nova-engine-root.js");
+    const { resolveNovaEnginePackageRootSync } = await import("./nova-engine-root.js");
 
     const pkgRoot = fx("not-nova-engine");
     setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "not-nova-engine" }));
 
-    expect(resolveNova EnginePackageRootSync({ cwd: pkgRoot })).toBeNull();
+    expect(resolveNovaEnginePackageRootSync({ cwd: pkgRoot })).toBeNull();
   });
 
   it("async resolver matches sync behavior", async () => {
-    const { resolveNova EnginePackageRoot } = await import("./nova-engine-root.js");
+    const { resolveNovaEnginePackageRoot } = await import("./nova-engine-root.js");
 
     const pkgRoot = fx("async");
     setFile(path.join(pkgRoot, "package.json"), JSON.stringify({ name: "nova-engine" }));
 
-    await expect(resolveNova EnginePackageRoot({ cwd: pkgRoot })).resolves.toBe(pkgRoot);
+    await expect(resolveNovaEnginePackageRoot({ cwd: pkgRoot })).resolves.toBe(pkgRoot);
   });
 });

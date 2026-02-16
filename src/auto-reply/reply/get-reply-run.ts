@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import type { ExecToolDefaults } from "../../agents/bash-tools.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MsgContext, TemplateContext } from "../templating.js";
 import type { GetReplyOptions, ReplyPayload } from "../types.js";
 import type { buildCommandContext } from "./commands.js";
@@ -48,17 +48,17 @@ import { ensureSkillSnapshot, prependSystemEvents } from "./session-updates.js";
 import { resolveTypingMode } from "./typing-mode.js";
 import { appendUntrustedContext } from "./untrusted-context.js";
 
-type AgentDefaults = NonNullable<Nova EngineConfig["agents"]>["defaults"];
+type AgentDefaults = NonNullable<NovaEngineConfig["agents"]>["defaults"];
 type ExecOverrides = Pick<ExecToolDefaults, "host" | "security" | "ask" | "node">;
 
 type RunPreparedReplyParams = {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   agentDir: string;
   agentCfg: AgentDefaults;
-  sessionCfg: Nova EngineConfig["session"];
+  sessionCfg: NovaEngineConfig["session"];
   commandAuthorized: boolean;
   command: ReturnType<typeof buildCommandContext>;
   commandSource: string;

@@ -1,4 +1,4 @@
-import type { Nova EngineApp } from "./app.ts";
+import type { NovaEngineApp } from "./app.ts";
 import { loadDebug } from "./controllers/debug.ts";
 import { loadLogs } from "./controllers/logs.ts";
 import { loadNodes } from "./controllers/nodes.ts";
@@ -15,7 +15,7 @@ export function startNodesPolling(host: PollingHost) {
     return;
   }
   host.nodesPollInterval = window.setInterval(
-    () => void loadNodes(host as unknown as Nova EngineApp, { quiet: true }),
+    () => void loadNodes(host as unknown as NovaEngineApp, { quiet: true }),
     5000,
   );
 }
@@ -36,7 +36,7 @@ export function startLogsPolling(host: PollingHost) {
     if (host.tab !== "logs") {
       return;
     }
-    void loadLogs(host as unknown as Nova EngineApp, { quiet: true });
+    void loadLogs(host as unknown as NovaEngineApp, { quiet: true });
   }, 2000);
 }
 
@@ -56,7 +56,7 @@ export function startDebugPolling(host: PollingHost) {
     if (host.tab !== "debug") {
       return;
     }
-    void loadDebug(host as unknown as Nova EngineApp);
+    void loadDebug(host as unknown as NovaEngineApp);
   }, 3000);
 }
 

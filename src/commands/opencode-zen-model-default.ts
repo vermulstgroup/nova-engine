@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { applyAgentDefaultPrimaryModel } from "./model-default.js";
 
 export const OPENCODE_ZEN_DEFAULT_MODEL = "opencode/claude-opus-4-6";
@@ -7,8 +7,8 @@ const LEGACY_OPENCODE_ZEN_DEFAULT_MODELS = new Set([
   "opencode-zen/claude-opus-4-5",
 ]);
 
-export function applyOpencodeZenModelDefault(cfg: Nova EngineConfig): {
-  next: Nova EngineConfig;
+export function applyOpencodeZenModelDefault(cfg: NovaEngineConfig): {
+  next: NovaEngineConfig;
   changed: boolean;
 } {
   return applyAgentDefaultPrimaryModel({

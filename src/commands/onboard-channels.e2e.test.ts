@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { discordPlugin } from "../../extensions/discord/src/channel.js";
@@ -90,7 +90,7 @@ describe("setupChannels", () => {
 
     const runtime = createRuntime();
 
-    await setupChannels({} as Nova EngineConfig, runtime, prompter, {
+    await setupChannels({} as NovaEngineConfig, runtime, prompter, {
       skipConfirm: true,
       quickstartDefaults: true,
       forceAllowFromChannels: ["whatsapp"],
@@ -121,7 +121,7 @@ describe("setupChannels", () => {
 
     const runtime = createRuntime();
 
-    await setupChannels({} as Nova EngineConfig, runtime, prompter, {
+    await setupChannels({} as NovaEngineConfig, runtime, prompter, {
       skipConfirm: true,
     });
 
@@ -166,7 +166,7 @@ describe("setupChannels", () => {
             botToken: "token",
           },
         },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       runtime,
       prompter,
       {
@@ -219,7 +219,7 @@ describe("setupChannels", () => {
             enabled: false,
           },
         },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       runtime,
       prompter,
       {

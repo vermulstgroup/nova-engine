@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   formatDocsLink,
   promptAccountId,
@@ -18,7 +18,7 @@ function isConfigured(account: TlonResolvedAccount): boolean {
 }
 
 function applyAccountConfig(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   input: {
     name?: string;
@@ -30,7 +30,7 @@ function applyAccountConfig(params: {
     dmAllowlist?: string[];
     autoDiscoverChannels?: boolean;
   };
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const { cfg, accountId, input } = params;
   const useDefault = accountId === DEFAULT_ACCOUNT_ID;
   const base = cfg.channels?.tlon ?? {};

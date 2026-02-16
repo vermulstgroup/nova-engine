@@ -9,7 +9,7 @@
  * - Abort signal handling
  */
 
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { twitchOutbound } from "./outbound.js";
 
@@ -49,7 +49,7 @@ describe("outbound", () => {
         },
       },
     },
-  } as unknown as Nova EngineConfig;
+  } as unknown as NovaEngineConfig;
 
   beforeEach(() => {
     vi.clearAllMocks();

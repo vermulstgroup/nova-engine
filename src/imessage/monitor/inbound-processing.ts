@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MonitorIMessageOpts, IMessagePayload } from "./types.js";
 import { hasControlCommand } from "../../auto-reply/command-detection.js";
 import {
@@ -82,7 +82,7 @@ export type IMessageInboundDecision =
   | IMessageInboundDispatchDecision;
 
 export function resolveIMessageInboundDecision(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   message: IMessagePayload;
   opts?: Pick<MonitorIMessageOpts, "requireMention">;
@@ -340,7 +340,7 @@ export function resolveIMessageInboundDecision(params: {
 }
 
 export function buildIMessageInboundContext(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   decision: IMessageInboundDispatchDecision;
   message: IMessagePayload;
   envelopeOptions?: EnvelopeFormatOptions;

@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { resolveConfigSnapshotHash } from "../../config/io.js";
 import { extractDeliveryInfo } from "../../config/sessions.js";
 import {
@@ -63,7 +63,7 @@ const GatewayToolSchema = Type.Object({
 
 export function createGatewayTool(opts?: {
   agentSessionKey?: string;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
 }): AnyAgentTool {
   return {
     label: "Gateway",

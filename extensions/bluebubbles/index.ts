@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { emptyPluginConfigSchema } from "nova-engine/plugin-sdk";
 import { bluebubblesPlugin } from "./src/channel.js";
 import { handleBlueBubblesWebhookRequest } from "./src/monitor.js";
@@ -9,7 +9,7 @@ const plugin = {
   name: "BlueBubbles",
   description: "BlueBubbles channel plugin (macOS app)",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     setBlueBubblesRuntime(api.runtime);
     api.registerChannel({ plugin: bluebubblesPlugin });
     api.registerHttpHandler(handleBlueBubblesWebhookRequest);

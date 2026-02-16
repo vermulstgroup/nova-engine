@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { SlackAccountConfig } from "../config/types.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
@@ -28,7 +28,7 @@ export type ResolvedSlackAccount = {
   channels?: SlackAccountConfig["channels"];
 };
 
-function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
+function listConfiguredAccountIds(cfg: NovaEngineConfig): string[] {
   const accounts = cfg.channels?.slack?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -36,7 +36,7 @@ function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listSlackAccountIds(cfg: Nova EngineConfig): string[] {
+export function listSlackAccountIds(cfg: NovaEngineConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -44,7 +44,7 @@ export function listSlackAccountIds(cfg: Nova EngineConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultSlackAccountId(cfg: Nova EngineConfig): string {
+export function resolveDefaultSlackAccountId(cfg: NovaEngineConfig): string {
   const ids = listSlackAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -53,7 +53,7 @@ export function resolveDefaultSlackAccountId(cfg: Nova EngineConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
 ): SlackAccountConfig | undefined {
   const accounts = cfg.channels?.slack?.accounts;
@@ -63,7 +63,7 @@ function resolveAccountConfig(
   return accounts[accountId] as SlackAccountConfig | undefined;
 }
 
-function mergeSlackAccountConfig(cfg: Nova EngineConfig, accountId: string): SlackAccountConfig {
+function mergeSlackAccountConfig(cfg: NovaEngineConfig, accountId: string): SlackAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.slack ?? {}) as SlackAccountConfig & {
     accounts?: unknown;
   };
@@ -72,7 +72,7 @@ function mergeSlackAccountConfig(cfg: Nova EngineConfig, accountId: string): Sla
 }
 
 export function resolveSlackAccount(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
 }): ResolvedSlackAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -113,7 +113,7 @@ export function resolveSlackAccount(params: {
   };
 }
 
-export function listEnabledSlackAccounts(cfg: Nova EngineConfig): ResolvedSlackAccount[] {
+export function listEnabledSlackAccounts(cfg: NovaEngineConfig): ResolvedSlackAccount[] {
   return listSlackAccountIds(cfg)
     .map((accountId) => resolveSlackAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

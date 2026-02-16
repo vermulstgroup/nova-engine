@@ -8,10 +8,10 @@ type MockRegistryToolEntry = {
   factory: (ctx: unknown) => unknown;
 };
 
-const loadNova EnginePluginsMock = vi.fn();
+const loadNovaEnginePluginsMock = vi.fn();
 
 vi.mock("./loader.js", () => ({
-  loadNova EnginePlugins: (params: unknown) => loadNova EnginePluginsMock(params),
+  loadNovaEnginePlugins: (params: unknown) => loadNovaEnginePluginsMock(params),
 }));
 
 function makeTool(name: string) {
@@ -48,13 +48,13 @@ function setRegistry(entries: MockRegistryToolEntry[]) {
       message: string;
     }>,
   };
-  loadNova EnginePluginsMock.mockReturnValue(registry);
+  loadNovaEnginePluginsMock.mockReturnValue(registry);
   return registry;
 }
 
 describe("resolvePluginTools optional tools", () => {
   beforeEach(() => {
-    loadNova EnginePluginsMock.mockReset();
+    loadNovaEnginePluginsMock.mockReset();
   });
 
   it("skips optional tools without explicit allowlist", () => {

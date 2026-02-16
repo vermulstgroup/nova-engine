@@ -1,5 +1,5 @@
 import chokidar from "chokidar";
-import type { Nova EngineConfig, ConfigFileSnapshot, GatewayReloadMode } from "../config/config.js";
+import type { NovaEngineConfig, ConfigFileSnapshot, GatewayReloadMode } from "../config/config.js";
 import { type ChannelId, listChannelPlugins } from "../channels/plugins/index.js";
 import { getActivePluginRegistry } from "../plugins/runtime.js";
 import { isPlainObject } from "../utils.js";
@@ -157,7 +157,7 @@ export function diffConfigPaths(prev: unknown, next: unknown, prefix = ""): stri
   return [prefix || "<root>"];
 }
 
-export function resolveGatewayReloadSettings(cfg: Nova EngineConfig): GatewayReloadSettings {
+export function resolveGatewayReloadSettings(cfg: NovaEngineConfig): GatewayReloadSettings {
   const rawMode = cfg.gateway?.reload?.mode;
   const mode =
     rawMode === "off" || rawMode === "restart" || rawMode === "hot" || rawMode === "hybrid"
@@ -247,10 +247,10 @@ export type GatewayConfigReloader = {
 };
 
 export function startGatewayConfigReloader(opts: {
-  initialConfig: Nova EngineConfig;
+  initialConfig: NovaEngineConfig;
   readSnapshot: () => Promise<ConfigFileSnapshot>;
-  onHotReload: (plan: GatewayReloadPlan, nextConfig: Nova EngineConfig) => Promise<void>;
-  onRestart: (plan: GatewayReloadPlan, nextConfig: Nova EngineConfig) => void;
+  onHotReload: (plan: GatewayReloadPlan, nextConfig: NovaEngineConfig) => Promise<void>;
+  onRestart: (plan: GatewayReloadPlan, nextConfig: NovaEngineConfig) => void;
   log: {
     info: (msg: string) => void;
     warn: (msg: string) => void;

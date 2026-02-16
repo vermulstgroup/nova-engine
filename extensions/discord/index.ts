@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { emptyPluginConfigSchema } from "nova-engine/plugin-sdk";
 import { discordPlugin } from "./src/channel.js";
 import { setDiscordRuntime } from "./src/runtime.js";
@@ -8,7 +8,7 @@ const plugin = {
   name: "Discord",
   description: "Discord channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     setDiscordRuntime(api.runtime);
     api.registerChannel({ plugin: discordPlugin });
   },

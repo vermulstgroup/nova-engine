@@ -77,7 +77,7 @@ vi.mock("../infra/provider-usage.js", () => ({
 }));
 
 import "./test-helpers/fast-core-tools.js";
-import { createNova EngineTools } from "./nova-engine-tools.js";
+import { createNovaEngineTools } from "./nova-engine-tools.js";
 
 describe("session_status tool", () => {
   it("returns a status card for the current session", async () => {
@@ -90,7 +90,7 @@ describe("session_status tool", () => {
       },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -113,7 +113,7 @@ describe("session_status tool", () => {
       main: { sessionId: "s1", updatedAt: 10 },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -138,7 +138,7 @@ describe("session_status tool", () => {
       },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -162,7 +162,7 @@ describe("session_status tool", () => {
       },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -186,7 +186,7 @@ describe("session_status tool", () => {
       },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "agent:main:main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "agent:main:main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -228,7 +228,7 @@ describe("session_status tool", () => {
       },
     );
 
-    const tool = createNova EngineTools({ agentSessionKey: "agent:support:main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "agent:support:main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();
@@ -255,7 +255,7 @@ describe("session_status tool", () => {
       },
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "session_status",
     );
     expect(tool).toBeDefined();

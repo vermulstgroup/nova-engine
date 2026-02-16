@@ -410,7 +410,7 @@ tail -f ~/.nova-engine/logs/gateway.log | grep broadcast
 ### 配置模式
 
 ```typescript
-interface Nova EngineConfig {
+interface NovaEngineConfig {
   broadcast?: {
     strategy?: "parallel" | "sequential";
     [peerId: string]: string[];

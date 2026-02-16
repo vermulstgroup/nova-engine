@@ -20,11 +20,11 @@ afterAll(async () => {
 vi.mock("./chrome.js", () => ({
   isChromeCdpReady: vi.fn(async () => true),
   isChromeReachable: vi.fn(async () => true),
-  launchNova EngineChrome: vi.fn(async () => {
+  launchNovaEngineChrome: vi.fn(async () => {
     throw new Error("unexpected launch");
   }),
-  resolveNova EngineUserDataDir: vi.fn(() => chromeUserDataDir.dir),
-  stopNova EngineChrome: vi.fn(async () => {}),
+  resolveNovaEngineUserDataDir: vi.fn(() => chromeUserDataDir.dir),
+  stopNovaEngineChrome: vi.fn(async () => {}),
 }));
 
 const originalFetch = globalThis.fetch;

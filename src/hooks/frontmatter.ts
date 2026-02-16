@@ -1,5 +1,5 @@
 import type {
-  Nova EngineHookMetadata,
+  NovaEngineHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
@@ -10,10 +10,10 @@ import {
   getFrontmatterString,
   normalizeStringList,
   parseFrontmatterBool,
-  resolveNova EngineManifestBlock,
-  resolveNova EngineManifestInstall,
-  resolveNova EngineManifestOs,
-  resolveNova EngineManifestRequires,
+  resolveNovaEngineManifestBlock,
+  resolveNovaEngineManifestInstall,
+  resolveNovaEngineManifestOs,
+  resolveNovaEngineManifestRequires,
 } from "../shared/frontmatter.js";
 
 export function parseFrontmatter(content: string): ParsedHookFrontmatter {
@@ -56,16 +56,16 @@ function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
   return spec;
 }
 
-export function resolveNova EngineMetadata(
+export function resolveNovaEngineMetadata(
   frontmatter: ParsedHookFrontmatter,
-): Nova EngineHookMetadata | undefined {
-  const metadataObj = resolveNova EngineManifestBlock({ frontmatter });
+): NovaEngineHookMetadata | undefined {
+  const metadataObj = resolveNovaEngineManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveNova EngineManifestRequires(metadataObj);
-  const install = resolveNova EngineManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveNova EngineManifestOs(metadataObj);
+  const requires = resolveNovaEngineManifestRequires(metadataObj);
+  const install = resolveNovaEngineManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveNovaEngineManifestOs(metadataObj);
   const eventsRaw = normalizeStringList(metadataObj.events);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,

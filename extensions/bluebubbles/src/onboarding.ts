@@ -1,7 +1,7 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  Nova EngineConfig,
+  NovaEngineConfig,
   DmPolicy,
   WizardPrompter,
 } from "nova-engine/plugin-sdk";
@@ -22,7 +22,7 @@ import { normalizeBlueBubblesServerUrl } from "./types.js";
 
 const channel = "bluebubbles" as const;
 
-function setBlueBubblesDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy): Nova EngineConfig {
+function setBlueBubblesDmPolicy(cfg: NovaEngineConfig, dmPolicy: DmPolicy): NovaEngineConfig {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.bluebubbles?.allowFrom) : undefined;
   return {
@@ -39,10 +39,10 @@ function setBlueBubblesDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy): Nov
 }
 
 function setBlueBubblesAllowFrom(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   allowFrom: string[],
-): Nova EngineConfig {
+): NovaEngineConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -81,10 +81,10 @@ function parseBlueBubblesAllowFromInput(raw: string): string[] {
 }
 
 async function promptBlueBubblesAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

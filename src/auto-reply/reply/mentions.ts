@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MsgContext } from "../templating.js";
 import { resolveAgentConfig } from "../../agents/agent-scope.js";
 import { getChannelDock } from "../../channels/dock.js";
@@ -35,7 +35,7 @@ function normalizeMentionPatterns(patterns: string[]): string[] {
   return patterns.map(normalizeMentionPattern);
 }
 
-function resolveMentionPatterns(cfg: Nova EngineConfig | undefined, agentId?: string): string[] {
+function resolveMentionPatterns(cfg: NovaEngineConfig | undefined, agentId?: string): string[] {
   if (!cfg) {
     return [];
   }
@@ -52,7 +52,7 @@ function resolveMentionPatterns(cfg: Nova EngineConfig | undefined, agentId?: st
   return derived.length > 0 ? derived : [];
 }
 
-export function buildMentionRegexes(cfg: Nova EngineConfig | undefined, agentId?: string): RegExp[] {
+export function buildMentionRegexes(cfg: NovaEngineConfig | undefined, agentId?: string): RegExp[] {
   const patterns = normalizeMentionPatterns(resolveMentionPatterns(cfg, agentId));
   return patterns
     .map((pattern) => {
@@ -128,7 +128,7 @@ export function stripStructuralPrefixes(text: string): string {
 export function stripMentions(
   text: string,
   ctx: MsgContext,
-  cfg: Nova EngineConfig | undefined,
+  cfg: NovaEngineConfig | undefined,
   agentId?: string,
 ): string {
   let result = text;

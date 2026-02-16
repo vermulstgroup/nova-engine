@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "./types.js";
+import type { NovaEngineConfig } from "./types.js";
 import { isPlainObject } from "../utils.js";
 import { parseConfigPath, setConfigValueAtPath, unsetConfigValueAtPath } from "./config-paths.js";
 
@@ -60,9 +60,9 @@ export function unsetConfigOverride(pathRaw: string): {
   return { ok: true, removed };
 }
 
-export function applyConfigOverrides(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyConfigOverrides(cfg: NovaEngineConfig): NovaEngineConfig {
   if (!overrides || Object.keys(overrides).length === 0) {
     return cfg;
   }
-  return mergeOverrides(cfg, overrides) as Nova EngineConfig;
+  return mergeOverrides(cfg, overrides) as NovaEngineConfig;
 }

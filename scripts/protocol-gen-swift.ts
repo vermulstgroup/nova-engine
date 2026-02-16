@@ -15,14 +15,14 @@ type JsonSchema = {
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..");
 const outPaths = [
-  path.join(repoRoot, "apps", "macos", "Sources", "Nova EngineProtocol", "GatewayModels.swift"),
+  path.join(repoRoot, "apps", "macos", "Sources", "NovaEngineProtocol", "GatewayModels.swift"),
   path.join(
     repoRoot,
     "apps",
     "shared",
-    "Nova EngineKit",
+    "NovaEngineKit",
     "Sources",
-    "Nova EngineProtocol",
+    "NovaEngineProtocol",
     "GatewayModels.swift",
   ),
 ];

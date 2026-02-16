@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import crypto from "node:crypto";
 import { stripMarkdown } from "nova-engine/plugin-sdk";
 import { resolveBlueBubblesAccount } from "./accounts.js";
@@ -16,7 +16,7 @@ export type BlueBubblesSendOpts = {
   password?: string;
   accountId?: string;
   timeoutMs?: number;
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   /** Message GUID to reply to (reply threading) */
   replyToMessageGuid?: string;
   /** Part index for reply (default: 0) */

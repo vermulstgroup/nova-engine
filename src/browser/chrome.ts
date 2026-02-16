@@ -14,7 +14,7 @@ import {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 import {
-  decorateNova EngineProfile,
+  decorateNovaEngineProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
@@ -33,7 +33,7 @@ export {
   resolveBrowserExecutableForPlatform,
 } from "./chrome.executables.js";
 export {
-  decorateNova EngineProfile,
+  decorateNovaEngineProfile,
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
@@ -59,7 +59,7 @@ function resolveBrowserExecutable(resolved: ResolvedBrowserConfig): BrowserExecu
   return resolveBrowserExecutableForPlatform(resolved, process.platform);
 }
 
-export function resolveNova EngineUserDataDir(profileName = DEFAULT_NOVA_BROWSER_PROFILE_NAME) {
+export function resolveNovaEngineUserDataDir(profileName = DEFAULT_NOVA_BROWSER_PROFILE_NAME) {
   return path.join(CONFIG_DIR, "browser", profileName, "user-data");
 }
 
@@ -160,7 +160,7 @@ export async function isChromeCdpReady(
   return await canOpenWebSocket(wsUrl, handshakeTimeoutMs);
 }
 
-export async function launchNova EngineChrome(
+export async function launchNovaEngineChrome(
   resolved: ResolvedBrowserConfig,
   profile: ResolvedBrowserProfile,
 ): Promise<RunningChrome> {
@@ -176,7 +176,7 @@ export async function launchNova EngineChrome(
     );
   }
 
-  const userDataDir = resolveNova EngineUserDataDir(profile.name);
+  const userDataDir = resolveNovaEngineUserDataDir(profile.name);
   fs.mkdirSync(userDataDir, { recursive: true });
 
   const needsDecorate = !isProfileDecorated(
@@ -263,7 +263,7 @@ export async function launchNova EngineChrome(
 
   if (needsDecorate) {
     try {
-      decorateNova EngineProfile(userDataDir, {
+      decorateNovaEngineProfile(userDataDir, {
         name: profile.name,
         color: profile.color,
       });
@@ -315,7 +315,7 @@ export async function launchNova EngineChrome(
   };
 }
 
-export async function stopNova EngineChrome(running: RunningChrome, timeoutMs = 2500) {
+export async function stopNovaEngineChrome(running: RunningChrome, timeoutMs = 2500) {
   const proc = running.proc;
   if (proc.killed) {
     return;

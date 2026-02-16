@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   __setModelCatalogImportForTest,
   loadModelCatalog,
@@ -9,11 +9,11 @@ import {
 type PiSdkModule = typeof import("./pi-model-discovery.js");
 
 vi.mock("./models-config.js", () => ({
-  ensureNova EngineModelsJson: vi.fn().mockResolvedValue({ agentDir: "/tmp", wrote: false }),
+  ensureNovaEngineModelsJson: vi.fn().mockResolvedValue({ agentDir: "/tmp", wrote: false }),
 }));
 
 vi.mock("./agent-paths.js", () => ({
-  resolveNova EngineAgentDir: () => "/tmp/nova-engine",
+  resolveNovaEngineAgentDir: () => "/tmp/nova-engine",
 }));
 
 describe("loadModelCatalog e2e smoke", () => {
@@ -44,7 +44,7 @@ describe("loadModelCatalog e2e smoke", () => {
       } as unknown as PiSdkModule;
     });
 
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     expect(await loadModelCatalog({ config: cfg })).toEqual([]);
     expect(await loadModelCatalog({ config: cfg })).toEqual([
       { id: "gpt-4.1", name: "GPT-4.1", provider: "openai" },

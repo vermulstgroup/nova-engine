@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { EmbeddedRunAttemptResult } from "./pi-embedded-runner/run/types.js";
 
 const runEmbeddedAttemptMock = vi.fn<Promise<EmbeddedRunAttemptResult>, [unknown]>();
@@ -62,7 +62,7 @@ const makeAttempt = (overrides: Partial<EmbeddedRunAttemptResult>): EmbeddedRunA
   ...overrides,
 });
 
-const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): Nova EngineConfig =>
+const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): NovaEngineConfig =>
   ({
     agents: {
       defaults: {
@@ -91,7 +91,7 @@ const makeConfig = (opts?: { fallbacks?: string[]; apiKey?: string }): Nova Engi
         },
       },
     },
-  }) satisfies Nova EngineConfig;
+  }) satisfies NovaEngineConfig;
 
 const writeAuthStore = async (
   agentDir: string,

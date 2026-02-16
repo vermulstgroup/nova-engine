@@ -1,10 +1,10 @@
-import type { Nova EngineConfig } from "../config/config.js";
-export function normalizeLegacyConfigValues(cfg: Nova EngineConfig): {
-  config: Nova EngineConfig;
+import type { NovaEngineConfig } from "../config/config.js";
+export function normalizeLegacyConfigValues(cfg: NovaEngineConfig): {
+  config: NovaEngineConfig;
   changes: string[];
 } {
   const changes: string[] = [];
-  let next: Nova EngineConfig = cfg;
+  let next: NovaEngineConfig = cfg;
 
   const isRecord = (value: unknown): value is Record<string, unknown> =>
     Boolean(value) && typeof value === "object" && !Array.isArray(value);

@@ -1,5 +1,5 @@
 import type { ChatType } from "../channels/chat-type.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { normalizeChatType } from "../channels/chat-type.js";
 import { shouldLogVerbose } from "../globals.js";
@@ -23,7 +23,7 @@ export type RoutePeer = {
 };
 
 export type ResolveAgentRouteInput = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   channel: string;
   accountId?: string | null;
   peer?: RoutePeer | null;
@@ -110,12 +110,12 @@ export function buildAgentSessionKey(params: {
   });
 }
 
-function listAgents(cfg: Nova EngineConfig) {
+function listAgents(cfg: NovaEngineConfig) {
   const agents = cfg.agents?.list;
   return Array.isArray(agents) ? agents : [];
 }
 
-function pickFirstExistingAgentId(cfg: Nova EngineConfig, agentId: string): string {
+function pickFirstExistingAgentId(cfg: NovaEngineConfig, agentId: string): string {
   const trimmed = (agentId ?? "").trim();
   if (!trimmed) {
     return sanitizeAgentId(resolveDefaultAgentId(cfg));
@@ -169,15 +169,15 @@ type BindingScope = {
 };
 
 type EvaluatedBindingsCache = {
-  bindingsRef: Nova EngineConfig["bindings"];
+  bindingsRef: NovaEngineConfig["bindings"];
   byChannelAccount: Map<string, EvaluatedBinding[]>;
 };
 
-const evaluatedBindingsCacheByCfg = new WeakMap<Nova EngineConfig, EvaluatedBindingsCache>();
+const evaluatedBindingsCacheByCfg = new WeakMap<NovaEngineConfig, EvaluatedBindingsCache>();
 const MAX_EVALUATED_BINDINGS_CACHE_KEYS = 2000;
 
 function getEvaluatedBindingsForChannelAccount(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   channel: string,
   accountId: string,
 ): EvaluatedBinding[] {

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   createReplyPrefixOptions,
   logAckFailure,
@@ -81,7 +81,7 @@ function logGroupAllowlistHint(params: {
 }
 
 function resolveBlueBubblesAckReaction(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   core: BlueBubblesCoreRuntime;
   runtime: BlueBubblesRuntimeEnv;

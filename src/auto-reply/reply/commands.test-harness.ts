@@ -1,11 +1,11 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MsgContext } from "../templating.js";
 import { buildCommandContext } from "./commands.js";
 import { parseInlineDirectives } from "./directive-handling.js";
 
 export function buildCommandTestParams(
   commandBody: string,
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   ctxOverrides?: Partial<MsgContext>,
   options?: {
     workspaceDir?: string;

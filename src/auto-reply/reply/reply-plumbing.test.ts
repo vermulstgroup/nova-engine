@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { SubagentRunRecord } from "../../agents/subagent-registry.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { TemplateContext } from "../templating.js";
 import { formatDurationCompact } from "../../infra/format-time/format-duration.js";
 import { buildThreadingToolContext } from "./agent-runner-utils.js";
@@ -13,7 +13,7 @@ import {
 } from "./subagents-utils.js";
 
 describe("buildThreadingToolContext", () => {
-  const cfg = {} as Nova EngineConfig;
+  const cfg = {} as NovaEngineConfig;
 
   it("uses conversation id for WhatsApp", () => {
     const sessionCtx = {
@@ -105,7 +105,7 @@ describe("buildThreadingToolContext", () => {
 
     const result = buildThreadingToolContext({
       sessionCtx,
-      config: { channels: { slack: { replyToMode: "all" } } } as Nova EngineConfig,
+      config: { channels: { slack: { replyToMode: "all" } } } as NovaEngineConfig,
       hasRepliedRef: undefined,
     });
 

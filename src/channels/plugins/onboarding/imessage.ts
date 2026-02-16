@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
 import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
@@ -15,7 +15,7 @@ import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
 
 const channel = "imessage" as const;
 
-function setIMessageDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy) {
+function setIMessageDmPolicy(cfg: NovaEngineConfig, dmPolicy: DmPolicy) {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.imessage?.allowFrom) : undefined;
   return {
@@ -32,10 +32,10 @@ function setIMessageDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy) {
 }
 
 function setIMessageAllowFrom(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   allowFrom: string[],
-): Nova EngineConfig {
+): NovaEngineConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -74,10 +74,10 @@ function parseIMessageAllowFromInput(raw: string): string[] {
 }
 
 async function promptIMessageAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

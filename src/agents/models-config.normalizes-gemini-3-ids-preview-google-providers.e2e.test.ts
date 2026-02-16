@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   return withTempHomeBase(fn, { prefix: "nova-engine-models-" });
 }
 
-const _MODELS_CONFIG: Nova EngineConfig = {
+const _MODELS_CONFIG: NovaEngineConfig = {
   models: {
     providers: {
       "custom-proxy": {
@@ -45,10 +45,10 @@ describe("models-config", () => {
 
   it("normalizes gemini 3 ids to preview for google providers", async () => {
     await withTempHome(async () => {
-      const { ensureNova EngineModelsJson } = await import("./models-config.js");
-      const { resolveNova EngineAgentDir } = await import("./agent-paths.js");
+      const { ensureNovaEngineModelsJson } = await import("./models-config.js");
+      const { resolveNovaEngineAgentDir } = await import("./agent-paths.js");
 
-      const cfg: Nova EngineConfig = {
+      const cfg: NovaEngineConfig = {
         models: {
           providers: {
             google: {
@@ -82,9 +82,9 @@ describe("models-config", () => {
         },
       };
 
-      await ensureNova EngineModelsJson(cfg);
+      await ensureNovaEngineModelsJson(cfg);
 
-      const modelPath = path.join(resolveNova EngineAgentDir(), "models.json");
+      const modelPath = path.join(resolveNovaEngineAgentDir(), "models.json");
       const raw = await fs.readFile(modelPath, "utf8");
       const parsed = JSON.parse(raw) as {
         providers: Record<string, { models: Array<{ id: string }> }>;

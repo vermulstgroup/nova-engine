@@ -1,6 +1,6 @@
 import type { listChannelPlugins } from "../channels/plugins/index.js";
 import type { ChannelId } from "../channels/plugins/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { SecurityAuditFinding, SecurityAuditSeverity } from "./audit.js";
 import { resolveChannelDefaultAccountId } from "../channels/plugins/helpers.js";
 import {
@@ -37,7 +37,7 @@ function classifyChannelWarningSeverity(message: string): SecurityAuditSeverity 
 }
 
 export async function collectChannelSecurityFindings(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   plugins: ReturnType<typeof listChannelPlugins>;
 }): Promise<SecurityAuditFinding[]> {
   const findings: SecurityAuditFinding[] = [];

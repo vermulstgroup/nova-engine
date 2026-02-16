@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type {
   ExecApprovalForwardingConfig,
   ExecApprovalForwardTarget,
@@ -35,11 +35,11 @@ export type ExecApprovalForwarder = {
 };
 
 export type ExecApprovalForwarderDeps = {
-  getConfig?: () => Nova EngineConfig;
+  getConfig?: () => NovaEngineConfig;
   deliver?: typeof deliverOutboundPayloads;
   nowMs?: () => number;
   resolveSessionTarget?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     request: ExecApprovalRequest;
   }) => ExecApprovalForwardTarget | null;
 };
@@ -98,7 +98,7 @@ function buildTargetKey(target: ExecApprovalForwardTarget): string {
   return [channel, target.to, accountId, threadId].join(":");
 }
 
-function shouldSkipDiscordForwarding(cfg: Nova EngineConfig): boolean {
+function shouldSkipDiscordForwarding(cfg: NovaEngineConfig): boolean {
   const discordConfig = cfg.channels?.discord?.execApprovals;
   if (!discordConfig?.enabled) {
     return false;
@@ -170,7 +170,7 @@ function buildExpiredMessage(request: ExecApprovalRequest) {
 }
 
 function defaultResolveSessionTarget(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   request: ExecApprovalRequest;
 }): ExecApprovalForwardTarget | null {
   const sessionKey = params.request.request.sessionKey?.trim();
@@ -201,7 +201,7 @@ function defaultResolveSessionTarget(params: {
 }
 
 async function deliverToTargets(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   targets: ForwardTarget[];
   text: string;
   deliver: typeof deliverOutboundPayloads;

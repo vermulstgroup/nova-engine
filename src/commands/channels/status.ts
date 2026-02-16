@@ -3,7 +3,7 @@ import { listChannelPlugins } from "../../channels/plugins/index.js";
 import { buildChannelAccountSnapshot } from "../../channels/plugins/status.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { withProgress } from "../../cli/progress.js";
-import { type Nova EngineConfig, readConfigFileSnapshot } from "../../config/config.js";
+import { type NovaEngineConfig, readConfigFileSnapshot } from "../../config/config.js";
 import { callGateway } from "../../gateway/call.js";
 import { collectChannelStatusIssues } from "../../infra/channels-status-issues.js";
 import { formatTimeAgo } from "../../infra/format-time/format-relative.ts";
@@ -177,7 +177,7 @@ export function formatGatewayChannelsStatusLines(payload: Record<string, unknown
 }
 
 async function formatConfigChannelsStatusLines(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   meta: { path?: string; mode?: "local" | "remote" },
 ): Promise<string[]> {
   const lines: string[] = [];

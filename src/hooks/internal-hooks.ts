@@ -6,14 +6,14 @@
  */
 
 import type { WorkspaceBootstrapFile } from "../agents/workspace.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export type InternalHookEventType = "command" | "session" | "agent" | "gateway";
 
 export type AgentBootstrapHookContext = {
   workspaceDir: string;
   bootstrapFiles: WorkspaceBootstrapFile[];
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   sessionKey?: string;
   sessionId?: string;
   agentId?: string;

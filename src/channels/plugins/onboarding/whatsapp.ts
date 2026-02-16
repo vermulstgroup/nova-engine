@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
@@ -19,19 +19,19 @@ import { promptAccountId } from "./helpers.js";
 
 const channel = "whatsapp" as const;
 
-function setWhatsAppDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy): Nova EngineConfig {
+function setWhatsAppDmPolicy(cfg: NovaEngineConfig, dmPolicy: DmPolicy): NovaEngineConfig {
   return mergeWhatsAppConfig(cfg, { dmPolicy });
 }
 
-function setWhatsAppAllowFrom(cfg: Nova EngineConfig, allowFrom?: string[]): Nova EngineConfig {
+function setWhatsAppAllowFrom(cfg: NovaEngineConfig, allowFrom?: string[]): NovaEngineConfig {
   return mergeWhatsAppConfig(cfg, { allowFrom }, { unsetOnUndefined: ["allowFrom"] });
 }
 
-function setWhatsAppSelfChatMode(cfg: Nova EngineConfig, selfChatMode: boolean): Nova EngineConfig {
+function setWhatsAppSelfChatMode(cfg: NovaEngineConfig, selfChatMode: boolean): NovaEngineConfig {
   return mergeWhatsAppConfig(cfg, { selfChatMode });
 }
 
-async function detectWhatsAppLinked(cfg: Nova EngineConfig, accountId: string): Promise<boolean> {
+async function detectWhatsAppLinked(cfg: NovaEngineConfig, accountId: string): Promise<boolean> {
   const { authDir } = resolveWhatsAppAuthDir({ cfg, accountId });
   const credsPath = path.join(authDir, "creds.json");
   return await pathExists(credsPath);
@@ -80,12 +80,12 @@ async function promptWhatsAppOwnerAllowFrom(params: {
 }
 
 async function applyWhatsAppOwnerAllowlist(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   existingAllowFrom: string[];
   title: string;
   messageLines: string[];
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const { normalized, allowFrom } = await promptWhatsAppOwnerAllowFrom({
     prompter: params.prompter,
     existingAllowFrom: params.existingAllowFrom,
@@ -101,11 +101,11 @@ async function applyWhatsAppOwnerAllowlist(params: {
 }
 
 async function promptWhatsAppAllowFrom(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   _runtime: RuntimeEnv,
   prompter: WizardPrompter,
   options?: { forceAllowlist?: boolean },
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   const existingPolicy = cfg.channels?.whatsapp?.dmPolicy ?? "pairing";
   const existingAllowFrom = cfg.channels?.whatsapp?.allowFrom ?? [];
   const existingLabel = existingAllowFrom.length > 0 ? existingAllowFrom.join(", ") : "unset";

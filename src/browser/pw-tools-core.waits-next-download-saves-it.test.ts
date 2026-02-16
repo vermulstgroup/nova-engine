@@ -10,7 +10,7 @@ import {
 installPwToolsCoreTestHooks();
 const sessionMocks = getPwToolsCoreSessionMocks();
 const tmpDirMocks = vi.hoisted(() => ({
-  resolvePreferredNova EngineTmpDir: vi.fn(() => "/tmp/nova-engine"),
+  resolvePreferredNovaEngineTmpDir: vi.fn(() => "/tmp/nova-engine"),
 }));
 vi.mock("../infra/tmp-nova-engine-dir.js", () => tmpDirMocks);
 const mod = await import("./pw-tools-core.js");
@@ -20,7 +20,7 @@ describe("pw-tools-core", () => {
     for (const fn of Object.values(tmpDirMocks)) {
       fn.mockClear();
     }
-    tmpDirMocks.resolvePreferredNova EngineTmpDir.mockReturnValue("/tmp/nova-engine");
+    tmpDirMocks.resolvePreferredNovaEngineTmpDir.mockReturnValue("/tmp/nova-engine");
   });
 
   it("waits for the next download and saves it", async () => {
@@ -113,7 +113,7 @@ describe("pw-tools-core", () => {
       saveAs,
     };
 
-    tmpDirMocks.resolvePreferredNova EngineTmpDir.mockReturnValue("/tmp/nova-engine-preferred");
+    tmpDirMocks.resolvePreferredNovaEngineTmpDir.mockReturnValue("/tmp/nova-engine-preferred");
     setPwToolsCoreCurrentPage({ on, off });
 
     const p = mod.waitForDownloadViaPlaywright({
@@ -138,7 +138,7 @@ describe("pw-tools-core", () => {
     expect(path.dirname(String(outPath))).toBe(expectedRootedDownloadsDir);
     expect(path.basename(String(outPath))).toMatch(/-file\.bin$/);
     expect(path.normalize(res.path)).toContain(path.normalize(expectedDownloadsTail));
-    expect(tmpDirMocks.resolvePreferredNova EngineTmpDir).toHaveBeenCalled();
+    expect(tmpDirMocks.resolvePreferredNovaEngineTmpDir).toHaveBeenCalled();
   });
 
   it("sanitizes suggested download filenames to prevent traversal escapes", async () => {
@@ -157,7 +157,7 @@ describe("pw-tools-core", () => {
       saveAs,
     };
 
-    tmpDirMocks.resolvePreferredNova EngineTmpDir.mockReturnValue("/tmp/nova-engine-preferred");
+    tmpDirMocks.resolvePreferredNovaEngineTmpDir.mockReturnValue("/tmp/nova-engine-preferred");
     setPwToolsCoreCurrentPage({ on, off });
 
     const p = mod.waitForDownloadViaPlaywright({

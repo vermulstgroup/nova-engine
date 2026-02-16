@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { CronJob } from "./types.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
@@ -36,9 +36,9 @@ export async function writeSessionStore(
 export function makeCfg(
   home: string,
   storePath: string,
-  overrides: Partial<Nova EngineConfig> = {},
-): Nova EngineConfig {
-  const base: Nova EngineConfig = {
+  overrides: Partial<NovaEngineConfig> = {},
+): NovaEngineConfig {
+  const base: NovaEngineConfig = {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
@@ -46,7 +46,7 @@ export function makeCfg(
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
   return { ...base, ...overrides };
 }
 

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveOAuthDir, resolveStateDir } from "../config/paths.js";
 import {
@@ -133,7 +133,7 @@ function findOtherStateDirs(stateDir: string): string[] {
 }
 
 export async function noteStateIntegrity(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   prompter: DoctorPrompterLike,
   configPath?: string,
 ) {

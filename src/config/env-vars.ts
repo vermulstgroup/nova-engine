@@ -1,6 +1,6 @@
-import type { Nova EngineConfig } from "./types.js";
+import type { NovaEngineConfig } from "./types.js";
 
-export function collectConfigEnvVars(cfg?: Nova EngineConfig): Record<string, string> {
+export function collectConfigEnvVars(cfg?: NovaEngineConfig): Record<string, string> {
   const envConfig = cfg?.env;
   if (!envConfig) {
     return {};
@@ -31,7 +31,7 @@ export function collectConfigEnvVars(cfg?: Nova EngineConfig): Record<string, st
 }
 
 export function applyConfigEnvVars(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): void {
   const entries = collectConfigEnvVars(cfg);

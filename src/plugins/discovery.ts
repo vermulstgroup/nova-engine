@@ -5,7 +5,7 @@ import { resolveConfigDir, resolveUserPath } from "../utils.js";
 import { resolveBundledPluginsDir } from "./bundled-dir.js";
 import {
   getPackageManifestMetadata,
-  type Nova EnginePackageManifest,
+  type NovaEnginePackageManifest,
   type PackageManifest,
 } from "./manifest.js";
 
@@ -21,7 +21,7 @@ export type PluginCandidate = {
   packageVersion?: string;
   packageDescription?: string;
   packageDir?: string;
-  packageManifest?: Nova EnginePackageManifest;
+  packageManifest?: NovaEnginePackageManifest;
 };
 
 export type PluginDiscoveryResult = {
@@ -298,7 +298,7 @@ function discoverFromPath(params: {
   }
 }
 
-export function discoverNova EnginePlugins(params: {
+export function discoverNovaEnginePlugins(params: {
   workspaceDir?: string;
   extraPaths?: string[];
 }): PluginDiscoveryResult {

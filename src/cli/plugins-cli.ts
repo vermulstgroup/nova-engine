@@ -2,7 +2,7 @@ import type { Command } from "commander";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { PluginRecord } from "../plugins/registry.js";
 import { loadConfig, writeConfigFile } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
@@ -111,9 +111,9 @@ function formatPluginLine(plugin: PluginRecord, verbose = false): string {
 }
 
 function applySlotSelectionForPlugin(
-  config: Nova EngineConfig,
+  config: NovaEngineConfig,
   pluginId: string,
-): { config: Nova EngineConfig; warnings: string[] } {
+): { config: NovaEngineConfig; warnings: string[] } {
   const report = buildPluginStatusReport({ config });
   const plugin = report.plugins.find((entry) => entry.id === pluginId);
   if (!plugin) {
@@ -135,7 +135,7 @@ function createPluginInstallLogger(): { info: (msg: string) => void; warn: (msg:
   };
 }
 
-function enablePluginInConfig(config: Nova EngineConfig, pluginId: string): Nova EngineConfig {
+function enablePluginInConfig(config: NovaEngineConfig, pluginId: string): NovaEngineConfig {
   return {
     ...config,
     plugins: {
@@ -352,7 +352,7 @@ export function registerPluginsCli(program: Command) {
     .argument("<id>", "Plugin id")
     .action(async (id: string) => {
       const cfg = loadConfig();
-      let next: Nova EngineConfig = {
+      let next: NovaEngineConfig = {
         ...cfg,
         plugins: {
           ...cfg.plugins,
@@ -555,7 +555,7 @@ export function registerPluginsCli(program: Command) {
             process.exit(1);
           }
 
-          let next: Nova EngineConfig = enablePluginInConfig(
+          let next: NovaEngineConfig = enablePluginInConfig(
             {
               ...cfg,
               plugins: {

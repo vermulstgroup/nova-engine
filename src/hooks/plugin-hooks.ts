@@ -1,6 +1,6 @@
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { Nova EnginePluginApi } from "../plugins/types.js";
+import type { NovaEnginePluginApi } from "../plugins/types.js";
 import type { InternalHookHandler } from "./internal-hooks.js";
 import type { HookEntry } from "./types.js";
 import { shouldIncludeHook } from "./config.js";
@@ -13,14 +13,14 @@ export type PluginHookLoadResult = {
   errors: string[];
 };
 
-function resolveHookDir(api: Nova EnginePluginApi, dir: string): string {
+function resolveHookDir(api: NovaEnginePluginApi, dir: string): string {
   if (path.isAbsolute(dir)) {
     return dir;
   }
   return path.resolve(path.dirname(api.source), dir);
 }
 
-function normalizePluginHookEntry(api: Nova EnginePluginApi, entry: HookEntry): HookEntry {
+function normalizePluginHookEntry(api: NovaEnginePluginApi, entry: HookEntry): HookEntry {
   return {
     ...entry,
     hook: {
@@ -38,7 +38,7 @@ function normalizePluginHookEntry(api: Nova EnginePluginApi, entry: HookEntry): 
 
 async function loadHookHandler(
   entry: HookEntry,
-  api: Nova EnginePluginApi,
+  api: NovaEnginePluginApi,
 ): Promise<InternalHookHandler | null> {
   try {
     const url = pathToFileURL(entry.hook.handlerPath).href;
@@ -58,7 +58,7 @@ async function loadHookHandler(
 }
 
 export async function registerPluginHooksFromDir(
-  api: Nova EnginePluginApi,
+  api: NovaEnginePluginApi,
   dir: string,
 ): Promise<PluginHookLoadResult> {
   const resolvedDir = resolveHookDir(api, dir);

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { ResolvedSlackAccount } from "../../accounts.js";
 import type { SlackMessageEvent } from "../../types.js";
@@ -42,7 +42,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
     const slackCtx = createSlackMonitorContext({
       cfg: {
         channels: { slack: { enabled: true } },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       accountId: "default",
       botToken: "token",
       app: { client: {} } as App,
@@ -99,7 +99,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
     });
   }
 
-  function createThreadSlackCtx(params: { cfg: Nova EngineConfig; replies: unknown }) {
+  function createThreadSlackCtx(params: { cfg: NovaEngineConfig; replies: unknown }) {
     return createSlackMonitorContext({
       cfg: params.cfg,
       accountId: "default",
@@ -175,7 +175,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
             enabled: true,
           },
         },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       accountId: "default",
       botToken: "token",
       app: { client: {} } as App,
@@ -259,7 +259,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
     const slackCtx = createSlackMonitorContext({
       cfg: {
         channels: { slack: { enabled: true, replyToMode: "all" } },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       accountId: "default",
       botToken: "token",
       app: { client: {} } as App,
@@ -344,7 +344,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
       cfg: {
         session: { store: storePath },
         channels: { slack: { enabled: true, replyToMode: "all", groupPolicy: "open" } },
-      } as Nova EngineConfig,
+      } as NovaEngineConfig,
       replies,
     });
     slackCtx.resolveUserName = async (id: string) => ({
@@ -383,7 +383,7 @@ describe("slack prepareSlackMessage inbound contract", () => {
     const cfg = {
       session: { store: storePath },
       channels: { slack: { enabled: true, replyToMode: "all", groupPolicy: "open" } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const route = resolveAgentRoute({
       cfg,
       channel: "slack",

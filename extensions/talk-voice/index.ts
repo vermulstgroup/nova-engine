@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 
 type ElevenLabsVoice = {
   voice_id: string;
@@ -73,7 +73,7 @@ function findVoice(voices: ElevenLabsVoice[], query: string): ElevenLabsVoice | 
   return partial ?? null;
 }
 
-export default function register(api: Nova EnginePluginApi) {
+export default function register(api: NovaEnginePluginApi) {
   api.registerCommand({
     name: "voice",
     description: "List/set ElevenLabs Talk voice (affects iOS Talk playback).",

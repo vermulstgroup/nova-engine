@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import {
   looksLikeSessionId,
   looksLikeSessionKey,
@@ -13,7 +13,7 @@ describe("resolveMainSessionAlias", () => {
   it("uses normalized main key and global alias for global scope", () => {
     const cfg = {
       session: { mainKey: " Primary ", scope: "global" },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     expect(resolveMainSessionAlias(cfg)).toEqual({
       mainKey: "primary",
@@ -23,7 +23,7 @@ describe("resolveMainSessionAlias", () => {
   });
 
   it("falls back to per-sender defaults", () => {
-    expect(resolveMainSessionAlias({} as Nova EngineConfig)).toEqual({
+    expect(resolveMainSessionAlias({} as NovaEngineConfig)).toEqual({
       mainKey: "main",
       alias: "main",
       scope: "per-sender",

@@ -4,7 +4,7 @@ import path from "node:path";
 
 export const POSIX_NOVA_TMP_DIR = "/tmp/nova-engine";
 
-type ResolvePreferredNova EngineTmpDirOptions = {
+type ResolvePreferredNovaEngineTmpDirOptions = {
   accessSync?: (path: string, mode?: number) => void;
   lstatSync?: (path: string) => {
     isDirectory(): boolean;
@@ -28,8 +28,8 @@ function isNodeErrorWithCode(err: unknown, code: string): err is MaybeNodeError 
   );
 }
 
-export function resolvePreferredNova EngineTmpDir(
-  options: ResolvePreferredNova EngineTmpDirOptions = {},
+export function resolvePreferredNovaEngineTmpDir(
+  options: ResolvePreferredNovaEngineTmpDirOptions = {},
 ): string {
   const accessSync = options.accessSync ?? fs.accessSync;
   const lstatSync = options.lstatSync ?? fs.lstatSync;

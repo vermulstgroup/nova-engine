@@ -3,14 +3,14 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ResolvedLineAccount } from "./types.js";
 import { buildLineMessageContext, buildLinePostbackContext } from "./bot-message-context.js";
 
 describe("buildLineMessageContext", () => {
   let tmpDir: string;
   let storePath: string;
-  let cfg: Nova EngineConfig;
+  let cfg: NovaEngineConfig;
   const account: ResolvedLineAccount = {
     accountId: "default",
     enabled: true,

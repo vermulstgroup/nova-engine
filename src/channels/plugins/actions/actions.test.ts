@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 
 const handleDiscordAction = vi.fn(async () => ({ details: { ok: true } }));
 const handleTelegramAction = vi.fn(async () => ({ ok: true }));
@@ -36,7 +36,7 @@ beforeEach(() => {
 
 describe("discord message actions", () => {
   it("lists channel and upload actions by default", async () => {
-    const cfg = { channels: { discord: { token: "d0" } } } as Nova EngineConfig;
+    const cfg = { channels: { discord: { token: "d0" } } } as NovaEngineConfig;
     const actions = discordMessageActions.listActions?.({ cfg }) ?? [];
 
     expect(actions).toContain("emoji-upload");
@@ -47,7 +47,7 @@ describe("discord message actions", () => {
   it("respects disabled channel actions", async () => {
     const cfg = {
       channels: { discord: { token: "d0", actions: { channels: false } } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const actions = discordMessageActions.listActions?.({ cfg }) ?? [];
 
     expect(actions).not.toContain("channel-create");
@@ -62,7 +62,7 @@ describe("handleDiscordMessageAction", () => {
         to: "channel:123",
         message: "hi",
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
       accountId: "ops",
     });
 
@@ -87,7 +87,7 @@ describe("handleDiscordMessageAction", () => {
         message: "hi",
         embeds,
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
     });
 
     expect(handleDiscordAction).toHaveBeenCalledWith(
@@ -110,7 +110,7 @@ describe("handleDiscordMessageAction", () => {
         pollOption: ["Yes", "No"],
         accountId: "marve",
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
     });
 
     expect(handleDiscordAction).toHaveBeenCalledWith(
@@ -132,7 +132,7 @@ describe("handleDiscordMessageAction", () => {
         channelId: "123",
         message: "hi",
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
       accountId: "ops",
     });
 
@@ -157,7 +157,7 @@ describe("handleDiscordMessageAction", () => {
         channelId: "123",
         message: "hi",
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
       accountId: "ops",
     });
 
@@ -180,7 +180,7 @@ describe("handleDiscordMessageAction", () => {
         threadName: "Forum thread",
         message: "Initial forum post body",
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
     });
 
     expect(handleDiscordAction).toHaveBeenCalledWith(
@@ -203,7 +203,7 @@ describe("handleDiscordMessageAction", () => {
         locked: false,
         autoArchiveDuration: 1440,
       },
-      cfg: {} as Nova EngineConfig,
+      cfg: {} as NovaEngineConfig,
     });
 
     expect(handleDiscordAction).toHaveBeenCalledWith(
@@ -221,14 +221,14 @@ describe("handleDiscordMessageAction", () => {
 
 describe("telegramMessageActions", () => {
   it("excludes sticker actions when not enabled", () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
     const actions = telegramMessageActions.listActions({ cfg });
     expect(actions).not.toContain("sticker");
     expect(actions).not.toContain("sticker-search");
   });
 
   it("allows media-only sends and passes asVoice", async () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
 
     await telegramMessageActions.handleAction({
       action: "send",
@@ -254,7 +254,7 @@ describe("telegramMessageActions", () => {
   });
 
   it("passes silent flag for silent sends", async () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
 
     await telegramMessageActions.handleAction({
       action: "send",
@@ -279,7 +279,7 @@ describe("telegramMessageActions", () => {
   });
 
   it("maps edit action params into editMessage", async () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
 
     await telegramMessageActions.handleAction({
       action: "edit",
@@ -307,7 +307,7 @@ describe("telegramMessageActions", () => {
   });
 
   it("rejects non-integer messageId for edit before reaching telegram-actions", async () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
 
     await expect(
       telegramMessageActions.handleAction({
@@ -326,7 +326,7 @@ describe("telegramMessageActions", () => {
   });
 
   it("accepts numeric messageId and channelId for reactions", async () => {
-    const cfg = { channels: { telegram: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { telegram: { botToken: "tok" } } } as NovaEngineConfig;
 
     await telegramMessageActions.handleAction({
       action: "react",
@@ -350,14 +350,14 @@ describe("telegramMessageActions", () => {
 
 describe("signalMessageActions", () => {
   it("returns no actions when no configured accounts exist", () => {
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     expect(signalMessageActions.listActions({ cfg })).toEqual([]);
   });
 
   it("hides react when reactions are disabled", () => {
     const cfg = {
       channels: { signal: { account: "+15550001111", actions: { reactions: false } } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     expect(signalMessageActions.listActions({ cfg })).toEqual(["send"]);
   });
 
@@ -371,7 +371,7 @@ describe("signalMessageActions", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     expect(signalMessageActions.listActions({ cfg })).toEqual(["send", "react"]);
   });
 
@@ -383,7 +383,7 @@ describe("signalMessageActions", () => {
   it("blocks reactions when action gate is disabled", async () => {
     const cfg = {
       channels: { signal: { account: "+15550001111", actions: { reactions: false } } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     await expect(
       signalMessageActions.handleAction({
@@ -405,7 +405,7 @@ describe("signalMessageActions", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     await signalMessageActions.handleAction({
       action: "react",
@@ -422,7 +422,7 @@ describe("signalMessageActions", () => {
   it("normalizes uuid recipients", async () => {
     const cfg = {
       channels: { signal: { account: "+15550001111" } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     await signalMessageActions.handleAction({
       action: "react",
@@ -446,7 +446,7 @@ describe("signalMessageActions", () => {
   it("requires targetAuthor for group reactions", async () => {
     const cfg = {
       channels: { signal: { account: "+15550001111" } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     await expect(
       signalMessageActions.handleAction({
@@ -461,7 +461,7 @@ describe("signalMessageActions", () => {
   it("passes groupId and targetAuthor for group reactions", async () => {
     const cfg = {
       channels: { signal: { account: "+15550001111" } },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     await signalMessageActions.handleAction({
       action: "react",
@@ -486,7 +486,7 @@ describe("signalMessageActions", () => {
 
 describe("slack actions adapter", () => {
   it("forwards threadId for read", async () => {
-    const cfg = { channels: { slack: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { slack: { botToken: "tok" } } } as NovaEngineConfig;
     const actions = createSlackActions("slack");
 
     await actions.handleAction?.({
@@ -508,7 +508,7 @@ describe("slack actions adapter", () => {
   });
 
   it("forwards normalized limit for emoji-list", async () => {
-    const cfg = { channels: { slack: { botToken: "tok" } } } as Nova EngineConfig;
+    const cfg = { channels: { slack: { botToken: "tok" } } } as NovaEngineConfig;
     const actions = createSlackActions("slack");
 
     await actions.handleAction?.({

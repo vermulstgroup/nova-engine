@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { GatewayRequestHandlers } from "./types.js";
 import {
   listAgentIds,
@@ -194,7 +194,7 @@ export const skillsHandlers: GatewayRequestHandlers = {
     }
     entries[p.skillKey] = current;
     skills.entries = entries;
-    const nextConfig: Nova EngineConfig = {
+    const nextConfig: NovaEngineConfig = {
       ...cfg,
       skills,
     };

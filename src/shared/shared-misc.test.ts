@@ -4,7 +4,7 @@ import {
   getFrontmatterString,
   normalizeStringList,
   parseFrontmatterBool,
-  resolveNova EngineManifestBlock,
+  resolveNovaEngineManifestBlock,
 } from "./frontmatter.js";
 import { resolveNodeIdFromCandidates } from "./node-match.js";
 
@@ -50,20 +50,20 @@ describe("shared/frontmatter", () => {
     expect(parseFrontmatterBool(undefined, true)).toBe(true);
   });
 
-  test("resolveNova EngineManifestBlock parses JSON5 metadata and picks nova-engine block", () => {
+  test("resolveNovaEngineManifestBlock parses JSON5 metadata and picks nova-engine block", () => {
     const frontmatter = {
       metadata: "{ nova-engine: { foo: 1, bar: 'baz' } }",
     };
-    expect(resolveNova EngineManifestBlock({ frontmatter })).toEqual({ foo: 1, bar: "baz" });
+    expect(resolveNovaEngineManifestBlock({ frontmatter })).toEqual({ foo: 1, bar: "baz" });
   });
 
-  test("resolveNova EngineManifestBlock returns undefined for invalid input", () => {
-    expect(resolveNova EngineManifestBlock({ frontmatter: {} })).toBeUndefined();
+  test("resolveNovaEngineManifestBlock returns undefined for invalid input", () => {
+    expect(resolveNovaEngineManifestBlock({ frontmatter: {} })).toBeUndefined();
     expect(
-      resolveNova EngineManifestBlock({ frontmatter: { metadata: "not-json5" } }),
+      resolveNovaEngineManifestBlock({ frontmatter: { metadata: "not-json5" } }),
     ).toBeUndefined();
     expect(
-      resolveNova EngineManifestBlock({ frontmatter: { metadata: "{ nope: { a: 1 } }" } }),
+      resolveNovaEngineManifestBlock({ frontmatter: { metadata: "{ nope: { a: 1 } }" } }),
     ).toBeUndefined();
   });
 });

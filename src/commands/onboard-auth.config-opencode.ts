@@ -1,7 +1,7 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { OPENCODE_ZEN_DEFAULT_MODEL_REF } from "../agents/opencode-zen-models.js";
 
-export function applyOpencodeZenProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyOpencodeZenProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   // Use the built-in opencode provider from pi-ai; only seed the allowlist alias.
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENCODE_ZEN_DEFAULT_MODEL_REF] = {
@@ -21,7 +21,7 @@ export function applyOpencodeZenProviderConfig(cfg: Nova EngineConfig): Nova Eng
   };
 }
 
-export function applyOpencodeZenConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyOpencodeZenConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyOpencodeZenProviderConfig(cfg);
   return {
     ...next,

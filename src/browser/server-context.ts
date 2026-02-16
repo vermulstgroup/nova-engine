@@ -15,9 +15,9 @@ import { appendCdpPath, createTargetViaCdp, normalizeCdpWsUrl } from "./cdp.js";
 import {
   isChromeCdpReady,
   isChromeReachable,
-  launchNova EngineChrome,
-  resolveNova EngineUserDataDir,
-  stopNova EngineChrome,
+  launchNovaEngineChrome,
+  resolveNovaEngineUserDataDir,
+  stopNovaEngineChrome,
 } from "./chrome.js";
 import { resolveProfile } from "./config.js";
 import {
@@ -305,7 +305,7 @@ function createProfileContext(
             : `Browser attachOnly is enabled and profile "${profile.name}" is not running.`,
         );
       }
-      const launched = await launchNova EngineChrome(current.resolved, profile);
+      const launched = await launchNovaEngineChrome(current.resolved, profile);
       attachRunning(launched);
       return;
     }
@@ -338,10 +338,10 @@ function createProfileContext(
       );
     }
 
-    await stopNova EngineChrome(profileState.running);
+    await stopNovaEngineChrome(profileState.running);
     setProfileRunning(null);
 
-    const relaunched = await launchNova EngineChrome(current.resolved, profile);
+    const relaunched = await launchNovaEngineChrome(current.resolved, profile);
     attachRunning(relaunched);
 
     if (!(await isReachable(600))) {
@@ -480,7 +480,7 @@ function createProfileContext(
     if (!profileState.running) {
       return { stopped: false };
     }
-    await stopNova EngineChrome(profileState.running);
+    await stopNovaEngineChrome(profileState.running);
     setProfileRunning(null);
     return { stopped: true };
   };
@@ -495,7 +495,7 @@ function createProfileContext(
         `reset-profile is only supported for local profiles (profile "${profile.name}" is remote).`,
       );
     }
-    const userDataDir = resolveNova EngineUserDataDir(profile.name);
+    const userDataDir = resolveNovaEngineUserDataDir(profile.name);
     const profileState = getProfileState();
 
     const httpReachable = await isHttpReachable(300);

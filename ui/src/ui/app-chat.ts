@@ -1,4 +1,4 @@
-import type { Nova EngineApp } from "./app.ts";
+import type { NovaEngineApp } from "./app.ts";
 import type { GatewayHelloOk } from "./gateway.ts";
 import type { ChatAttachment, ChatQueueItem } from "./ui-types.ts";
 import { parseAgentSessionKey } from "../../../src/sessions/session-key-utils.js";
@@ -65,7 +65,7 @@ export async function handleAbortChat(host: ChatHost) {
     return;
   }
   host.chatMessage = "";
-  await abortChatRun(host as unknown as Nova EngineApp);
+  await abortChatRun(host as unknown as NovaEngineApp);
 }
 
 function enqueueChatMessage(
@@ -104,7 +104,7 @@ async function sendChatMessageNow(
   },
 ) {
   resetToolStream(host as unknown as Parameters<typeof resetToolStream>[0]);
-  const runId = await sendChatMessage(host as unknown as Nova EngineApp, message, opts?.attachments);
+  const runId = await sendChatMessage(host as unknown as NovaEngineApp, message, opts?.attachments);
   const ok = Boolean(runId);
   if (!ok && opts?.previousDraft != null) {
     host.chatMessage = opts.previousDraft;
@@ -204,8 +204,8 @@ export async function handleSendChat(
 
 export async function refreshChat(host: ChatHost, opts?: { scheduleScroll?: boolean }) {
   await Promise.all([
-    loadChatHistory(host as unknown as Nova EngineApp),
-    loadSessions(host as unknown as Nova EngineApp, {
+    loadChatHistory(host as unknown as NovaEngineApp),
+    loadSessions(host as unknown as NovaEngineApp, {
       activeMinutes: CHAT_SESSIONS_ACTIVE_MINUTES,
     }),
     refreshChatAvatar(host),

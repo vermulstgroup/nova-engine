@@ -61,7 +61,7 @@ vi.mock("../model-auth.js", () => ({
 }));
 
 vi.mock("../models-config.js", () => ({
-  ensureNova EngineModelsJson: vi.fn(async () => {}),
+  ensureNovaEngineModelsJson: vi.fn(async () => {}),
 }));
 
 vi.mock("../context-window-guard.js", () => ({
@@ -88,7 +88,7 @@ vi.mock("../../utils/message-channel.js", () => ({
 }));
 
 vi.mock("../agent-paths.js", () => ({
-  resolveNova EngineAgentDir: vi.fn(() => "/tmp/agent-dir"),
+  resolveNovaEngineAgentDir: vi.fn(() => "/tmp/agent-dir"),
 }));
 
 vi.mock("../defaults.js", () => ({

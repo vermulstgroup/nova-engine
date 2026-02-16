@@ -25,7 +25,7 @@ import type { PluginsConfig } from "./types.plugins.js";
 import type { SkillsConfig } from "./types.skills.js";
 import type { ToolsConfig } from "./types.tools.js";
 
-export type Nova EngineConfig = {
+export type NovaEngineConfig = {
   meta?: {
     /** Last Nova Engine version that wrote this config. */
     lastTouchedVersion?: string;
@@ -119,9 +119,9 @@ export type ConfigFileSnapshot = {
    * defaults are applied. Use this for config set/unset operations to avoid
    * leaking runtime defaults into the written config file.
    */
-  resolved: Nova EngineConfig;
+  resolved: NovaEngineConfig;
   valid: boolean;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   hash?: string;
   issues: ConfigValidationIssue[];
   warnings: ConfigValidationIssue[];

@@ -1,6 +1,6 @@
 import {
   emptyPluginConfigSchema,
-  type Nova EnginePluginApi,
+  type NovaEnginePluginApi,
   type ProviderAuthContext,
   type ProviderAuthResult,
 } from "nova-engine/plugin-sdk";
@@ -76,7 +76,7 @@ const copilotProxyPlugin = {
   name: "Copilot Proxy",
   description: "Local Copilot Proxy (VS Code LM) provider plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     api.registerProvider({
       id: "copilot-proxy",
       label: "Copilot Proxy",

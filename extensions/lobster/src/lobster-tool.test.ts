@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { PassThrough } from "node:stream";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EnginePluginApi, Nova EnginePluginToolContext } from "../../../src/plugins/types.js";
+import type { NovaEnginePluginApi, NovaEnginePluginToolContext } from "../../../src/plugins/types.js";
 
 const spawnState = vi.hoisted(() => ({
   queue: [] as Array<{ stdout: string; stderr?: string; exitCode?: number }>,
@@ -17,7 +17,7 @@ vi.mock("node:child_process", () => ({
 
 let createLobsterTool: typeof import("./lobster-tool.js").createLobsterTool;
 
-function fakeApi(overrides: Partial<Nova EnginePluginApi> = {}): Nova EnginePluginApi {
+function fakeApi(overrides: Partial<NovaEnginePluginApi> = {}): NovaEnginePluginApi {
   return {
     id: "lobster",
     name: "lobster",
@@ -43,7 +43,7 @@ function fakeApi(overrides: Partial<Nova EnginePluginApi> = {}): Nova EnginePlug
   };
 }
 
-function fakeCtx(overrides: Partial<Nova EnginePluginToolContext> = {}): Nova EnginePluginToolContext {
+function fakeCtx(overrides: Partial<NovaEnginePluginToolContext> = {}): NovaEnginePluginToolContext {
   return {
     config: {},
     workspaceDir: "/tmp",
@@ -228,7 +228,7 @@ describe("lobster plugin tool", () => {
 
   it("can be gated off in sandboxed contexts", async () => {
     const api = fakeApi();
-    const factoryTool = (ctx: Nova EnginePluginToolContext) => {
+    const factoryTool = (ctx: NovaEnginePluginToolContext) => {
       if (ctx.sandboxed) {
         return null;
       }

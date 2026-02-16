@@ -1,11 +1,11 @@
-import type { Nova EngineConfig, Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 
 type ThreadOwnershipConfig = {
   forwarderUrl?: string;
   abTestChannels?: string[];
 };
 
-type AgentEntry = NonNullable<NonNullable<Nova EngineConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<NovaEngineConfig["agents"]>["list"]>[number];
 
 // In-memory set of {channel}:{thread} keys where this agent was @-mentioned.
 // Entries expire after 5 minutes.
@@ -21,7 +21,7 @@ function cleanExpiredMentions(): void {
   }
 }
 
-function resolveOwnershipAgent(config: Nova EngineConfig): { id: string; name: string } {
+function resolveOwnershipAgent(config: NovaEngineConfig): { id: string; name: string } {
   const list = Array.isArray(config.agents?.list)
     ? config.agents.list.filter((entry): entry is AgentEntry =>
         Boolean(entry && typeof entry === "object"),
@@ -39,7 +39,7 @@ function resolveOwnershipAgent(config: Nova EngineConfig): { id: string; name: s
   return { id, name };
 }
 
-export default function register(api: Nova EnginePluginApi) {
+export default function register(api: NovaEnginePluginApi) {
   const pluginCfg = (api.pluginConfig ?? {}) as ThreadOwnershipConfig;
   const forwarderUrl = (
     pluginCfg.forwarderUrl ??

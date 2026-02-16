@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   applyAgentDefaultModelPrimary,
   applyProviderConfigWithDefaultModel,
@@ -36,7 +36,7 @@ function buildLitellmModelDefinition(): {
   };
 }
 
-export function applyLitellmProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyLitellmProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[LITELLM_DEFAULT_MODEL_REF] = {
     ...models[LITELLM_DEFAULT_MODEL_REF],
@@ -59,7 +59,7 @@ export function applyLitellmProviderConfig(cfg: Nova EngineConfig): Nova EngineC
   });
 }
 
-export function applyLitellmConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyLitellmConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyLitellmProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, LITELLM_DEFAULT_MODEL_REF);
 }

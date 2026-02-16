@@ -1,5 +1,5 @@
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type {
   MediaUnderstandingConfig,
   MediaUnderstandingModelConfig,
@@ -36,7 +36,7 @@ export function resolvePrompt(
 export function resolveMaxChars(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   config?: MediaUnderstandingConfig;
 }): number | undefined {
   const { capability, entry, cfg } = params;
@@ -51,7 +51,7 @@ export function resolveMaxChars(params: {
 export function resolveMaxBytes(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   config?: MediaUnderstandingConfig;
 }): number {
   const configured =
@@ -65,7 +65,7 @@ export function resolveMaxBytes(params: {
 }
 
 export function resolveCapabilityConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   capability: MediaUnderstandingCapability,
 ): MediaUnderstandingConfig | undefined {
   return cfg.tools?.media?.[capability];
@@ -99,7 +99,7 @@ function resolveEntryCapabilities(params: {
 }
 
 export function resolveModelEntries(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   capability: MediaUnderstandingCapability;
   config?: MediaUnderstandingConfig;
   providerRegistry: Map<string, { capabilities?: MediaUnderstandingCapability[] }>;
@@ -138,7 +138,7 @@ export function resolveModelEntries(params: {
     .map(({ entry }) => entry);
 }
 
-export function resolveConcurrency(cfg: Nova EngineConfig): number {
+export function resolveConcurrency(cfg: NovaEngineConfig): number {
   const configured = cfg.tools?.media?.concurrency;
   if (typeof configured === "number" && Number.isFinite(configured) && configured > 0) {
     return Math.floor(configured);
@@ -147,7 +147,7 @@ export function resolveConcurrency(cfg: Nova EngineConfig): number {
 }
 
 export function resolveEntriesWithActiveFallback(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   capability: MediaUnderstandingCapability;
   config?: MediaUnderstandingConfig;
   providerRegistry: Map<string, { capabilities?: MediaUnderstandingCapability[] }>;

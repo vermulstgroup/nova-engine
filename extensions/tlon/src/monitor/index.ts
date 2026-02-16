@@ -1,4 +1,4 @@
-import type { RuntimeEnv, ReplyPayload, Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { RuntimeEnv, ReplyPayload, NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { format } from "node:util";
 import { createReplyPrefixOptions } from "nova-engine/plugin-sdk";
 import { getTlonRuntime } from "../runtime.js";
@@ -64,7 +64,7 @@ type UrbitUpdate = {
 };
 
 function resolveChannelAuthorization(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   channelNest: string,
 ): { mode: "restricted" | "open"; allowedShips: string[] } {
   const tlonConfig = cfg.channels?.tlon as

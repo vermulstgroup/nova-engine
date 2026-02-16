@@ -86,7 +86,7 @@ jobs:
             case "$path" in
               # Generated protocol models are already covered by protocol:check and
               # should not force the full native macOS lane.
-              apps/macos/Sources/Nova EngineProtocol/*|apps/shared/Nova EngineKit/Sources/Nova EngineProtocol/*)
+              apps/macos/Sources/NovaEngineProtocol/*|apps/shared/NovaEngineKit/Sources/NovaEngineProtocol/*)
                 ;;
               apps/macos/*|apps/ios/*|apps/shared/*|Swabble/*)
                 run_macos=true

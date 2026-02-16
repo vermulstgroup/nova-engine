@@ -176,7 +176,7 @@ export function getLaunchCalls() {
 vi.mock("./chrome.js", () => ({
   isChromeCdpReady: vi.fn(async () => state.reachable),
   isChromeReachable: vi.fn(async () => state.reachable),
-  launchNova EngineChrome: vi.fn(async (_resolved: unknown, profile: { cdpPort: number }) => {
+  launchNovaEngineChrome: vi.fn(async (_resolved: unknown, profile: { cdpPort: number }) => {
     launchCalls.push({ port: profile.cdpPort });
     state.reachable = true;
     return {
@@ -188,8 +188,8 @@ vi.mock("./chrome.js", () => ({
       proc,
     };
   }),
-  resolveNova EngineUserDataDir: vi.fn(() => chromeUserDataDir.dir),
-  stopNova EngineChrome: vi.fn(async () => {
+  resolveNovaEngineUserDataDir: vi.fn(() => chromeUserDataDir.dir),
+  stopNovaEngineChrome: vi.fn(async () => {
     state.reachable = false;
   }),
 }));

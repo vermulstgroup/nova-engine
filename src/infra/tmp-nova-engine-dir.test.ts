@@ -1,8 +1,8 @@
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { POSIX_NOVA_TMP_DIR, resolvePreferredNova EngineTmpDir } from "./tmp-nova-engine-dir.js";
+import { POSIX_NOVA_TMP_DIR, resolvePreferredNovaEngineTmpDir } from "./tmp-nova-engine-dir.js";
 
-describe("resolvePreferredNova EngineTmpDir", () => {
+describe("resolvePreferredNovaEngineTmpDir", () => {
   it("prefers /tmp/nova-engine when it already exists and is writable", () => {
     const accessSync = vi.fn();
     const lstatSync = vi.fn(() => ({
@@ -15,7 +15,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -53,7 +53,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
       mode: 0o40700,
     }));
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -79,7 +79,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -106,7 +106,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -130,7 +130,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -154,7 +154,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,
@@ -178,7 +178,7 @@ describe("resolvePreferredNova EngineTmpDir", () => {
     const getuid = vi.fn(() => 501);
     const tmpdir = vi.fn(() => "/var/fallback");
 
-    const resolved = resolvePreferredNova EngineTmpDir({
+    const resolved = resolvePreferredNovaEngineTmpDir({
       accessSync,
       lstatSync,
       mkdirSync,

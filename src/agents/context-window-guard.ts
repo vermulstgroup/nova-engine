@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export const CONTEXT_WINDOW_HARD_MIN_TOKENS = 16_000;
 export const CONTEXT_WINDOW_WARN_BELOW_TOKENS = 32_000;
@@ -19,7 +19,7 @@ function normalizePositiveInt(value: unknown): number | null {
 }
 
 export function resolveContextWindowInfo(params: {
-  cfg: Nova EngineConfig | undefined;
+  cfg: NovaEngineConfig | undefined;
   provider: string;
   modelId: string;
   modelContextWindow?: number;

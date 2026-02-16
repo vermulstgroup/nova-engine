@@ -1,8 +1,8 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { AuthProfileStore } from "./types.js";
 
 export function resolveAuthProfileDisplayLabel(params: {
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   store: AuthProfileStore;
   profileId: string;
 }): string {

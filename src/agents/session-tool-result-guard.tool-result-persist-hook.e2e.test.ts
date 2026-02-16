@@ -8,7 +8,7 @@ import {
   initializeGlobalHookRunner,
   resetGlobalHookRunner,
 } from "../plugins/hook-runner-global.js";
-import { loadNova EnginePlugins } from "../plugins/loader.js";
+import { loadNovaEnginePlugins } from "../plugins/loader.js";
 import { guardSessionManager } from "./session-tool-result-guard-wrapper.js";
 
 const EMPTY_PLUGIN_SCHEMA = { type: "object", additionalProperties: false, properties: {} };
@@ -97,7 +97,7 @@ describe("tool_result_persist hook", () => {
 } };`,
     });
 
-    const registry = loadNova EnginePlugins({
+    const registry = loadNovaEnginePlugins({
       cache: false,
       workspaceDir: tmp,
       config: {

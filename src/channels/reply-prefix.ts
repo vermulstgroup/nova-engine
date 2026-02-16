@@ -1,5 +1,5 @@
 import type { GetReplyOptions } from "../auto-reply/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveEffectiveMessagesConfig, resolveIdentityName } from "../agents/identity.js";
 import {
   extractShortModelName,
@@ -21,7 +21,7 @@ export type ReplyPrefixOptions = Pick<
 >;
 
 export function createReplyPrefixContext(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   channel?: string;
   accountId?: string;
@@ -51,7 +51,7 @@ export function createReplyPrefixContext(params: {
 }
 
 export function createReplyPrefixOptions(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   channel?: string;
   accountId?: string;

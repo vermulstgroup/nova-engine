@@ -82,7 +82,7 @@ function candidateDirsFromArgv1(argv1: string): string[] {
   return candidates;
 }
 
-export async function resolveNova EnginePackageRoot(opts: {
+export async function resolveNovaEnginePackageRoot(opts: {
   cwd?: string;
   argv1?: string;
   moduleUrl?: string;
@@ -97,7 +97,7 @@ export async function resolveNova EnginePackageRoot(opts: {
   return null;
 }
 
-export function resolveNova EnginePackageRootSync(opts: {
+export function resolveNovaEnginePackageRootSync(opts: {
   cwd?: string;
   argv1?: string;
   moduleUrl?: string;

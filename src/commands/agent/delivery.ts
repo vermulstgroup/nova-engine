@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { AgentCommandOpts } from "./types.js";
@@ -59,7 +59,7 @@ function logNestedOutput(runtime: RuntimeEnv, opts: AgentCommandOpts, output: st
 }
 
 export async function deliverAgentCommandResult(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   deps: CliDeps;
   runtime: RuntimeEnv;
   opts: AgentCommandOpts;

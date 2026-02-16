@@ -1,14 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
-import { resolveNova EngineAgentDir } from "./agent-paths.js";
+import type { NovaEngineConfig } from "../config/config.js";
+import { resolveNovaEngineAgentDir } from "./agent-paths.js";
 import {
   CUSTOM_PROXY_MODELS_CONFIG,
   installModelsConfigTestHooks,
   withModelsTempHome as withTempHome,
 } from "./models-config.e2e-harness.js";
-import { ensureNova EngineModelsJson } from "./models-config.js";
+import { ensureNovaEngineModelsJson } from "./models-config.js";
 
 installModelsConfigTestHooks();
 
@@ -18,7 +18,7 @@ describe("models-config", () => {
       const prevKey = process.env.MINIMAX_API_KEY;
       process.env.MINIMAX_API_KEY = "sk-minimax-test";
       try {
-        const cfg: Nova EngineConfig = {
+        const cfg: NovaEngineConfig = {
           models: {
             providers: {
               minimax: {
@@ -40,9 +40,9 @@ describe("models-config", () => {
           },
         };
 
-        await ensureNova EngineModelsJson(cfg);
+        await ensureNovaEngineModelsJson(cfg);
 
-        const modelPath = path.join(resolveNova EngineAgentDir(), "models.json");
+        const modelPath = path.join(resolveNovaEngineAgentDir(), "models.json");
         const raw = await fs.readFile(modelPath, "utf8");
         const parsed = JSON.parse(raw) as {
           providers: Record<string, { apiKey?: string; models?: Array<{ id: string }> }>;
@@ -61,7 +61,7 @@ describe("models-config", () => {
   });
   it("merges providers by default", async () => {
     await withTempHome(async () => {
-      const agentDir = resolveNova EngineAgentDir();
+      const agentDir = resolveNovaEngineAgentDir();
       await fs.mkdir(agentDir, { recursive: true });
       await fs.writeFile(
         path.join(agentDir, "models.json"),
@@ -93,7 +93,7 @@ describe("models-config", () => {
         "utf8",
       );
 
-      await ensureNova EngineModelsJson(CUSTOM_PROXY_MODELS_CONFIG);
+      await ensureNovaEngineModelsJson(CUSTOM_PROXY_MODELS_CONFIG);
 
       const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
       const parsed = JSON.parse(raw) as {

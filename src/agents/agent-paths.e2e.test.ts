@@ -3,9 +3,9 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { captureEnv } from "../test-utils/env.js";
-import { resolveNova EngineAgentDir } from "./agent-paths.js";
+import { resolveNovaEngineAgentDir } from "./agent-paths.js";
 
-describe("resolveNova EngineAgentDir", () => {
+describe("resolveNovaEngineAgentDir", () => {
   const env = captureEnv(["NOVA_STATE_DIR", "NOVA_AGENT_DIR", "PI_CODING_AGENT_DIR"]);
   let tempStateDir: string | null = null;
 
@@ -23,7 +23,7 @@ describe("resolveNova EngineAgentDir", () => {
     delete process.env.NOVA_AGENT_DIR;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveNova EngineAgentDir();
+    const resolved = resolveNovaEngineAgentDir();
 
     expect(resolved).toBe(path.join(tempStateDir, "agents", "main", "agent"));
   });
@@ -34,7 +34,7 @@ describe("resolveNova EngineAgentDir", () => {
     process.env.NOVA_AGENT_DIR = override;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveNova EngineAgentDir();
+    const resolved = resolveNovaEngineAgentDir();
 
     expect(resolved).toBe(path.resolve(override));
   });

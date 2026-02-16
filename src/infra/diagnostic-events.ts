@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export type DiagnosticSessionState = "idle" | "processing" | "waiting";
 
@@ -156,7 +156,7 @@ export type DiagnosticEventInput = DiagnosticEventPayload extends infer Event
 let seq = 0;
 const listeners = new Set<(evt: DiagnosticEventPayload) => void>();
 
-export function isDiagnosticsEnabled(config?: Nova EngineConfig): boolean {
+export function isDiagnosticsEnabled(config?: NovaEngineConfig): boolean {
   return config?.diagnostics?.enabled === true;
 }
 

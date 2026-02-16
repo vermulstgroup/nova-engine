@@ -7,7 +7,7 @@
 
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { InternalHookHandler } from "./internal-hooks.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { resolveHookConfig } from "./config.js";
@@ -37,7 +37,7 @@ const log = createSubsystemLogger("hooks:loader");
  * ```
  */
 export async function loadInternalHooks(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   workspaceDir: string,
   opts?: {
     managedHooksDir?: string;

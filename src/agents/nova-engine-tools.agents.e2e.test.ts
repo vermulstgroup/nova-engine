@@ -17,7 +17,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
 });
 
 import "./test-helpers/fast-core-tools.js";
-import { createNova EngineTools } from "./nova-engine-tools.js";
+import { createNovaEngineTools } from "./nova-engine-tools.js";
 
 describe("agents_list", () => {
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe("agents_list", () => {
   });
 
   it("defaults to the requester agent only", async () => {
-    const tool = createNova EngineTools({
+    const tool = createNovaEngineTools({
       agentSessionKey: "main",
     }).find((candidate) => candidate.name === "agents_list");
     if (!tool) {
@@ -69,7 +69,7 @@ describe("agents_list", () => {
       },
     };
 
-    const tool = createNova EngineTools({
+    const tool = createNovaEngineTools({
       agentSessionKey: "main",
     }).find((candidate) => candidate.name === "agents_list");
     if (!tool) {
@@ -111,7 +111,7 @@ describe("agents_list", () => {
       },
     };
 
-    const tool = createNova EngineTools({
+    const tool = createNovaEngineTools({
       agentSessionKey: "main",
     }).find((candidate) => candidate.name === "agents_list");
     if (!tool) {
@@ -148,7 +148,7 @@ describe("agents_list", () => {
       },
     };
 
-    const tool = createNova EngineTools({
+    const tool = createNovaEngineTools({
       agentSessionKey: "main",
     }).find((candidate) => candidate.name === "agents_list");
     if (!tool) {

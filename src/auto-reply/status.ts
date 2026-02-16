@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import type { SkillCommandSpec } from "../agents/skills.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { MediaUnderstandingDecision } from "../media-understanding/types.js";
 import type { CommandCategory } from "./commands-registry.types.js";
 import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "./thinking.js";
@@ -42,7 +42,7 @@ import {
   type ChatCommandDefinition,
 } from "./commands-registry.js";
 
-type AgentConfig = Partial<NonNullable<NonNullable<Nova EngineConfig["agents"]>["defaults"]>>;
+type AgentConfig = Partial<NonNullable<NonNullable<NovaEngineConfig["agents"]>["defaults"]>>;
 
 export const formatTokenCount = formatTokenCountShared;
 
@@ -56,7 +56,7 @@ type QueueStatus = {
 };
 
 type StatusArgs = {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   agent: AgentConfig;
   agentId?: string;
   sessionEntry?: SessionEntry;
@@ -302,7 +302,7 @@ const formatMediaUnderstandingLine = (decisions?: MediaUnderstandingDecision[]) 
 };
 
 const formatVoiceModeLine = (
-  config?: Nova EngineConfig,
+  config?: NovaEngineConfig,
   sessionEntry?: SessionEntry,
 ): string | null => {
   if (!config) {
@@ -332,7 +332,7 @@ export function buildStatusMessage(args: StatusArgs): string {
       agents: {
         defaults: args.agent ?? {},
       },
-    } as Nova EngineConfig,
+    } as NovaEngineConfig,
     defaultProvider: DEFAULT_PROVIDER,
     defaultModel: DEFAULT_MODEL,
   });
@@ -527,7 +527,7 @@ function groupCommandsByCategory(
   return grouped;
 }
 
-export function buildHelpMessage(cfg?: Nova EngineConfig): string {
+export function buildHelpMessage(cfg?: NovaEngineConfig): string {
   const lines = ["ℹ️ Help", ""];
 
   lines.push("Session");
@@ -648,7 +648,7 @@ function formatCommandList(items: CommandsListItem[]): string {
 }
 
 export function buildCommandsMessage(
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   skillCommands?: SkillCommandSpec[],
   options?: CommandsMessageOptions,
 ): string {
@@ -657,7 +657,7 @@ export function buildCommandsMessage(
 }
 
 export function buildCommandsMessagePaginated(
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   skillCommands?: SkillCommandSpec[],
   options?: CommandsMessageOptions,
 ): CommandsMessageResult {

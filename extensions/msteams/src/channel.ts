@@ -1,4 +1,4 @@
-import type { ChannelMessageActionName, ChannelPlugin, Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { ChannelMessageActionName, ChannelPlugin, NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   buildBaseChannelStatusSummary,
   buildChannelConfigSchema,
@@ -101,7 +101,7 @@ export const msteamsPlugin: ChannelPlugin<ResolvedMSTeamsAccount> = {
       },
     }),
     deleteAccount: ({ cfg }) => {
-      const next = { ...cfg } as Nova EngineConfig;
+      const next = { ...cfg } as NovaEngineConfig;
       const nextChannels = { ...cfg.channels };
       delete nextChannels.msteams;
       if (Object.keys(nextChannels).length > 0) {

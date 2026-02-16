@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveGatewayPort } from "../config/config.js";
 import {
@@ -21,10 +21,10 @@ import {
 type GatewayAuthChoice = "token" | "password" | "trusted-proxy";
 
 export async function promptGatewayConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   runtime: RuntimeEnv,
 ): Promise<{
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   port: number;
   token?: string;
 }> {

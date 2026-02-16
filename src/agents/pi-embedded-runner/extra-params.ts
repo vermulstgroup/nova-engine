@@ -1,7 +1,7 @@
 import type { StreamFn } from "@mariozechner/pi-agent-core";
 import type { SimpleStreamOptions } from "@mariozechner/pi-ai";
 import { streamSimple } from "@mariozechner/pi-ai";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { log } from "./logger.js";
 
 const OPENROUTER_APP_HEADERS: Record<string, string> = {
@@ -20,7 +20,7 @@ const OPENAI_RESPONSES_PROVIDERS = new Set(["openai"]);
  * @internal Exported for testing only
  */
 export function resolveExtraParams(params: {
-  cfg: Nova EngineConfig | undefined;
+  cfg: NovaEngineConfig | undefined;
   provider: string;
   modelId: string;
 }): Record<string, unknown> | undefined {
@@ -180,7 +180,7 @@ function createOpenRouterHeadersWrapper(baseStreamFn: StreamFn | undefined): Str
  */
 export function applyExtraParamsToAgent(
   agent: { streamFn?: StreamFn },
-  cfg: Nova EngineConfig | undefined,
+  cfg: NovaEngineConfig | undefined,
   provider: string,
   modelId: string,
   extraParamsOverride?: Record<string, unknown>,

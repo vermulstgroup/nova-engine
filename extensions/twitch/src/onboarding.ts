@@ -2,7 +2,7 @@
  * Twitch onboarding adapter for CLI setup wizard.
  */
 
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   formatDocsLink,
   promptChannelAccessConfig,
@@ -20,9 +20,9 @@ const channel = "twitch" as const;
  * Set Twitch account configuration
  */
 function setTwitchAccount(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   account: Partial<TwitchAccountConfig>,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const existing = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   const merged: TwitchAccountConfig = {
     username: account.username ?? existing?.username ?? "",
@@ -207,13 +207,13 @@ async function promptRefreshTokenSetup(
  * Configure with env token path (returns early if user chooses env token).
  */
 async function configureWithEnvToken(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   prompter: WizardPrompter,
   account: TwitchAccountConfig | null,
   envToken: string,
   forceAllowFrom: boolean,
   dmPolicy: ChannelOnboardingDmPolicy,
-): Promise<{ cfg: Nova EngineConfig } | null> {
+): Promise<{ cfg: NovaEngineConfig } | null> {
   const useEnv = await prompter.confirm({
     message: "Twitch env var NOVA_TWITCH_ACCESS_TOKEN detected. Use env token?",
     initialValue: true,
@@ -243,10 +243,10 @@ async function configureWithEnvToken(
  * Set Twitch access control (role-based)
  */
 function setTwitchAccessControl(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   allowedRoles: TwitchRole[],
   requireMention: boolean,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   if (!account) {
     return cfg;

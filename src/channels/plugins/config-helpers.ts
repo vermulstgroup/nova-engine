@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 
 type ChannelSection = {
@@ -7,12 +7,12 @@ type ChannelSection = {
 };
 
 export function setAccountEnabledInConfigSection(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sectionKey: string;
   accountId: string;
   enabled: boolean;
   allowTopLevel?: boolean;
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const accountKey = params.accountId || DEFAULT_ACCOUNT_ID;
   const channels = params.cfg.channels as Record<string, unknown> | undefined;
   const base = channels?.[params.sectionKey] as ChannelSection | undefined;
@@ -27,7 +27,7 @@ export function setAccountEnabledInConfigSection(params: {
           enabled: params.enabled,
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
 
   const baseAccounts = base?.accounts ?? {};
@@ -47,15 +47,15 @@ export function setAccountEnabledInConfigSection(params: {
         },
       },
     },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
 }
 
 export function deleteAccountFromConfigSection(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sectionKey: string;
   accountId: string;
   clearBaseFields?: string[];
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const accountKey = params.accountId || DEFAULT_ACCOUNT_ID;
   const channels = params.cfg.channels as Record<string, unknown> | undefined;
   const base = channels?.[params.sectionKey] as ChannelSection | undefined;
@@ -78,7 +78,7 @@ export function deleteAccountFromConfigSection(params: {
           accounts: Object.keys(accounts).length ? accounts : undefined,
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
 
   if (baseAccounts && Object.keys(baseAccounts).length > 0) {
@@ -98,14 +98,14 @@ export function deleteAccountFromConfigSection(params: {
           accounts: Object.keys(baseAccounts).length ? baseAccounts : undefined,
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
 
   const nextChannels = { ...params.cfg.channels } as Record<string, unknown>;
   delete nextChannels[params.sectionKey];
-  const nextCfg = { ...params.cfg } as Nova EngineConfig;
+  const nextCfg = { ...params.cfg } as NovaEngineConfig;
   if (Object.keys(nextChannels).length > 0) {
-    nextCfg.channels = nextChannels as Nova EngineConfig["channels"];
+    nextCfg.channels = nextChannels as NovaEngineConfig["channels"];
   } else {
     delete nextCfg.channels;
   }

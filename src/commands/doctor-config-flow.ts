@@ -1,7 +1,7 @@
 import type { ZodIssue } from "zod";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { DoctorOptions } from "./doctor-prompter.js";
 import {
   isNumericTelegramUserId,
@@ -9,7 +9,7 @@ import {
 } from "../channels/telegram/allow-from.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import {
-  Nova EngineSchema,
+  NovaEngineSchema,
   CONFIG_PATH,
   migrateLegacyConfig,
   readConfigFileSnapshot,
@@ -74,11 +74,11 @@ function resolvePathTarget(root: unknown, path: Array<string | number>): unknown
   return current;
 }
 
-function stripUnknownConfigKeys(config: Nova EngineConfig): {
-  config: Nova EngineConfig;
+function stripUnknownConfigKeys(config: NovaEngineConfig): {
+  config: NovaEngineConfig;
   removed: string[];
 } {
-  const parsed = Nova EngineSchema.safeParse(config);
+  const parsed = NovaEngineSchema.safeParse(config);
   if (parsed.success) {
     return { config, removed: [] };
   }
@@ -110,7 +110,7 @@ function stripUnknownConfigKeys(config: Nova EngineConfig): {
   return { config: next, removed };
 }
 
-function noteOpencodeProviderOverrides(cfg: Nova EngineConfig) {
+function noteOpencodeProviderOverrides(cfg: NovaEngineConfig) {
   const providers = cfg.models?.providers;
   if (!providers) {
     return;
@@ -149,7 +149,7 @@ function noteOpencodeProviderOverrides(cfg: Nova EngineConfig) {
 
 type TelegramAllowFromUsernameHit = { path: string; entry: string };
 
-function scanTelegramAllowFromUsernameEntries(cfg: Nova EngineConfig): TelegramAllowFromUsernameHit[] {
+function scanTelegramAllowFromUsernameEntries(cfg: NovaEngineConfig): TelegramAllowFromUsernameHit[] {
   const hits: TelegramAllowFromUsernameHit[] = [];
   const telegram = cfg.channels?.telegram;
   if (!telegram) {
@@ -222,8 +222,8 @@ function scanTelegramAllowFromUsernameEntries(cfg: Nova EngineConfig): TelegramA
   return hits;
 }
 
-async function maybeRepairTelegramAllowFromUsernames(cfg: Nova EngineConfig): Promise<{
-  config: Nova EngineConfig;
+async function maybeRepairTelegramAllowFromUsernames(cfg: NovaEngineConfig): Promise<{
+  config: NovaEngineConfig;
   changes: string[];
 }> {
   const hits = scanTelegramAllowFromUsernameEntries(cfg);
@@ -469,7 +469,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
 
   let snapshot = await readConfigFileSnapshot();
   const baseCfg = snapshot.config ?? {};
-  let cfg: Nova EngineConfig = baseCfg;
+  let cfg: NovaEngineConfig = baseCfg;
   let candidate = structuredClone(baseCfg);
   let pendingChanges = false;
   let shouldWriteConfig = false;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { IMessagePayload } from "./monitor/types.js";
 import {
   buildIMessageInboundContext,
@@ -7,7 +7,7 @@ import {
 } from "./monitor/inbound-processing.js";
 import { parseIMessageNotification } from "./monitor/parse-notification.js";
 
-function baseCfg(): Nova EngineConfig {
+function baseCfg(): NovaEngineConfig {
   return {
     channels: {
       imessage: {
@@ -21,11 +21,11 @@ function baseCfg(): Nova EngineConfig {
     messages: {
       groupChat: { mentionPatterns: ["@nova-engine"] },
     },
-  } as unknown as Nova EngineConfig;
+  } as unknown as NovaEngineConfig;
 }
 
 function resolve(params: {
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   message: IMessagePayload;
   storeAllowFrom?: string[];
 }) {

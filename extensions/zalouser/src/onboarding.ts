@@ -1,7 +1,7 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  Nova EngineConfig,
+  NovaEngineConfig,
   WizardPrompter,
 } from "nova-engine/plugin-sdk";
 import {
@@ -23,9 +23,9 @@ import { runZca, runZcaInteractive, checkZcaInstalled, parseJsonOutput } from ".
 const channel = "zalouser" as const;
 
 function setZalouserDmPolicy(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   dmPolicy: "pairing" | "allowlist" | "open" | "disabled",
-): Nova EngineConfig {
+): NovaEngineConfig {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.zalouser?.allowFrom) : undefined;
   return {
@@ -38,7 +38,7 @@ function setZalouserDmPolicy(
         ...(allowFrom ? { allowFrom } : {}),
       },
     },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
 }
 
 async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
@@ -57,10 +57,10 @@ async function noteZalouserHelp(prompter: WizardPrompter): Promise<void> {
 }
 
 async function promptZalouserAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZalouserAccountSync({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -138,7 +138,7 @@ async function promptZalouserAllowFrom(params: {
             allowFrom: unique,
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     }
 
     return {
@@ -159,15 +159,15 @@ async function promptZalouserAllowFrom(params: {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
 }
 
 function setZalouserGroupPolicy(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): Nova EngineConfig {
+): NovaEngineConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -179,7 +179,7 @@ function setZalouserGroupPolicy(
           groupPolicy,
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
   return {
     ...cfg,
@@ -198,14 +198,14 @@ function setZalouserGroupPolicy(
         },
       },
     },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
 }
 
 function setZalouserGroupAllowlist(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   groupKeys: string[],
-): Nova EngineConfig {
+): NovaEngineConfig {
   const groups = Object.fromEntries(groupKeys.map((key) => [key, { allow: true }]));
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
@@ -218,7 +218,7 @@ function setZalouserGroupAllowlist(
           groups,
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
   return {
     ...cfg,
@@ -237,11 +237,11 @@ function setZalouserGroupAllowlist(
         },
       },
     },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
 }
 
 async function resolveZalouserGroups(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   entries: string[];
 }): Promise<Array<{ input: string; resolved: boolean; id?: string }>> {
@@ -417,7 +417,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             profile: account.profile !== "default" ? account.profile : undefined,
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     } else {
       next = {
         ...next,
@@ -436,7 +436,7 @@ export const zalouserOnboardingAdapter: ChannelOnboardingAdapter = {
             },
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     }
 
     if (forceAllowFrom) {

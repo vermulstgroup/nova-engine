@@ -1,4 +1,4 @@
-import type { Nova EngineApp } from "./app.ts";
+import type { NovaEngineApp } from "./app.ts";
 import type { NostrProfile } from "./types.ts";
 import {
   loadChannels,
@@ -9,28 +9,28 @@ import {
 import { loadConfig, saveConfig } from "./controllers/config.ts";
 import { createNostrProfileFormState } from "./views/channels.nostr-profile-form.ts";
 
-export async function handleWhatsAppStart(host: Nova EngineApp, force: boolean) {
+export async function handleWhatsAppStart(host: NovaEngineApp, force: boolean) {
   await startWhatsAppLogin(host, force);
   await loadChannels(host, true);
 }
 
-export async function handleWhatsAppWait(host: Nova EngineApp) {
+export async function handleWhatsAppWait(host: NovaEngineApp) {
   await waitWhatsAppLogin(host);
   await loadChannels(host, true);
 }
 
-export async function handleWhatsAppLogout(host: Nova EngineApp) {
+export async function handleWhatsAppLogout(host: NovaEngineApp) {
   await logoutWhatsApp(host);
   await loadChannels(host, true);
 }
 
-export async function handleChannelConfigSave(host: Nova EngineApp) {
+export async function handleChannelConfigSave(host: NovaEngineApp) {
   await saveConfig(host);
   await loadConfig(host);
   await loadChannels(host, true);
 }
 
-export async function handleChannelConfigReload(host: Nova EngineApp) {
+export async function handleChannelConfigReload(host: NovaEngineApp) {
   await loadConfig(host);
   await loadChannels(host, true);
 }
@@ -57,7 +57,7 @@ function parseValidationErrors(details: unknown): Record<string, string> {
   return errors;
 }
 
-function resolveNostrAccountId(host: Nova EngineApp): string {
+function resolveNostrAccountId(host: NovaEngineApp): string {
   const accounts = host.channelsSnapshot?.channelAccounts?.nostr ?? [];
   return accounts[0]?.accountId ?? host.nostrProfileAccountId ?? "default";
 }
@@ -66,7 +66,7 @@ function buildNostrProfileUrl(accountId: string, suffix = ""): string {
   return `/api/channels/nostr/${encodeURIComponent(accountId)}/profile${suffix}`;
 }
 
-function resolveGatewayHttpAuthHeader(host: Nova EngineApp): string | null {
+function resolveGatewayHttpAuthHeader(host: NovaEngineApp): string | null {
   const deviceToken = host.hello?.auth?.deviceToken?.trim();
   if (deviceToken) {
     return `Bearer ${deviceToken}`;
@@ -82,13 +82,13 @@ function resolveGatewayHttpAuthHeader(host: Nova EngineApp): string | null {
   return null;
 }
 
-function buildGatewayHttpHeaders(host: Nova EngineApp): Record<string, string> {
+function buildGatewayHttpHeaders(host: NovaEngineApp): Record<string, string> {
   const authorization = resolveGatewayHttpAuthHeader(host);
   return authorization ? { Authorization: authorization } : {};
 }
 
 export function handleNostrProfileEdit(
-  host: Nova EngineApp,
+  host: NovaEngineApp,
   accountId: string,
   profile: NostrProfile | null,
 ) {
@@ -96,13 +96,13 @@ export function handleNostrProfileEdit(
   host.nostrProfileFormState = createNostrProfileFormState(profile ?? undefined);
 }
 
-export function handleNostrProfileCancel(host: Nova EngineApp) {
+export function handleNostrProfileCancel(host: NovaEngineApp) {
   host.nostrProfileFormState = null;
   host.nostrProfileAccountId = null;
 }
 
 export function handleNostrProfileFieldChange(
-  host: Nova EngineApp,
+  host: NovaEngineApp,
   field: keyof NostrProfile,
   value: string,
 ) {
@@ -123,7 +123,7 @@ export function handleNostrProfileFieldChange(
   };
 }
 
-export function handleNostrProfileToggleAdvanced(host: Nova EngineApp) {
+export function handleNostrProfileToggleAdvanced(host: NovaEngineApp) {
   const state = host.nostrProfileFormState;
   if (!state) {
     return;
@@ -134,7 +134,7 @@ export function handleNostrProfileToggleAdvanced(host: Nova EngineApp) {
   };
 }
 
-export async function handleNostrProfileSave(host: Nova EngineApp) {
+export async function handleNostrProfileSave(host: NovaEngineApp) {
   const state = host.nostrProfileFormState;
   if (!state || state.saving) {
     return;
@@ -206,7 +206,7 @@ export async function handleNostrProfileSave(host: Nova EngineApp) {
   }
 }
 
-export async function handleNostrProfileImport(host: Nova EngineApp) {
+export async function handleNostrProfileImport(host: NovaEngineApp) {
   const state = host.nostrProfileFormState;
   if (!state || state.importing) {
     return;

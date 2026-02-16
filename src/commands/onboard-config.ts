@@ -1,9 +1,9 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export function applyOnboardingLocalWorkspaceConfig(
-  baseConfig: Nova EngineConfig,
+  baseConfig: NovaEngineConfig,
   workspaceDir: string,
-): Nova EngineConfig {
+): NovaEngineConfig {
   return {
     ...baseConfig,
     agents: {

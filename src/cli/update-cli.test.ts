@@ -27,7 +27,7 @@ vi.mock("../infra/update-runner.js", () => ({
 }));
 
 vi.mock("../infra/nova-engine-root.js", () => ({
-  resolveNova EnginePackageRoot: vi.fn(),
+  resolveNovaEnginePackageRoot: vi.fn(),
 }));
 
 vi.mock("../config/config.js", () => ({
@@ -129,7 +129,7 @@ vi.mock("../runtime.js", () => ({
 }));
 
 const { runGatewayUpdate } = await import("../infra/update-runner.js");
-const { resolveNova EnginePackageRoot } = await import("../infra/nova-engine-root.js");
+const { resolveNovaEnginePackageRoot } = await import("../infra/nova-engine-root.js");
 const { readConfigFileSnapshot, writeConfigFile } = await import("../config/config.js");
 const { checkUpdateStatus, fetchNpmTagVersion, resolveNpmChannelTag } =
   await import("../infra/update-check.js");
@@ -182,7 +182,7 @@ describe("update-cli", () => {
     setTty(false);
     readPackageVersion.mockResolvedValue("2.0.0");
 
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue(tempDir);
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue(tempDir);
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root: tempDir,
       installKind: "package",
@@ -214,7 +214,7 @@ describe("update-cli", () => {
     confirm.mockReset();
     select.mockReset();
     vi.mocked(runGatewayUpdate).mockReset();
-    vi.mocked(resolveNova EnginePackageRoot).mockReset();
+    vi.mocked(resolveNovaEnginePackageRoot).mockReset();
     vi.mocked(readConfigFileSnapshot).mockReset();
     vi.mocked(writeConfigFile).mockReset();
     vi.mocked(checkUpdateStatus).mockReset();
@@ -228,7 +228,7 @@ describe("update-cli", () => {
     readPackageName.mockReset();
     readPackageVersion.mockReset();
     resolveGlobalManager.mockReset();
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue(process.cwd());
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue(process.cwd());
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(baseSnapshot);
     vi.mocked(fetchNpmTagVersion).mockResolvedValue({
       tag: "latest",
@@ -343,7 +343,7 @@ describe("update-cli", () => {
   it("defaults to stable channel for package installs when unset", async () => {
     const tempDir = await createCaseDir("nova-engine-update");
 
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue(tempDir);
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue(tempDir);
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root: tempDir,
       installKind: "package",
@@ -390,7 +390,7 @@ describe("update-cli", () => {
   it("falls back to latest when beta tag is older than release", async () => {
     const tempDir = await createCaseDir("nova-engine-update");
 
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue(tempDir);
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue(tempDir);
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
       ...baseSnapshot,
       config: { update: { channel: "beta" } },
@@ -427,7 +427,7 @@ describe("update-cli", () => {
   it("honors --tag override", async () => {
     const tempDir = await createCaseDir("nova-engine-update");
 
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue(tempDir);
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue(tempDir);
     vi.mocked(runGatewayUpdate).mockResolvedValue({
       status: "ok",
       mode: "npm",

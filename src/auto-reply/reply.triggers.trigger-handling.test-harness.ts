@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { afterEach, expect, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
 // Avoid exporting vitest mock types (TS2742 under pnpm + d.ts emit).
@@ -117,7 +117,7 @@ export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise
   );
 }
 
-export function makeCfg(home: string): Nova EngineConfig {
+export function makeCfg(home: string): NovaEngineConfig {
   return {
     agents: {
       defaults: {
@@ -131,7 +131,7 @@ export function makeCfg(home: string): Nova EngineConfig {
       },
     },
     session: { store: join(home, "sessions.json") },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
 }
 
 export async function runGreetingPromptForBareNewOrReset(params: {

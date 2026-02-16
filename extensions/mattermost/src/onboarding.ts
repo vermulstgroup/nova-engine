@@ -1,4 +1,4 @@
-import type { ChannelOnboardingAdapter, Nova EngineConfig, WizardPrompter } from "nova-engine/plugin-sdk";
+import type { ChannelOnboardingAdapter, NovaEngineConfig, WizardPrompter } from "nova-engine/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "nova-engine/plugin-sdk/account-id";
 import {
   listMattermostAccountIds,
@@ -176,7 +176,7 @@ export const mattermostOnboardingAdapter: ChannelOnboardingAdapter = {
 
     return { cfg: next, accountId };
   },
-  disable: (cfg: Nova EngineConfig) => ({
+  disable: (cfg: NovaEngineConfig) => ({
     ...cfg,
     channels: {
       ...cfg.channels,

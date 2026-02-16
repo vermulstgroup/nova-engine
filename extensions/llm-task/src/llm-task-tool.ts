@@ -7,7 +7,7 @@ import path from "node:path";
 // When running from source (tests/dev), Nova Engine internals live under src/.
 // When running from a built install, internals live under dist/ (no src/ tree).
 // So we resolve internal imports dynamically with src-first, dist-fallback.
-import type { Nova EnginePluginApi } from "../../../src/plugins/types.js";
+import type { NovaEnginePluginApi } from "../../../src/plugins/types.js";
 
 type RunEmbeddedPiAgentFn = (params: Record<string, unknown>) => Promise<unknown>;
 
@@ -66,7 +66,7 @@ type PluginCfg = {
   timeoutMs?: number;
 };
 
-export function createLlmTaskTool(api: Nova EnginePluginApi) {
+export function createLlmTaskTool(api: NovaEnginePluginApi) {
   return {
     name: "llm-task",
     label: "LLM Task",

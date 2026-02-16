@@ -3,7 +3,7 @@ import {
   createTypingCallbacks,
   logTypingFailure,
   resolveChannelMediaMaxBytes,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   type MSTeamsReplyStyle,
   type RuntimeEnv,
 } from "nova-engine/plugin-sdk";
@@ -24,7 +24,7 @@ import {
 import { getMSTeamsRuntime } from "./runtime.js";
 
 export function createMSTeamsReplyDispatcher(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   accountId?: string;
   runtime: RuntimeEnv;

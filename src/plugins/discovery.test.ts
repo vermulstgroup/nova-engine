@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { discoverNova EnginePlugins } from "./discovery.js";
+import { discoverNovaEnginePlugins } from "./discovery.js";
 
 const tempDirs: string[] = [];
 
@@ -45,7 +45,7 @@ afterEach(() => {
   }
 });
 
-describe("discoverNova EnginePlugins", () => {
+describe("discoverNovaEnginePlugins", () => {
   it("discovers global and workspace extensions", async () => {
     const stateDir = makeTempDir();
     const workspaceDir = path.join(stateDir, "workspace");
@@ -59,7 +59,7 @@ describe("discoverNova EnginePlugins", () => {
     fs.writeFileSync(path.join(workspaceExt, "beta.ts"), "export default function () {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      return discoverNova EnginePlugins({ workspaceDir });
+      return discoverNovaEnginePlugins({ workspaceDir });
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -92,7 +92,7 @@ describe("discoverNova EnginePlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      return discoverNova EnginePlugins({});
+      return discoverNovaEnginePlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -120,7 +120,7 @@ describe("discoverNova EnginePlugins", () => {
     );
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      return discoverNova EnginePlugins({});
+      return discoverNovaEnginePlugins({});
     });
 
     const ids = candidates.map((c) => c.idHint);
@@ -143,7 +143,7 @@ describe("discoverNova EnginePlugins", () => {
     fs.writeFileSync(path.join(packDir, "index.js"), "module.exports = {}", "utf-8");
 
     const { candidates } = await withStateDir(stateDir, async () => {
-      return discoverNova EnginePlugins({ extraPaths: [packDir] });
+      return discoverNovaEnginePlugins({ extraPaths: [packDir] });
     });
 
     const ids = candidates.map((c) => c.idHint);

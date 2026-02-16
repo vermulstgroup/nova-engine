@@ -2,8 +2,8 @@
 // the agent reports a model id. This includes custom models.json entries.
 
 import { loadConfig } from "../config/config.js";
-import { resolveNova EngineAgentDir } from "./agent-paths.js";
-import { ensureNova EngineModelsJson } from "./models-config.js";
+import { resolveNovaEngineAgentDir } from "./agent-paths.js";
+import { ensureNovaEngineModelsJson } from "./models-config.js";
 
 type ModelEntry = { id: string; contextWindow?: number };
 type ModelRegistryLike = {
@@ -71,14 +71,14 @@ const loadPromise = (async () => {
   }
 
   try {
-    await ensureNova EngineModelsJson(cfg);
+    await ensureNovaEngineModelsJson(cfg);
   } catch {
     // Continue with best-effort discovery/overrides.
   }
 
   try {
     const { discoverAuthStorage, discoverModels } = await import("./pi-model-discovery.js");
-    const agentDir = resolveNova EngineAgentDir();
+    const agentDir = resolveNovaEngineAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir) as unknown as ModelRegistryLike;
     const models =

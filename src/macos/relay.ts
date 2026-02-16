@@ -49,8 +49,8 @@ async function main() {
   const { loadDotEnv } = await import("../infra/dotenv.js");
   loadDotEnv({ quiet: true });
 
-  const { ensureNova EngineCliOnPath } = await import("../infra/path-env.js");
-  ensureNova EngineCliOnPath();
+  const { ensureNovaEngineCliOnPath } = await import("../infra/path-env.js");
+  ensureNovaEngineCliOnPath();
 
   const { enableConsoleCapture } = await import("../logging.js");
   enableConsoleCapture();

@@ -5,7 +5,7 @@ import {
   processLineMessage,
   type ChannelPlugin,
   type ChannelStatusIssue,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   type LineConfig,
   type LineChannelData,
   type ResolvedLineAccount,
@@ -667,7 +667,7 @@ export const linePlugin: ChannelPlugin<ResolvedLineAccount> = {
     },
     logoutAccount: async ({ accountId, cfg }) => {
       const envToken = process.env.LINE_CHANNEL_ACCESS_TOKEN?.trim() ?? "";
-      const nextCfg = { ...cfg } as Nova EngineConfig;
+      const nextCfg = { ...cfg } as NovaEngineConfig;
       const lineConfig = (cfg.channels?.line ?? {}) as LineConfig;
       const nextLine = { ...lineConfig };
       let cleared = false;

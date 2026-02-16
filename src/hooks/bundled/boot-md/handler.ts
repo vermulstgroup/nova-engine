@@ -1,11 +1,11 @@
 import type { CliDeps } from "../../../cli/deps.js";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { HookHandler } from "../../hooks.js";
 import { createDefaultDeps } from "../../../cli/deps.js";
 import { runBootOnce } from "../../../gateway/boot.js";
 
 type BootHookContext = {
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   workspaceDir?: string;
   deps?: CliDeps;
 };

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "./config.js";
+import type { NovaEngineConfig } from "./config.js";
 import type { MarkdownTableMode } from "./types.base.js";
 import { normalizeChannelId } from "../channels/plugins/index.js";
 import { normalizeAccountId } from "../routing/session-key.js";
@@ -50,7 +50,7 @@ function resolveMarkdownModeFromSection(
 }
 
 export function resolveMarkdownTableMode(params: {
-  cfg?: Partial<Nova EngineConfig>;
+  cfg?: Partial<NovaEngineConfig>;
   channel?: string | null;
   accountId?: string | null;
 }): MarkdownTableMode {

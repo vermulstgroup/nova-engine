@@ -4,12 +4,12 @@ import path from "node:path";
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineCodingTools } from "./pi-tools.js";
 import { createHostSandboxFsBridge } from "./test-helpers/host-sandbox-fs-bridge.js";
 
-const defaultTools = createNova EngineCodingTools();
+const defaultTools = createNovaEngineCodingTools();
 
-describe("createNova EngineCodingTools", () => {
+describe("createNovaEngineCodingTools", () => {
   it("keeps read tool image metadata intact", async () => {
     const readTool = defaultTools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
@@ -47,7 +47,7 @@ describe("createNova EngineCodingTools", () => {
     }
   });
   it("returns text content without image blocks for text files", async () => {
-    const tools = createNova EngineCodingTools();
+    const tools = createNovaEngineCodingTools();
     const readTool = tools.find((tool) => tool.name === "read");
     expect(readTool).toBeDefined();
 
@@ -100,7 +100,7 @@ describe("createNova EngineCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createNova EngineCodingTools({ sandbox });
+    const tools = createNovaEngineCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);
     expect(tools.some((tool) => tool.name === "read")).toBe(false);
     expect(tools.some((tool) => tool.name === "browser")).toBe(false);
@@ -133,13 +133,13 @@ describe("createNova EngineCodingTools", () => {
       },
       browserAllowHostControl: false,
     };
-    const tools = createNova EngineCodingTools({ sandbox });
+    const tools = createNovaEngineCodingTools({ sandbox });
     expect(tools.some((tool) => tool.name === "read")).toBe(true);
     expect(tools.some((tool) => tool.name === "write")).toBe(false);
     expect(tools.some((tool) => tool.name === "edit")).toBe(false);
   });
   it("filters tools by agent tool policy even without sandbox", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: { tools: { deny: ["browser"] } },
     });
     expect(tools.some((tool) => tool.name === "exec")).toBe(true);

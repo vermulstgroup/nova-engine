@@ -4,7 +4,7 @@ import {
   buildOauthProviderAuthResult,
   emptyPluginConfigSchema,
   isWSL2Sync,
-  type Nova EnginePluginApi,
+  type NovaEnginePluginApi,
   type ProviderAuthContext,
 } from "nova-engine/plugin-sdk";
 
@@ -373,7 +373,7 @@ const antigravityPlugin = {
   name: "Google Antigravity Auth",
   description: "OAuth flow for Google Antigravity (Cloud Code Assist)",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     api.registerProvider({
       id: "google-antigravity",
       label: "Google Antigravity",

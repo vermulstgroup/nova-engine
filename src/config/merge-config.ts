@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "./config.js";
+import type { NovaEngineConfig } from "./config.js";
 import type { WhatsAppConfig } from "./types.js";
 
 export type MergeSectionOptions<T> = {
@@ -24,10 +24,10 @@ export function mergeConfigSection<T extends Record<string, unknown>>(
 }
 
 export function mergeWhatsAppConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   patch: Partial<WhatsAppConfig>,
   options?: MergeSectionOptions<WhatsAppConfig>,
-): Nova EngineConfig {
+): NovaEngineConfig {
   return {
     ...cfg,
     channels: {

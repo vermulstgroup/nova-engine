@@ -40,7 +40,7 @@ Delivery:
 ### 2) Plugin Runtime (execution surface, injected)
 
 Scope: everything that touches core runtime behavior.
-Accessed via `Nova EnginePluginApi.runtime` so plugins never import `src/**`.
+Accessed via `NovaEnginePluginApi.runtime` so plugins never import `src/**`.
 
 Proposed surface (minimal but complete):
 
@@ -49,8 +49,8 @@ export type PluginRuntime = {
   channel: {
     text: {
       chunkMarkdownText(text: string, limit: number): string[];
-      resolveTextChunkLimit(cfg: Nova EngineConfig, channel: string, accountId?: string): number;
-      hasControlCommand(text: string, cfg: Nova EngineConfig): boolean;
+      resolveTextChunkLimit(cfg: NovaEngineConfig, channel: string, accountId?: string): number;
+      hasControlCommand(text: string, cfg: NovaEngineConfig): boolean;
     };
     reply: {
       dispatchReplyWithBufferedBlockDispatcher(params: {
@@ -94,12 +94,12 @@ export type PluginRuntime = {
       ): Promise<{ path: string; contentType?: string }>;
     };
     mentions: {
-      buildMentionRegexes(cfg: Nova EngineConfig, agentId?: string): RegExp[];
+      buildMentionRegexes(cfg: NovaEngineConfig, agentId?: string): RegExp[];
       matchesMentionPatterns(text: string, regexes: RegExp[]): boolean;
     };
     groups: {
       resolveGroupPolicy(
-        cfg: Nova EngineConfig,
+        cfg: NovaEngineConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -110,7 +110,7 @@ export type PluginRuntime = {
         defaultConfig?: unknown;
       };
       resolveRequireMention(
-        cfg: Nova EngineConfig,
+        cfg: NovaEngineConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -125,7 +125,7 @@ export type PluginRuntime = {
         onFlush: (entries: T[]) => Promise<void>;
         onError?: (err: unknown) => void;
       }): { push: (v: T) => void; flush: () => Promise<void> };
-      resolveInboundDebounceMs(cfg: Nova EngineConfig, channel: string): number;
+      resolveInboundDebounceMs(cfg: NovaEngineConfig, channel: string): number;
     };
     commands: {
       resolveCommandAuthorizedFromAuthorizers(params: {
@@ -139,7 +139,7 @@ export type PluginRuntime = {
     getChildLogger(name: string): PluginLogger;
   };
   state: {
-    resolveStateDir(cfg: Nova EngineConfig): string;
+    resolveStateDir(cfg: NovaEngineConfig): string;
   };
 };
 ```
@@ -155,7 +155,7 @@ Notes:
 ### Phase 0: scaffolding
 
 - Introduce `nova-engine/plugin-sdk`.
-- Add `api.runtime` to `Nova EnginePluginApi` with the surface above.
+- Add `api.runtime` to `NovaEnginePluginApi` with the surface above.
 - Maintain existing imports during a transition window (deprecation warnings).
 
 ### Phase 1: bridge cleanup (low risk)

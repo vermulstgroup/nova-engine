@@ -1,6 +1,6 @@
 import "./test-helpers.js";
 import { describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { monitorWebChannel } from "./auto-reply.js";
 import {
   installWebAutoReplyTestHomeHooks,
@@ -35,7 +35,7 @@ describe("typing controller idle", () => {
       return { text: "final reply" };
     });
 
-    const mockConfig: Nova EngineConfig = {
+    const mockConfig: NovaEngineConfig = {
       channels: { whatsapp: { allowFrom: ["*"] } },
     };
 

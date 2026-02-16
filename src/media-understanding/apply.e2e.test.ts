@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveApiKeyForProvider } from "../agents/model-auth.js";
 import { fetchRemoteMedia } from "../media/fetch.js";
 
@@ -58,7 +58,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: audioPath,
       MediaType: "audio/ogg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -101,7 +101,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: audioPath,
       MediaType: "audio/mpeg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -141,7 +141,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: audioPath,
       MediaType: "audio/ogg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -180,7 +180,7 @@ describe("applyMediaUnderstanding", () => {
       MediaType: "audio/ogg",
       ChatType: "direct",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -224,7 +224,7 @@ describe("applyMediaUnderstanding", () => {
       MediaType: "audio/wav",
     };
     const transcribeAudio = vi.fn(async () => ({ text: "should-not-run" }));
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -258,7 +258,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: audioPath,
       MediaType: "audio/ogg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -311,7 +311,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: imagePath,
       MediaType: "image/jpeg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           image: {
@@ -358,7 +358,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: imagePath,
       MediaType: "image/jpeg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           models: [
@@ -399,7 +399,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: audioPath,
       MediaType: "audio/ogg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -438,7 +438,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPaths: [audioPathA, audioPathB],
       MediaTypes: ["audio/ogg", "audio/ogg"],
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: {
@@ -483,7 +483,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPaths: [imagePath, audioPath, videoPath],
       MediaTypes: ["image/jpeg", "audio/ogg", "video/mp4"],
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           image: { enabled: true, models: [{ provider: "openai", model: "gpt-5.2" }] },
@@ -539,7 +539,7 @@ describe("applyMediaUnderstanding", () => {
       Body: "<media:file>",
       MediaPath: csvPath,
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -567,7 +567,7 @@ describe("applyMediaUnderstanding", () => {
       Body: "<media:file>",
       MediaPath: tsvPath,
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -595,7 +595,7 @@ describe("applyMediaUnderstanding", () => {
       Body: "<media:file>",
       MediaPath: filePath,
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -624,7 +624,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "audio/mpeg",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -652,7 +652,7 @@ describe("applyMediaUnderstanding", () => {
       Body: "<media:file>",
       MediaPath: tsvPath,
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       gateway: {
         http: {
           endpoints: {
@@ -693,7 +693,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "text/plain",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -723,7 +723,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "text/plain",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -754,7 +754,7 @@ describe("applyMediaUnderstanding", () => {
       // Attempt to inject via MIME type with quotes - normalization should strip this
       MediaType: 'application/json" onclick="alert(1)',
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -786,7 +786,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "text/plain",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -816,7 +816,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "text/plain",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -844,7 +844,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "text/plain",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -873,7 +873,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },
@@ -901,7 +901,7 @@ describe("applyMediaUnderstanding", () => {
       MediaPath: filePath,
       MediaType: "application/vnd.api+json",
     };
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         media: {
           audio: { enabled: false },

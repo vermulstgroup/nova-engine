@@ -1,17 +1,17 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { ensureModelAllowlistEntry } from "./model-allowlist.js";
 
 export async function applyDefaultModelChoice(params: {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   setDefaultModel: boolean;
   defaultModel: string;
-  applyDefaultConfig: (config: Nova EngineConfig) => Nova EngineConfig;
-  applyProviderConfig: (config: Nova EngineConfig) => Nova EngineConfig;
+  applyDefaultConfig: (config: NovaEngineConfig) => NovaEngineConfig;
+  applyProviderConfig: (config: NovaEngineConfig) => NovaEngineConfig;
   noteDefault?: string;
   noteAgentModel: (model: string) => Promise<void>;
   prompter: WizardPrompter;
-}): Promise<{ config: Nova EngineConfig; agentModelOverride?: string }> {
+}): Promise<{ config: NovaEngineConfig; agentModelOverride?: string }> {
   if (params.setDefaultModel) {
     const next = params.applyDefaultConfig(params.config);
     if (params.noteDefault) {

@@ -1,5 +1,5 @@
 import type { MessagingToolSend } from "../../agents/pi-embedded-messaging.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { AgentDefaultsConfig } from "../../config/types.js";
 import type { CronJob } from "../types.js";
 import {
@@ -119,7 +119,7 @@ export type RunCronAgentTurnResult = {
 };
 
 export async function runCronIsolatedAgentTurn(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   deps: CliDeps;
   job: CronJob;
   message: string;
@@ -154,7 +154,7 @@ export async function runCronIsolatedAgentTurn(params: {
   } else if (overrideModel) {
     agentCfg.model = overrideModel;
   }
-  const cfgWithAgentDefaults: Nova EngineConfig = {
+  const cfgWithAgentDefaults: NovaEngineConfig = {
     ...params.cfg,
     agents: Object.assign({}, params.cfg.agents, { defaults: agentCfg }),
   };

@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { buildSystemPromptParams } from "./system-prompt-params.js";
 
 async function makeTempDir(label: string): Promise<string> {
@@ -13,7 +13,7 @@ async function makeRepoRoot(root: string): Promise<void> {
   await fs.mkdir(path.join(root, ".git"), { recursive: true });
 }
 
-function buildParams(params: { config?: Nova EngineConfig; workspaceDir?: string; cwd?: string }) {
+function buildParams(params: { config?: NovaEngineConfig; workspaceDir?: string; cwd?: string }) {
   return buildSystemPromptParams({
     config: params.config,
     workspaceDir: params.workspaceDir,
@@ -61,7 +61,7 @@ describe("buildSystemPromptParams repo root", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await makeRepoRoot(workspaceDir);
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       agents: {
         defaults: {
           repoRoot,
@@ -81,7 +81,7 @@ describe("buildSystemPromptParams repo root", () => {
     await fs.mkdir(workspaceDir, { recursive: true });
     await makeRepoRoot(repoRoot);
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       agents: {
         defaults: {
           repoRoot: path.join(temp, "missing"),

@@ -7,7 +7,7 @@ import type {
 import type { Client } from "@buape/carbon";
 import type { GatewayPresenceUpdate } from "discord-api-types/v10";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { DiscordAccountConfig } from "../../config/types.discord.js";
 import type { DiscordChannelConfigResolved } from "./allow-list.js";
 import { buildAgentSessionKey } from "../../routing/resolve-route.js";
@@ -88,7 +88,7 @@ vi.mock("../../config/sessions.js", async (importOriginal) => {
 });
 
 describe("agent components", () => {
-  const createCfg = (): Nova EngineConfig => ({}) as Nova EngineConfig;
+  const createCfg = (): NovaEngineConfig => ({}) as NovaEngineConfig;
 
   const createDmButtonInteraction = (overrides: Partial<ButtonInteraction> = {}) => {
     const reply = vi.fn().mockResolvedValue(undefined);
@@ -173,14 +173,14 @@ describe("agent components", () => {
 });
 
 describe("discord component interactions", () => {
-  const createCfg = (): Nova EngineConfig =>
+  const createCfg = (): NovaEngineConfig =>
     ({
       channels: {
         discord: {
           replyToMode: "first",
         },
       },
-    }) as Nova EngineConfig;
+    }) as NovaEngineConfig;
 
   const createDiscordConfig = (overrides?: Partial<DiscordAccountConfig>): DiscordAccountConfig =>
     ({

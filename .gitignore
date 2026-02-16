@@ -27,8 +27,8 @@ apps/android/.cxx/
 *.bun-build
 apps/macos/.build/
 apps/shared/MoltbotKit/.build/
-apps/shared/Nova EngineKit/.build/
-apps/shared/Nova EngineKit/Package.resolved
+apps/shared/NovaEngineKit/.build/
+apps/shared/NovaEngineKit/Package.resolved
 **/ModuleCache/
 bin/
 bin/clawdbot-mac

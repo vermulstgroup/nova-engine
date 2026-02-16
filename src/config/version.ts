@@ -1,4 +1,4 @@
-export type Nova EngineVersion = {
+export type NovaEngineVersion = {
   major: number;
   minor: number;
   patch: number;
@@ -7,7 +7,7 @@ export type Nova EngineVersion = {
 
 const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:-(\d+))?/;
 
-export function parseNova EngineVersion(raw: string | null | undefined): Nova EngineVersion | null {
+export function parseNovaEngineVersion(raw: string | null | undefined): NovaEngineVersion | null {
   if (!raw) {
     return null;
   }
@@ -24,12 +24,12 @@ export function parseNova EngineVersion(raw: string | null | undefined): Nova En
   };
 }
 
-export function compareNova EngineVersions(
+export function compareNovaEngineVersions(
   a: string | null | undefined,
   b: string | null | undefined,
 ): number | null {
-  const parsedA = parseNova EngineVersion(a);
-  const parsedB = parseNova EngineVersion(b);
+  const parsedA = parseNovaEngineVersion(a);
+  const parsedB = parseNovaEngineVersion(b);
   if (!parsedA || !parsedB) {
     return null;
   }

@@ -1,6 +1,6 @@
 import type { CliDeps } from "../cli/deps.js";
 import type { loadConfig } from "../config/config.js";
-import type { loadNova EnginePlugins } from "../plugins/loader.js";
+import type { loadNovaEnginePlugins } from "../plugins/loader.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { loadModelCatalog } from "../agents/model-catalog.js";
 import {
@@ -26,7 +26,7 @@ import { startGatewayMemoryBackend } from "./server-startup-memory.js";
 
 export async function startGatewaySidecars(params: {
   cfg: ReturnType<typeof loadConfig>;
-  pluginRegistry: ReturnType<typeof loadNova EnginePlugins>;
+  pluginRegistry: ReturnType<typeof loadNovaEnginePlugins>;
   defaultWorkspaceDir: string;
   deps: CliDeps;
   startChannels: () => Promise<void>;

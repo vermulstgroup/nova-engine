@@ -6,7 +6,7 @@ import {
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type {
   ParsedSkillFrontmatter,
   SkillEligibilityContext,
@@ -22,7 +22,7 @@ import { shouldIncludeSkill } from "./config.js";
 import { normalizeSkillFilter } from "./filter.js";
 import {
   parseFrontmatter,
-  resolveNova EngineMetadata,
+  resolveNovaEngineMetadata,
   resolveSkillInvocationPolicy,
 } from "./frontmatter.js";
 import { resolvePluginSkillDirs } from "./plugin-skills.js";
@@ -46,7 +46,7 @@ function debugSkillCommandOnce(
 
 function filterSkillEntries(
   entries: SkillEntry[],
-  config?: Nova EngineConfig,
+  config?: NovaEngineConfig,
   skillFilter?: string[],
   eligibility?: SkillEligibilityContext,
 ): SkillEntry[] {
@@ -104,7 +104,7 @@ function resolveUniqueSkillCommandName(base: string, used: Set<string>): string 
 function loadSkillEntries(
   workspaceDir: string,
   opts?: {
-    config?: Nova EngineConfig;
+    config?: NovaEngineConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
   },
@@ -202,7 +202,7 @@ function loadSkillEntries(
     return {
       skill,
       frontmatter,
-      metadata: resolveNova EngineMetadata(frontmatter),
+      metadata: resolveNovaEngineMetadata(frontmatter),
       invocation: resolveSkillInvocationPolicy(frontmatter),
     };
   });
@@ -212,7 +212,7 @@ function loadSkillEntries(
 export function buildWorkspaceSkillSnapshot(
   workspaceDir: string,
   opts?: {
-    config?: Nova EngineConfig;
+    config?: NovaEngineConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];
@@ -251,7 +251,7 @@ export function buildWorkspaceSkillSnapshot(
 export function buildWorkspaceSkillsPrompt(
   workspaceDir: string,
   opts?: {
-    config?: Nova EngineConfig;
+    config?: NovaEngineConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];
@@ -279,7 +279,7 @@ export function buildWorkspaceSkillsPrompt(
 export function resolveSkillsPromptForRun(params: {
   skillsSnapshot?: SkillSnapshot;
   entries?: SkillEntry[];
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   workspaceDir: string;
 }): string {
   const snapshotPrompt = params.skillsSnapshot?.prompt?.trim();
@@ -299,7 +299,7 @@ export function resolveSkillsPromptForRun(params: {
 export function loadWorkspaceSkillEntries(
   workspaceDir: string,
   opts?: {
-    config?: Nova EngineConfig;
+    config?: NovaEngineConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
   },
@@ -349,7 +349,7 @@ function resolveSyncedSkillDestinationPath(params: {
 export async function syncSkillsToWorkspace(params: {
   sourceWorkspaceDir: string;
   targetWorkspaceDir: string;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   managedSkillsDir?: string;
   bundledSkillsDir?: string;
 }) {
@@ -408,7 +408,7 @@ export async function syncSkillsToWorkspace(params: {
 
 export function filterWorkspaceSkillEntries(
   entries: SkillEntry[],
-  config?: Nova EngineConfig,
+  config?: NovaEngineConfig,
 ): SkillEntry[] {
   return filterSkillEntries(entries, config);
 }
@@ -416,7 +416,7 @@ export function filterWorkspaceSkillEntries(
 export function buildWorkspaceSkillCommandSpecs(
   workspaceDir: string,
   opts?: {
-    config?: Nova EngineConfig;
+    config?: NovaEngineConfig;
     managedSkillsDir?: string;
     bundledSkillsDir?: string;
     entries?: SkillEntry[];

@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { loadSessionStore, resolveStorePath, type SessionEntry } from "../../config/sessions.js";
 
 export function resolveCronSession(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sessionKey: string;
   nowMs: number;
   agentId: string;

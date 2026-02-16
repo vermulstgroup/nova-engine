@@ -1,10 +1,10 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { resolveUserPath } from "../../../utils.js";
 
 export function resolveNonInteractiveWorkspaceDir(params: {
   opts: OnboardOptions;
-  baseConfig: Nova EngineConfig;
+  baseConfig: NovaEngineConfig;
   defaultWorkspaceDir: string;
 }) {
   const raw = (

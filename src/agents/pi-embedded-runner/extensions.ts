@@ -2,7 +2,7 @@ import type { Api, Model } from "@mariozechner/pi-ai";
 import type { SessionManager } from "@mariozechner/pi-coding-agent";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { resolveContextWindowInfo } from "../context-window-guard.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../defaults.js";
 import { setCompactionSafeguardRuntime } from "../pi-extensions/compaction-safeguard-runtime.js";
@@ -21,7 +21,7 @@ function resolvePiExtensionPath(id: string): string {
 }
 
 function resolveContextWindowTokens(params: {
-  cfg: Nova EngineConfig | undefined;
+  cfg: NovaEngineConfig | undefined;
   provider: string;
   modelId: string;
   model: Model<Api> | undefined;
@@ -36,7 +36,7 @@ function resolveContextWindowTokens(params: {
 }
 
 function buildContextPruningExtension(params: {
-  cfg: Nova EngineConfig | undefined;
+  cfg: NovaEngineConfig | undefined;
   sessionManager: SessionManager;
   provider: string;
   modelId: string;
@@ -67,12 +67,12 @@ function buildContextPruningExtension(params: {
   };
 }
 
-function resolveCompactionMode(cfg?: Nova EngineConfig): "default" | "safeguard" {
+function resolveCompactionMode(cfg?: NovaEngineConfig): "default" | "safeguard" {
   return cfg?.agents?.defaults?.compaction?.mode === "safeguard" ? "safeguard" : "default";
 }
 
 export function buildEmbeddedExtensionPaths(params: {
-  cfg: Nova EngineConfig | undefined;
+  cfg: NovaEngineConfig | undefined;
   sessionManager: SessionManager;
   provider: string;
   modelId: string;

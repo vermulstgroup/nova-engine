@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ModelProviderConfig } from "../config/types.models.js";
 import { applyOnboardAuthAgentModelsAndProviders } from "./onboard-auth.config-shared.js";
 import {
@@ -15,7 +15,7 @@ import {
   MINIMAX_LM_STUDIO_COST,
 } from "./onboard-auth.models.js";
 
-export function applyMinimaxProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMinimaxProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models["anthropic/claude-opus-4-6"] = {
     ...models["anthropic/claude-opus-4-6"],
@@ -49,9 +49,9 @@ export function applyMinimaxProviderConfig(cfg: Nova EngineConfig): Nova EngineC
 }
 
 export function applyMinimaxHostedProviderConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { baseUrl?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[MINIMAX_HOSTED_MODEL_REF] = {
     ...models[MINIMAX_HOSTED_MODEL_REF],
@@ -80,7 +80,7 @@ export function applyMinimaxHostedProviderConfig(
   return applyOnboardAuthAgentModelsAndProviders(cfg, { agentModels: models, providers });
 }
 
-export function applyMinimaxConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMinimaxConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyMinimaxProviderConfig(cfg);
   return {
     ...next,
@@ -103,9 +103,9 @@ export function applyMinimaxConfig(cfg: Nova EngineConfig): Nova EngineConfig {
 }
 
 export function applyMinimaxHostedConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { baseUrl?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const next = applyMinimaxHostedProviderConfig(cfg, params);
   return {
     ...next,
@@ -124,9 +124,9 @@ export function applyMinimaxHostedConfig(
 
 // MiniMax Anthropic-compatible API (platform.minimax.io/anthropic)
 export function applyMinimaxApiProviderConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   modelId: string = "MiniMax-M2.5",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return applyMinimaxApiProviderConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,
@@ -135,9 +135,9 @@ export function applyMinimaxApiProviderConfig(
 }
 
 export function applyMinimaxApiConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   modelId: string = "MiniMax-M2.5",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return applyMinimaxApiConfigWithBaseUrl(cfg, {
     providerId: "minimax",
     modelId,
@@ -147,9 +147,9 @@ export function applyMinimaxApiConfig(
 
 // MiniMax China API (api.minimaxi.com)
 export function applyMinimaxApiProviderConfigCn(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   modelId: string = "MiniMax-M2.5",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return applyMinimaxApiProviderConfigWithBaseUrl(cfg, {
     providerId: "minimax-cn",
     modelId,
@@ -158,9 +158,9 @@ export function applyMinimaxApiProviderConfigCn(
 }
 
 export function applyMinimaxApiConfigCn(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   modelId: string = "MiniMax-M2.5",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return applyMinimaxApiConfigWithBaseUrl(cfg, {
     providerId: "minimax-cn",
     modelId,
@@ -175,9 +175,9 @@ type MinimaxApiProviderConfigParams = {
 };
 
 function applyMinimaxApiProviderConfigWithBaseUrl(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params: MinimaxApiProviderConfigParams,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const providers = { ...cfg.models?.providers } as Record<string, ModelProviderConfig>;
   const existingProvider = providers[params.providerId];
   const existingModels = existingProvider?.models ?? [];
@@ -219,9 +219,9 @@ function applyMinimaxApiProviderConfigWithBaseUrl(
 }
 
 function applyMinimaxApiConfigWithBaseUrl(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params: MinimaxApiProviderConfigParams,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const next = applyMinimaxApiProviderConfigWithBaseUrl(cfg, params);
   return {
     ...next,

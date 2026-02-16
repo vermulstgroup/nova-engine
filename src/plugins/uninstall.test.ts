@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolvePluginInstallDir } from "./install.js";
 import {
   removePluginFromConfig,
@@ -12,7 +12,7 @@ import {
 
 describe("removePluginFromConfig", () => {
   it("removes plugin from entries", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -28,7 +28,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("removes plugin from installs", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         installs: {
           "my-plugin": { source: "npm", spec: "my-plugin@1.0.0" },
@@ -46,7 +46,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("removes plugin from allowlist", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         allow: ["my-plugin", "other-plugin"],
       },
@@ -59,7 +59,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("removes linked path from load.paths", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         installs: {
           "my-plugin": {
@@ -81,7 +81,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("cleans up load when removing the only linked path", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         installs: {
           "my-plugin": {
@@ -103,7 +103,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("clears memory slot when uninstalling active memory plugin", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "memory-plugin": { enabled: true },
@@ -121,7 +121,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("does not modify memory slot when uninstalling non-memory plugin", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -139,7 +139,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("removes plugins object when uninstall leaves only empty slots", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -154,7 +154,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("cleans up empty slots object", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -169,7 +169,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("handles plugin that only exists in entries", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -185,7 +185,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("handles plugin that only exists in installs", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         installs: {
           "my-plugin": { source: "npm", spec: "my-plugin@1.0.0" },
@@ -201,7 +201,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("cleans up empty plugins object", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -216,7 +216,7 @@ describe("removePluginFromConfig", () => {
   });
 
   it("preserves other config values", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         enabled: true,
         deny: ["denied-plugin"],
@@ -245,7 +245,7 @@ describe("uninstallPlugin", () => {
   });
 
   it("returns error when plugin not found", async () => {
-    const config: Nova EngineConfig = {};
+    const config: NovaEngineConfig = {};
 
     const result = await uninstallPlugin({
       config,
@@ -259,7 +259,7 @@ describe("uninstallPlugin", () => {
   });
 
   it("removes config entries", async () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -292,7 +292,7 @@ describe("uninstallPlugin", () => {
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           [pluginId]: { enabled: true },
@@ -330,7 +330,7 @@ describe("uninstallPlugin", () => {
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -368,7 +368,7 @@ describe("uninstallPlugin", () => {
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -398,7 +398,7 @@ describe("uninstallPlugin", () => {
   });
 
   it("succeeds even if directory does not exist", async () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },
@@ -434,7 +434,7 @@ describe("uninstallPlugin", () => {
     await fs.mkdir(pluginDir, { recursive: true });
     await fs.writeFile(path.join(pluginDir, "index.js"), "// plugin");
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           [pluginId]: { enabled: true },
@@ -475,7 +475,7 @@ describe("uninstallPlugin", () => {
     await fs.mkdir(outsideDir, { recursive: true });
     await fs.writeFile(path.join(outsideDir, "index.js"), "// keep me");
 
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       plugins: {
         entries: {
           "my-plugin": { enabled: true },

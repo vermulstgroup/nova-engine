@@ -7,7 +7,7 @@ export type HookInstallSpec = {
   bins?: string[];
 };
 
-export type Nova EngineHookMetadata = {
+export type NovaEngineHookMetadata = {
   always?: boolean;
   hookKey?: string;
   emoji?: string;
@@ -47,7 +47,7 @@ export type HookSource = Hook["source"];
 export type HookEntry = {
   hook: Hook;
   frontmatter: ParsedHookFrontmatter;
-  metadata?: Nova EngineHookMetadata;
+  metadata?: NovaEngineHookMetadata;
   invocation?: HookInvocationPolicy;
 };
 

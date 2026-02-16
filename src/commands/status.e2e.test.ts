@@ -214,7 +214,7 @@ vi.mock("../gateway/session-utils.js", () => ({
   listAgentsForGateway: mocks.listAgentsForGateway,
 }));
 vi.mock("../infra/nova-engine-root.js", () => ({
-  resolveNova EnginePackageRoot: vi.fn().mockResolvedValue("/tmp/nova-engine"),
+  resolveNovaEnginePackageRoot: vi.fn().mockResolvedValue("/tmp/nova-engine"),
 }));
 vi.mock("../infra/os-summary.js", () => ({
   resolveOsSummary: () => ({

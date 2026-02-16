@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { AnyAgentTool } from "./common.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { wrapWebContent } from "../../security/external-content.js";
@@ -69,7 +69,7 @@ const WebSearchSchema = Type.Object({
   ),
 });
 
-type WebSearchConfig = NonNullable<Nova EngineConfig["tools"]>["web"] extends infer Web
+type WebSearchConfig = NonNullable<NovaEngineConfig["tools"]>["web"] extends infer Web
   ? Web extends { search?: infer Search }
     ? Search
     : undefined
@@ -161,7 +161,7 @@ function extractGrokContent(data: GrokSearchResponse): {
   return { text, annotationCitations: [] };
 }
 
-function resolveSearchConfig(cfg?: Nova EngineConfig): WebSearchConfig {
+function resolveSearchConfig(cfg?: NovaEngineConfig): WebSearchConfig {
   const search = cfg?.tools?.web?.search;
   if (!search || typeof search !== "object") {
     return undefined;
@@ -706,7 +706,7 @@ async function runWebSearch(params: {
 }
 
 export function createWebSearchTool(options?: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   sandboxed?: boolean;
 }): AnyAgentTool | null {
   const search = resolveSearchConfig(options?.config);

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "./config.js";
+import type { NovaEngineConfig } from "./config.js";
 import { normalizeProviderId } from "../agents/model-selection.js";
 import {
   getChannelPluginCatalogEntry,
@@ -18,7 +18,7 @@ type PluginEnableChange = {
 };
 
 export type PluginAutoEnableResult = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   changes: string[];
 };
 
@@ -63,7 +63,7 @@ function accountsHaveKeys(value: unknown, keys: string[]): boolean {
 }
 
 function resolveChannelConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   channelId: string,
 ): Record<string, unknown> | null {
   const channels = cfg.channels as Record<string, unknown> | undefined;
@@ -71,7 +71,7 @@ function resolveChannelConfig(
   return isRecord(entry) ? entry : null;
 }
 
-function isTelegramConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function isTelegramConfigured(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.TELEGRAM_BOT_TOKEN)) {
     return true;
   }
@@ -88,7 +88,7 @@ function isTelegramConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): b
   return recordHasKeys(entry);
 }
 
-function isDiscordConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function isDiscordConfigured(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.DISCORD_BOT_TOKEN)) {
     return true;
   }
@@ -105,7 +105,7 @@ function isDiscordConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): bo
   return recordHasKeys(entry);
 }
 
-function isIrcConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function isIrcConfigured(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.IRC_HOST) && hasNonEmptyString(env.IRC_NICK)) {
     return true;
   }
@@ -122,7 +122,7 @@ function isIrcConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolea
   return recordHasKeys(entry);
 }
 
-function isSlackConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function isSlackConfigured(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   if (
     hasNonEmptyString(env.SLACK_BOT_TOKEN) ||
     hasNonEmptyString(env.SLACK_APP_TOKEN) ||
@@ -147,7 +147,7 @@ function isSlackConfigured(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): bool
   return recordHasKeys(entry);
 }
 
-function isSignalConfigured(cfg: Nova EngineConfig): boolean {
+function isSignalConfigured(cfg: NovaEngineConfig): boolean {
   const entry = resolveChannelConfig(cfg, "signal");
   if (!entry) {
     return false;
@@ -167,7 +167,7 @@ function isSignalConfigured(cfg: Nova EngineConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isIMessageConfigured(cfg: Nova EngineConfig): boolean {
+function isIMessageConfigured(cfg: NovaEngineConfig): boolean {
   const entry = resolveChannelConfig(cfg, "imessage");
   if (!entry) {
     return false;
@@ -178,7 +178,7 @@ function isIMessageConfigured(cfg: Nova EngineConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isWhatsAppConfigured(cfg: Nova EngineConfig): boolean {
+function isWhatsAppConfigured(cfg: NovaEngineConfig): boolean {
   if (hasAnyWhatsAppAuth(cfg)) {
     return true;
   }
@@ -189,13 +189,13 @@ function isWhatsAppConfigured(cfg: Nova EngineConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isGenericChannelConfigured(cfg: Nova EngineConfig, channelId: string): boolean {
+function isGenericChannelConfigured(cfg: NovaEngineConfig, channelId: string): boolean {
   const entry = resolveChannelConfig(cfg, channelId);
   return recordHasKeys(entry);
 }
 
 export function isChannelConfigured(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   channelId: string,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
@@ -219,7 +219,7 @@ export function isChannelConfigured(
   }
 }
 
-function collectModelRefs(cfg: Nova EngineConfig): string[] {
+function collectModelRefs(cfg: NovaEngineConfig): string[] {
   const refs: string[] = [];
   const pushModelRef = (value: unknown) => {
     if (typeof value === "string" && value.trim()) {
@@ -273,7 +273,7 @@ function extractProviderFromModelRef(value: string): string | null {
   return normalizeProviderId(trimmed.slice(0, slash));
 }
 
-function isProviderConfigured(cfg: Nova EngineConfig, providerId: string): boolean {
+function isProviderConfigured(cfg: NovaEngineConfig, providerId: string): boolean {
   const normalized = normalizeProviderId(providerId);
 
   const profiles = cfg.auth?.profiles;
@@ -310,7 +310,7 @@ function isProviderConfigured(cfg: Nova EngineConfig, providerId: string): boole
 }
 
 function resolveConfiguredPlugins(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv,
 ): PluginEnableChange[] {
   const changes: PluginEnableChange[] = [];
@@ -346,12 +346,12 @@ function resolveConfiguredPlugins(
   return changes;
 }
 
-function isPluginExplicitlyDisabled(cfg: Nova EngineConfig, pluginId: string): boolean {
+function isPluginExplicitlyDisabled(cfg: NovaEngineConfig, pluginId: string): boolean {
   const entry = cfg.plugins?.entries?.[pluginId];
   return entry?.enabled === false;
 }
 
-function isPluginDenied(cfg: Nova EngineConfig, pluginId: string): boolean {
+function isPluginDenied(cfg: NovaEngineConfig, pluginId: string): boolean {
   const deny = cfg.plugins?.deny;
   return Array.isArray(deny) && deny.includes(pluginId);
 }
@@ -366,7 +366,7 @@ function resolvePreferredOverIds(pluginId: string): string[] {
 }
 
 function shouldSkipPreferredPluginAutoEnable(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   entry: PluginEnableChange,
   configured: PluginEnableChange[],
 ): boolean {
@@ -388,7 +388,7 @@ function shouldSkipPreferredPluginAutoEnable(
   return false;
 }
 
-function ensureAllowlisted(cfg: Nova EngineConfig, pluginId: string): Nova EngineConfig {
+function ensureAllowlisted(cfg: NovaEngineConfig, pluginId: string): NovaEngineConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) {
     return cfg;
@@ -402,7 +402,7 @@ function ensureAllowlisted(cfg: Nova EngineConfig, pluginId: string): Nova Engin
   };
 }
 
-function registerPluginEntry(cfg: Nova EngineConfig, pluginId: string): Nova EngineConfig {
+function registerPluginEntry(cfg: NovaEngineConfig, pluginId: string): NovaEngineConfig {
   const entries = {
     ...cfg.plugins?.entries,
     [pluginId]: {
@@ -430,7 +430,7 @@ function formatAutoEnableChange(entry: PluginEnableChange): string {
 }
 
 export function applyPluginAutoEnable(params: {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   env?: NodeJS.ProcessEnv;
 }): PluginAutoEnableResult {
   const env = params.env ?? process.env;

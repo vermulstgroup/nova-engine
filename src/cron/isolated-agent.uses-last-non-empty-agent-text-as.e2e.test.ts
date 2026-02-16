@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CliDeps } from "../cli/deps.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { CronJob } from "./types.js";
 import { withTempHome as withTempHomeBase } from "../../test/helpers/temp-home.js";
 
@@ -92,9 +92,9 @@ async function readSessionEntry(storePath: string, key: string) {
 function makeCfg(
   home: string,
   storePath: string,
-  overrides: Partial<Nova EngineConfig> = {},
-): Nova EngineConfig {
-  const base: Nova EngineConfig = {
+  overrides: Partial<NovaEngineConfig> = {},
+): NovaEngineConfig {
+  const base: NovaEngineConfig = {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
@@ -102,7 +102,7 @@ function makeCfg(
       },
     },
     session: { store: storePath, mainKey: "main" },
-  } as Nova EngineConfig;
+  } as NovaEngineConfig;
   return { ...base, ...overrides };
 }
 

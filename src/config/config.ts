@@ -18,4 +18,4 @@ export {
   validateConfigObjectRawWithPlugins,
   validateConfigObjectWithPlugins,
 } from "./validation.js";
-export { Nova EngineSchema } from "./zod-schema.js";
+export { NovaEngineSchema } from "./zod-schema.js";

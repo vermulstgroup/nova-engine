@@ -3,8 +3,8 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite
 let modelsListCommand: typeof import("./models/list.list-command.js").modelsListCommand;
 
 const loadConfig = vi.fn();
-const ensureNova EngineModelsJson = vi.fn().mockResolvedValue(undefined);
-const resolveNova EngineAgentDir = vi.fn().mockReturnValue("/tmp/nova-engine-agent");
+const ensureNovaEngineModelsJson = vi.fn().mockResolvedValue(undefined);
+const resolveNovaEngineAgentDir = vi.fn().mockReturnValue("/tmp/nova-engine-agent");
 const ensureAuthProfileStore = vi.fn().mockReturnValue({ version: 1, profiles: {} });
 const listProfilesForProvider = vi.fn().mockReturnValue([]);
 const resolveAuthProfileDisplayLabel = vi.fn(({ profileId }: { profileId: string }) => profileId);
@@ -30,11 +30,11 @@ vi.mock("../config/config.js", () => ({
 }));
 
 vi.mock("../agents/models-config.js", () => ({
-  ensureNova EngineModelsJson,
+  ensureNovaEngineModelsJson,
 }));
 
 vi.mock("../agents/agent-paths.js", () => ({
-  resolveNova EngineAgentDir,
+  resolveNovaEngineAgentDir,
 }));
 
 vi.mock("../agents/auth-profiles.js", () => ({

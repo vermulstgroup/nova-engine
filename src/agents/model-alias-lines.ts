@@ -1,6 +1,6 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
-export function buildModelAliasLines(cfg?: Nova EngineConfig) {
+export function buildModelAliasLines(cfg?: NovaEngineConfig) {
   const models = cfg?.agents?.defaults?.models ?? {};
   const entries: Array<{ alias: string; model: string }> = [];
   for (const [keyRaw, entryRaw] of Object.entries(models)) {

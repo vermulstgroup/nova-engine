@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { ChannelId } from "./types.js";
 import { normalizeAccountId } from "../../routing/session-key.js";
 
@@ -21,7 +21,7 @@ function resolveAccountConfig(accounts: ChannelConfigWithAccounts["accounts"], a
 }
 
 export function resolveChannelConfigWrites(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   channelId?: ChannelId | null;
   accountId?: string | null;
 }): boolean {

@@ -4,7 +4,7 @@
  * These functions analyze config-based security properties without I/O.
  */
 import type { SandboxToolPolicy } from "../agents/sandbox/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { AgentToolsConfig } from "../config/types.tools.js";
 import { isToolAllowedByPolicies } from "../agents/pi-tools.policy.js";
 import {
@@ -34,7 +34,7 @@ const SMALL_MODEL_PARAM_B_MAX = 300;
 // Helpers
 // --------------------------------------------------------------------------
 
-function summarizeGroupPolicy(cfg: Nova EngineConfig): {
+function summarizeGroupPolicy(cfg: NovaEngineConfig): {
   open: number;
   allowlist: number;
   other: number;
@@ -79,7 +79,7 @@ function looksLikeEnvRef(value: string): boolean {
   return v.startsWith("${") && v.endsWith("}");
 }
 
-function isGatewayRemotelyExposed(cfg: Nova EngineConfig): boolean {
+function isGatewayRemotelyExposed(cfg: NovaEngineConfig): boolean {
   const bind = typeof cfg.gateway?.bind === "string" ? cfg.gateway.bind : "loopback";
   if (bind !== "loopback") {
     return true;
@@ -101,7 +101,7 @@ function addModel(models: ModelRef[], raw: unknown, source: string) {
   models.push({ id, source });
 }
 
-function collectModels(cfg: Nova EngineConfig): ModelRef[] {
+function collectModels(cfg: NovaEngineConfig): ModelRef[] {
   const out: ModelRef[] = [];
   addModel(out, cfg.agents?.defaults?.model?.primary, "agents.defaults.model.primary");
   for (const f of cfg.agents?.defaults?.model?.fallbacks ?? []) {
@@ -182,8 +182,8 @@ function normalizeNodeCommand(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function listKnownNodeCommands(cfg: Nova EngineConfig): Set<string> {
-  const baseCfg: Nova EngineConfig = {
+function listKnownNodeCommands(cfg: NovaEngineConfig): Set<string> {
+  const baseCfg: NovaEngineConfig = {
     ...cfg,
     gateway: {
       ...cfg.gateway,
@@ -225,7 +225,7 @@ function looksLikeNodeCommandPattern(value: string): boolean {
 }
 
 function resolveToolPolicies(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentTools?: AgentToolsConfig;
   sandboxMode?: "off" | "non-main" | "all";
   agentId?: string | null;
@@ -255,7 +255,7 @@ function resolveToolPolicies(params: {
   return policies;
 }
 
-function hasWebSearchKey(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function hasWebSearchKey(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   const search = cfg.tools?.web?.search;
   return Boolean(
     search?.apiKey ||
@@ -266,7 +266,7 @@ function hasWebSearchKey(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolea
   );
 }
 
-function isWebSearchEnabled(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boolean {
+function isWebSearchEnabled(cfg: NovaEngineConfig, env: NodeJS.ProcessEnv): boolean {
   const enabled = cfg.tools?.web?.search?.enabled;
   if (enabled === false) {
     return false;
@@ -277,7 +277,7 @@ function isWebSearchEnabled(cfg: Nova EngineConfig, env: NodeJS.ProcessEnv): boo
   return hasWebSearchKey(cfg, env);
 }
 
-function isWebFetchEnabled(cfg: Nova EngineConfig): boolean {
+function isWebFetchEnabled(cfg: NovaEngineConfig): boolean {
   const enabled = cfg.tools?.web?.fetch?.enabled;
   if (enabled === false) {
     return false;
@@ -285,7 +285,7 @@ function isWebFetchEnabled(cfg: Nova EngineConfig): boolean {
   return true;
 }
 
-function isBrowserEnabled(cfg: Nova EngineConfig): boolean {
+function isBrowserEnabled(cfg: NovaEngineConfig): boolean {
   try {
     return resolveBrowserConfig(cfg.browser, cfg).enabled;
   } catch {
@@ -293,7 +293,7 @@ function isBrowserEnabled(cfg: Nova EngineConfig): boolean {
   }
 }
 
-function listGroupPolicyOpen(cfg: Nova EngineConfig): string[] {
+function listGroupPolicyOpen(cfg: NovaEngineConfig): string[] {
   const out: string[] = [];
   const channels = cfg.channels as Record<string, unknown> | undefined;
   if (!channels || typeof channels !== "object") {
@@ -327,7 +327,7 @@ function listGroupPolicyOpen(cfg: Nova EngineConfig): string[] {
 // Exported collectors
 // --------------------------------------------------------------------------
 
-export function collectAttackSurfaceSummaryFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectAttackSurfaceSummaryFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const group = summarizeGroupPolicy(cfg);
   const elevated = cfg.tools?.elevated?.enabled !== false;
   const webhooksEnabled = cfg.hooks?.enabled === true;
@@ -372,7 +372,7 @@ export function collectSyncedFolderFindings(params: {
   return findings;
 }
 
-export function collectSecretsInConfigFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectSecretsInConfigFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const password =
     typeof cfg.gateway?.auth?.password === "string" ? cfg.gateway.auth.password.trim() : "";
@@ -403,7 +403,7 @@ export function collectSecretsInConfigFindings(cfg: Nova EngineConfig): Security
 }
 
 export function collectHooksHardeningFindings(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
@@ -509,7 +509,7 @@ export function collectHooksHardeningFindings(
 }
 
 export function collectGatewayHttpSessionKeyOverrideFindings(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const chatCompletionsEnabled = cfg.gateway?.http?.endpoints?.chatCompletions?.enabled === true;
@@ -535,7 +535,7 @@ export function collectGatewayHttpSessionKeyOverrideFindings(
   return findings;
 }
 
-export function collectSandboxDockerNoopFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectSandboxDockerNoopFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const configuredPaths: string[] = [];
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
@@ -585,7 +585,7 @@ export function collectSandboxDockerNoopFindings(cfg: Nova EngineConfig): Securi
   return findings;
 }
 
-export function collectSandboxDangerousConfigFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectSandboxDangerousConfigFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
 
@@ -683,7 +683,7 @@ export function collectSandboxDangerousConfigFindings(cfg: Nova EngineConfig): S
   return findings;
 }
 
-export function collectNodeDenyCommandPatternFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectNodeDenyCommandPatternFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const denyListRaw = cfg.gateway?.nodes?.denyCommands;
   if (!Array.isArray(denyListRaw) || denyListRaw.length === 0) {
@@ -732,7 +732,7 @@ export function collectNodeDenyCommandPatternFindings(cfg: Nova EngineConfig): S
   return findings;
 }
 
-export function collectMinimalProfileOverrideFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectMinimalProfileOverrideFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   if (cfg.tools?.profile !== "minimal") {
     return findings;
@@ -768,7 +768,7 @@ export function collectMinimalProfileOverrideFindings(cfg: Nova EngineConfig): S
   return findings;
 }
 
-export function collectModelHygieneFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectModelHygieneFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const models = collectModels(cfg);
   if (models.length === 0) {
@@ -854,7 +854,7 @@ export function collectModelHygieneFindings(cfg: Nova EngineConfig): SecurityAud
 }
 
 export function collectSmallModelRiskFindings(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   env: NodeJS.ProcessEnv;
 }): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
@@ -948,7 +948,7 @@ export function collectSmallModelRiskFindings(params: {
   return findings;
 }
 
-export function collectExposureMatrixFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+export function collectExposureMatrixFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const openGroups = listGroupPolicyOpen(cfg);
   if (openGroups.length === 0) {

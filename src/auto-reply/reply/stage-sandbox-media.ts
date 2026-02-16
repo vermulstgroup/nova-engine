@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { MsgContext, TemplateContext } from "../templating.js";
 import { assertSandboxPath } from "../../agents/sandbox-paths.js";
 import { ensureSandboxWorkspaceForSession } from "../../agents/sandbox.js";
@@ -13,7 +13,7 @@ import { CONFIG_DIR } from "../../utils.js";
 export async function stageSandboxMedia(params: {
   ctx: MsgContext;
   sessionCtx: TemplateContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sessionKey?: string;
   workspaceDir: string;
 }) {

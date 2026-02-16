@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { WizardPrompter, WizardSelectOption } from "../wizard/prompts.js";
 import { ensureAuthProfileStore, listProfilesForProvider } from "../agents/auth-profiles.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
@@ -26,7 +26,7 @@ const PROVIDER_FILTER_THRESHOLD = 30;
 const HIDDEN_ROUTER_MODELS = new Set(["openrouter/auto"]);
 
 type PromptDefaultModelParams = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   prompter: WizardPrompter;
   allowKeep?: boolean;
   includeManual?: boolean;
@@ -37,12 +37,12 @@ type PromptDefaultModelParams = {
   message?: string;
 };
 
-type PromptDefaultModelResult = { model?: string; config?: Nova EngineConfig };
+type PromptDefaultModelResult = { model?: string; config?: NovaEngineConfig };
 type PromptModelAllowlistResult = { models?: string[] };
 
 function hasAuthForProvider(
   provider: string,
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   store: ReturnType<typeof ensureAuthProfileStore>,
 ) {
   if (listProfilesForProvider(store, provider).length > 0) {
@@ -58,7 +58,7 @@ function hasAuthForProvider(
 }
 
 function createProviderAuthChecker(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentDir?: string;
 }): (provider: string) => boolean {
   const authStore = ensureAuthProfileStore(params.agentDir, {
@@ -76,7 +76,7 @@ function createProviderAuthChecker(params: {
   };
 }
 
-function resolveConfiguredModelRaw(cfg: Nova EngineConfig): string {
+function resolveConfiguredModelRaw(cfg: NovaEngineConfig): string {
   const raw = cfg.agents?.defaults?.model as { primary?: string } | string | undefined;
   if (typeof raw === "string") {
     return raw.trim();
@@ -84,7 +84,7 @@ function resolveConfiguredModelRaw(cfg: Nova EngineConfig): string {
   return raw?.primary?.trim() ?? "";
 }
 
-function resolveConfiguredModelKeys(cfg: Nova EngineConfig): string[] {
+function resolveConfiguredModelKeys(cfg: NovaEngineConfig): string[] {
   const models = cfg.agents?.defaults?.models ?? {};
   return Object.keys(models)
     .map((key) => String(key ?? "").trim())
@@ -341,7 +341,7 @@ export async function promptDefaultModel(
 }
 
 export async function promptModelAllowlist(params: {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   prompter: WizardPrompter;
   message?: string;
   agentDir?: string;
@@ -442,7 +442,7 @@ export async function promptModelAllowlist(params: {
   return { models: [] };
 }
 
-export function applyPrimaryModel(cfg: Nova EngineConfig, model: string): Nova EngineConfig {
+export function applyPrimaryModel(cfg: NovaEngineConfig, model: string): NovaEngineConfig {
   const defaults = cfg.agents?.defaults;
   const existingModel = defaults?.model;
   const existingModels = defaults?.models;
@@ -469,7 +469,7 @@ export function applyPrimaryModel(cfg: Nova EngineConfig, model: string): Nova E
   };
 }
 
-export function applyModelAllowlist(cfg: Nova EngineConfig, models: string[]): Nova EngineConfig {
+export function applyModelAllowlist(cfg: NovaEngineConfig, models: string[]): NovaEngineConfig {
   const defaults = cfg.agents?.defaults;
   const normalized = normalizeModelKeys(models);
   if (normalized.length === 0) {
@@ -505,9 +505,9 @@ export function applyModelAllowlist(cfg: Nova EngineConfig, models: string[]): N
 }
 
 export function applyModelFallbacksFromSelection(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   selection: string[],
-): Nova EngineConfig {
+): NovaEngineConfig {
   const normalized = normalizeModelKeys(selection);
   if (normalized.length <= 1) {
     return cfg;

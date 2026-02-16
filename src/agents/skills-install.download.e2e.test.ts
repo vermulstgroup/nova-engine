@@ -10,13 +10,13 @@ const runCommandWithTimeoutMock = vi.fn();
 const scanDirectoryWithSummaryMock = vi.fn();
 const fetchWithSsrFGuardMock = vi.fn();
 
-const originalNova EngineStateDir = process.env.NOVA_STATE_DIR;
+const originalNovaEngineStateDir = process.env.NOVA_STATE_DIR;
 
 afterEach(() => {
-  if (originalNova EngineStateDir === undefined) {
+  if (originalNovaEngineStateDir === undefined) {
     delete process.env.NOVA_STATE_DIR;
   } else {
-    process.env.NOVA_STATE_DIR = originalNova EngineStateDir;
+    process.env.NOVA_STATE_DIR = originalNovaEngineStateDir;
   }
 });
 

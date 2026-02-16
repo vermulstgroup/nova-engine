@@ -1,5 +1,5 @@
 import type { SkillCommandSpec } from "../agents/skills.js";
-import type { Nova EngineConfig } from "../config/types.js";
+import type { NovaEngineConfig } from "../config/types.js";
 import type {
   ChatCommandDefinition,
   CommandArgChoiceContext,
@@ -94,7 +94,7 @@ export function listChatCommands(params?: {
   return [...commands, ...buildSkillCommandDefinitions(params.skillCommands)];
 }
 
-export function isCommandEnabled(cfg: Nova EngineConfig, commandKey: string): boolean {
+export function isCommandEnabled(cfg: NovaEngineConfig, commandKey: string): boolean {
   if (commandKey === "config") {
     return cfg.commands?.config === true;
   }
@@ -108,7 +108,7 @@ export function isCommandEnabled(cfg: Nova EngineConfig, commandKey: string): bo
 }
 
 export function listChatCommandsForConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { skillCommands?: SkillCommandSpec[] },
 ): ChatCommandDefinition[] {
   const base = getChatCommands().filter((command) => isCommandEnabled(cfg, command.key));
@@ -152,7 +152,7 @@ export function listNativeCommandSpecs(params?: {
 }
 
 export function listNativeCommandSpecsForConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { skillCommands?: SkillCommandSpec[]; provider?: string },
 ): NativeCommandSpec[] {
   return listChatCommandsForConfig(cfg, params)
@@ -277,12 +277,12 @@ export function buildCommandTextFromArgs(
   return buildCommandText(commandName, serializeCommandArgs(command, args));
 }
 
-function resolveDefaultCommandContext(cfg?: Nova EngineConfig): {
+function resolveDefaultCommandContext(cfg?: NovaEngineConfig): {
   provider: string;
   model: string;
 } {
   const resolved = resolveConfiguredModelRef({
-    cfg: cfg ?? ({} as Nova EngineConfig),
+    cfg: cfg ?? ({} as NovaEngineConfig),
     defaultProvider: DEFAULT_PROVIDER,
     defaultModel: DEFAULT_MODEL,
   });
@@ -297,7 +297,7 @@ export type ResolvedCommandArgChoice = { value: string; label: string };
 export function resolveCommandArgChoices(params: {
   command: ChatCommandDefinition;
   arg: CommandArgDefinition;
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   provider?: string;
   model?: string;
 }): ResolvedCommandArgChoice[] {
@@ -327,7 +327,7 @@ export function resolveCommandArgChoices(params: {
 export function resolveCommandArgMenu(params: {
   command: ChatCommandDefinition;
   args?: CommandArgs;
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
 }): { arg: CommandArgDefinition; choices: ResolvedCommandArgChoice[]; title?: string } | null {
   const { command, args, cfg } = params;
   if (!command.args || !command.argsMenu) {
@@ -418,7 +418,7 @@ export function isCommandMessage(raw: string): boolean {
   return trimmed.startsWith("/");
 }
 
-export function getCommandDetection(_cfg?: Nova EngineConfig): CommandDetection {
+export function getCommandDetection(_cfg?: NovaEngineConfig): CommandDetection {
   const commands = getChatCommands();
   if (cachedDetection && cachedDetectionCommands === commands) {
     return cachedDetection;
@@ -451,7 +451,7 @@ export function getCommandDetection(_cfg?: Nova EngineConfig): CommandDetection 
   return cachedDetection;
 }
 
-export function maybeResolveTextAlias(raw: string, cfg?: Nova EngineConfig) {
+export function maybeResolveTextAlias(raw: string, cfg?: NovaEngineConfig) {
   const trimmed = normalizeCommandBody(raw).trim();
   if (!trimmed.startsWith("/")) {
     return null;
@@ -474,7 +474,7 @@ export function maybeResolveTextAlias(raw: string, cfg?: Nova EngineConfig) {
 
 export function resolveTextCommand(
   raw: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
 ): {
   command: ChatCommandDefinition;
   args?: string;

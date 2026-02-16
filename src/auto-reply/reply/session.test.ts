@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { buildModelAliasIndex } from "../../agents/model-selection.js";
 import { saveSessionStore } from "../../config/sessions.js";
 import { formatZonedTimestamp } from "../../infra/format-time/format-datetime.ts";
@@ -91,7 +91,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const threadSessionKey = "agent:main:slack:channel:c1:thread:123";
     const threadLabel = "Slack thread #general: starter";
@@ -131,7 +131,7 @@ describe("initSessionState thread forking", () => {
 
     const cfg = {
       session: { store: storePath },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -155,7 +155,7 @@ describe("initSessionState RawBody", () => {
   it("triggerBodyNormalized correctly extracts commands when Body contains context but RawBody is clean", async () => {
     const root = await makeCaseDir("nova-engine-rawbody-");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as Nova EngineConfig;
+    const cfg = { session: { store: storePath } } as NovaEngineConfig;
 
     const groupMessageCtx = {
       Body: `[Chat messages since your last reply - for context]\n[WhatsApp ...] Someone: hello\n\n[Current message - respond to this]\n[WhatsApp ...] Jake: /status\n[from: Jake McInteer (+6421807830)]`,
@@ -176,7 +176,7 @@ describe("initSessionState RawBody", () => {
   it("Reset triggers (/new, /reset) work with RawBody", async () => {
     const root = await makeCaseDir("nova-engine-rawbody-reset-");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as Nova EngineConfig;
+    const cfg = { session: { store: storePath } } as NovaEngineConfig;
 
     const groupMessageCtx = {
       Body: `[Context]\nJake: /new\n[from: Jake]`,
@@ -204,7 +204,7 @@ describe("initSessionState RawBody", () => {
         store: storePath,
         resetTriggers: ["/new"],
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const ctx = {
       RawBody: "/NEW KeepThisCase",
@@ -226,7 +226,7 @@ describe("initSessionState RawBody", () => {
   it("falls back to Body when RawBody is undefined", async () => {
     const root = await makeCaseDir("nova-engine-rawbody-fallback-");
     const storePath = path.join(root, "sessions.json");
-    const cfg = { session: { store: storePath } } as Nova EngineConfig;
+    const cfg = { session: { store: storePath } } as NovaEngineConfig;
 
     const ctx = {
       Body: "/status",
@@ -262,7 +262,7 @@ describe("initSessionState RawBody", () => {
         },
       });
 
-      const cfg = {} as Nova EngineConfig;
+      const cfg = {} as NovaEngineConfig;
       const result = await initSessionState({
         ctx: {
           Body: "hello",
@@ -307,7 +307,7 @@ describe("initSessionState reset policy", () => {
       },
     });
 
-    const cfg = { session: { store: storePath } } as Nova EngineConfig;
+    const cfg = { session: { store: storePath } } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -332,7 +332,7 @@ describe("initSessionState reset policy", () => {
       },
     });
 
-    const cfg = { session: { store: storePath } } as Nova EngineConfig;
+    const cfg = { session: { store: storePath } } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -362,7 +362,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         reset: { mode: "daily", atHour: 4, idleMinutes: 30 },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -393,7 +393,7 @@ describe("initSessionState reset policy", () => {
         reset: { mode: "daily", atHour: 4 },
         resetByType: { thread: { mode: "idle", idleMinutes: 180 } },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "reply", SessionKey: sessionKey, ThreadLabel: "Slack thread" },
       cfg,
@@ -423,7 +423,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         resetByType: { thread: { mode: "idle", idleMinutes: 180 } },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "reply", SessionKey: sessionKey, ThreadLabel: "Discord thread" },
       cfg,
@@ -453,7 +453,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         resetByType: { thread: { mode: "idle", idleMinutes: 60 } },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -483,7 +483,7 @@ describe("initSessionState reset policy", () => {
         store: storePath,
         idleMinutes: 240,
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
     const result = await initSessionState({
       ctx: { Body: "hello", SessionKey: sessionKey },
       cfg,
@@ -517,7 +517,7 @@ describe("initSessionState channel reset overrides", () => {
         resetByType: { direct: { mode: "idle", idleMinutes: 10 } },
         resetByChannel: { discord: { mode: "idle", idleMinutes: 10080 } },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -548,7 +548,7 @@ describe("initSessionState reset triggers in WhatsApp groups", () => {
     });
   }
 
-  function makeCfg(params: { storePath: string; allowFrom: string[] }): Nova EngineConfig {
+  function makeCfg(params: { storePath: string; allowFrom: string[] }): NovaEngineConfig {
     return {
       session: { store: params.storePath, idleMinutes: 999 },
       channels: {
@@ -557,7 +557,7 @@ describe("initSessionState reset triggers in WhatsApp groups", () => {
           groupPolicy: "open",
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
   }
 
   it("Reset trigger /new works for authorized sender in WhatsApp group", async () => {
@@ -793,7 +793,7 @@ describe("initSessionState reset triggers in Slack channels", () => {
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const channelMessageCtx = {
       Body: "<@U123> /reset",
@@ -833,7 +833,7 @@ describe("initSessionState reset triggers in Slack channels", () => {
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const channelMessageCtx = {
       Body: "<@U123> /new take notes",
@@ -864,7 +864,7 @@ describe("initSessionState reset triggers in Slack channels", () => {
 
 describe("applyResetModelOverride", () => {
   it("selects a model hint and strips it from the body", async () => {
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     const aliasIndex = buildModelAliasIndex({ cfg, defaultProvider: "openai" });
     const sessionEntry = {
       sessionId: "s1",
@@ -894,7 +894,7 @@ describe("applyResetModelOverride", () => {
   });
 
   it("clears auth profile overrides when reset applies a model", async () => {
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     const aliasIndex = buildModelAliasIndex({ cfg, defaultProvider: "openai" });
     const sessionEntry = {
       sessionId: "s1",
@@ -927,7 +927,7 @@ describe("applyResetModelOverride", () => {
   });
 
   it("skips when resetTriggered is false", async () => {
-    const cfg = {} as Nova EngineConfig;
+    const cfg = {} as NovaEngineConfig;
     const aliasIndex = buildModelAliasIndex({ cfg, defaultProvider: "openai" });
     const sessionEntry = {
       sessionId: "s1",
@@ -991,7 +991,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1028,7 +1028,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1059,7 +1059,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1098,7 +1098,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 999 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1134,7 +1134,7 @@ describe("initSessionState preserves behavior overrides across /new and /reset",
 
     const cfg = {
       session: { store: storePath, idleMinutes: 0 },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const result = await initSessionState({
       ctx: {
@@ -1170,7 +1170,7 @@ describe("prependSystemEvents", () => {
       enqueueSystemEvent("Model switched.", { sessionKey: "agent:main:main" });
 
       const result = await prependSystemEvents({
-        cfg: {} as Nova EngineConfig,
+        cfg: {} as NovaEngineConfig,
         sessionKey: "agent:main:main",
         isMainSession: false,
         isNewSession: false,

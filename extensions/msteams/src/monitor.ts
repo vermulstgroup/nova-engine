@@ -3,7 +3,7 @@ import {
   DEFAULT_WEBHOOK_MAX_BODY_BYTES,
   mergeAllowlist,
   summarizeMapping,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   type RuntimeEnv,
 } from "nova-engine/plugin-sdk";
 import type { MSTeamsConversationStore } from "./conversation-store.js";
@@ -21,7 +21,7 @@ import { createMSTeamsAdapter, loadMSTeamsSdkWithAuth } from "./sdk.js";
 import { resolveMSTeamsCredentials } from "./token.js";
 
 export type MonitorMSTeamsOpts = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   conversationStore?: MSTeamsConversationStore;

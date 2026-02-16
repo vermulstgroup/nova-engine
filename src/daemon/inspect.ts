@@ -85,7 +85,7 @@ function hasGatewayServiceMarker(content: string): boolean {
   );
 }
 
-function isNova EngineGatewayLaunchdService(label: string, contents: string): boolean {
+function isNovaEngineGatewayLaunchdService(label: string, contents: string): boolean {
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
@@ -96,7 +96,7 @@ function isNova EngineGatewayLaunchdService(label: string, contents: string): bo
   return label.startsWith("ai.nova-engine.");
 }
 
-function isNova EngineGatewaySystemdService(name: string, contents: string): boolean {
+function isNovaEngineGatewaySystemdService(name: string, contents: string): boolean {
   if (hasGatewayServiceMarker(contents)) {
     return true;
   }
@@ -106,7 +106,7 @@ function isNova EngineGatewaySystemdService(name: string, contents: string): boo
   return contents.toLowerCase().includes("gateway");
 }
 
-function isNova EngineGatewayTaskName(name: string): boolean {
+function isNovaEngineGatewayTaskName(name: string): boolean {
   const normalized = name.trim().toLowerCase();
   if (!normalized) {
     return false;
@@ -183,7 +183,7 @@ async function scanLaunchdDir(params: {
     if (isIgnoredLaunchdLabel(label)) {
       continue;
     }
-    if (marker === "nova-engine" && isNova EngineGatewayLaunchdService(label, contents)) {
+    if (marker === "nova-engine" && isNovaEngineGatewayLaunchdService(label, contents)) {
       continue;
     }
     results.push({
@@ -230,7 +230,7 @@ async function scanSystemdDir(params: {
     if (!marker) {
       continue;
     }
-    if (marker === "nova-engine" && isNova EngineGatewaySystemdService(name, contents)) {
+    if (marker === "nova-engine" && isNovaEngineGatewaySystemdService(name, contents)) {
       continue;
     }
     results.push({
@@ -383,7 +383,7 @@ export async function findExtraGatewayServices(
       if (!name) {
         continue;
       }
-      if (isNova EngineGatewayTaskName(name)) {
+      if (isNovaEngineGatewayTaskName(name)) {
         continue;
       }
       const lowerName = name.toLowerCase();

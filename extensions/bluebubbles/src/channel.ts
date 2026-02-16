@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelPlugin, Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelPlugin, NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -262,7 +262,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
               ...(input.webhookPath ? { webhookPath: input.webhookPath } : {}),
             },
           },
-        } as Nova EngineConfig;
+        } as NovaEngineConfig;
       }
       return {
         ...next,
@@ -283,7 +283,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
             },
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     },
   },
   pairing: {

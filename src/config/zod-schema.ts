@@ -101,7 +101,7 @@ const HttpUrlSchema = z
     return protocol === "http:" || protocol === "https:";
   }, "Expected http:// or https:// URL");
 
-export const Nova EngineSchema = z
+export const NovaEngineSchema = z
   .object({
     $schema: z.string().optional(),
     meta: z

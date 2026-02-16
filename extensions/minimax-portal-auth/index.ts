@@ -1,6 +1,6 @@
 import {
   emptyPluginConfigSchema,
-  type Nova EnginePluginApi,
+  type NovaEnginePluginApi,
   type ProviderAuthContext,
   type ProviderAuthResult,
 } from "nova-engine/plugin-sdk";
@@ -132,7 +132,7 @@ const minimaxPortalPlugin = {
   name: "MiniMax OAuth",
   description: "OAuth flow for MiniMax models",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     api.registerProvider({
       id: PROVIDER_ID,
       label: PROVIDER_LABEL,

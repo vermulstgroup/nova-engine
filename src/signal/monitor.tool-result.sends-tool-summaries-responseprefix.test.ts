@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { peekSystemEvents } from "../infra/system-events.js";
 import { resolveAgentRoute } from "../routing/resolve-route.js";
 import { normalizeE164 } from "../utils.js";
@@ -322,7 +322,7 @@ describe("monitorSignalProvider tool results", () => {
     });
 
     const route = resolveAgentRoute({
-      cfg: config as Nova EngineConfig,
+      cfg: config as NovaEngineConfig,
       channel: "signal",
       accountId: "default",
       peer: { kind: "direct", id: normalizeE164("+15550001111") },
@@ -365,7 +365,7 @@ describe("monitorSignalProvider tool results", () => {
     });
 
     const route = resolveAgentRoute({
-      cfg: config as Nova EngineConfig,
+      cfg: config as NovaEngineConfig,
       channel: "signal",
       accountId: "default",
       peer: { kind: "direct", id: normalizeE164("+15550001111") },

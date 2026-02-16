@@ -5,8 +5,8 @@ import { createServer } from "node:net";
 import os from "node:os";
 import path from "node:path";
 import { describe, it } from "vitest";
-import type { Nova EngineConfig, ModelProviderConfig } from "../config/types.js";
-import { resolveNova EngineAgentDir } from "../agents/agent-paths.js";
+import type { NovaEngineConfig, ModelProviderConfig } from "../config/types.js";
+import { resolveNovaEngineAgentDir } from "../agents/agent-paths.js";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
 import {
   type AuthProfileStore,
@@ -20,7 +20,7 @@ import {
 } from "../agents/live-auth-keys.js";
 import { isModernModelRef } from "../agents/live-model-filter.js";
 import { getApiKeyForModel } from "../agents/model-auth.js";
-import { ensureNova EngineModelsJson } from "../agents/models-config.js";
+import { ensureNovaEngineModelsJson } from "../agents/models-config.js";
 import { discoverAuthStorage, discoverModels } from "../agents/pi-model-discovery.js";
 import { loadConfig } from "../config/config.js";
 import { isTruthyEnvValue } from "../infra/env.js";
@@ -372,7 +372,7 @@ async function connectClient(params: { url: string; token: string }) {
 
 type GatewayModelSuiteParams = {
   label: string;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   candidates: Array<Model<Api>>;
   extraToolProbes: boolean;
   extraImageProbes: boolean;
@@ -381,10 +381,10 @@ type GatewayModelSuiteParams = {
 };
 
 function buildLiveGatewayConfig(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   candidates: Array<Model<Api>>;
   providerOverrides?: Record<string, ModelProviderConfig>;
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const providerOverrides = params.providerOverrides ?? {};
   const lmstudioProvider = params.cfg.models?.providers?.lmstudio;
   const baseProviders = params.cfg.models?.providers ?? {};
@@ -423,9 +423,9 @@ function buildLiveGatewayConfig(params: {
 }
 
 function sanitizeAuthConfig(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentDir: string;
-}): Nova EngineConfig["auth"] | undefined {
+}): NovaEngineConfig["auth"] | undefined {
   const auth = params.cfg.auth;
   if (!auth) {
     return auth;
@@ -434,7 +434,7 @@ function sanitizeAuthConfig(params: {
     allowKeychainPrompt: false,
   });
 
-  let profiles: NonNullable<Nova EngineConfig["auth"]>["profiles"] | undefined;
+  let profiles: NonNullable<NovaEngineConfig["auth"]>["profiles"] | undefined;
   if (auth.profiles) {
     profiles = {};
     for (const [profileId, profile] of Object.entries(auth.profiles)) {
@@ -474,7 +474,7 @@ function sanitizeAuthConfig(params: {
 }
 
 function buildMinimaxProviderOverride(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   api: "openai-completions" | "anthropic-messages";
   baseUrl: string;
 }): ModelProviderConfig | null {
@@ -513,7 +513,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   process.env.NOVA_GATEWAY_TOKEN = token;
   const agentId = "dev";
 
-  const hostAgentDir = resolveNova EngineAgentDir();
+  const hostAgentDir = resolveNovaEngineAgentDir();
   const hostStore = ensureAuthProfileStore(hostAgentDir, {
     allowKeychainPrompt: false,
   });
@@ -544,8 +544,8 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   const toolProbePath = path.join(workspaceDir, `.nova-engine-live-tool-probe.${nonceA}.txt`);
   await fs.writeFile(toolProbePath, `nonceA=${nonceA}\nnonceB=${nonceB}\n`);
 
-  const agentDir = resolveNova EngineAgentDir();
-  const sanitizedCfg: Nova EngineConfig = {
+  const agentDir = resolveNovaEngineAgentDir();
+  const sanitizedCfg: NovaEngineConfig = {
     ...params.cfg,
     auth: sanitizeAuthConfig({ cfg: params.cfg, agentDir }),
   };
@@ -559,7 +559,7 @@ async function runGatewayModelSuite(params: GatewayModelSuiteParams) {
   await fs.writeFile(tempConfigPath, `${JSON.stringify(nextCfg, null, 2)}\n`);
   process.env.NOVA_CONFIG_PATH = tempConfigPath;
 
-  await ensureNova EngineModelsJson(nextCfg);
+  await ensureNovaEngineModelsJson(nextCfg);
 
   const port = await getFreeGatewayPort();
   const server = await startGatewayServer(port, {
@@ -1014,9 +1014,9 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     "runs meaningful prompts across models with available keys",
     async () => {
       const cfg = loadConfig();
-      await ensureNova EngineModelsJson(cfg);
+      await ensureNovaEngineModelsJson(cfg);
 
-      const agentDir = resolveNova EngineAgentDir();
+      const agentDir = resolveNovaEngineAgentDir();
       const authStore = ensureAuthProfileStore(agentDir, {
         allowKeychainPrompt: false,
       });
@@ -1122,9 +1122,9 @@ describeLive("gateway live (dev agent, profile keys)", () => {
     process.env.NOVA_GATEWAY_TOKEN = token;
 
     const cfg = loadConfig();
-    await ensureNova EngineModelsJson(cfg);
+    await ensureNovaEngineModelsJson(cfg);
 
-    const agentDir = resolveNova EngineAgentDir();
+    const agentDir = resolveNovaEngineAgentDir();
     const authStorage = discoverAuthStorage(agentDir);
     const modelRegistry = discoverModels(authStorage, agentDir);
     const anthropic = modelRegistry.find("anthropic", "claude-opus-4-5") as Model<Api> | null;

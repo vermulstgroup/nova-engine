@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "./types.js";
+import type { NovaEngineConfig } from "./types.js";
 import type { ModelDefinitionConfig } from "./types.models.js";
 import { DEFAULT_CONTEXT_TOKENS } from "../agents/defaults.js";
 import { parseModelRef } from "../agents/model-selection.js";
@@ -53,7 +53,7 @@ function resolveModelCost(
   };
 }
 
-function resolveAnthropicDefaultAuthMode(cfg: Nova EngineConfig): AnthropicAuthDefaultsMode | null {
+function resolveAnthropicDefaultAuthMode(cfg: NovaEngineConfig): AnthropicAuthDefaultsMode | null {
   const profiles = cfg.auth?.profiles ?? {};
   const anthropicProfiles = Object.entries(profiles).filter(
     ([, profile]) => profile?.provider === "anthropic",
@@ -110,7 +110,7 @@ export type SessionDefaultsOptions = {
   warnState?: WarnState;
 };
 
-export function applyMessageDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMessageDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   const messages = cfg.messages;
   const hasAckScope = messages?.ackReactionScope !== undefined;
   if (hasAckScope) {
@@ -126,9 +126,9 @@ export function applyMessageDefaults(cfg: Nova EngineConfig): Nova EngineConfig 
 }
 
 export function applySessionDefaults(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   options: SessionDefaultsOptions = {},
-): Nova EngineConfig {
+): NovaEngineConfig {
   const session = cfg.session;
   if (!session || session.mainKey === undefined) {
     return cfg;
@@ -138,7 +138,7 @@ export function applySessionDefaults(
   const warn = options.warn ?? console.warn;
   const warnState = options.warnState ?? defaultWarnState;
 
-  const next: Nova EngineConfig = {
+  const next: NovaEngineConfig = {
     ...cfg,
     session: { ...session, mainKey: "main" },
   };
@@ -151,7 +151,7 @@ export function applySessionDefaults(
   return next;
 }
 
-export function applyTalkApiKey(config: Nova EngineConfig): Nova EngineConfig {
+export function applyTalkApiKey(config: NovaEngineConfig): NovaEngineConfig {
   const resolved = resolveTalkApiKey();
   if (!resolved) {
     return config;
@@ -169,7 +169,7 @@ export function applyTalkApiKey(config: Nova EngineConfig): Nova EngineConfig {
   };
 }
 
-export function applyModelDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyModelDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   let mutated = false;
   let nextCfg = cfg;
 
@@ -291,7 +291,7 @@ export function applyModelDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
   };
 }
 
-export function applyAgentDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyAgentDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   const agents = cfg.agents;
   const defaults = agents?.defaults;
   const hasMax =
@@ -332,7 +332,7 @@ export function applyAgentDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
   };
 }
 
-export function applyLoggingDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyLoggingDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   const logging = cfg.logging;
   if (!logging) {
     return cfg;
@@ -349,7 +349,7 @@ export function applyLoggingDefaults(cfg: Nova EngineConfig): Nova EngineConfig 
   };
 }
 
-export function applyContextPruningDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyContextPruningDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   const defaults = cfg.agents?.defaults;
   if (!defaults) {
     return cfg;
@@ -440,7 +440,7 @@ export function applyContextPruningDefaults(cfg: Nova EngineConfig): Nova Engine
   };
 }
 
-export function applyCompactionDefaults(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyCompactionDefaults(cfg: NovaEngineConfig): NovaEngineConfig {
   const defaults = cfg.agents?.defaults;
   if (!defaults) {
     return cfg;

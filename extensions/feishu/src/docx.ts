@@ -1,5 +1,5 @@
 import type * as Lark from "@larksuiteoapi/node-sdk";
-import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { Type } from "@sinclair/typebox";
 import { Readable } from "stream";
 import { listEnabledFeishuAccounts } from "./accounts.js";
@@ -441,7 +441,7 @@ async function listAppScopes(client: Lark.Client) {
 
 // ============ Tool Registration ============
 
-export function registerFeishuDocTools(api: Nova EnginePluginApi) {
+export function registerFeishuDocTools(api: NovaEnginePluginApi) {
   if (!api.config) {
     api.logger.debug?.("feishu_doc: No config available, skipping doc tools");
     return;

@@ -1,5 +1,5 @@
 import type { ReplyPayload } from "../../auto-reply/types.js";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { GroupToolPolicyConfig } from "../../config/types.tools.js";
 import type { OutboundDeliveryResult, OutboundSendDeps } from "../../infra/outbound/deliver.js";
 import type { OutboundIdentity } from "../../infra/outbound/identity.js";
@@ -21,45 +21,45 @@ import type {
 } from "./types.core.js";
 
 export type ChannelSetupAdapter = {
-  resolveAccountId?: (params: { cfg: Nova EngineConfig; accountId?: string }) => string;
+  resolveAccountId?: (params: { cfg: NovaEngineConfig; accountId?: string }) => string;
   applyAccountName?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId: string;
     name?: string;
-  }) => Nova EngineConfig;
+  }) => NovaEngineConfig;
   applyAccountConfig: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId: string;
     input: ChannelSetupInput;
-  }) => Nova EngineConfig;
+  }) => NovaEngineConfig;
   validateInput?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId: string;
     input: ChannelSetupInput;
   }) => string | null;
 };
 
 export type ChannelConfigAdapter<ResolvedAccount> = {
-  listAccountIds: (cfg: Nova EngineConfig) => string[];
-  resolveAccount: (cfg: Nova EngineConfig, accountId?: string | null) => ResolvedAccount;
-  defaultAccountId?: (cfg: Nova EngineConfig) => string;
+  listAccountIds: (cfg: NovaEngineConfig) => string[];
+  resolveAccount: (cfg: NovaEngineConfig, accountId?: string | null) => ResolvedAccount;
+  defaultAccountId?: (cfg: NovaEngineConfig) => string;
   setAccountEnabled?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId: string;
     enabled: boolean;
-  }) => Nova EngineConfig;
-  deleteAccount?: (params: { cfg: Nova EngineConfig; accountId: string }) => Nova EngineConfig;
-  isEnabled?: (account: ResolvedAccount, cfg: Nova EngineConfig) => boolean;
-  disabledReason?: (account: ResolvedAccount, cfg: Nova EngineConfig) => string;
-  isConfigured?: (account: ResolvedAccount, cfg: Nova EngineConfig) => boolean | Promise<boolean>;
-  unconfiguredReason?: (account: ResolvedAccount, cfg: Nova EngineConfig) => string;
-  describeAccount?: (account: ResolvedAccount, cfg: Nova EngineConfig) => ChannelAccountSnapshot;
+  }) => NovaEngineConfig;
+  deleteAccount?: (params: { cfg: NovaEngineConfig; accountId: string }) => NovaEngineConfig;
+  isEnabled?: (account: ResolvedAccount, cfg: NovaEngineConfig) => boolean;
+  disabledReason?: (account: ResolvedAccount, cfg: NovaEngineConfig) => string;
+  isConfigured?: (account: ResolvedAccount, cfg: NovaEngineConfig) => boolean | Promise<boolean>;
+  unconfiguredReason?: (account: ResolvedAccount, cfg: NovaEngineConfig) => string;
+  describeAccount?: (account: ResolvedAccount, cfg: NovaEngineConfig) => ChannelAccountSnapshot;
   resolveAllowFrom?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
   }) => string[] | undefined;
   formatAllowFrom?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     allowFrom: Array<string | number>;
   }) => string[];
@@ -72,7 +72,7 @@ export type ChannelGroupAdapter = {
 };
 
 export type ChannelOutboundContext = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   to: string;
   text: string;
   mediaUrl?: string;
@@ -97,7 +97,7 @@ export type ChannelOutboundAdapter = {
   textChunkLimit?: number;
   pollMaxOptions?: number;
   resolveTarget?: (params: {
-    cfg?: Nova EngineConfig;
+    cfg?: NovaEngineConfig;
     to?: string;
     allowFrom?: string[];
     accountId?: string | null;
@@ -113,37 +113,37 @@ export type ChannelStatusAdapter<ResolvedAccount, Probe = unknown, Audit = unkno
   defaultRuntime?: ChannelAccountSnapshot;
   buildChannelSummary?: (params: {
     account: ResolvedAccount;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     defaultAccountId: string;
     snapshot: ChannelAccountSnapshot;
   }) => Record<string, unknown> | Promise<Record<string, unknown>>;
   probeAccount?: (params: {
     account: ResolvedAccount;
     timeoutMs: number;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
   }) => Promise<Probe>;
   auditAccount?: (params: {
     account: ResolvedAccount;
     timeoutMs: number;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     probe?: Probe;
   }) => Promise<Audit>;
   buildAccountSnapshot?: (params: {
     account: ResolvedAccount;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     runtime?: ChannelAccountSnapshot;
     probe?: Probe;
     audit?: Audit;
   }) => ChannelAccountSnapshot | Promise<ChannelAccountSnapshot>;
   logSelfId?: (params: {
     account: ResolvedAccount;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     runtime: RuntimeEnv;
     includeChannelPrefix?: boolean;
   }) => void;
   resolveAccountState?: (params: {
     account: ResolvedAccount;
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     configured: boolean;
     enabled: boolean;
   }) => ChannelAccountState;
@@ -151,7 +151,7 @@ export type ChannelStatusAdapter<ResolvedAccount, Probe = unknown, Audit = unkno
 };
 
 export type ChannelGatewayContext<ResolvedAccount = unknown> = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   account: ResolvedAccount;
   runtime: RuntimeEnv;
@@ -178,7 +178,7 @@ export type ChannelLoginWithQrWaitResult = {
 };
 
 export type ChannelLogoutContext<ResolvedAccount = unknown> = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   account: ResolvedAccount;
   runtime: RuntimeEnv;
@@ -189,7 +189,7 @@ export type ChannelPairingAdapter = {
   idLabel: string;
   normalizeAllowEntry?: (entry: string) => string;
   notifyApproval?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     id: string;
     runtime?: RuntimeEnv;
   }) => Promise<void>;
@@ -213,7 +213,7 @@ export type ChannelGatewayAdapter<ResolvedAccount = unknown> = {
 
 export type ChannelAuthAdapter = {
   login?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     runtime: RuntimeEnv;
     verbose?: boolean;
@@ -223,11 +223,11 @@ export type ChannelAuthAdapter = {
 
 export type ChannelHeartbeatAdapter = {
   checkReady?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     deps?: ChannelHeartbeatDeps;
   }) => Promise<{ ok: boolean; reason: string }>;
-  resolveRecipients?: (params: { cfg: Nova EngineConfig; opts?: { to?: string; all?: boolean } }) => {
+  resolveRecipients?: (params: { cfg: NovaEngineConfig; opts?: { to?: string; all?: boolean } }) => {
     recipients: string[];
     source: string;
   };
@@ -235,40 +235,40 @@ export type ChannelHeartbeatAdapter = {
 
 export type ChannelDirectoryAdapter = {
   self?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry | null>;
   listPeers?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listPeersLive?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroups?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroupsLive?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     query?: string | null;
     limit?: number | null;
     runtime: RuntimeEnv;
   }) => Promise<ChannelDirectoryEntry[]>;
   listGroupMembers?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     groupId: string;
     limit?: number | null;
@@ -288,7 +288,7 @@ export type ChannelResolveResult = {
 
 export type ChannelResolverAdapter = {
   resolveTargets: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
     inputs: string[];
     kind: ChannelResolveKind;
@@ -298,7 +298,7 @@ export type ChannelResolverAdapter = {
 
 export type ChannelElevatedAdapter = {
   allowFromFallback?: (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     accountId?: string | null;
   }) => Array<string | number> | undefined;
 };

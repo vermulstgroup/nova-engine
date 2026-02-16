@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import { resolveAgentWorkspaceDir } from "../../agents/agent-scope.js";
 import { loadSessionStore, resolveStorePath } from "../../config/sessions.js";
 import { listAgentsForGateway } from "../../gateway/session-utils.js";
@@ -14,7 +14,7 @@ async function fileExists(p: string): Promise<boolean> {
   }
 }
 
-export async function getAgentLocalStatuses(cfg: Nova EngineConfig) {
+export async function getAgentLocalStatuses(cfg: NovaEngineConfig) {
   const agentList = listAgentsForGateway(cfg);
   const now = Date.now();
 

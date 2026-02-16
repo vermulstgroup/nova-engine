@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveCliBackendConfig } from "./cli-backends.js";
 
 describe("resolveCliBackendConfig reliability merge", () => {
@@ -21,7 +21,7 @@ describe("resolveCliBackendConfig reliability merge", () => {
           },
         },
       },
-    } satisfies Nova EngineConfig;
+    } satisfies NovaEngineConfig;
 
     const resolved = resolveCliBackendConfig("codex-cli", cfg);
 

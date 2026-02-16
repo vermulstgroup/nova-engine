@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { MsgContext } from "../src/auto-reply/templating.js";
-import type { Nova EngineConfig } from "../src/config/config.js";
+import type { NovaEngineConfig } from "../src/config/config.js";
 import { applyMediaUnderstanding } from "../src/media-understanding/apply.js";
 import { clearMediaUnderstandingBinaryCacheForTests } from "../src/media-understanding/runner.js";
 
@@ -77,7 +77,7 @@ describe("media understanding auto-detect (e2e)", () => {
         MediaPath: filePath,
         MediaType: "audio/wav",
       };
-      const cfg: Nova EngineConfig = { tools: { media: { audio: {} } } };
+      const cfg: NovaEngineConfig = { tools: { media: { audio: {} } } };
 
       await applyMediaUnderstanding({ ctx, cfg });
 
@@ -121,7 +121,7 @@ describe("media understanding auto-detect (e2e)", () => {
         MediaPath: filePath,
         MediaType: "audio/wav",
       };
-      const cfg: Nova EngineConfig = { tools: { media: { audio: {} } } };
+      const cfg: NovaEngineConfig = { tools: { media: { audio: {} } } };
 
       await applyMediaUnderstanding({ ctx, cfg });
 
@@ -153,7 +153,7 @@ describe("media understanding auto-detect (e2e)", () => {
         MediaPath: filePath,
         MediaType: "image/png",
       };
-      const cfg: Nova EngineConfig = { tools: { media: { image: {} } } };
+      const cfg: NovaEngineConfig = { tools: { media: { image: {} } } };
 
       await applyMediaUnderstanding({ ctx, cfg });
 

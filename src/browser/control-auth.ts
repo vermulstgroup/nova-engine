@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { loadConfig, writeConfigFile } from "../config/config.js";
 import { resolveGatewayAuth } from "../gateway/auth.js";
 
@@ -9,7 +9,7 @@ export type BrowserControlAuth = {
 };
 
 export function resolveBrowserControlAuth(
-  cfg: Nova EngineConfig | undefined,
+  cfg: NovaEngineConfig | undefined,
   env: NodeJS.ProcessEnv = process.env,
 ): BrowserControlAuth {
   const auth = resolveGatewayAuth({
@@ -38,7 +38,7 @@ function shouldAutoGenerateBrowserAuth(env: NodeJS.ProcessEnv): boolean {
 }
 
 export async function ensureBrowserControlAuth(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   env?: NodeJS.ProcessEnv;
 }): Promise<{
   auth: BrowserControlAuth;
@@ -76,7 +76,7 @@ export async function ensureBrowserControlAuth(params: {
   }
 
   const generatedToken = crypto.randomBytes(24).toString("hex");
-  const nextCfg: Nova EngineConfig = {
+  const nextCfg: NovaEngineConfig = {
     ...latestCfg,
     gateway: {
       ...latestCfg.gateway,

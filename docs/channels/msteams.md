@@ -592,7 +592,7 @@ Per-user sharing is more secure as only the chat participants can access the fil
 
 ### Files stored location
 
-Uploaded files are stored in a `/Nova EngineShared/` folder in the configured SharePoint site's default document library.
+Uploaded files are stored in a `/NovaEngineShared/` folder in the configured SharePoint site's default document library.
 
 ## Polls (Adaptive Cards)
 

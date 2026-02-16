@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
-import type { Nova EngineConfig } from "../../config/config.js";
-import { resolveNova EngineAgentDir } from "../../agents/agent-paths.js";
+import type { NovaEngineConfig } from "../../config/config.js";
+import { resolveNovaEngineAgentDir } from "../../agents/agent-paths.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import {
   ensureAuthProfileStore,
@@ -134,7 +134,7 @@ function selectProbeModel(params: {
 }
 
 function buildProbeTargets(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   providers: string[];
   modelCandidates: string[];
   options: AuthProbeOptions;
@@ -287,7 +287,7 @@ function buildProbeTargets(params: {
 }
 
 async function probeTarget(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   agentDir: string;
   workspaceDir: string;
@@ -363,7 +363,7 @@ async function probeTarget(params: {
 }
 
 async function runTargetsWithConcurrency(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   targets: AuthProbeTarget[];
   timeoutMs: number;
   maxTokens: number;
@@ -374,7 +374,7 @@ async function runTargetsWithConcurrency(params: {
   const concurrency = Math.max(1, Math.min(targets.length || 1, params.concurrency));
 
   const agentId = resolveDefaultAgentId(cfg);
-  const agentDir = resolveNova EngineAgentDir();
+  const agentDir = resolveNovaEngineAgentDir();
   const workspaceDir = resolveAgentWorkspaceDir(cfg, agentId) ?? resolveDefaultAgentWorkspaceDir();
   const sessionDir = resolveSessionTranscriptsDirForAgent(agentId);
 
@@ -419,7 +419,7 @@ async function runTargetsWithConcurrency(params: {
 }
 
 export async function runAuthProbes(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   providers: string[];
   modelCandidates: string[];
   options: AuthProbeOptions;

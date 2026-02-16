@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   parseFrontmatter,
-  resolveNova EngineMetadata,
+  resolveNovaEngineMetadata,
   resolveHookInvocationPolicy,
 } from "./frontmatter.js";
 
@@ -148,7 +148,7 @@ description: 'single-quoted'
   });
 });
 
-describe("resolveNova EngineMetadata", () => {
+describe("resolveNovaEngineMetadata", () => {
   it("extracts nova-engine metadata from parsed frontmatter", () => {
     const frontmatter = {
       name: "test-hook",
@@ -164,7 +164,7 @@ describe("resolveNova EngineMetadata", () => {
       }),
     };
 
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result).toBeDefined();
     expect(result?.emoji).toBe("🔥");
     expect(result?.events).toEqual(["command:new", "command:reset"]);
@@ -174,7 +174,7 @@ describe("resolveNova EngineMetadata", () => {
 
   it("returns undefined when metadata is missing", () => {
     const frontmatter = { name: "no-metadata" };
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -182,7 +182,7 @@ describe("resolveNova EngineMetadata", () => {
     const frontmatter = {
       metadata: JSON.stringify({ other: "data" }),
     };
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -190,7 +190,7 @@ describe("resolveNova EngineMetadata", () => {
     const frontmatter = {
       metadata: "not valid json {",
     };
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result).toBeUndefined();
   });
 
@@ -207,7 +207,7 @@ describe("resolveNova EngineMetadata", () => {
       }),
     };
 
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result?.install).toHaveLength(2);
     expect(result?.install?.[0].kind).toBe("bundled");
     expect(result?.install?.[1].kind).toBe("npm");
@@ -224,7 +224,7 @@ describe("resolveNova EngineMetadata", () => {
       }),
     };
 
-    const result = resolveNova EngineMetadata(frontmatter);
+    const result = resolveNovaEngineMetadata(frontmatter);
     expect(result?.os).toEqual(["darwin", "linux"]);
   });
 
@@ -253,7 +253,7 @@ metadata:
     expect(frontmatter.name).toBe("session-memory");
     expect(frontmatter.metadata).toBeDefined();
 
-    const nova-engine = resolveNova EngineMetadata(frontmatter);
+    const nova-engine = resolveNovaEngineMetadata(frontmatter);
     expect(nova-engine).toBeDefined();
     expect(nova-engine?.emoji).toBe("💾");
     expect(nova-engine?.events).toEqual(["command:new"]);
@@ -272,7 +272,7 @@ metadata:
 ---
 `;
     const frontmatter = parseFrontmatter(content);
-    const nova-engine = resolveNova EngineMetadata(frontmatter);
+    const nova-engine = resolveNovaEngineMetadata(frontmatter);
     expect(nova-engine?.emoji).toBe("disk");
     expect(nova-engine?.events).toEqual(["command:new"]);
   });

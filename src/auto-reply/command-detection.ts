@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/types.js";
+import type { NovaEngineConfig } from "../config/types.js";
 import {
   type CommandNormalizeOptions,
   listChatCommands,
@@ -9,7 +9,7 @@ import { isAbortTrigger } from "./reply/abort.js";
 
 export function hasControlCommand(
   text?: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   if (!text) {
@@ -47,7 +47,7 @@ export function hasControlCommand(
 
 export function isControlCommandMessage(
   text?: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   if (!text) {
@@ -81,7 +81,7 @@ export function hasInlineCommandTokens(text?: string): boolean {
 
 export function shouldComputeCommandAuthorized(
   text?: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   options?: CommandNormalizeOptions,
 ): boolean {
   return isControlCommandMessage(text, cfg, options) || hasInlineCommandTokens(text);

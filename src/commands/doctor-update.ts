@@ -6,7 +6,7 @@ import { runGatewayUpdate } from "../infra/update-runner.js";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { note } from "../terminal/note.js";
 
-async function detectNova EngineGitCheckout(root: string): Promise<"git" | "not-git" | "unknown"> {
+async function detectNovaEngineGitCheckout(root: string): Promise<"git" | "not-git" | "unknown"> {
   const res = await runCommandWithTimeout(["git", "-C", root, "rev-parse", "--show-toplevel"], {
     timeoutMs: 5000,
   }).catch(() => null);
@@ -42,7 +42,7 @@ export async function maybeOfferUpdateBeforeDoctor(params: {
     return { updated: false };
   }
 
-  const git = await detectNova EngineGitCheckout(params.root);
+  const git = await detectNovaEngineGitCheckout(params.root);
   if (git === "git") {
     const shouldUpdate = await params.confirm({
       message: "Update Nova Engine from git before running doctor?",

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import {
   isProfileInCooldown,
   resolveAuthProfileDisplayLabel,
@@ -28,7 +28,7 @@ const maskApiKey = (value: string): string => {
 
 export const resolveAuthLabel = async (
   provider: string,
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   modelsPath: string,
   agentDir?: string,
   mode: ModelAuthDetailMode = "compact",
@@ -223,7 +223,7 @@ export const formatAuthLabel = (auth: { label: string; source: string }) => {
 export const resolveProfileOverride = (params: {
   rawProfile?: string;
   provider: string;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentDir?: string;
 }): { profileId?: string; error?: string } => {
   const raw = params.rawProfile?.trim();

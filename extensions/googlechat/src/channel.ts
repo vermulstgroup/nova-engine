@@ -16,7 +16,7 @@ import {
   type ChannelMessageActionAdapter,
   type ChannelPlugin,
   type ChannelStatusIssue,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
 } from "nova-engine/plugin-sdk";
 import { GoogleChatConfigSchema } from "nova-engine/plugin-sdk";
 import {
@@ -348,7 +348,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
               ...configPatch,
             },
           },
-        } as Nova EngineConfig;
+        } as NovaEngineConfig;
       }
       return {
         ...next,
@@ -367,7 +367,7 @@ export const googlechatPlugin: ChannelPlugin<ResolvedGoogleChatAccount> = {
             },
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     },
   },
   outbound: {

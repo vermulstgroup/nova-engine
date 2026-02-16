@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ExecFn } from "./windows-acl.js";
 import { resolveBrowserConfig, resolveProfile } from "../browser/config.js";
 import { resolveBrowserControlAuth } from "../browser/control-auth.js";
@@ -69,7 +69,7 @@ export type SecurityAuditReport = {
 };
 
 export type SecurityAuditOptions = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   env?: NodeJS.ProcessEnv;
   platform?: NodeJS.Platform;
   deep?: boolean;
@@ -243,7 +243,7 @@ async function collectFilesystemFindings(params: {
 }
 
 function collectGatewayConfigFindings(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
@@ -451,7 +451,7 @@ function collectGatewayConfigFindings(
 }
 
 function collectBrowserControlFindings(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv,
 ): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
@@ -513,7 +513,7 @@ function collectBrowserControlFindings(
   return findings;
 }
 
-function collectLoggingFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+function collectLoggingFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const redact = cfg.logging?.redactSensitive;
   if (redact !== "off") {
     return [];
@@ -529,7 +529,7 @@ function collectLoggingFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] 
   ];
 }
 
-function collectElevatedFindings(cfg: Nova EngineConfig): SecurityAuditFinding[] {
+function collectElevatedFindings(cfg: NovaEngineConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const enabled = cfg.tools?.elevated?.enabled;
   const allowFrom = cfg.tools?.elevated?.allowFrom ?? {};
@@ -565,7 +565,7 @@ function collectElevatedFindings(cfg: Nova EngineConfig): SecurityAuditFinding[]
 }
 
 async function maybeProbeGateway(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   timeoutMs: number;
   probe: typeof probeGateway;
 }): Promise<SecurityAuditReport["deep"]> {

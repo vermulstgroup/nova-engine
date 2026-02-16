@@ -149,8 +149,8 @@ cp "$INFO_PLIST_SRC" "$APP_ROOT/Contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier ${BUNDLE_ID}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString ${APP_VERSION}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${APP_BUILD}" "$APP_ROOT/Contents/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :Nova EngineBuildTimestamp ${BUILD_TS}" "$APP_ROOT/Contents/Info.plist" || true
-/usr/libexec/PlistBuddy -c "Set :Nova EngineGitCommit ${GIT_COMMIT}" "$APP_ROOT/Contents/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :NovaEngineBuildTimestamp ${BUILD_TS}" "$APP_ROOT/Contents/Info.plist" || true
+/usr/libexec/PlistBuddy -c "Set :NovaEngineGitCommit ${GIT_COMMIT}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :SUFeedURL ${SPARKLE_FEED_URL}" "$APP_ROOT/Contents/Info.plist" \
   || /usr/libexec/PlistBuddy -c "Add :SUFeedURL string ${SPARKLE_FEED_URL}" "$APP_ROOT/Contents/Info.plist" || true
 /usr/libexec/PlistBuddy -c "Set :SUPublicEDKey ${SPARKLE_PUBLIC_ED_KEY}" "$APP_ROOT/Contents/Info.plist" \
@@ -216,13 +216,13 @@ else
   echo "WARN: model catalog missing at $MODEL_CATALOG_SRC (continuing)" >&2
 fi
 
-echo "📦 Copying Nova EngineKit resources"
-NOVAKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/Nova EngineKit_Nova EngineKit.bundle"
+echo "📦 Copying NovaEngineKit resources"
+NOVAKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/NovaEngineKit_NovaEngineKit.bundle"
 if [ -d "$NOVAKIT_BUNDLE" ]; then
-  rm -rf "$APP_ROOT/Contents/Resources/Nova EngineKit_Nova EngineKit.bundle"
-  cp -R "$NOVAKIT_BUNDLE" "$APP_ROOT/Contents/Resources/Nova EngineKit_Nova EngineKit.bundle"
+  rm -rf "$APP_ROOT/Contents/Resources/NovaEngineKit_NovaEngineKit.bundle"
+  cp -R "$NOVAKIT_BUNDLE" "$APP_ROOT/Contents/Resources/NovaEngineKit_NovaEngineKit.bundle"
 else
-  echo "WARN: Nova EngineKit resource bundle not found at $NOVAKIT_BUNDLE (continuing)" >&2
+  echo "WARN: NovaEngineKit resource bundle not found at $NOVAKIT_BUNDLE (continuing)" >&2
 fi
 
 echo "📦 Copying Textual resources"

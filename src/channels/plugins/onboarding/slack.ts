@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { DmPolicy } from "../../../config/types.js";
 import type { WizardPrompter } from "../../../wizard/prompts.js";
 import type { ChannelOnboardingAdapter, ChannelOnboardingDmPolicy } from "../onboarding-types.js";
@@ -16,7 +16,7 @@ import { addWildcardAllowFrom, promptAccountId } from "./helpers.js";
 
 const channel = "slack" as const;
 
-function setSlackDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy) {
+function setSlackDmPolicy(cfg: NovaEngineConfig, dmPolicy: DmPolicy) {
   const existingAllowFrom = cfg.channels?.slack?.allowFrom ?? cfg.channels?.slack?.dm?.allowFrom;
   const allowFrom = dmPolicy === "open" ? addWildcardAllowFrom(existingAllowFrom) : undefined;
   return {
@@ -144,10 +144,10 @@ async function promptSlackTokens(prompter: WizardPrompter): Promise<{
 }
 
 function patchSlackConfigForAccount(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   patch: Record<string, unknown>,
-): Nova EngineConfig {
+): NovaEngineConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -182,23 +182,23 @@ function patchSlackConfigForAccount(
 }
 
 function setSlackGroupPolicy(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): Nova EngineConfig {
+): NovaEngineConfig {
   return patchSlackConfigForAccount(cfg, accountId, { groupPolicy });
 }
 
 function setSlackChannelAllowlist(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
   channelKeys: string[],
-): Nova EngineConfig {
+): NovaEngineConfig {
   const channels = Object.fromEntries(channelKeys.map((key) => [key, { allow: true }]));
   return patchSlackConfigForAccount(cfg, accountId, { channels });
 }
 
-function setSlackAllowFrom(cfg: Nova EngineConfig, allowFrom: string[]): Nova EngineConfig {
+function setSlackAllowFrom(cfg: NovaEngineConfig, allowFrom: string[]): NovaEngineConfig {
   return {
     ...cfg,
     channels: {
@@ -223,10 +223,10 @@ function parseSlackAllowFromInput(raw: string): string[] {
 }
 
 async function promptSlackAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)

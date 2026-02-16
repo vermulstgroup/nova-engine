@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ExecApprovalsResolved } from "../infra/exec-approvals.js";
 import { captureEnv } from "../test-utils/env.js";
 
@@ -67,15 +67,15 @@ vi.mock("../infra/exec-approvals.js", async (importOriginal) => {
   return { ...mod, resolveExecApprovals: () => approvals };
 });
 
-describe("createNova EngineCodingTools safeBins", () => {
+describe("createNovaEngineCodingTools safeBins", () => {
   it("threads tools.exec.safeBins into exec allowlist checks", async () => {
     if (process.platform === "win32") {
       return;
     }
 
-    const { createNova EngineCodingTools } = await import("./pi-tools.js");
+    const { createNovaEngineCodingTools } = await import("./pi-tools.js");
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-safe-bins-"));
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         exec: {
           host: "gateway",
@@ -86,7 +86,7 @@ describe("createNova EngineCodingTools safeBins", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: tmpDir,
@@ -119,13 +119,13 @@ describe("createNova EngineCodingTools safeBins", () => {
       return;
     }
 
-    const { createNova EngineCodingTools } = await import("./pi-tools.js");
+    const { createNovaEngineCodingTools } = await import("./pi-tools.js");
     const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-safe-bins-expand-"));
 
     const secret = `TOP_SECRET_${Date.now()}`;
     fs.writeFileSync(path.join(tmpDir, "secret.txt"), `${secret}\n`, "utf8");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         exec: {
           host: "gateway",
@@ -136,7 +136,7 @@ describe("createNova EngineCodingTools safeBins", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: tmpDir,

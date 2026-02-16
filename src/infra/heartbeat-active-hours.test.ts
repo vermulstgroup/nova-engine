@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { isWithinActiveHours } from "./heartbeat-active-hours.js";
 
-function cfgWithUserTimezone(userTimezone = "UTC"): Nova EngineConfig {
+function cfgWithUserTimezone(userTimezone = "UTC"): NovaEngineConfig {
   return {
     agents: {
       defaults: {

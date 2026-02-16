@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { runCommandWithTimeout } from "../process/exec.js";
 import { defaultRuntime, type RuntimeEnv } from "../runtime.js";
-import { resolveNova EnginePackageRoot, resolveNova EnginePackageRootSync } from "./nova-engine-root.js";
+import { resolveNovaEnginePackageRoot, resolveNovaEnginePackageRootSync } from "./nova-engine-root.js";
 
 const CONTROL_UI_DIST_PATH_SEGMENTS = ["dist", "control-ui", "index.html"] as const;
 
@@ -86,7 +86,7 @@ export async function resolveControlUiDistIndexPath(
     return path.join(distDir, "control-ui", "index.html");
   }
 
-  const packageRoot = await resolveNova EnginePackageRoot({ argv1: normalized, moduleUrl });
+  const packageRoot = await resolveNovaEnginePackageRoot({ argv1: normalized, moduleUrl });
   if (packageRoot) {
     return path.join(packageRoot, "dist", "control-ui", "index.html");
   }
@@ -166,7 +166,7 @@ export function resolveControlUiRootSync(opts: ControlUiRootResolveOptions = {})
       return null;
     }
   })();
-  const packageRoot = resolveNova EnginePackageRootSync({
+  const packageRoot = resolveNovaEnginePackageRootSync({
     argv1,
     moduleUrl: opts.moduleUrl,
     cwd,

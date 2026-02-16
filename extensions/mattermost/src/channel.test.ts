@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { createReplyPrefixOptions } from "nova-engine/plugin-sdk";
 import { describe, expect, it } from "vitest";
 import { mattermostPlugin } from "./channel.js";
@@ -48,7 +48,7 @@ describe("mattermostPlugin", () => {
     });
 
     it("uses account responsePrefix overrides", () => {
-      const cfg: Nova EngineConfig = {
+      const cfg: NovaEngineConfig = {
         channels: {
           mattermost: {
             responsePrefix: "[Channel]",

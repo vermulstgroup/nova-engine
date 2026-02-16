@@ -1,13 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { Nova EngineApp } from "./app.ts";
+import { NovaEngineApp } from "./app.ts";
 import "../styles.css";
 
 // oxlint-disable-next-line typescript/unbound-method
-const originalConnect = Nova EngineApp.prototype.connect;
+const originalConnect = NovaEngineApp.prototype.connect;
 
 function mountApp(pathname: string) {
   window.history.replaceState({}, "", pathname);
-  const app = document.createElement("nova-engine-app") as Nova EngineApp;
+  const app = document.createElement("nova-engine-app") as NovaEngineApp;
   document.body.append(app);
   return app;
 }
@@ -19,7 +19,7 @@ function nextFrame() {
 }
 
 beforeEach(() => {
-  Nova EngineApp.prototype.connect = () => {
+  NovaEngineApp.prototype.connect = () => {
     // no-op: avoid real gateway WS connections in browser tests
   };
   window.__NOVA_CONTROL_UI_BASE_PATH__ = undefined;
@@ -28,7 +28,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  Nova EngineApp.prototype.connect = originalConnect;
+  NovaEngineApp.prototype.connect = originalConnect;
   window.__NOVA_CONTROL_UI_BASE_PATH__ = undefined;
   localStorage.clear();
   document.body.innerHTML = "";

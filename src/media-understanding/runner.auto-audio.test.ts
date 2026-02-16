@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import type { MsgContext } from "../auto-reply/templating.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   buildProviderRegistry,
   createMediaAttachmentCache,
@@ -42,7 +42,7 @@ describe("runCapability auto audio entries", () => {
           },
         },
       },
-    } as unknown as Nova EngineConfig;
+    } as unknown as NovaEngineConfig;
 
     try {
       const result = await runCapability({
@@ -96,7 +96,7 @@ describe("runCapability auto audio entries", () => {
           },
         },
       },
-    } as unknown as Nova EngineConfig;
+    } as unknown as NovaEngineConfig;
 
     try {
       const result = await runCapability({

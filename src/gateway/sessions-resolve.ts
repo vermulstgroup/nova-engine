@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { loadSessionStore, updateSessionStore } from "../config/sessions.js";
 import { parseSessionLabel } from "../sessions/session-label.js";
 import {
@@ -17,7 +17,7 @@ import {
 export type SessionsResolveResult = { ok: true; key: string } | { ok: false; error: ErrorShape };
 
 export async function resolveSessionKeyFromResolveParams(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   p: SessionsResolveParams;
 }): Promise<SessionsResolveResult> {
   const { cfg, p } = params;

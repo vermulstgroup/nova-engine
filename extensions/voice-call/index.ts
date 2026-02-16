@@ -1,4 +1,4 @@
-import type { GatewayRequestHandlerOptions, Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { GatewayRequestHandlerOptions, NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { Type } from "@sinclair/typebox";
 import type { CoreConfig } from "./src/core-bridge.js";
 import { registerVoiceCallCli } from "./src/cli.js";
@@ -145,7 +145,7 @@ const voiceCallPlugin = {
   name: "Voice Call",
   description: "Voice-call plugin with Telnyx/Twilio/Plivo providers",
   configSchema: voiceCallConfigSchema,
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     const config = resolveVoiceCallConfig(voiceCallConfigSchema.parse(api.pluginConfig));
     const validation = validateProviderConfig(config);
 

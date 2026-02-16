@@ -151,7 +151,7 @@ const nova-engineTheme = {
   },
 };
 
-class Nova EngineA2UIHost extends LitElement {
+class NovaEngineA2UIHost extends LitElement {
   static properties = {
     surfaces: { state: true },
     pendingAction: { state: true },
@@ -486,5 +486,5 @@ class Nova EngineA2UIHost extends LitElement {
 }
 
 if (!customElements.get("nova-engine-a2ui-host")) {
-  customElements.define("nova-engine-a2ui-host", Nova EngineA2UIHost);
+  customElements.define("nova-engine-a2ui-host", NovaEngineA2UIHost);
 }

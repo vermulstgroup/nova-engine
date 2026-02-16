@@ -1,4 +1,4 @@
-import type { Nova EnginePluginApi, Nova EnginePluginService } from "nova-engine/plugin-sdk";
+import type { NovaEnginePluginApi, NovaEnginePluginService } from "nova-engine/plugin-sdk";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -155,18 +155,18 @@ async function writeArmState(statePath: string, state: ArmStateFile | null): Pro
   await fs.writeFile(statePath, `${JSON.stringify(state, null, 2)}\n`, "utf8");
 }
 
-function normalizeDenyList(cfg: Nova EnginePluginApi["config"]): string[] {
+function normalizeDenyList(cfg: NovaEnginePluginApi["config"]): string[] {
   return uniqSorted([...(cfg.gateway?.nodes?.denyCommands ?? [])]);
 }
 
-function normalizeAllowList(cfg: Nova EnginePluginApi["config"]): string[] {
+function normalizeAllowList(cfg: NovaEnginePluginApi["config"]): string[] {
   return uniqSorted([...(cfg.gateway?.nodes?.allowCommands ?? [])]);
 }
 
 function patchConfigNodeLists(
-  cfg: Nova EnginePluginApi["config"],
+  cfg: NovaEnginePluginApi["config"],
   next: { allowCommands: string[]; denyCommands: string[] },
-): Nova EnginePluginApi["config"] {
+): NovaEnginePluginApi["config"] {
   return {
     ...cfg,
     gateway: {
@@ -181,7 +181,7 @@ function patchConfigNodeLists(
 }
 
 async function disarmNow(params: {
-  api: Nova EnginePluginApi;
+  api: NovaEnginePluginApi;
   stateDir: string;
   statePath: string;
   reason: string;
@@ -283,10 +283,10 @@ function formatStatus(state: ArmStateFile | null): string {
   return `Phone control: armed (${until}).\nTemporarily allowed: ${cmdLabel}`;
 }
 
-export default function register(api: Nova EnginePluginApi) {
+export default function register(api: NovaEnginePluginApi) {
   let expiryInterval: ReturnType<typeof setInterval> | null = null;
 
-  const timerService: Nova EnginePluginService = {
+  const timerService: NovaEnginePluginService = {
     id: "phone-control-expiry",
     start: async (ctx) => {
       const statePath = resolveStatePath(ctx.stateDir);

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 import {
   buildAuthHealthSummary,
@@ -18,9 +18,9 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { note } from "../terminal/note.js";
 
 export async function maybeRepairAnthropicOAuthProfileId(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   prompter: DoctorPrompter,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   const store = ensureAuthProfileStore();
   const repair = repairOAuthProfileIdMismatch({
     cfg,
@@ -65,9 +65,9 @@ function pruneAuthOrder(
 }
 
 function pruneAuthProfiles(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   profileIds: Set<string>,
-): { next: Nova EngineConfig; changed: boolean } {
+): { next: NovaEngineConfig; changed: boolean } {
   const profiles = cfg.auth?.profiles;
   const order = cfg.auth?.order;
   const nextProfiles = profiles ? { ...profiles } : undefined;
@@ -110,9 +110,9 @@ function pruneAuthProfiles(
 }
 
 export async function maybeRemoveDeprecatedCliAuthProfiles(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   prompter: DoctorPrompter,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   const store = ensureAuthProfileStore(undefined, { allowKeychainPrompt: false });
   const deprecated = new Set<string>();
   if (store.profiles[CLAUDE_CLI_PROFILE_ID] || cfg.auth?.profiles?.[CLAUDE_CLI_PROFILE_ID]) {
@@ -228,7 +228,7 @@ function formatAuthIssueLine(issue: AuthIssue): string {
 }
 
 export async function noteAuthProfileHealth(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: DoctorPrompter;
   allowKeychainPrompt: boolean;
 }): Promise<void> {

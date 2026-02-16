@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { SandboxContext } from "./sandbox.js";
 import type { SandboxFsBridge, SandboxResolvedPath } from "./sandbox/fs-bridge.js";
-import { createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineCodingTools } from "./pi-tools.js";
 import { createSandboxFsBridgeFromResolver } from "./test-helpers/host-sandbox-fs-bridge.js";
 
 vi.mock("../infra/shell-env.js", async (importOriginal) => {
@@ -101,7 +101,7 @@ describe("tools.fs.workspaceOnly", () => {
       const bridge = createUnsafeMountedBridge({ root: sandboxRoot, agentHostRoot: agentRoot });
       const sandbox = createSandbox({ sandboxRoot, agentRoot, fsBridge: bridge });
 
-      const tools = createNova EngineCodingTools({ sandbox, workspaceDir: sandboxRoot });
+      const tools = createNovaEngineCodingTools({ sandbox, workspaceDir: sandboxRoot });
       const readTool = tools.find((tool) => tool.name === "read");
       const writeTool = tools.find((tool) => tool.name === "write");
       expect(readTool).toBeDefined();
@@ -129,8 +129,8 @@ describe("tools.fs.workspaceOnly", () => {
       const bridge = createUnsafeMountedBridge({ root: sandboxRoot, agentHostRoot: agentRoot });
       const sandbox = createSandbox({ sandboxRoot, agentRoot, fsBridge: bridge });
 
-      const cfg = { tools: { fs: { workspaceOnly: true } } } as unknown as Nova EngineConfig;
-      const tools = createNova EngineCodingTools({ sandbox, workspaceDir: sandboxRoot, config: cfg });
+      const cfg = { tools: { fs: { workspaceOnly: true } } } as unknown as NovaEngineConfig;
+      const tools = createNovaEngineCodingTools({ sandbox, workspaceDir: sandboxRoot, config: cfg });
       const readTool = tools.find((tool) => tool.name === "read");
       const writeTool = tools.find((tool) => tool.name === "write");
       const editTool = tools.find((tool) => tool.name === "edit");

@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import "./test-helpers/fast-coding-tools.js";
-import { createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineCodingTools } from "./pi-tools.js";
 
-const defaultTools = createNova EngineCodingTools();
+const defaultTools = createNovaEngineCodingTools();
 
-describe("createNova EngineCodingTools", () => {
+describe("createNovaEngineCodingTools", () => {
   it("preserves action enums in normalized schemas", () => {
     const toolNames = ["browser", "canvas", "nodes", "cron", "gateway", "message"];
 
@@ -57,21 +57,21 @@ describe("createNova EngineCodingTools", () => {
     expect(defaultTools.some((tool) => tool.name === "apply_patch")).toBe(false);
   });
   it("gates apply_patch behind tools.exec.applyPatch for OpenAI models", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       tools: {
         exec: {
           applyPatch: { enabled: true },
         },
       },
     };
-    const openAiTools = createNova EngineCodingTools({
+    const openAiTools = createNovaEngineCodingTools({
       config,
       modelProvider: "openai",
       modelId: "gpt-5.2",
     });
     expect(openAiTools.some((tool) => tool.name === "apply_patch")).toBe(true);
 
-    const anthropicTools = createNova EngineCodingTools({
+    const anthropicTools = createNovaEngineCodingTools({
       config,
       modelProvider: "anthropic",
       modelId: "claude-opus-4-5",
@@ -79,21 +79,21 @@ describe("createNova EngineCodingTools", () => {
     expect(anthropicTools.some((tool) => tool.name === "apply_patch")).toBe(false);
   });
   it("respects apply_patch allowModels", () => {
-    const config: Nova EngineConfig = {
+    const config: NovaEngineConfig = {
       tools: {
         exec: {
           applyPatch: { enabled: true, allowModels: ["gpt-5.2"] },
         },
       },
     };
-    const allowed = createNova EngineCodingTools({
+    const allowed = createNovaEngineCodingTools({
       config,
       modelProvider: "openai",
       modelId: "gpt-5.2",
     });
     expect(allowed.some((tool) => tool.name === "apply_patch")).toBe(true);
 
-    const denied = createNova EngineCodingTools({
+    const denied = createNovaEngineCodingTools({
       config,
       modelProvider: "openai",
       modelId: "gpt-5-mini",
@@ -101,7 +101,7 @@ describe("createNova EngineCodingTools", () => {
     expect(denied.some((tool) => tool.name === "apply_patch")).toBe(false);
   });
   it("keeps canonical tool names for Anthropic OAuth (pi-ai remaps on the wire)", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       modelProvider: "anthropic",
       modelAuthMode: "oauth",
     });
@@ -113,7 +113,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("apply_patch")).toBe(false);
   });
   it("provides top-level object schemas for all tools", () => {
-    const tools = createNova EngineCodingTools();
+    const tools = createNovaEngineCodingTools();
     const offenders = tools
       .map((tool) => {
         const schema =

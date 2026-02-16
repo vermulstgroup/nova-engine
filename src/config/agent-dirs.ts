@@ -1,6 +1,6 @@
 import os from "node:os";
 import path from "node:path";
-import type { Nova EngineConfig } from "./types.js";
+import type { NovaEngineConfig } from "./types.js";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 import { DEFAULT_AGENT_ID, normalizeAgentId } from "../routing/session-key.js";
 import { resolveUserPath } from "../utils.js";
@@ -29,7 +29,7 @@ function canonicalizeAgentDir(agentDir: string): string {
   return resolved;
 }
 
-function collectReferencedAgentIds(cfg: Nova EngineConfig): string[] {
+function collectReferencedAgentIds(cfg: NovaEngineConfig): string[] {
   const ids = new Set<string>();
 
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents?.list : [];
@@ -57,7 +57,7 @@ function collectReferencedAgentIds(cfg: Nova EngineConfig): string[] {
 }
 
 function resolveEffectiveAgentDir(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
   deps?: { env?: NodeJS.ProcessEnv; homedir?: () => string },
 ): string {
@@ -78,7 +78,7 @@ function resolveEffectiveAgentDir(
 }
 
 export function findDuplicateAgentDirs(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   deps?: { env?: NodeJS.ProcessEnv; homedir?: () => string },
 ): DuplicateAgentDir[] {
   const byDir = new Map<string, { agentDir: string; agentIds: string[] }>();

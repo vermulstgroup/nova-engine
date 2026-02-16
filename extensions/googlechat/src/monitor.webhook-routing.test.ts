@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Nova EngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
 import { EventEmitter } from "node:events";
 import { describe, expect, it, vi } from "vitest";
 import type { ResolvedGoogleChatAccount } from "./accounts.js";
@@ -67,7 +67,7 @@ function registerTwoTargets() {
   const sinkA = vi.fn();
   const sinkB = vi.fn();
   const core = {} as PluginRuntime;
-  const config = {} as Nova EngineConfig;
+  const config = {} as NovaEngineConfig;
 
   const unregisterA = registerGoogleChatWebhookTarget({
     account: baseAccount("A"),

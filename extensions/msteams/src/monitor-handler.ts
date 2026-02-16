@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, RuntimeEnv } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, RuntimeEnv } from "nova-engine/plugin-sdk";
 import type { MSTeamsConversationStore } from "./conversation-store.js";
 import type { MSTeamsAdapter } from "./messenger.js";
 import type { MSTeamsMonitorLogger } from "./monitor-types.js";
@@ -23,7 +23,7 @@ export type MSTeamsActivityHandler = {
 };
 
 export type MSTeamsMessageHandlerDeps = {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   runtime: RuntimeEnv;
   appId: string;
   adapter: MSTeamsAdapter;

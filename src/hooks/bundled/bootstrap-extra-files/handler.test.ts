@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { AgentBootstrapHookContext } from "../../hooks.js";
 import { makeTempWorkspace, writeWorkspaceFile } from "../../../test-helpers/workspace.js";
 import { createHookEvent } from "../../hooks.js";
@@ -14,7 +14,7 @@ describe("bootstrap-extra-files hook", () => {
     await fs.mkdir(extraDir, { recursive: true });
     await fs.writeFile(path.join(extraDir, "AGENTS.md"), "extra agents", "utf-8");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       hooks: {
         internal: {
           entries: {
@@ -61,7 +61,7 @@ describe("bootstrap-extra-files hook", () => {
     await fs.mkdir(extraDir, { recursive: true });
     await fs.writeFile(path.join(extraDir, "SOUL.md"), "evil", "utf-8");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       hooks: {
         internal: {
           entries: {

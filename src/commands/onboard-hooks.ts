@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
@@ -6,10 +6,10 @@ import { formatCliCommand } from "../cli/command-format.js";
 import { buildWorkspaceHookStatus } from "../hooks/hooks-status.js";
 
 export async function setupInternalHooks(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   runtime: RuntimeEnv,
   prompter: WizardPrompter,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   await prompter.note(
     [
       "Hooks let you automate actions when agent commands are issued.",
@@ -58,7 +58,7 @@ export async function setupInternalHooks(
     entries[name] = { enabled: true };
   }
 
-  const next: Nova EngineConfig = {
+  const next: NovaEngineConfig = {
     ...cfg,
     hooks: {
       ...cfg.hooks,

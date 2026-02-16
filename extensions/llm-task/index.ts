@@ -1,6 +1,6 @@
-import type { AnyAgentTool, Nova EnginePluginApi } from "../../src/plugins/types.js";
+import type { AnyAgentTool, NovaEnginePluginApi } from "../../src/plugins/types.js";
 import { createLlmTaskTool } from "./src/llm-task-tool.js";
 
-export default function register(api: Nova EnginePluginApi) {
+export default function register(api: NovaEnginePluginApi) {
   api.registerTool(createLlmTaskTool(api) as unknown as AnyAgentTool, { optional: true });
 }

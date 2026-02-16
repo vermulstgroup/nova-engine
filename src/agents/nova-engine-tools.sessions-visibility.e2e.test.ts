@@ -18,7 +18,7 @@ vi.mock("../config/config.js", async (importOriginal) => {
 });
 
 import "./test-helpers/fast-core-tools.js";
-import { createNova EngineTools } from "./nova-engine-tools.js";
+import { createNovaEngineTools } from "./nova-engine-tools.js";
 
 describe("sessions tools visibility", () => {
   it("defaults to tree visibility (self + spawned) for sessions_history", async () => {
@@ -42,7 +42,7 @@ describe("sessions tools visibility", () => {
       return {};
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "sessions_history",
     );
     expect(tool).toBeDefined();
@@ -75,7 +75,7 @@ describe("sessions tools visibility", () => {
       return {};
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main" }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main" }).find(
       (candidate) => candidate.name === "sessions_history",
     );
     expect(tool).toBeDefined();
@@ -109,7 +109,7 @@ describe("sessions tools visibility", () => {
       return {};
     });
 
-    const tool = createNova EngineTools({ agentSessionKey: "main", sandboxed: true }).find(
+    const tool = createNovaEngineTools({ agentSessionKey: "main", sandboxed: true }).find(
       (candidate) => candidate.name === "sessions_history",
     );
     expect(tool).toBeDefined();

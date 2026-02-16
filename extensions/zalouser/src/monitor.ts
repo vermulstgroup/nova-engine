@@ -1,5 +1,5 @@
 import type { ChildProcess } from "node:child_process";
-import type { Nova EngineConfig, MarkdownTableMode, RuntimeEnv } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, MarkdownTableMode, RuntimeEnv } from "nova-engine/plugin-sdk";
 import { createReplyPrefixOptions, mergeAllowlist, summarizeMapping } from "nova-engine/plugin-sdk";
 import type { ResolvedZalouserAccount, ZcaFriend, ZcaGroup, ZcaMessage } from "./types.js";
 import { getZalouserRuntime } from "./runtime.js";
@@ -8,7 +8,7 @@ import { parseJsonOutput, runZca, runZcaStreaming } from "./zca.js";
 
 export type ZalouserMonitorOptions = {
   account: ResolvedZalouserAccount;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   runtime: RuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
@@ -156,7 +156,7 @@ function startZcaListener(
 async function processMessage(
   message: ZcaMessage,
   account: ResolvedZalouserAccount,
-  config: Nova EngineConfig,
+  config: NovaEngineConfig,
   core: ZalouserCoreRuntime,
   runtime: RuntimeEnv,
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void,
@@ -382,7 +382,7 @@ async function deliverZalouserReply(params: {
   isGroup: boolean;
   runtime: RuntimeEnv;
   core: ZalouserCoreRuntime;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   accountId?: string;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
   tableMode?: MarkdownTableMode;

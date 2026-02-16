@@ -5,7 +5,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   resolveDefaultAgentId,
   resolveAgentWorkspaceDir,
@@ -18,7 +18,7 @@ import { runEmbeddedPiAgent } from "../agents/pi-embedded.js";
  */
 export async function generateSlugViaLLM(params: {
   sessionContent: string;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
 }): Promise<string | null> {
   let tempSessionFile: string | null = null;
 

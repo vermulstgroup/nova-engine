@@ -1,10 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Nova EnginePackageManifest } from "../../plugins/manifest.js";
+import type { NovaEnginePackageManifest } from "../../plugins/manifest.js";
 import type { PluginOrigin } from "../../plugins/types.js";
 import type { ChannelMeta } from "./types.js";
 import { MANIFEST_KEY } from "../../compat/legacy-names.js";
-import { discoverNova EnginePlugins } from "../../plugins/discovery.js";
+import { discoverNovaEnginePlugins } from "../../plugins/discovery.js";
 import { CONFIG_DIR, isRecord, resolveUserPath } from "../../utils.js";
 
 export type ChannelUiMetaEntry = {
@@ -49,7 +49,7 @@ type ExternalCatalogEntry = {
   name?: string;
   version?: string;
   description?: string;
-} & Partial<Record<ManifestKey, Nova EnginePackageManifest>>;
+} & Partial<Record<ManifestKey, NovaEnginePackageManifest>>;
 
 const DEFAULT_CATALOG_PATHS = [
   path.join(CONFIG_DIR, "mpm", "plugins.json"),
@@ -119,7 +119,7 @@ function loadExternalCatalogEntries(options: CatalogOptions): ExternalCatalogEnt
 }
 
 function toChannelMeta(params: {
-  channel: NonNullable<Nova EnginePackageManifest["channel"]>;
+  channel: NonNullable<NovaEnginePackageManifest["channel"]>;
   id: string;
 }): ChannelMeta | null {
   const label = params.channel.label?.trim();
@@ -169,7 +169,7 @@ function toChannelMeta(params: {
 }
 
 function resolveInstallInfo(params: {
-  manifest: Nova EnginePackageManifest;
+  manifest: NovaEnginePackageManifest;
   packageName?: string;
   packageDir?: string;
   workspaceDir?: string;
@@ -194,7 +194,7 @@ function buildCatalogEntry(candidate: {
   packageName?: string;
   packageDir?: string;
   workspaceDir?: string;
-  packageManifest?: Nova EnginePackageManifest;
+  packageManifest?: NovaEnginePackageManifest;
 }): ChannelPluginCatalogEntry | null {
   const manifest = candidate.packageManifest;
   if (!manifest?.channel) {
@@ -259,7 +259,7 @@ export function buildChannelUiCatalog(
 export function listChannelPluginCatalogEntries(
   options: CatalogOptions = {},
 ): ChannelPluginCatalogEntry[] {
-  const discovery = discoverNova EnginePlugins({ workspaceDir: options.workspaceDir });
+  const discovery = discoverNovaEnginePlugins({ workspaceDir: options.workspaceDir });
   const resolved = new Map<string, { entry: ChannelPluginCatalogEntry; priority: number }>();
 
   for (const candidate of discovery.candidates) {

@@ -1,5 +1,5 @@
 import type { Bot } from "grammy";
-import type { Nova EngineConfig, ReplyToMode, TelegramAccountConfig } from "../config/types.js";
+import type { NovaEngineConfig, ReplyToMode, TelegramAccountConfig } from "../config/types.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { TelegramMessageContext } from "./bot-message-context.js";
 import type { TelegramBotOptions } from "./bot.js";
@@ -30,7 +30,7 @@ import { cacheSticker, describeStickerImage } from "./sticker-cache.js";
 
 const EMPTY_RESPONSE_FALLBACK = "No response generated. Please try again.";
 
-async function resolveStickerVisionSupport(cfg: Nova EngineConfig, agentId: string) {
+async function resolveStickerVisionSupport(cfg: NovaEngineConfig, agentId: string) {
   try {
     const catalog = await loadModelCatalog({ config: cfg });
     const defaultModel = resolveDefaultModelForAgent({ cfg, agentId });
@@ -47,7 +47,7 @@ async function resolveStickerVisionSupport(cfg: Nova EngineConfig, agentId: stri
 type DispatchTelegramMessageParams = {
   context: TelegramMessageContext;
   bot: Bot;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   runtime: RuntimeEnv;
   replyToMode: ReplyToMode;
   streamMode: TelegramStreamMode;

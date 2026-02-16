@@ -220,7 +220,7 @@ Each event includes:
     senderId?: string,
     workspaceDir?: string,
     bootstrapFiles?: WorkspaceBootstrapFile[],
-    cfg?: Nova EngineConfig
+    cfg?: NovaEngineConfig
   }
 }
 ```

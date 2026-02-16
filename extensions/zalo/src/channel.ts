@@ -2,7 +2,7 @@ import type {
   ChannelAccountSnapshot,
   ChannelDock,
   ChannelPlugin,
-  Nova EngineConfig,
+  NovaEngineConfig,
 } from "nova-engine/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
@@ -232,7 +232,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
                     : {}),
             },
           },
-        } as Nova EngineConfig;
+        } as NovaEngineConfig;
       }
       return {
         ...next,
@@ -255,7 +255,7 @@ export const zaloPlugin: ChannelPlugin<ResolvedZaloAccount> = {
             },
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     },
   },
   pairing: {

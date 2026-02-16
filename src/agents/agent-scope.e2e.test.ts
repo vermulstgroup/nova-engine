@@ -1,6 +1,6 @@
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   resolveAgentConfig,
   resolveAgentDir,
@@ -16,13 +16,13 @@ afterEach(() => {
 
 describe("resolveAgentConfig", () => {
   it("should return undefined when no agents config exists", () => {
-    const cfg: Nova EngineConfig = {};
+    const cfg: NovaEngineConfig = {};
     const result = resolveAgentConfig(cfg, "main");
     expect(result).toBeUndefined();
   });
 
   it("should return undefined when agent id does not exist", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [{ id: "main", workspace: "~/nova-engine" }],
       },
@@ -32,7 +32,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return basic agent config", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -60,7 +60,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("supports per-agent model primary+fallbacks", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           model: {
@@ -84,7 +84,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentModelFallbacksOverride(cfg, "linus")).toEqual(["openai/gpt-5.2"]);
 
     // If fallbacks isn't present, we don't override the global fallbacks.
-    const cfgNoOverride: Nova EngineConfig = {
+    const cfgNoOverride: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -99,7 +99,7 @@ describe("resolveAgentConfig", () => {
     expect(resolveAgentModelFallbacksOverride(cfgNoOverride, "linus")).toBe(undefined);
 
     // Explicit empty list disables global fallbacks for that agent.
-    const cfgDisable: Nova EngineConfig = {
+    const cfgDisable: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -136,7 +136,7 @@ describe("resolveAgentConfig", () => {
       }),
     ).toEqual([]);
 
-    const cfgInheritDefaults: Nova EngineConfig = {
+    const cfgInheritDefaults: NovaEngineConfig = {
       agents: {
         defaults: {
           model: {
@@ -170,7 +170,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return agent-specific sandbox config", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -198,7 +198,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return agent-specific tools config", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -228,7 +228,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should return both sandbox and tools config", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -252,7 +252,7 @@ describe("resolveAgentConfig", () => {
   });
 
   it("should normalize agent id", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [{ id: "main", workspace: "~/nova-engine" }],
       },
@@ -267,7 +267,7 @@ describe("resolveAgentConfig", () => {
     const home = path.join(path.sep, "srv", "nova-engine-home");
     vi.stubEnv("NOVA_HOME", home);
 
-    const workspace = resolveAgentWorkspaceDir({} as Nova EngineConfig, "main");
+    const workspace = resolveAgentWorkspaceDir({} as NovaEngineConfig, "main");
     expect(workspace).toBe(path.join(path.resolve(home), ".nova-engine", "workspace"));
   });
 
@@ -277,7 +277,7 @@ describe("resolveAgentConfig", () => {
     // Clear state dir so it falls back to NOVA_HOME
     vi.stubEnv("NOVA_STATE_DIR", "");
 
-    const agentDir = resolveAgentDir({} as Nova EngineConfig, "main");
+    const agentDir = resolveAgentDir({} as NovaEngineConfig, "main");
     expect(agentDir).toBe(path.join(path.resolve(home), ".nova-engine", "agents", "main", "agent"));
   });
 });

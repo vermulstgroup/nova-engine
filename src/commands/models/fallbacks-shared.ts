@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import { buildModelAliasIndex, resolveModelRefFromString } from "../../agents/model-selection.js";
 import { loadConfig } from "../../config/config.js";
@@ -16,15 +16,15 @@ import {
 
 type DefaultsFallbackKey = "model" | "imageModel";
 
-function getFallbacks(cfg: Nova EngineConfig, key: DefaultsFallbackKey): string[] {
+function getFallbacks(cfg: NovaEngineConfig, key: DefaultsFallbackKey): string[] {
   const entry = cfg.agents?.defaults?.[key] as unknown as PrimaryFallbackConfig | undefined;
   return entry?.fallbacks ?? [];
 }
 
 function patchDefaultsFallbacks(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params: { key: DefaultsFallbackKey; fallbacks: string[]; models?: Record<string, unknown> },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const existing = cfg.agents?.defaults?.[params.key] as unknown as
     | PrimaryFallbackConfig
     | undefined;

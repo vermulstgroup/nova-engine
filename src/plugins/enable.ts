@@ -1,12 +1,12 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export type PluginEnableResult = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   enabled: boolean;
   reason?: string;
 };
 
-function ensureAllowlisted(cfg: Nova EngineConfig, pluginId: string): Nova EngineConfig {
+function ensureAllowlisted(cfg: NovaEngineConfig, pluginId: string): NovaEngineConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) {
     return cfg;
@@ -20,7 +20,7 @@ function ensureAllowlisted(cfg: Nova EngineConfig, pluginId: string): Nova Engin
   };
 }
 
-export function enablePluginInConfig(cfg: Nova EngineConfig, pluginId: string): PluginEnableResult {
+export function enablePluginInConfig(cfg: NovaEngineConfig, pluginId: string): PluginEnableResult {
   if (cfg.plugins?.enabled === false) {
     return { config: cfg, enabled: false, reason: "plugins disabled" };
   }
@@ -35,7 +35,7 @@ export function enablePluginInConfig(cfg: Nova EngineConfig, pluginId: string): 
       enabled: true,
     },
   };
-  let next: Nova EngineConfig = {
+  let next: NovaEngineConfig = {
     ...cfg,
     plugins: {
       ...cfg.plugins,

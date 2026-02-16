@@ -18,7 +18,7 @@ function configPath(...parts: string[]) {
   return path.join(CONFIG_DIR, ...parts);
 }
 
-function etcNova EnginePath(...parts: string[]) {
+function etcNovaEnginePath(...parts: string[]) {
   return path.join(ETC_NOVA_DIR, ...parts);
 }
 
@@ -68,7 +68,7 @@ describe("resolveConfigIncludes", () => {
   });
 
   it("resolves absolute path $include", () => {
-    const absolute = etcNova EnginePath("agents.json");
+    const absolute = etcNovaEnginePath("agents.json");
     const files = { [absolute]: { list: [{ id: "main" }] } };
     const obj = { agents: { $include: absolute } };
     expect(resolve(obj, files)).toEqual({

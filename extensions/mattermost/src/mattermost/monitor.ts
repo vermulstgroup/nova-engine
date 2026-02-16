@@ -1,7 +1,7 @@
 import type {
   ChannelAccountSnapshot,
   ChatType,
-  Nova EngineConfig,
+  NovaEngineConfig,
   ReplyPayload,
   RuntimeEnv,
 } from "nova-engine/plugin-sdk";
@@ -50,7 +50,7 @@ export type MonitorMattermostOpts = {
   botToken?: string;
   baseUrl?: string;
   accountId?: string;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   statusSink?: (patch: Partial<ChannelAccountSnapshot>) => void;

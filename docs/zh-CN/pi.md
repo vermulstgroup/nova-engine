@@ -83,7 +83,7 @@ src/agents/
 ├── pi-embedded-helpers.ts         # Error classification, turn validation
 ├── pi-embedded-helpers/           # Helper modules
 ├── pi-embedded-utils.ts           # Formatting utilities
-├── pi-tools.ts                    # createNova EngineCodingTools()
+├── pi-tools.ts                    # createNovaEngineCodingTools()
 ├── pi-tools.abort.ts              # AbortSignal wrapping for tools
 ├── pi-tools.policy.ts             # Tool allowlist/denylist policy
 ├── pi-tools.read.ts               # Read tool customizations

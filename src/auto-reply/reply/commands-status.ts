@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { SessionEntry, SessionScope } from "../../config/sessions.js";
 import type { MediaUnderstandingDecision } from "../../media-understanding/types.js";
 import type { ElevatedLevel, ReasoningLevel, ThinkLevel, VerboseLevel } from "../thinking.js";
@@ -45,7 +45,7 @@ function formatApiKeySnippet(apiKey: string): string {
 
 function resolveModelAuthLabel(
   provider?: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
   sessionEntry?: SessionEntry,
   agentDir?: string,
 ): string | undefined {
@@ -101,7 +101,7 @@ function resolveModelAuthLabel(
 }
 
 export async function buildStatusReply(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   command: CommandContext;
   sessionEntry?: SessionEntry;
   sessionKey: string;

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { PluginRecord } from "./registry.js";
 import { defaultSlotIdForKey } from "./slots.js";
 
@@ -63,7 +63,7 @@ const normalizePluginEntries = (entries: unknown): NormalizedPluginsConfig["entr
 };
 
 export const normalizePluginsConfig = (
-  config?: Nova EngineConfig["plugins"],
+  config?: NovaEngineConfig["plugins"],
 ): NormalizedPluginsConfig => {
   const memorySlot = normalizeSlotValue(config?.slots?.memory);
   return {
@@ -78,13 +78,13 @@ export const normalizePluginsConfig = (
   };
 };
 
-const hasExplicitMemorySlot = (plugins?: Nova EngineConfig["plugins"]) =>
+const hasExplicitMemorySlot = (plugins?: NovaEngineConfig["plugins"]) =>
   Boolean(plugins?.slots && Object.prototype.hasOwnProperty.call(plugins.slots, "memory"));
 
-const hasExplicitMemoryEntry = (plugins?: Nova EngineConfig["plugins"]) =>
+const hasExplicitMemoryEntry = (plugins?: NovaEngineConfig["plugins"]) =>
   Boolean(plugins?.entries && Object.prototype.hasOwnProperty.call(plugins.entries, "memory-core"));
 
-const hasExplicitPluginConfig = (plugins?: Nova EngineConfig["plugins"]) => {
+const hasExplicitPluginConfig = (plugins?: NovaEngineConfig["plugins"]) => {
   if (!plugins) {
     return false;
   }
@@ -110,9 +110,9 @@ const hasExplicitPluginConfig = (plugins?: Nova EngineConfig["plugins"]) => {
 };
 
 export function applyTestPluginDefaults(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv = process.env,
-): Nova EngineConfig {
+): NovaEngineConfig {
   if (!env.VITEST) {
     return cfg;
   }
@@ -148,7 +148,7 @@ export function applyTestPluginDefaults(
 }
 
 export function isTestDefaultMemorySlotDisabled(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
   if (!env.VITEST) {

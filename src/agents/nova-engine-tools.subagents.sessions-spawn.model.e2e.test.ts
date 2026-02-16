@@ -10,13 +10,13 @@ import { resetSubagentRegistryForTests } from "./subagent-registry.js";
 
 const callGatewayMock = getCallGatewayMock();
 
-type CreateNova EngineTools = (typeof import("./nova-engine-tools.js"))["createNova EngineTools"];
-type CreateNova EngineToolsOpts = Parameters<CreateNova EngineTools>[0];
+type CreateNovaEngineTools = (typeof import("./nova-engine-tools.js"))["createNovaEngineTools"];
+type CreateNovaEngineToolsOpts = Parameters<CreateNovaEngineTools>[0];
 
-async function getSessionsSpawnTool(opts: CreateNova EngineToolsOpts) {
+async function getSessionsSpawnTool(opts: CreateNovaEngineToolsOpts) {
   // Dynamic import: ensure harness mocks are installed before tool modules load.
-  const { createNova EngineTools } = await import("./nova-engine-tools.js");
-  const tool = createNova EngineTools(opts).find((candidate) => candidate.name === "sessions_spawn");
+  const { createNovaEngineTools } = await import("./nova-engine-tools.js");
+  const tool = createNovaEngineTools(opts).find((candidate) => candidate.name === "sessions_spawn");
   if (!tool) {
     throw new Error("missing sessions_spawn tool");
   }

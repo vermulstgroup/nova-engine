@@ -61,7 +61,7 @@ function validatePluginId(pluginId: string): string | null {
   return null;
 }
 
-async function ensureNova EngineExtensions(manifest: PackageManifest) {
+async function ensureNovaEngineExtensions(manifest: PackageManifest) {
   const extensions = manifest[MANIFEST_KEY]?.extensions;
   if (!Array.isArray(extensions)) {
     throw new Error("package.json missing nova-engine.extensions");
@@ -120,7 +120,7 @@ async function installPluginFromPackageDir(params: {
 
   let extensions: string[];
   try {
-    extensions = await ensureNova EngineExtensions(manifest);
+    extensions = await ensureNovaEngineExtensions(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }

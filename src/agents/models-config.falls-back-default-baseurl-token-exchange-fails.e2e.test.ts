@@ -7,7 +7,7 @@ import {
   installModelsConfigTestHooks,
   withModelsTempHome as withTempHome,
 } from "./models-config.e2e-harness.js";
-import { ensureNova EngineModelsJson } from "./models-config.js";
+import { ensureNovaEngineModelsJson } from "./models-config.js";
 
 installModelsConfigTestHooks({ restoreFetch: true });
 
@@ -24,7 +24,7 @@ describe("models-config", () => {
       globalThis.fetch = fetchMock as unknown as typeof fetch;
 
       try {
-        await ensureNova EngineModelsJson({ models: { providers: {} } });
+        await ensureNovaEngineModelsJson({ models: { providers: {} } });
 
         const agentDir = path.join(process.env.HOME ?? "", ".nova-engine", "agents", "main", "agent");
         const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
@@ -77,7 +77,7 @@ describe("models-config", () => {
           ),
         );
 
-        await ensureNova EngineModelsJson({ models: { providers: {} } }, agentDir);
+        await ensureNovaEngineModelsJson({ models: { providers: {} } }, agentDir);
 
         const raw = await fs.readFile(path.join(agentDir, "models.json"), "utf8");
         const parsed = JSON.parse(raw) as {

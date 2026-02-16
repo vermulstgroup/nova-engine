@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import type { Nova EngineConfig, ConfigFileSnapshot, LegacyConfigIssue } from "./types.js";
+import type { NovaEngineConfig, ConfigFileSnapshot, LegacyConfigIssue } from "./types.js";
 import { loadDotEnv } from "../infra/dotenv.js";
 import { resolveRequiredHomeDir } from "../infra/home-dir.js";
 import {
@@ -43,7 +43,7 @@ import {
   validateConfigObjectRawWithPlugins,
   validateConfigObjectWithPlugins,
 } from "./validation.js";
-import { compareNova EngineVersions } from "./version.js";
+import { compareNovaEngineVersions } from "./version.js";
 
 // Re-export for backwards compatibility
 export { CircularIncludeError, ConfigIncludeError } from "./includes.js";
@@ -144,11 +144,11 @@ export function resolveConfigSnapshotHash(snapshot: {
   return hashConfigRaw(snapshot.raw);
 }
 
-function coerceConfig(value: unknown): Nova EngineConfig {
+function coerceConfig(value: unknown): NovaEngineConfig {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return {};
   }
-  return value as Nova EngineConfig;
+  return value as NovaEngineConfig;
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -413,7 +413,7 @@ function warnOnConfigMiskeys(raw: unknown, logger: Pick<typeof console, "warn">)
   }
 }
 
-function stampConfigVersion(cfg: Nova EngineConfig): Nova EngineConfig {
+function stampConfigVersion(cfg: NovaEngineConfig): NovaEngineConfig {
   const now = new Date().toISOString();
   return {
     ...cfg,
@@ -425,12 +425,12 @@ function stampConfigVersion(cfg: Nova EngineConfig): Nova EngineConfig {
   };
 }
 
-function warnIfConfigFromFuture(cfg: Nova EngineConfig, logger: Pick<typeof console, "warn">): void {
+function warnIfConfigFromFuture(cfg: NovaEngineConfig, logger: Pick<typeof console, "warn">): void {
   const touched = cfg.meta?.lastTouchedVersion;
   if (!touched) {
     return;
   }
-  const cmp = compareNova EngineVersions(VERSION, touched);
+  const cmp = compareNovaEngineVersions(VERSION, touched);
   if (cmp === null) {
     return;
   }
@@ -502,7 +502,7 @@ function resolveConfigForRead(
 ): ConfigReadResolution {
   // Apply config.env to process.env BEFORE substitution so ${VAR} can reference config-defined vars.
   if (resolvedIncludes && typeof resolvedIncludes === "object" && "env" in resolvedIncludes) {
-    applyConfigEnvVars(resolvedIncludes as Nova EngineConfig, env);
+    applyConfigEnvVars(resolvedIncludes as NovaEngineConfig, env);
   }
 
   return {
@@ -526,7 +526,7 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
   const configPath =
     candidatePaths.find((candidate) => deps.fs.existsSync(candidate)) ?? requestedConfigPath;
 
-  function loadConfig(): Nova EngineConfig {
+  function loadConfig(): NovaEngineConfig {
     try {
       maybeLoadDotEnvForConfig(deps.env);
       if (!deps.fs.existsSync(configPath)) {
@@ -551,7 +551,7 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
       if (typeof resolvedConfig !== "object" || resolvedConfig === null) {
         return {};
       }
-      const preValidationDuplicates = findDuplicateAgentDirs(resolvedConfig as Nova EngineConfig, {
+      const preValidationDuplicates = findDuplicateAgentDirs(resolvedConfig as NovaEngineConfig, {
         env: deps.env,
         homedir: deps.homedir,
       });
@@ -817,7 +817,7 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
     };
   }
 
-  async function writeConfigFile(cfg: Nova EngineConfig, options: ConfigWriteOptions = {}) {
+  async function writeConfigFile(cfg: NovaEngineConfig, options: ConfigWriteOptions = {}) {
     clearConfigCache();
     let persistCandidate: unknown = cfg;
     const { snapshot } = await readConfigFileSnapshotInternal();
@@ -879,7 +879,7 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
             cfgToWrite,
             parsedRes.parsed,
             envForRestore,
-          ) as Nova EngineConfig;
+          ) as NovaEngineConfig;
         }
       }
     } catch {
@@ -890,7 +890,7 @@ export function createConfigIO(overrides: ConfigIoDeps = {}) {
     await deps.fs.promises.mkdir(dir, { recursive: true, mode: 0o700 });
     const outputConfig =
       envRefMap && changedPaths
-        ? (restoreEnvRefsFromMap(cfgToWrite, "", envRefMap, changedPaths) as Nova EngineConfig)
+        ? (restoreEnvRefsFromMap(cfgToWrite, "", envRefMap, changedPaths) as NovaEngineConfig)
         : cfgToWrite;
     // Do NOT apply runtime defaults when writing — user config should only contain
     // explicitly set values. Runtime defaults are applied when loading (issue #6070).
@@ -1059,7 +1059,7 @@ const DEFAULT_CONFIG_CACHE_MS = 200;
 let configCache: {
   configPath: string;
   expiresAt: number;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
 } | null = null;
 
 function resolveConfigCacheMs(env: NodeJS.ProcessEnv): number {
@@ -1088,7 +1088,7 @@ export function clearConfigCache(): void {
   configCache = null;
 }
 
-export function loadConfig(): Nova EngineConfig {
+export function loadConfig(): NovaEngineConfig {
   const io = createConfigIO();
   const configPath = io.configPath;
   const now = Date.now();
@@ -1121,7 +1121,7 @@ export async function readConfigFileSnapshotForWrite(): Promise<ReadConfigFileSn
 }
 
 export async function writeConfigFile(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   options: ConfigWriteOptions = {},
 ): Promise<void> {
   const io = createConfigIO();

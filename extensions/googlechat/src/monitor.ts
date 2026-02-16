@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import {
   createReplyPrefixOptions,
   normalizeWebhookPath,
@@ -33,7 +33,7 @@ export type GoogleChatRuntimeEnv = {
 
 export type GoogleChatMonitorOptions = {
   account: ResolvedGoogleChatAccount;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   runtime: GoogleChatRuntimeEnv;
   abortSignal: AbortSignal;
   webhookPath?: string;
@@ -45,7 +45,7 @@ type GoogleChatCoreRuntime = ReturnType<typeof getGoogleChatRuntime>;
 
 type WebhookTarget = {
   account: ResolvedGoogleChatAccount;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   runtime: GoogleChatRuntimeEnv;
   core: GoogleChatCoreRuntime;
   path: string;
@@ -385,7 +385,7 @@ function extractMentionInfo(annotations: GoogleChatAnnotation[], botUser?: strin
 function resolveBotDisplayName(params: {
   accountName?: string;
   agentId: string;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
 }): string {
   const { accountName, agentId, config } = params;
   if (accountName?.trim()) {
@@ -401,7 +401,7 @@ function resolveBotDisplayName(params: {
 async function processMessageWithPipeline(params: {
   event: GoogleChatEvent;
   account: ResolvedGoogleChatAccount;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   runtime: GoogleChatRuntimeEnv;
   core: GoogleChatCoreRuntime;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
@@ -782,7 +782,7 @@ async function deliverGoogleChatReply(params: {
   spaceId: string;
   runtime: GoogleChatRuntimeEnv;
   core: GoogleChatCoreRuntime;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
   typingMessageName?: string;
 }): Promise<void> {

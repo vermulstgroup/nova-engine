@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { resolveGatewayService } from "../../../daemon/service.js";
@@ -8,7 +8,7 @@ import { DEFAULT_GATEWAY_DAEMON_RUNTIME, isGatewayDaemonRuntime } from "../../da
 import { ensureSystemdUserLingerNonInteractive } from "../../systemd-linger.js";
 
 export async function installGatewayDaemonNonInteractive(params: {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   port: number;

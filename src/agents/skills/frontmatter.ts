@@ -1,6 +1,6 @@
 import type { Skill } from "@mariozechner/pi-coding-agent";
 import type {
-  Nova EngineSkillMetadata,
+  NovaEngineSkillMetadata,
   ParsedSkillFrontmatter,
   SkillEntry,
   SkillInstallSpec,
@@ -11,10 +11,10 @@ import {
   getFrontmatterString,
   normalizeStringList,
   parseFrontmatterBool,
-  resolveNova EngineManifestBlock,
-  resolveNova EngineManifestInstall,
-  resolveNova EngineManifestOs,
-  resolveNova EngineManifestRequires,
+  resolveNovaEngineManifestBlock,
+  resolveNovaEngineManifestInstall,
+  resolveNovaEngineManifestOs,
+  resolveNovaEngineManifestRequires,
 } from "../../shared/frontmatter.js";
 
 export function parseFrontmatter(content: string): ParsedSkillFrontmatter {
@@ -79,16 +79,16 @@ function parseInstallSpec(input: unknown): SkillInstallSpec | undefined {
   return spec;
 }
 
-export function resolveNova EngineMetadata(
+export function resolveNovaEngineMetadata(
   frontmatter: ParsedSkillFrontmatter,
-): Nova EngineSkillMetadata | undefined {
-  const metadataObj = resolveNova EngineManifestBlock({ frontmatter });
+): NovaEngineSkillMetadata | undefined {
+  const metadataObj = resolveNovaEngineManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveNova EngineManifestRequires(metadataObj);
-  const install = resolveNova EngineManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveNova EngineManifestOs(metadataObj);
+  const requires = resolveNovaEngineManifestRequires(metadataObj);
+  const install = resolveNovaEngineManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveNovaEngineManifestOs(metadataObj);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,
     emoji: typeof metadataObj.emoji === "string" ? metadataObj.emoji : undefined,

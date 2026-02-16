@@ -47,7 +47,7 @@ x-i18n:
 ### 2）插件运行时（执行层，注入式）
 
 范围：所有涉及核心运行时行为的内容。
-通过 `Nova EnginePluginApi.runtime` 访问，确保插件永远不会导入 `src/**`。
+通过 `NovaEnginePluginApi.runtime` 访问，确保插件永远不会导入 `src/**`。
 
 建议的接口（最小但完整）：
 
@@ -56,8 +56,8 @@ export type PluginRuntime = {
   channel: {
     text: {
       chunkMarkdownText(text: string, limit: number): string[];
-      resolveTextChunkLimit(cfg: Nova EngineConfig, channel: string, accountId?: string): number;
-      hasControlCommand(text: string, cfg: Nova EngineConfig): boolean;
+      resolveTextChunkLimit(cfg: NovaEngineConfig, channel: string, accountId?: string): number;
+      hasControlCommand(text: string, cfg: NovaEngineConfig): boolean;
     };
     reply: {
       dispatchReplyWithBufferedBlockDispatcher(params: {
@@ -101,12 +101,12 @@ export type PluginRuntime = {
       ): Promise<{ path: string; contentType?: string }>;
     };
     mentions: {
-      buildMentionRegexes(cfg: Nova EngineConfig, agentId?: string): RegExp[];
+      buildMentionRegexes(cfg: NovaEngineConfig, agentId?: string): RegExp[];
       matchesMentionPatterns(text: string, regexes: RegExp[]): boolean;
     };
     groups: {
       resolveGroupPolicy(
-        cfg: Nova EngineConfig,
+        cfg: NovaEngineConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -117,7 +117,7 @@ export type PluginRuntime = {
         defaultConfig?: unknown;
       };
       resolveRequireMention(
-        cfg: Nova EngineConfig,
+        cfg: NovaEngineConfig,
         channel: string,
         accountId: string,
         groupId: string,
@@ -132,7 +132,7 @@ export type PluginRuntime = {
         onFlush: (entries: T[]) => Promise<void>;
         onError?: (err: unknown) => void;
       }): { push: (v: T) => void; flush: () => Promise<void> };
-      resolveInboundDebounceMs(cfg: Nova EngineConfig, channel: string): number;
+      resolveInboundDebounceMs(cfg: NovaEngineConfig, channel: string): number;
     };
     commands: {
       resolveCommandAuthorizedFromAuthorizers(params: {
@@ -146,7 +146,7 @@ export type PluginRuntime = {
     getChildLogger(name: string): PluginLogger;
   };
   state: {
-    resolveStateDir(cfg: Nova EngineConfig): string;
+    resolveStateDir(cfg: NovaEngineConfig): string;
   };
 };
 ```
@@ -162,7 +162,7 @@ export type PluginRuntime = {
 ### 阶段 0：基础搭建
 
 - 引入 `nova-engine/plugin-sdk`。
-- 在 `Nova EnginePluginApi` 中添加带有上述接口的 `api.runtime`。
+- 在 `NovaEnginePluginApi` 中添加带有上述接口的 `api.runtime`。
 - 在过渡期内保留现有导入方式（添加弃用警告）。
 
 ### 阶段 1：桥接清理（低风险）

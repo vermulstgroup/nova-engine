@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, SlackSlashCommandConfig } from "../../config/config.js";
+import type { NovaEngineConfig, SlackSlashCommandConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { SlackFile, SlackMessageEvent } from "../types.js";
 
@@ -7,7 +7,7 @@ export type MonitorSlackOpts = {
   appToken?: string;
   accountId?: string;
   mode?: "socket" | "http";
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   mediaMaxMb?: number;

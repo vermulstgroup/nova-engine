@@ -1,11 +1,11 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ChannelAccountSnapshot } from "./plugins/types.core.js";
 import type { ChannelPlugin } from "./plugins/types.plugin.js";
 
 export function buildChannelAccountSnapshot(params: {
   plugin: ChannelPlugin;
   account: unknown;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   enabled: boolean;
   configured: boolean;
@@ -21,7 +21,7 @@ export function buildChannelAccountSnapshot(params: {
 
 export function formatChannelAllowFrom(params: {
   plugin: ChannelPlugin;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
   allowFrom: Array<string | number>;
 }): string[] {

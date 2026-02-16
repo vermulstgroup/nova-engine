@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import type WebSocket from "ws";
 import { Buffer } from "node:buffer";
 
@@ -77,9 +77,9 @@ function normalizeAgentId(value: string | undefined | null): string {
   );
 }
 
-type AgentEntry = NonNullable<NonNullable<Nova EngineConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<NovaEngineConfig["agents"]>["list"]>[number];
 
-function listAgents(cfg: Nova EngineConfig): AgentEntry[] {
+function listAgents(cfg: NovaEngineConfig): AgentEntry[] {
   const list = cfg.agents?.list;
   if (!Array.isArray(list)) {
     return [];
@@ -87,12 +87,12 @@ function listAgents(cfg: Nova EngineConfig): AgentEntry[] {
   return list.filter((entry): entry is AgentEntry => Boolean(entry && typeof entry === "object"));
 }
 
-function resolveAgentEntry(cfg: Nova EngineConfig, agentId: string): AgentEntry | undefined {
+function resolveAgentEntry(cfg: NovaEngineConfig, agentId: string): AgentEntry | undefined {
   const id = normalizeAgentId(agentId);
   return listAgents(cfg).find((entry) => normalizeAgentId(entry.id) === id);
 }
 
-export function resolveIdentityName(cfg: Nova EngineConfig, agentId: string): string | undefined {
+export function resolveIdentityName(cfg: NovaEngineConfig, agentId: string): string | undefined {
   const entry = resolveAgentEntry(cfg, agentId);
   return entry?.identity?.name?.trim() || undefined;
 }

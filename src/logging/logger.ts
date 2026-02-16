@@ -2,14 +2,14 @@ import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { Logger as TsLogger } from "tslog";
-import type { Nova EngineConfig } from "../config/types.js";
+import type { NovaEngineConfig } from "../config/types.js";
 import type { ConsoleStyle } from "./console.js";
-import { resolvePreferredNova EngineTmpDir } from "../infra/tmp-nova-engine-dir.js";
+import { resolvePreferredNovaEngineTmpDir } from "../infra/tmp-nova-engine-dir.js";
 import { readLoggingConfig } from "./config.js";
 import { type LogLevel, levelToMinLevel, normalizeLogLevel } from "./levels.js";
 import { loggingState } from "./state.js";
 
-export const DEFAULT_LOG_DIR = resolvePreferredNova EngineTmpDir();
+export const DEFAULT_LOG_DIR = resolvePreferredNovaEngineTmpDir();
 export const DEFAULT_LOG_FILE = path.join(DEFAULT_LOG_DIR, "nova-engine.log"); // legacy single-file path
 
 const LOG_PREFIX = "nova-engine";
@@ -51,12 +51,12 @@ function attachExternalTransport(logger: TsLogger<LogObj>, transport: LogTranspo
 }
 
 function resolveSettings(): ResolvedSettings {
-  let cfg: Nova EngineConfig["logging"] | undefined =
+  let cfg: NovaEngineConfig["logging"] | undefined =
     (loggingState.overrideSettings as LoggerSettings | null) ?? readLoggingConfig();
   if (!cfg) {
     try {
       const loaded = requireConfig("../config/config.js") as {
-        loadConfig?: () => Nova EngineConfig;
+        loadConfig?: () => NovaEngineConfig;
       };
       cfg = loaded.loadConfig?.().logging;
     } catch {

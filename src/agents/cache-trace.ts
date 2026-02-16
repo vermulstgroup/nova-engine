@@ -2,7 +2,7 @@ import type { AgentMessage, StreamFn } from "@mariozechner/pi-agent-core";
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import { resolveUserPath } from "../utils.js";
 import { parseBooleanValue } from "../utils/boolean.js";
@@ -50,7 +50,7 @@ export type CacheTrace = {
 };
 
 type CacheTraceInit = {
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   env?: NodeJS.ProcessEnv;
   runId?: string;
   sessionId?: string;

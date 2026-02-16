@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { TelegramAccountConfig } from "../config/types.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { listBoundAccountIds, resolveDefaultAgentBoundAccountId } from "../routing/bindings.js";
@@ -20,7 +20,7 @@ export type ResolvedTelegramAccount = {
   config: TelegramAccountConfig;
 };
 
-function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
+function listConfiguredAccountIds(cfg: NovaEngineConfig): string[] {
   const accounts = cfg.channels?.telegram?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -35,7 +35,7 @@ function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
   return [...ids];
 }
 
-export function listTelegramAccountIds(cfg: Nova EngineConfig): string[] {
+export function listTelegramAccountIds(cfg: NovaEngineConfig): string[] {
   const ids = Array.from(
     new Set([...listConfiguredAccountIds(cfg), ...listBoundAccountIds(cfg, "telegram")]),
   );
@@ -46,7 +46,7 @@ export function listTelegramAccountIds(cfg: Nova EngineConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultTelegramAccountId(cfg: Nova EngineConfig): string {
+export function resolveDefaultTelegramAccountId(cfg: NovaEngineConfig): string {
   const boundDefault = resolveDefaultAgentBoundAccountId(cfg, "telegram");
   if (boundDefault) {
     return boundDefault;
@@ -59,7 +59,7 @@ export function resolveDefaultTelegramAccountId(cfg: Nova EngineConfig): string 
 }
 
 function resolveAccountConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
 ): TelegramAccountConfig | undefined {
   const accounts = cfg.channels?.telegram?.accounts;
@@ -75,7 +75,7 @@ function resolveAccountConfig(
   return matchKey ? (accounts[matchKey] as TelegramAccountConfig | undefined) : undefined;
 }
 
-function mergeTelegramAccountConfig(cfg: Nova EngineConfig, accountId: string): TelegramAccountConfig {
+function mergeTelegramAccountConfig(cfg: NovaEngineConfig, accountId: string): TelegramAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.telegram ??
     {}) as TelegramAccountConfig & { accounts?: unknown };
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -83,7 +83,7 @@ function mergeTelegramAccountConfig(cfg: Nova EngineConfig, accountId: string): 
 }
 
 export function resolveTelegramAccount(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
 }): ResolvedTelegramAccount {
   const hasExplicitAccountId = Boolean(params.accountId?.trim());
@@ -132,7 +132,7 @@ export function resolveTelegramAccount(params: {
   return fallback;
 }
 
-export function listEnabledTelegramAccounts(cfg: Nova EngineConfig): ResolvedTelegramAccount[] {
+export function listEnabledTelegramAccounts(cfg: NovaEngineConfig): ResolvedTelegramAccount[] {
   return listTelegramAccountIds(cfg)
     .map((accountId) => resolveTelegramAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

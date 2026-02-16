@@ -1,9 +1,9 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 
 export function applyNonInteractiveSkillsConfig(params: {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
 }) {

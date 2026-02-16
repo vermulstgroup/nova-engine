@@ -3,14 +3,14 @@ import { complete } from "@mariozechner/pi-ai";
 import type { ImageDescriptionRequest, ImageDescriptionResult } from "../types.js";
 import { minimaxUnderstandImage } from "../../agents/minimax-vlm.js";
 import { getApiKeyForModel, requireApiKey } from "../../agents/model-auth.js";
-import { ensureNova EngineModelsJson } from "../../agents/models-config.js";
+import { ensureNovaEngineModelsJson } from "../../agents/models-config.js";
 import { discoverAuthStorage, discoverModels } from "../../agents/pi-model-discovery.js";
 import { coerceImageAssistantText } from "../../agents/tools/image-tool.helpers.js";
 
 export async function describeImageWithModel(
   params: ImageDescriptionRequest,
 ): Promise<ImageDescriptionResult> {
-  await ensureNova EngineModelsJson(params.cfg, params.agentDir);
+  await ensureNovaEngineModelsJson(params.cfg, params.agentDir);
   const authStorage = discoverAuthStorage(params.agentDir);
   const modelRegistry = discoverModels(authStorage, params.agentDir);
   const model = modelRegistry.find(params.provider, params.model) as Model<Api> | null;

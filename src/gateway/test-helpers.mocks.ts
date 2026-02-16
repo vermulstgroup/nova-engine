@@ -595,7 +595,7 @@ vi.mock("../plugins/loader.js", async () => {
     await vi.importActual<typeof import("../plugins/loader.js")>("../plugins/loader.js");
   return {
     ...actual,
-    loadNova EnginePlugins: () => pluginRegistryState.registry,
+    loadNovaEnginePlugins: () => pluginRegistryState.registry,
   };
 });
 

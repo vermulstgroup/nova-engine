@@ -25,7 +25,7 @@ export const confirm = vi.fn().mockResolvedValue(true) as unknown as MockFn;
 export const select = vi.fn().mockResolvedValue("node") as unknown as MockFn;
 export const note = vi.fn() as unknown as MockFn;
 export const writeConfigFile = vi.fn().mockResolvedValue(undefined) as unknown as MockFn;
-export const resolveNova EnginePackageRoot = vi.fn().mockResolvedValue(null) as unknown as MockFn;
+export const resolveNovaEnginePackageRoot = vi.fn().mockResolvedValue(null) as unknown as MockFn;
 export const runGatewayUpdate = vi.fn().mockResolvedValue({
   status: "skipped",
   mode: "unknown",
@@ -142,7 +142,7 @@ vi.mock("../agents/skills-status.js", () => ({
 }));
 
 vi.mock("../plugins/loader.js", () => ({
-  loadNova EnginePlugins: () => ({ plugins: [], diagnostics: [] }),
+  loadNovaEnginePlugins: () => ({ plugins: [], diagnostics: [] }),
 }));
 
 vi.mock("../config/config.js", async (importOriginal) => {
@@ -185,7 +185,7 @@ vi.mock("../process/exec.js", () => ({
 }));
 
 vi.mock("../infra/nova-engine-root.js", () => ({
-  resolveNova EnginePackageRoot,
+  resolveNovaEnginePackageRoot,
 }));
 
 vi.mock("../infra/update-runner.js", () => ({
@@ -340,7 +340,7 @@ beforeEach(() => {
 
   readConfigFileSnapshot.mockReset();
   writeConfigFile.mockReset().mockResolvedValue(undefined);
-  resolveNova EnginePackageRoot.mockReset().mockResolvedValue(null);
+  resolveNovaEnginePackageRoot.mockReset().mockResolvedValue(null);
   runGatewayUpdate.mockReset().mockResolvedValue({
     status: "skipped",
     mode: "unknown",

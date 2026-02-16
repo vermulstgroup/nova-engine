@@ -2,11 +2,11 @@ import type { ConfigUiHint, ConfigUiHints } from "./schema.hints.js";
 import { CHANNEL_IDS } from "../channels/registry.js";
 import { VERSION } from "../version.js";
 import { applySensitiveHints, buildBaseHints, mapSensitivePaths } from "./schema.hints.js";
-import { Nova EngineSchema } from "./zod-schema.js";
+import { NovaEngineSchema } from "./zod-schema.js";
 
 export type { ConfigUiHint, ConfigUiHints } from "./schema.hints.js";
 
-export type ConfigSchema = ReturnType<typeof Nova EngineSchema.toJSONSchema>;
+export type ConfigSchema = ReturnType<typeof NovaEngineSchema.toJSONSchema>;
 
 type JsonSchemaNode = Record<string, unknown>;
 
@@ -322,12 +322,12 @@ function buildBaseConfigSchema(): ConfigSchemaResponse {
   if (cachedBase) {
     return cachedBase;
   }
-  const schema = Nova EngineSchema.toJSONSchema({
+  const schema = NovaEngineSchema.toJSONSchema({
     target: "draft-07",
     unrepresentable: "any",
   });
-  schema.title = "Nova EngineConfig";
-  const hints = mapSensitivePaths(Nova EngineSchema, "", buildBaseHints());
+  schema.title = "NovaEngineConfig";
+  const hints = mapSensitivePaths(NovaEngineSchema, "", buildBaseHints());
   const next = {
     schema: stripChannelSchema(schema),
     uiHints: hints,

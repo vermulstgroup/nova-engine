@@ -127,7 +127,7 @@ export type PluginPackageInstall = {
   defaultChoice?: "npm" | "local";
 };
 
-export type Nova EnginePackageManifest = {
+export type NovaEnginePackageManifest = {
   extensions?: string[];
   channel?: PluginPackageChannel;
   install?: PluginPackageInstall;
@@ -139,11 +139,11 @@ export type PackageManifest = {
   name?: string;
   version?: string;
   description?: string;
-} & Partial<Record<ManifestKey, Nova EnginePackageManifest>>;
+} & Partial<Record<ManifestKey, NovaEnginePackageManifest>>;
 
 export function getPackageManifestMetadata(
   manifest: PackageManifest | undefined,
-): Nova EnginePackageManifest | undefined {
+): NovaEnginePackageManifest | undefined {
   if (!manifest) {
     return undefined;
   }

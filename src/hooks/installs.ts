@@ -1,9 +1,9 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { HookInstallRecord } from "../config/types.hooks.js";
 
 export type HookInstallUpdate = HookInstallRecord & { hookId: string };
 
-export function recordHookInstall(cfg: Nova EngineConfig, update: HookInstallUpdate): Nova EngineConfig {
+export function recordHookInstall(cfg: NovaEngineConfig, update: HookInstallUpdate): NovaEngineConfig {
   const { hookId, ...record } = update;
   const installs = {
     ...cfg.hooks?.internal?.installs,

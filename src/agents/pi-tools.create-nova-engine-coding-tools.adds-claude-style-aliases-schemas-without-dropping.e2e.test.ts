@@ -4,13 +4,13 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createNova EngineTools } from "./nova-engine-tools.js";
-import { __testing, createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineTools } from "./nova-engine-tools.js";
+import { __testing, createNovaEngineCodingTools } from "./pi-tools.js";
 import { createSandboxedReadTool } from "./pi-tools.read.js";
 import { createHostSandboxFsBridge } from "./test-helpers/host-sandbox-fs-bridge.js";
 import { createBrowserTool } from "./tools/browser-tool.js";
 
-const defaultTools = createNova EngineCodingTools();
+const defaultTools = createNovaEngineCodingTools();
 
 function findUnionKeywordOffenders(
   tools: Array<{ name: string; parameters: unknown }>,
@@ -57,7 +57,7 @@ function findUnionKeywordOffenders(
   return offenders;
 }
 
-describe("createNova EngineCodingTools", () => {
+describe("createNovaEngineCodingTools", () => {
   describe("Claude/Gemini alias support", () => {
     it("adds Claude-style aliases to schemas without dropping metadata", () => {
       const base: AgentTool = {
@@ -276,7 +276,7 @@ describe("createNova EngineCodingTools", () => {
     expect(findUnionKeywordOffenders(defaultTools)).toEqual([]);
   });
   it("keeps raw core tool schemas union-free", () => {
-    const tools = createNova EngineTools();
+    const tools = createNovaEngineTools();
     const coreTools = new Set([
       "browser",
       "canvas",
@@ -296,7 +296,7 @@ describe("createNova EngineCodingTools", () => {
     expect(findUnionKeywordOffenders(tools, { onlyNames: coreTools })).toEqual([]);
   });
   it("does not expose provider-specific message tools", () => {
-    const tools = createNova EngineCodingTools({ messageProvider: "discord" });
+    const tools = createNovaEngineCodingTools({ messageProvider: "discord" });
     const names = new Set(tools.map((tool) => tool.name));
     expect(names.has("discord")).toBe(false);
     expect(names.has("slack")).toBe(false);
@@ -304,7 +304,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("whatsapp")).toBe(false);
   });
   it("filters session tools for sub-agent sessions by default", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       sessionKey: "agent:main:subagent:test",
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -341,7 +341,7 @@ describe("createNova EngineCodingTools", () => {
       "utf-8",
     );
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       sessionKey: "agent:main:subagent:flat",
       config: {
         session: {
@@ -363,7 +363,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("subagents")).toBe(true);
   });
   it("supports allow-only sub-agent tool policy", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       sessionKey: "agent:main:subagent:test",
       // Intentionally partial config; only fields used by pi-tools are provided.
       config: {
@@ -381,7 +381,7 @@ describe("createNova EngineCodingTools", () => {
   });
 
   it("applies tool profiles before allow/deny policies", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: { tools: { profile: "messaging" } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -392,7 +392,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("browser")).toBe(false);
   });
   it("expands group shorthands in global tool policy", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: { tools: { allow: ["group:fs"] } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -403,7 +403,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("browser")).toBe(false);
   });
   it("expands group shorthands in global tool deny policy", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: { tools: { deny: ["group:fs"] } },
     });
     const names = new Set(tools.map((tool) => tool.name));
@@ -413,7 +413,7 @@ describe("createNova EngineCodingTools", () => {
     expect(names.has("exec")).toBe(true);
   });
   it("lets agent profiles override global profiles", () => {
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       sessionKey: "agent:work:main",
       config: {
         tools: { profile: "coding" },

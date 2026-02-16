@@ -1,11 +1,11 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { buildWorkspaceSkillStatus } from "../agents/skills-status.js";
-import { loadNova EnginePlugins } from "../plugins/loader.js";
+import { loadNovaEnginePlugins } from "../plugins/loader.js";
 import { note } from "../terminal/note.js";
 import { detectLegacyWorkspaceDirs, formatLegacyWorkspaceWarning } from "./doctor-workspace.js";
 
-export function noteWorkspaceStatus(cfg: Nova EngineConfig) {
+export function noteWorkspaceStatus(cfg: NovaEngineConfig) {
   const workspaceDir = resolveAgentWorkspaceDir(cfg, resolveDefaultAgentId(cfg));
   const legacyWorkspace = detectLegacyWorkspaceDirs({ workspaceDir });
   if (legacyWorkspace.legacyDirs.length > 0) {
@@ -25,7 +25,7 @@ export function noteWorkspaceStatus(cfg: Nova EngineConfig) {
     "Skills status",
   );
 
-  const pluginRegistry = loadNova EnginePlugins({
+  const pluginRegistry = loadNovaEnginePlugins({
     config: cfg,
     workspaceDir,
     logger: {

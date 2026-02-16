@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type {
   ChannelsWizardMode,
@@ -46,7 +46,7 @@ import { setupSkills } from "./onboard-skills.js";
 type ConfigureSectionChoice = WizardSection | "__continue";
 
 async function runGatewayHealthCheck(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   runtime: RuntimeEnv;
   port: number;
 }): Promise<void> {
@@ -127,9 +127,9 @@ async function promptChannelMode(runtime: RuntimeEnv): Promise<ChannelsWizardMod
 }
 
 async function promptWebToolsConfig(
-  nextConfig: Nova EngineConfig,
+  nextConfig: NovaEngineConfig,
   runtime: RuntimeEnv,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   const existingSearch = nextConfig.tools?.web?.search;
   const existingFetch = nextConfig.tools?.web?.fetch;
   const hasSearchKey = Boolean(existingSearch?.apiKey);
@@ -217,7 +217,7 @@ export async function runConfigureWizard(
     const prompter = createClackPrompter();
 
     const snapshot = await readConfigFileSnapshot();
-    const baseConfig: Nova EngineConfig = snapshot.valid ? snapshot.config : {};
+    const baseConfig: NovaEngineConfig = snapshot.valid ? snapshot.config : {};
 
     if (snapshot.exists) {
       const title = snapshot.valid ? "Existing config detected" : "Invalid config";

@@ -1,15 +1,15 @@
-import type { Nova EngineConfig } from "../../../config/config.js";
+import type { NovaEngineConfig } from "../../../config/config.js";
 import type { RuntimeEnv } from "../../../runtime.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 import { randomToken } from "../../onboard-helpers.js";
 
 export function applyNonInteractiveGatewayConfig(params: {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   defaultPort: number;
 }): {
-  nextConfig: Nova EngineConfig;
+  nextConfig: NovaEngineConfig;
   port: number;
   bind: string;
   authMode: string;

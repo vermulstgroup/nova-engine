@@ -5,7 +5,7 @@
  * resolves agent routes, and handles replies.
  */
 
-import type { ReplyPayload, Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { ReplyPayload, NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { createReplyPrefixOptions } from "nova-engine/plugin-sdk";
 import type { TwitchAccountConfig, TwitchChatMessage } from "./types.js";
 import { checkTwitchAccessControl } from "./access-control.js";
@@ -21,7 +21,7 @@ export type TwitchRuntimeEnv = {
 export type TwitchMonitorOptions = {
   account: TwitchAccountConfig;
   accountId: string;
-  config: unknown; // Nova EngineConfig
+  config: unknown; // NovaEngineConfig
   runtime: TwitchRuntimeEnv;
   abortSignal: AbortSignal;
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
@@ -46,7 +46,7 @@ async function processTwitchMessage(params: {
   statusSink?: (patch: { lastInboundAt?: number; lastOutboundAt?: number }) => void;
 }): Promise<void> {
   const { message, account, accountId, config, runtime, core, statusSink } = params;
-  const cfg = config as Nova EngineConfig;
+  const cfg = config as NovaEngineConfig;
 
   const route = core.channel.routing.resolveAgentRoute({
     cfg,

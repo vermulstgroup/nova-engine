@@ -11,7 +11,7 @@ vi.mock("./agent.js", () => ({
   agentCommand: vi.fn(),
 }));
 
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import * as configModule from "../config/config.js";
 import { callGateway } from "../gateway/call.js";
@@ -26,7 +26,7 @@ const runtime: RuntimeEnv = {
 
 const configSpy = vi.spyOn(configModule, "loadConfig");
 
-function mockConfig(storePath: string, overrides?: Partial<Nova EngineConfig>) {
+function mockConfig(storePath: string, overrides?: Partial<NovaEngineConfig>) {
   configSpy.mockReturnValue({
     agents: {
       defaults: {

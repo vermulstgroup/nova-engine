@@ -4,7 +4,7 @@ import type {
   ChannelDock,
   ChannelGroupContext,
   ChannelPlugin,
-  Nova EngineConfig,
+  NovaEngineConfig,
   GroupToolPolicyConfig,
 } from "nova-engine/plugin-sdk";
 import {
@@ -253,7 +253,7 @@ export const zalouserPlugin: ChannelPlugin<ResolvedZalouserAccount> = {
               enabled: true,
             },
           },
-        } as Nova EngineConfig;
+        } as NovaEngineConfig;
       }
       return {
         ...next,
@@ -271,7 +271,7 @@ export const zalouserPlugin: ChannelPlugin<ResolvedZalouserAccount> = {
             },
           },
         },
-      } as Nova EngineConfig;
+      } as NovaEngineConfig;
     },
   },
   messaging: {

@@ -5,7 +5,7 @@
  * This is the primary entry point for the Twitch channel integration.
  */
 
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { buildChannelConfigSchema } from "nova-engine/plugin-sdk";
 import type {
   ChannelAccountSnapshot,
@@ -75,10 +75,10 @@ export const twitchPlugin: ChannelPlugin<TwitchAccountConfig> = {
   /** Account configuration management */
   config: {
     /** List all configured account IDs */
-    listAccountIds: (cfg: Nova EngineConfig): string[] => listAccountIds(cfg),
+    listAccountIds: (cfg: NovaEngineConfig): string[] => listAccountIds(cfg),
 
     /** Resolve an account config by ID */
-    resolveAccount: (cfg: Nova EngineConfig, accountId?: string | null): TwitchAccountConfig => {
+    resolveAccount: (cfg: NovaEngineConfig, accountId?: string | null): TwitchAccountConfig => {
       const account = getAccountConfig(cfg, accountId ?? DEFAULT_ACCOUNT_ID);
       if (!account) {
         // Return a default/empty account if not configured
@@ -96,7 +96,7 @@ export const twitchPlugin: ChannelPlugin<TwitchAccountConfig> = {
     defaultAccountId: (): string => DEFAULT_ACCOUNT_ID,
 
     /** Check if an account is configured */
-    isConfigured: (_account: unknown, cfg: Nova EngineConfig): boolean => {
+    isConfigured: (_account: unknown, cfg: NovaEngineConfig): boolean => {
       const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
       const tokenResolution = resolveTwitchToken(cfg, { accountId: DEFAULT_ACCOUNT_ID });
       return account ? isAccountConfigured(account, tokenResolution.token) : false;
@@ -130,7 +130,7 @@ export const twitchPlugin: ChannelPlugin<TwitchAccountConfig> = {
       kind,
       runtime,
     }: {
-      cfg: Nova EngineConfig;
+      cfg: NovaEngineConfig;
       accountId?: string | null;
       inputs: string[];
       kind: ChannelResolveKind;
@@ -198,7 +198,7 @@ export const twitchPlugin: ChannelPlugin<TwitchAccountConfig> = {
       probe,
     }: {
       account: TwitchAccountConfig;
-      cfg: Nova EngineConfig;
+      cfg: NovaEngineConfig;
       runtime?: ChannelAccountSnapshot;
       probe?: unknown;
     }): ChannelAccountSnapshot => {

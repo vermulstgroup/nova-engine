@@ -1,4 +1,4 @@
-import type { ChannelPlugin, Nova EnginePluginApi } from "nova-engine/plugin-sdk";
+import type { ChannelPlugin, NovaEnginePluginApi } from "nova-engine/plugin-sdk";
 import { emptyPluginConfigSchema } from "nova-engine/plugin-sdk";
 import { ircPlugin } from "./src/channel.js";
 import { setIrcRuntime } from "./src/runtime.js";
@@ -8,7 +8,7 @@ const plugin = {
   name: "IRC",
   description: "IRC channel plugin",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     setIrcRuntime(api.runtime);
     api.registerChannel({ plugin: ircPlugin as ChannelPlugin });
   },

@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveNova EnginePackageRoot } from "../infra/nova-engine-root.js";
+import { resolveNovaEnginePackageRoot } from "../infra/nova-engine-root.js";
 
-export async function resolveNova EngineDocsPath(params: {
+export async function resolveNovaEngineDocsPath(params: {
   workspaceDir?: string;
   argv1?: string;
   cwd?: string;
@@ -16,7 +16,7 @@ export async function resolveNova EngineDocsPath(params: {
     }
   }
 
-  const packageRoot = await resolveNova EnginePackageRoot({
+  const packageRoot = await resolveNovaEnginePackageRoot({
     cwd: params.cwd,
     argv1: params.argv1,
     moduleUrl: params.moduleUrl,

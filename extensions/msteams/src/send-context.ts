@@ -1,6 +1,6 @@
 import {
   resolveChannelMediaMaxBytes,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   type PluginRuntime,
 } from "nova-engine/plugin-sdk";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
@@ -92,7 +92,7 @@ async function findConversationReference(recipient: {
 }
 
 export async function resolveMSTeamsSendContext(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   to: string;
 }): Promise<MSTeamsProactiveContext> {
   const msteamsCfg = params.cfg.channels?.msteams;

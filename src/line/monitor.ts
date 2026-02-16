@@ -1,5 +1,5 @@
 import type { WebhookRequestBody } from "@line/bot-sdk";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { LineChannelData, ResolvedLineAccount } from "./types.js";
 import { chunkMarkdownText } from "../auto-reply/chunk.js";
@@ -32,7 +32,7 @@ export interface MonitorLineProviderOptions {
   channelAccessToken: string;
   channelSecret: string;
   accountId?: string;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   runtime: RuntimeEnv;
   abortSignal?: AbortSignal;
   webhookUrl?: string;

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -6,7 +6,7 @@ import type { DynamicAgentCreationConfig } from "./types.js";
 
 export type MaybeCreateDynamicAgentResult = {
   created: boolean;
-  updatedCfg: Nova EngineConfig;
+  updatedCfg: NovaEngineConfig;
   agentId?: string;
 };
 
@@ -15,7 +15,7 @@ export type MaybeCreateDynamicAgentResult = {
  * This creates a unique agent instance with its own workspace for each DM user.
  */
 export async function maybeCreateDynamicAgent(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   runtime: PluginRuntime;
   senderOpenId: string;
   dynamicCfg: DynamicAgentCreationConfig;
@@ -58,7 +58,7 @@ export async function maybeCreateDynamicAgent(params: {
     // Agent exists but binding doesn't - just add the binding
     log(`feishu: agent "${agentId}" exists, adding missing binding for ${senderOpenId}`);
 
-    const updatedCfg: Nova EngineConfig = {
+    const updatedCfg: NovaEngineConfig = {
       ...cfg,
       bindings: [
         ...existingBindings,
@@ -96,7 +96,7 @@ export async function maybeCreateDynamicAgent(params: {
   await fs.promises.mkdir(agentDir, { recursive: true });
 
   // Update configuration with new agent and binding
-  const updatedCfg: Nova EngineConfig = {
+  const updatedCfg: NovaEngineConfig = {
     ...cfg,
     agents: {
       ...cfg.agents,

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { upsertAuthProfileWithLock } from "../agents/auth-profiles.js";
 
@@ -13,10 +13,10 @@ export const VLLM_DEFAULT_COST = {
 };
 
 export async function promptAndConfigureVllm(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   agentDir?: string;
-}): Promise<{ config: Nova EngineConfig; modelId: string; modelRef: string }> {
+}): Promise<{ config: NovaEngineConfig; modelId: string; modelRef: string }> {
   const baseUrlRaw = await params.prompter.text({
     message: "vLLM base URL",
     initialValue: VLLM_DEFAULT_BASE_URL,
@@ -47,7 +47,7 @@ export async function promptAndConfigureVllm(params: {
     agentDir: params.agentDir,
   });
 
-  const nextConfig: Nova EngineConfig = {
+  const nextConfig: NovaEngineConfig = {
     ...params.cfg,
     models: {
       ...params.cfg.models,

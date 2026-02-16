@@ -13,7 +13,7 @@ import {
   resolveConfiguredModelRef,
   resolveDefaultModelForAgent,
 } from "../agents/model-selection.js";
-import { type Nova EngineConfig, loadConfig } from "../config/config.js";
+import { type NovaEngineConfig, loadConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import {
   buildGroupDisplayName,
@@ -95,7 +95,7 @@ function isWorkspaceRelativePath(value: string): boolean {
 }
 
 function resolveIdentityAvatarUrl(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
   avatar: string | undefined,
 ): string | undefined {
@@ -316,7 +316,7 @@ function listExistingAgentIdsFromDisk(): string[] {
   }
 }
 
-function listConfiguredAgentIds(cfg: Nova EngineConfig): string[] {
+function listConfiguredAgentIds(cfg: NovaEngineConfig): string[] {
   const agents = cfg.agents?.list ?? [];
   if (agents.length > 0) {
     const ids = new Set<string>();
@@ -348,7 +348,7 @@ function listConfiguredAgentIds(cfg: Nova EngineConfig): string[] {
   return sorted;
 }
 
-export function listAgentsForGateway(cfg: Nova EngineConfig): {
+export function listAgentsForGateway(cfg: NovaEngineConfig): {
   defaultId: string;
   mainKey: string;
   scope: SessionScope;
@@ -417,12 +417,12 @@ function canonicalizeSessionKeyForAgent(agentId: string, key: string): string {
   return `agent:${normalizeAgentId(agentId)}:${lowered}`;
 }
 
-function resolveDefaultStoreAgentId(cfg: Nova EngineConfig): string {
+function resolveDefaultStoreAgentId(cfg: NovaEngineConfig): string {
   return normalizeAgentId(resolveDefaultAgentId(cfg));
 }
 
 export function resolveSessionStoreKey(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sessionKey: string;
 }): string {
   const raw = params.sessionKey.trim();
@@ -458,7 +458,7 @@ export function resolveSessionStoreKey(params: {
   return canonicalizeSessionKeyForAgent(agentId, lowered);
 }
 
-function resolveSessionStoreAgentId(cfg: Nova EngineConfig, canonicalKey: string): string {
+function resolveSessionStoreAgentId(cfg: NovaEngineConfig, canonicalKey: string): string {
   if (canonicalKey === "global" || canonicalKey === "unknown") {
     return resolveDefaultStoreAgentId(cfg);
   }
@@ -470,7 +470,7 @@ function resolveSessionStoreAgentId(cfg: Nova EngineConfig, canonicalKey: string
 }
 
 export function canonicalizeSpawnedByForAgent(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
   spawnedBy?: string,
 ): string | undefined {
@@ -495,7 +495,7 @@ export function canonicalizeSpawnedByForAgent(
 }
 
 export function resolveGatewaySessionStoreTarget(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   key: string;
   scanLegacyKeys?: boolean;
   store?: Record<string, SessionEntry>;
@@ -551,7 +551,7 @@ export function resolveGatewaySessionStoreTarget(params: {
 
 // Merge with existing entry based on latest timestamp to ensure data consistency and avoid overwriting with less complete data.
 function mergeSessionEntryIntoCombined(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   combined: Record<string, SessionEntry>;
   entry: SessionEntry;
   agentId: string;
@@ -579,7 +579,7 @@ function mergeSessionEntryIntoCombined(params: {
   }
 }
 
-export function loadCombinedSessionStoreForGateway(cfg: Nova EngineConfig): {
+export function loadCombinedSessionStoreForGateway(cfg: NovaEngineConfig): {
   storePath: string;
   store: Record<string, SessionEntry>;
 } {
@@ -624,7 +624,7 @@ export function loadCombinedSessionStoreForGateway(cfg: Nova EngineConfig): {
   return { storePath, store: combined };
 }
 
-export function getSessionDefaults(cfg: Nova EngineConfig): GatewaySessionsDefaults {
+export function getSessionDefaults(cfg: NovaEngineConfig): GatewaySessionsDefaults {
   const resolved = resolveConfiguredModelRef({
     cfg,
     defaultProvider: DEFAULT_PROVIDER,
@@ -642,7 +642,7 @@ export function getSessionDefaults(cfg: Nova EngineConfig): GatewaySessionsDefau
 }
 
 export function resolveSessionModelRef(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   entry?: SessionEntry,
   agentId?: string,
 ): { provider: string; model: string } {
@@ -664,7 +664,7 @@ export function resolveSessionModelRef(
 }
 
 export function listSessionsFromStore(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   storePath: string;
   store: Record<string, SessionEntry>;
   opts: import("./protocol/index.js").SessionsListParams;

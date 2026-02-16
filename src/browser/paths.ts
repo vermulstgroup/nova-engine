@@ -1,7 +1,7 @@
 import path from "node:path";
-import { resolvePreferredNova EngineTmpDir } from "../infra/tmp-nova-engine-dir.js";
+import { resolvePreferredNovaEngineTmpDir } from "../infra/tmp-nova-engine-dir.js";
 
-export const DEFAULT_BROWSER_TMP_DIR = resolvePreferredNova EngineTmpDir();
+export const DEFAULT_BROWSER_TMP_DIR = resolvePreferredNovaEngineTmpDir();
 export const DEFAULT_TRACE_DIR = DEFAULT_BROWSER_TMP_DIR;
 export const DEFAULT_DOWNLOAD_DIR = path.join(DEFAULT_BROWSER_TMP_DIR, "downloads");
 export const DEFAULT_UPLOAD_DIR = path.join(DEFAULT_BROWSER_TMP_DIR, "uploads");

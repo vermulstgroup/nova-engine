@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, DmPolicy } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig, DmPolicy } from "nova-engine/plugin-sdk";
 import {
   addWildcardAllowFrom,
   formatDocsLink,
@@ -21,7 +21,7 @@ const channel = "googlechat" as const;
 const ENV_SERVICE_ACCOUNT = "GOOGLE_CHAT_SERVICE_ACCOUNT";
 const ENV_SERVICE_ACCOUNT_FILE = "GOOGLE_CHAT_SERVICE_ACCOUNT_FILE";
 
-function setGoogleChatDmPolicy(cfg: Nova EngineConfig, policy: DmPolicy) {
+function setGoogleChatDmPolicy(cfg: NovaEngineConfig, policy: DmPolicy) {
   const allowFrom =
     policy === "open"
       ? addWildcardAllowFrom(cfg.channels?.["googlechat"]?.dm?.allowFrom)
@@ -50,9 +50,9 @@ function parseAllowFromInput(raw: string): string[] {
 }
 
 async function promptAllowFrom(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const current = params.cfg.channels?.["googlechat"]?.dm?.allowFrom ?? [];
   const entry = await params.prompter.text({
     message: "Google Chat allowFrom (users/<id> or raw email; avoid users/<email>)",
@@ -90,10 +90,10 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
 };
 
 function applyAccountConfig(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId: string;
   patch: Record<string, unknown>;
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const { cfg, accountId, patch } = params;
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
@@ -129,10 +129,10 @@ function applyAccountConfig(params: {
 }
 
 async function promptCredentials(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const { cfg, prompter, accountId } = params;
   const envReady =
     accountId === DEFAULT_ACCOUNT_ID &&
@@ -182,10 +182,10 @@ async function promptCredentials(params: {
 }
 
 async function promptAudience(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   prompter: WizardPrompter;
   accountId: string;
-}): Promise<Nova EngineConfig> {
+}): Promise<NovaEngineConfig> {
   const account = resolveGoogleChatAccount({
     cfg: params.cfg,
     accountId: params.accountId,

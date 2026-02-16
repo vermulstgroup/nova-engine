@@ -4,7 +4,7 @@ import path from "node:path";
 import { resolveBrewPathDirs } from "./brew.js";
 import { isTruthyEnvValue } from "./env.js";
 
-type EnsureNova EnginePathOpts = {
+type EnsureNovaEnginePathOpts = {
   execPath?: string;
   cwd?: string;
   homeDir?: string;
@@ -49,7 +49,7 @@ function mergePath(params: { existing: string; prepend?: string[]; append?: stri
   return merged.join(path.delimiter);
 }
 
-function candidateBinDirs(opts: EnsureNova EnginePathOpts): { prepend: string[]; append: string[] } {
+function candidateBinDirs(opts: EnsureNovaEnginePathOpts): { prepend: string[]; append: string[] } {
   const execPath = opts.execPath ?? process.execPath;
   const cwd = opts.cwd ?? process.cwd();
   const homeDir = opts.homeDir ?? os.homedir();
@@ -109,7 +109,7 @@ function candidateBinDirs(opts: EnsureNova EnginePathOpts): { prepend: string[];
  * Best-effort PATH bootstrap so skills that require the `nova-engine` CLI can run
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
-export function ensureNova EngineCliOnPath(opts: EnsureNova EnginePathOpts = {}) {
+export function ensureNovaEngineCliOnPath(opts: EnsureNovaEnginePathOpts = {}) {
   if (isTruthyEnvValue(process.env.NOVA_PATH_BOOTSTRAPPED)) {
     return;
   }

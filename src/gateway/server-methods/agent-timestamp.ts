@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/types.js";
+import type { NovaEngineConfig } from "../../config/types.js";
 import { resolveUserTimezone } from "../../agents/date-time.js";
 import { formatZonedTimestamp } from "../../infra/format-time/format-datetime.ts";
 
@@ -71,9 +71,9 @@ export function injectTimestamp(message: string, opts?: TimestampInjectionOption
 }
 
 /**
- * Build TimestampInjectionOptions from an Nova EngineConfig.
+ * Build TimestampInjectionOptions from an NovaEngineConfig.
  */
-export function timestampOptsFromConfig(cfg: Nova EngineConfig): TimestampInjectionOptions {
+export function timestampOptsFromConfig(cfg: NovaEngineConfig): TimestampInjectionOptions {
   return {
     timezone: resolveUserTimezone(cfg.agents?.defaults?.userTimezone),
   };

@@ -1,9 +1,9 @@
-import type { Nova EngineConfig } from "./types.js";
+import type { NovaEngineConfig } from "./types.js";
 import { applyLegacyMigrations } from "./legacy.js";
 import { validateConfigObjectWithPlugins } from "./validation.js";
 
 export function migrateLegacyConfig(raw: unknown): {
-  config: Nova EngineConfig | null;
+  config: NovaEngineConfig | null;
   changes: string[];
 } {
   const { next, changes } = applyLegacyMigrations(raw);

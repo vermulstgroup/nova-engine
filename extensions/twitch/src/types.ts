@@ -22,7 +22,7 @@ import type {
   ChannelMeta,
 } from "../../../src/channels/plugins/types.core.js";
 import type { ChannelPlugin } from "../../../src/channels/plugins/types.plugin.js";
-import type { Nova EngineConfig } from "../../../src/config/config.js";
+import type { NovaEngineConfig } from "../../../src/config/config.js";
 import type { OutboundDeliveryResult } from "../../../src/infra/outbound/deliver.js";
 import type { RuntimeEnv } from "../../../src/runtime.js";
 
@@ -139,5 +139,5 @@ import type { z } from "zod";
 import type { TwitchConfigSchema } from "./config-schema.js";
 export type TwitchConfig = z.infer<typeof TwitchConfigSchema>;
 
-export type { Nova EngineConfig };
+export type { NovaEngineConfig };
 export type { RuntimeEnv };

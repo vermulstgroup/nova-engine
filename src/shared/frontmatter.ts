@@ -31,7 +31,7 @@ export function parseFrontmatterBool(value: string | undefined, fallback: boolea
   return parsed === undefined ? fallback : parsed;
 }
 
-export function resolveNova EngineManifestBlock(params: {
+export function resolveNovaEngineManifestBlock(params: {
   frontmatter: Record<string, unknown>;
   key?: string;
 }): Record<string, unknown> | undefined {
@@ -59,16 +59,16 @@ export function resolveNova EngineManifestBlock(params: {
   }
 }
 
-export type Nova EngineManifestRequires = {
+export type NovaEngineManifestRequires = {
   bins: string[];
   anyBins: string[];
   env: string[];
   config: string[];
 };
 
-export function resolveNova EngineManifestRequires(
+export function resolveNovaEngineManifestRequires(
   metadataObj: Record<string, unknown>,
-): Nova EngineManifestRequires | undefined {
+): NovaEngineManifestRequires | undefined {
   const requiresRaw =
     typeof metadataObj.requires === "object" && metadataObj.requires !== null
       ? (metadataObj.requires as Record<string, unknown>)
@@ -84,7 +84,7 @@ export function resolveNova EngineManifestRequires(
   };
 }
 
-export function resolveNova EngineManifestInstall<T>(
+export function resolveNovaEngineManifestInstall<T>(
   metadataObj: Record<string, unknown>,
   parseInstallSpec: (input: unknown) => T | undefined,
 ): T[] {
@@ -94,6 +94,6 @@ export function resolveNova EngineManifestInstall<T>(
     .filter((entry): entry is T => Boolean(entry));
 }
 
-export function resolveNova EngineManifestOs(metadataObj: Record<string, unknown>): string[] {
+export function resolveNovaEngineManifestOs(metadataObj: Record<string, unknown>): string[] {
   return normalizeStringList(metadataObj.os);
 }

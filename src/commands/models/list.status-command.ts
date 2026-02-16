@@ -1,6 +1,6 @@
 import path from "node:path";
 import type { RuntimeEnv } from "../../runtime.js";
-import { resolveNova EngineAgentDir } from "../../agents/agent-paths.js";
+import { resolveNovaEngineAgentDir } from "../../agents/agent-paths.js";
 import {
   resolveAgentDir,
   resolveAgentModelFallbacksOverride,
@@ -74,7 +74,7 @@ export async function modelsStatusCommand(
   }
   const cfg = loadConfig();
   const agentId = resolveKnownAgentId({ cfg, rawAgentId: opts.agent });
-  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveNova EngineAgentDir();
+  const agentDir = agentId ? resolveAgentDir(cfg, agentId) : resolveNovaEngineAgentDir();
   const agentModelPrimary = agentId ? resolveAgentModelPrimary(cfg, agentId) : undefined;
   const agentFallbacksOverride = agentId
     ? resolveAgentModelFallbacksOverride(cfg, agentId)

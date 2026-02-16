@@ -1,6 +1,6 @@
 import JSON5 from "json5";
 import fs from "node:fs";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveStorePath } from "../config/sessions/paths.js";
 import { getSubagentDepth, parseAgentSessionKey } from "../sessions/session-key-utils.js";
 import { resolveDefaultAgentId } from "./agent-scope.js";
@@ -47,7 +47,7 @@ function readSessionStore(storePath: string): Record<string, SessionDepthEntry> 
   return {};
 }
 
-function buildKeyCandidates(rawKey: string, cfg?: Nova EngineConfig): string[] {
+function buildKeyCandidates(rawKey: string, cfg?: NovaEngineConfig): string[] {
   if (!cfg) {
     return [rawKey];
   }
@@ -81,7 +81,7 @@ function findEntryBySessionId(
 
 function resolveEntryForSessionKey(params: {
   sessionKey: string;
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   store?: Record<string, SessionDepthEntry>;
   cache: Map<string, Record<string, SessionDepthEntry>>;
 }): SessionDepthEntry | undefined {
@@ -124,7 +124,7 @@ function resolveEntryForSessionKey(params: {
 export function getSubagentDepthFromSessionStore(
   sessionKey: string | undefined | null,
   opts?: {
-    cfg?: Nova EngineConfig;
+    cfg?: NovaEngineConfig;
     store?: Record<string, SessionDepthEntry>;
   },
 ): number {

@@ -3,7 +3,7 @@ import {
   findLegacyGatewayServices,
   note,
   readConfigFileSnapshot,
-  resolveNova EnginePackageRoot,
+  resolveNovaEnginePackageRoot,
   runCommandWithTimeout,
   runGatewayUpdate,
   serviceInstall,
@@ -97,7 +97,7 @@ describe("doctor command", () => {
     delete process.env.NOVA_UPDATE_IN_PROGRESS;
 
     const root = "/tmp/nova-engine";
-    resolveNova EnginePackageRoot.mockResolvedValueOnce(root);
+    resolveNovaEnginePackageRoot.mockResolvedValueOnce(root);
     runCommandWithTimeout.mockResolvedValueOnce({
       stdout: `${root}\n`,
       stderr: "",

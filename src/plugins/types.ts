@@ -7,7 +7,7 @@ import type { ReplyPayload } from "../auto-reply/types.js";
 import type { ChannelDock } from "../channels/dock.js";
 import type { ChannelId, ChannelPlugin } from "../channels/plugins/types.js";
 import type { createVpsAwareOAuthHandlers } from "../commands/oauth-flow.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ModelProviderConfig } from "../config/types.js";
 import type { GatewayRequestHandler } from "../gateway/server-methods/types.js";
 import type { InternalHookHandler } from "../hooks/internal-hooks.js";
@@ -40,7 +40,7 @@ export type PluginConfigValidation =
   | { ok: true; value?: unknown }
   | { ok: false; errors: string[] };
 
-export type Nova EnginePluginConfigSchema = {
+export type NovaEnginePluginConfigSchema = {
   safeParse?: (value: unknown) => {
     success: boolean;
     data?: unknown;
@@ -54,8 +54,8 @@ export type Nova EnginePluginConfigSchema = {
   jsonSchema?: Record<string, unknown>;
 };
 
-export type Nova EnginePluginToolContext = {
-  config?: Nova EngineConfig;
+export type NovaEnginePluginToolContext = {
+  config?: NovaEngineConfig;
   workspaceDir?: string;
   agentDir?: string;
   agentId?: string;
@@ -65,17 +65,17 @@ export type Nova EnginePluginToolContext = {
   sandboxed?: boolean;
 };
 
-export type Nova EnginePluginToolFactory = (
-  ctx: Nova EnginePluginToolContext,
+export type NovaEnginePluginToolFactory = (
+  ctx: NovaEnginePluginToolContext,
 ) => AnyAgentTool | AnyAgentTool[] | null | undefined;
 
-export type Nova EnginePluginToolOptions = {
+export type NovaEnginePluginToolOptions = {
   name?: string;
   names?: string[];
   optional?: boolean;
 };
 
-export type Nova EnginePluginHookOptions = {
+export type NovaEnginePluginHookOptions = {
   entry?: HookEntry;
   name?: string;
   description?: string;
@@ -86,13 +86,13 @@ export type ProviderAuthKind = "oauth" | "api_key" | "token" | "device_code" | "
 
 export type ProviderAuthResult = {
   profiles: Array<{ profileId: string; credential: AuthProfileCredential }>;
-  configPatch?: Partial<Nova EngineConfig>;
+  configPatch?: Partial<NovaEngineConfig>;
   defaultModel?: string;
   notes?: string[];
 };
 
 export type ProviderAuthContext = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   agentDir?: string;
   workspaceDir?: string;
   prompter: WizardPrompter;
@@ -124,7 +124,7 @@ export type ProviderPlugin = {
   refreshOAuth?: (cred: OAuthCredential) => Promise<OAuthCredential>;
 };
 
-export type Nova EnginePluginGatewayMethod = {
+export type NovaEnginePluginGatewayMethod = {
   method: string;
   handler: GatewayRequestHandler;
 };
@@ -150,7 +150,7 @@ export type PluginCommandContext = {
   /** The full normalized command body */
   commandBody: string;
   /** Current Nova Engine configuration */
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   /** Raw "From" value (channel-scoped id) */
   from?: string;
   /** Raw "To" value (channel-scoped id) */
@@ -176,7 +176,7 @@ export type PluginCommandHandler = (
 /**
  * Definition for a plugin-registered command.
  */
-export type Nova EnginePluginCommandDefinition = {
+export type NovaEnginePluginCommandDefinition = {
   /** Command name without leading slash (e.g., "tts") */
   name: string;
   /** Description shown in /help and command menus */
@@ -189,90 +189,90 @@ export type Nova EnginePluginCommandDefinition = {
   handler: PluginCommandHandler;
 };
 
-export type Nova EnginePluginHttpHandler = (
+export type NovaEnginePluginHttpHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<boolean> | boolean;
 
-export type Nova EnginePluginHttpRouteHandler = (
+export type NovaEnginePluginHttpRouteHandler = (
   req: IncomingMessage,
   res: ServerResponse,
 ) => Promise<void> | void;
 
-export type Nova EnginePluginCliContext = {
+export type NovaEnginePluginCliContext = {
   program: Command;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   workspaceDir?: string;
   logger: PluginLogger;
 };
 
-export type Nova EnginePluginCliRegistrar = (ctx: Nova EnginePluginCliContext) => void | Promise<void>;
+export type NovaEnginePluginCliRegistrar = (ctx: NovaEnginePluginCliContext) => void | Promise<void>;
 
-export type Nova EnginePluginServiceContext = {
-  config: Nova EngineConfig;
+export type NovaEnginePluginServiceContext = {
+  config: NovaEngineConfig;
   workspaceDir?: string;
   stateDir: string;
   logger: PluginLogger;
 };
 
-export type Nova EnginePluginService = {
+export type NovaEnginePluginService = {
   id: string;
-  start: (ctx: Nova EnginePluginServiceContext) => void | Promise<void>;
-  stop?: (ctx: Nova EnginePluginServiceContext) => void | Promise<void>;
+  start: (ctx: NovaEnginePluginServiceContext) => void | Promise<void>;
+  stop?: (ctx: NovaEnginePluginServiceContext) => void | Promise<void>;
 };
 
-export type Nova EnginePluginChannelRegistration = {
+export type NovaEnginePluginChannelRegistration = {
   plugin: ChannelPlugin;
   dock?: ChannelDock;
 };
 
-export type Nova EnginePluginDefinition = {
+export type NovaEnginePluginDefinition = {
   id?: string;
   name?: string;
   description?: string;
   version?: string;
   kind?: PluginKind;
-  configSchema?: Nova EnginePluginConfigSchema;
-  register?: (api: Nova EnginePluginApi) => void | Promise<void>;
-  activate?: (api: Nova EnginePluginApi) => void | Promise<void>;
+  configSchema?: NovaEnginePluginConfigSchema;
+  register?: (api: NovaEnginePluginApi) => void | Promise<void>;
+  activate?: (api: NovaEnginePluginApi) => void | Promise<void>;
 };
 
-export type Nova EnginePluginModule =
-  | Nova EnginePluginDefinition
-  | ((api: Nova EnginePluginApi) => void | Promise<void>);
+export type NovaEnginePluginModule =
+  | NovaEnginePluginDefinition
+  | ((api: NovaEnginePluginApi) => void | Promise<void>);
 
-export type Nova EnginePluginApi = {
+export type NovaEnginePluginApi = {
   id: string;
   name: string;
   version?: string;
   description?: string;
   source: string;
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   pluginConfig?: Record<string, unknown>;
   runtime: PluginRuntime;
   logger: PluginLogger;
   registerTool: (
-    tool: AnyAgentTool | Nova EnginePluginToolFactory,
-    opts?: Nova EnginePluginToolOptions,
+    tool: AnyAgentTool | NovaEnginePluginToolFactory,
+    opts?: NovaEnginePluginToolOptions,
   ) => void;
   registerHook: (
     events: string | string[],
     handler: InternalHookHandler,
-    opts?: Nova EnginePluginHookOptions,
+    opts?: NovaEnginePluginHookOptions,
   ) => void;
-  registerHttpHandler: (handler: Nova EnginePluginHttpHandler) => void;
-  registerHttpRoute: (params: { path: string; handler: Nova EnginePluginHttpRouteHandler }) => void;
-  registerChannel: (registration: Nova EnginePluginChannelRegistration | ChannelPlugin) => void;
+  registerHttpHandler: (handler: NovaEnginePluginHttpHandler) => void;
+  registerHttpRoute: (params: { path: string; handler: NovaEnginePluginHttpRouteHandler }) => void;
+  registerChannel: (registration: NovaEnginePluginChannelRegistration | ChannelPlugin) => void;
   registerGatewayMethod: (method: string, handler: GatewayRequestHandler) => void;
-  registerCli: (registrar: Nova EnginePluginCliRegistrar, opts?: { commands?: string[] }) => void;
-  registerService: (service: Nova EnginePluginService) => void;
+  registerCli: (registrar: NovaEnginePluginCliRegistrar, opts?: { commands?: string[] }) => void;
+  registerService: (service: NovaEnginePluginService) => void;
   registerProvider: (provider: ProviderPlugin) => void;
   /**
    * Register a custom command that bypasses the LLM agent.
    * Plugin commands are processed before built-in commands and before agent invocation.
    * Use this for simple state-toggling or status commands that don't need AI reasoning.
    */
-  registerCommand: (command: Nova EnginePluginCommandDefinition) => void;
+  registerCommand: (command: NovaEnginePluginCommandDefinition) => void;
   resolvePath: (input: string) => string;
   /** Register a lifecycle hook handler */
   on: <K extends PluginHookName>(

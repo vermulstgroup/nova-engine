@@ -1,5 +1,5 @@
 import type { AuthProfileCredential } from "../agents/auth-profiles/types.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ProviderAuthResult } from "../plugins/types.js";
 
 export function buildOauthProviderAuthResult(params: {
@@ -11,7 +11,7 @@ export function buildOauthProviderAuthResult(params: {
   email?: string | null;
   profilePrefix?: string;
   credentialExtra?: Record<string, unknown>;
-  configPatch?: Partial<Nova EngineConfig>;
+  configPatch?: Partial<NovaEngineConfig>;
   notes?: string[];
 }): ProviderAuthResult {
   const email = params.email ?? undefined;
@@ -40,7 +40,7 @@ export function buildOauthProviderAuthResult(params: {
             },
           },
         },
-      } as Partial<Nova EngineConfig>),
+      } as Partial<NovaEngineConfig>),
     defaultModel: params.defaultModel,
     notes: params.notes,
   };

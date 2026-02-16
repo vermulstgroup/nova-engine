@@ -7,7 +7,7 @@ import type {
   GroupToolPolicyBySenderConfig,
   GroupToolPolicyConfig,
   MarkdownConfig,
-  Nova EngineConfig,
+  NovaEngineConfig,
 } from "nova-engine/plugin-sdk";
 
 export type IrcChannelConfig = {
@@ -64,8 +64,8 @@ export type IrcConfig = IrcAccountConfig & {
   accounts?: Record<string, IrcAccountConfig>;
 };
 
-export type CoreConfig = Nova EngineConfig & {
-  channels?: Nova EngineConfig["channels"] & {
+export type CoreConfig = NovaEngineConfig & {
+  channels?: NovaEngineConfig["channels"] & {
     irc?: IrcConfig;
   };
 };

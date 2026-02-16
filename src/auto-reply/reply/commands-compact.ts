@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { CommandHandler } from "./commands-types.js";
 import {
   abortEmbeddedPiRun,
@@ -20,7 +20,7 @@ import { incrementCompactionCount } from "./session-updates.js";
 function extractCompactInstructions(params: {
   rawBody?: string;
   ctx: import("../templating.js").MsgContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId?: string;
   isGroup: boolean;
 }): string | undefined {

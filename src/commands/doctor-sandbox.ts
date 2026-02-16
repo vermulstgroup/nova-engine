@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
 import {
@@ -89,17 +89,17 @@ async function dockerImageExists(image: string): Promise<boolean> {
   }
 }
 
-function resolveSandboxDockerImage(cfg: Nova EngineConfig): string {
+function resolveSandboxDockerImage(cfg: NovaEngineConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.docker?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_IMAGE;
 }
 
-function resolveSandboxBrowserImage(cfg: Nova EngineConfig): string {
+function resolveSandboxBrowserImage(cfg: NovaEngineConfig): string {
   const image = cfg.agents?.defaults?.sandbox?.browser?.image?.trim();
   return image ? image : DEFAULT_SANDBOX_BROWSER_IMAGE;
 }
 
-function updateSandboxDockerImage(cfg: Nova EngineConfig, image: string): Nova EngineConfig {
+function updateSandboxDockerImage(cfg: NovaEngineConfig, image: string): NovaEngineConfig {
   return {
     ...cfg,
     agents: {
@@ -118,7 +118,7 @@ function updateSandboxDockerImage(cfg: Nova EngineConfig, image: string): Nova E
   };
 }
 
-function updateSandboxBrowserImage(cfg: Nova EngineConfig, image: string): Nova EngineConfig {
+function updateSandboxBrowserImage(cfg: NovaEngineConfig, image: string): NovaEngineConfig {
   return {
     ...cfg,
     agents: {
@@ -176,10 +176,10 @@ async function handleMissingSandboxImage(
 }
 
 export async function maybeRepairSandboxImages(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
-): Promise<Nova EngineConfig> {
+): Promise<NovaEngineConfig> {
   const sandbox = cfg.agents?.defaults?.sandbox;
   const mode = sandbox?.mode ?? "off";
   if (!sandbox || mode === "off") {
@@ -238,7 +238,7 @@ export async function maybeRepairSandboxImages(
   return next;
 }
 
-export function noteSandboxScopeWarnings(cfg: Nova EngineConfig) {
+export function noteSandboxScopeWarnings(cfg: NovaEngineConfig) {
   const globalSandbox = cfg.agents?.defaults?.sandbox;
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
   const warnings: string[] = [];

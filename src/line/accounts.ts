@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type {
   LineConfig,
   LineAccountConfig,
@@ -97,7 +97,7 @@ function resolveSecret(params: {
 }
 
 export function resolveLineAccount(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string;
 }): ResolvedLineAccount {
   const { cfg, accountId = DEFAULT_ACCOUNT_ID } = params;
@@ -140,7 +140,7 @@ export function resolveLineAccount(params: {
   };
 }
 
-export function listLineAccountIds(cfg: Nova EngineConfig): string[] {
+export function listLineAccountIds(cfg: NovaEngineConfig): string[] {
   const lineConfig = cfg.channels?.line as LineConfig | undefined;
   const accounts = lineConfig?.accounts;
   const ids = new Set<string>();
@@ -164,7 +164,7 @@ export function listLineAccountIds(cfg: Nova EngineConfig): string[] {
   return Array.from(ids);
 }
 
-export function resolveDefaultLineAccountId(cfg: Nova EngineConfig): string {
+export function resolveDefaultLineAccountId(cfg: NovaEngineConfig): string {
   const ids = listLineAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;

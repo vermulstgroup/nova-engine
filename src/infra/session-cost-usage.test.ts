@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import {
   discoverAllSessions,
   loadCostUsageSummary,
@@ -96,7 +96,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as Nova EngineConfig;
+    } as NovaEngineConfig;
 
     const originalState = process.env.NOVA_STATE_DIR;
     process.env.NOVA_STATE_DIR = root;

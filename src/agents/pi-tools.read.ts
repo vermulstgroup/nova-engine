@@ -330,7 +330,7 @@ export function createSandboxedReadTool(params: SandboxToolParams) {
   const base = createReadTool(params.root, {
     operations: createSandboxReadOperations(params),
   }) as unknown as AnyAgentTool;
-  return createNova EngineReadTool(base);
+  return createNovaEngineReadTool(base);
 }
 
 export function createSandboxedWriteTool(params: SandboxToolParams) {
@@ -347,7 +347,7 @@ export function createSandboxedEditTool(params: SandboxToolParams) {
   return wrapToolParamNormalization(base, CLAUDE_PARAM_GROUPS.edit);
 }
 
-export function createNova EngineReadTool(base: AnyAgentTool): AnyAgentTool {
+export function createNovaEngineReadTool(base: AnyAgentTool): AnyAgentTool {
   const patched = patchToolSchemaForClaudeCompatibility(base);
   return {
     ...patched,

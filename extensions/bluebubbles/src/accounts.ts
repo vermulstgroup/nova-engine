@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "nova-engine/plugin-sdk/account-id";
 import { normalizeBlueBubblesServerUrl, type BlueBubblesAccountConfig } from "./types.js";
 
@@ -11,7 +11,7 @@ export type ResolvedBlueBubblesAccount = {
   baseUrl?: string;
 };
 
-function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
+function listConfiguredAccountIds(cfg: NovaEngineConfig): string[] {
   const accounts = cfg.channels?.bluebubbles?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -19,7 +19,7 @@ function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listBlueBubblesAccountIds(cfg: Nova EngineConfig): string[] {
+export function listBlueBubblesAccountIds(cfg: NovaEngineConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -27,7 +27,7 @@ export function listBlueBubblesAccountIds(cfg: Nova EngineConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultBlueBubblesAccountId(cfg: Nova EngineConfig): string {
+export function resolveDefaultBlueBubblesAccountId(cfg: NovaEngineConfig): string {
   const ids = listBlueBubblesAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -36,7 +36,7 @@ export function resolveDefaultBlueBubblesAccountId(cfg: Nova EngineConfig): stri
 }
 
 function resolveAccountConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
 ): BlueBubblesAccountConfig | undefined {
   const accounts = cfg.channels?.bluebubbles?.accounts;
@@ -47,7 +47,7 @@ function resolveAccountConfig(
 }
 
 function mergeBlueBubblesAccountConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
 ): BlueBubblesAccountConfig {
   const base = (cfg.channels?.bluebubbles ?? {}) as BlueBubblesAccountConfig & {
@@ -60,7 +60,7 @@ function mergeBlueBubblesAccountConfig(
 }
 
 export function resolveBlueBubblesAccount(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
 }): ResolvedBlueBubblesAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -81,7 +81,7 @@ export function resolveBlueBubblesAccount(params: {
   };
 }
 
-export function listEnabledBlueBubblesAccounts(cfg: Nova EngineConfig): ResolvedBlueBubblesAccount[] {
+export function listEnabledBlueBubblesAccounts(cfg: NovaEngineConfig): ResolvedBlueBubblesAccount[] {
   return listBlueBubblesAccountIds(cfg)
     .map((accountId) => resolveBlueBubblesAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

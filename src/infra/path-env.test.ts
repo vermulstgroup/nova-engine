@@ -33,9 +33,9 @@ vi.mock("node:fs", async (importOriginal) => {
   return { ...wrapped, default: wrapped };
 });
 
-let ensureNova EngineCliOnPath: typeof import("./path-env.js").ensureNova EngineCliOnPath;
+let ensureNovaEngineCliOnPath: typeof import("./path-env.js").ensureNovaEngineCliOnPath;
 
-describe("ensureNova EngineCliOnPath", () => {
+describe("ensureNovaEngineCliOnPath", () => {
   const envKeys = [
     "PATH",
     "NOVA_PATH_BOOTSTRAPPED",
@@ -48,7 +48,7 @@ describe("ensureNova EngineCliOnPath", () => {
   let envSnapshot: Record<(typeof envKeys)[number], string | undefined>;
 
   beforeAll(async () => {
-    ({ ensureNova EngineCliOnPath } = await import("./path-env.js"));
+    ({ ensureNovaEngineCliOnPath } = await import("./path-env.js"));
   });
 
   beforeEach(() => {
@@ -83,7 +83,7 @@ describe("ensureNova EngineCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.NOVA_PATH_BOOTSTRAPPED;
 
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: cliPath,
       cwd: tmp,
       homeDir: tmp,
@@ -97,7 +97,7 @@ describe("ensureNova EngineCliOnPath", () => {
   it("is idempotent", () => {
     process.env.PATH = "/bin";
     process.env.NOVA_PATH_BOOTSTRAPPED = "1";
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: "/tmp/does-not-matter",
       cwd: "/tmp",
       homeDir: "/tmp",
@@ -123,7 +123,7 @@ describe("ensureNova EngineCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.NOVA_PATH_BOOTSTRAPPED;
 
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -155,7 +155,7 @@ describe("ensureNova EngineCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.NOVA_PATH_BOOTSTRAPPED;
 
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -167,7 +167,7 @@ describe("ensureNova EngineCliOnPath", () => {
     process.env.PATH = "/usr/bin";
     delete process.env.NOVA_PATH_BOOTSTRAPPED;
 
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: appCli,
       cwd: tmp,
       homeDir: tmp,
@@ -200,7 +200,7 @@ describe("ensureNova EngineCliOnPath", () => {
     delete process.env.HOMEBREW_BREW_FILE;
     delete process.env.XDG_BIN_HOME;
 
-    ensureNova EngineCliOnPath({
+    ensureNovaEngineCliOnPath({
       execPath: path.join(execDir, "node"),
       cwd: tmp,
       homeDir: tmp,

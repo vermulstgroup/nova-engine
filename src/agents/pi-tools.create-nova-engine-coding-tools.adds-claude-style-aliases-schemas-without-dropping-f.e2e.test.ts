@@ -3,9 +3,9 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineCodingTools } from "./pi-tools.js";
 
-describe("createNova EngineCodingTools", () => {
+describe("createNovaEngineCodingTools", () => {
   it("uses workspaceDir for Read tool path resolution", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-ws-"));
     try {
@@ -15,7 +15,7 @@ describe("createNova EngineCodingTools", () => {
       await fs.writeFile(path.join(tmpDir, testFile), testContent, "utf8");
 
       // Create tools with explicit workspaceDir
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const readTool = tools.find((tool) => tool.name === "read");
       expect(readTool).toBeDefined();
 
@@ -40,7 +40,7 @@ describe("createNova EngineCodingTools", () => {
       const testContent = "written via workspace path";
 
       // Create tools with explicit workspaceDir
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const writeTool = tools.find((tool) => tool.name === "write");
       expect(writeTool).toBeDefined();
 
@@ -66,7 +66,7 @@ describe("createNova EngineCodingTools", () => {
       await fs.writeFile(path.join(tmpDir, testFile), originalContent, "utf8");
 
       // Create tools with explicit workspaceDir
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const editTool = tools.find((tool) => tool.name === "edit");
       expect(editTool).toBeDefined();
 
@@ -87,7 +87,7 @@ describe("createNova EngineCodingTools", () => {
   it("accepts Claude Code parameter aliases for read/write/edit", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-alias-"));
     try {
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const readTool = tools.find((tool) => tool.name === "read");
       const writeTool = tools.find((tool) => tool.name === "write");
       const editTool = tools.find((tool) => tool.name === "edit");
@@ -124,7 +124,7 @@ describe("createNova EngineCodingTools", () => {
   it("coerces structured content blocks for write", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-structured-write-"));
     try {
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const writeTool = tools.find((tool) => tool.name === "write");
       expect(writeTool).toBeDefined();
 
@@ -151,7 +151,7 @@ describe("createNova EngineCodingTools", () => {
       const filePath = path.join(tmpDir, "structured-edit.js");
       await fs.writeFile(filePath, "const value = 'old';\n", "utf8");
 
-      const tools = createNova EngineCodingTools({ workspaceDir: tmpDir });
+      const tools = createNovaEngineCodingTools({ workspaceDir: tmpDir });
       const editTool = tools.find((tool) => tool.name === "edit");
       expect(editTool).toBeDefined();
 

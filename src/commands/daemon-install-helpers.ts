@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/types.js";
+import type { NovaEngineConfig } from "../config/types.js";
 import type { GatewayDaemonRuntime } from "./daemon-runtime.js";
 import { formatCliCommand } from "../cli/command-format.js";
 import { collectConfigEnvVars } from "../config/env-vars.js";
@@ -34,7 +34,7 @@ export async function buildGatewayInstallPlan(params: {
   nodePath?: string;
   warn?: WarnFn;
   /** Full config to extract env vars from (env vars + inline env keys). */
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
 }): Promise<GatewayInstallPlan> {
   const devMode = params.devMode ?? resolveGatewayDevMode();
   const nodePath =

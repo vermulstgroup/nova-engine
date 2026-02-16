@@ -5,7 +5,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import type { UpdateCheckResult } from "./update-check.js";
 
 vi.mock("./nova-engine-root.js", () => ({
-  resolveNova EnginePackageRoot: vi.fn(),
+  resolveNovaEnginePackageRoot: vi.fn(),
 }));
 
 vi.mock("./update-check.js", async () => {
@@ -45,7 +45,7 @@ describe("update-startup", () => {
   let hadNodeEnv = false;
   let hadVitest = false;
 
-  let resolveNova EnginePackageRoot: (typeof import("./nova-engine-root.js"))["resolveNova EnginePackageRoot"];
+  let resolveNovaEnginePackageRoot: (typeof import("./nova-engine-root.js"))["resolveNovaEnginePackageRoot"];
   let checkUpdateStatus: (typeof import("./update-check.js"))["checkUpdateStatus"];
   let resolveNpmChannelTag: (typeof import("./update-check.js"))["resolveNpmChannelTag"];
   let runGatewayUpdateCheck: (typeof import("./update-startup.js"))["runGatewayUpdateCheck"];
@@ -75,7 +75,7 @@ describe("update-startup", () => {
 
     // Perf: load mocked modules once (after timers/env are set up).
     if (!loaded) {
-      ({ resolveNova EnginePackageRoot } = await import("./nova-engine-root.js"));
+      ({ resolveNovaEnginePackageRoot } = await import("./nova-engine-root.js"));
       ({ checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js"));
       ({ runGatewayUpdateCheck } = await import("./update-startup.js"));
       loaded = true;
@@ -110,7 +110,7 @@ describe("update-startup", () => {
   });
 
   it("logs update hint for npm installs when newer tag exists", async () => {
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue("/opt/nova-engine");
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue("/opt/nova-engine");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root: "/opt/nova-engine",
       installKind: "package",
@@ -140,7 +140,7 @@ describe("update-startup", () => {
   });
 
   it("uses latest when beta tag is older than release", async () => {
-    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue("/opt/nova-engine");
+    vi.mocked(resolveNovaEnginePackageRoot).mockResolvedValue("/opt/nova-engine");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root: "/opt/nova-engine",
       installKind: "package",

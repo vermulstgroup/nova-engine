@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import path from "node:path";
 import { Readable } from "node:stream";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 type SpawnCall = {
   command: string;
@@ -56,7 +56,7 @@ describe("Agent-specific sandbox config", () => {
   it("should use agent-specific workspaceRoot", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -92,7 +92,7 @@ describe("Agent-specific sandbox config", () => {
   it("should prefer agent config over global for multiple agents", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -139,7 +139,7 @@ describe("Agent-specific sandbox config", () => {
   it("should prefer agent-specific sandbox tool policy", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -192,7 +192,7 @@ describe("Agent-specific sandbox config", () => {
   it("should use global sandbox config when no agent-specific config exists", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -222,7 +222,7 @@ describe("Agent-specific sandbox config", () => {
   it("should allow agent-specific docker setupCommand overrides", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -271,7 +271,7 @@ describe("Agent-specific sandbox config", () => {
   it("should ignore agent-specific docker overrides when scope is shared", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -321,7 +321,7 @@ describe("Agent-specific sandbox config", () => {
   it("should allow agent-specific docker settings beyond setupCommand", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -364,7 +364,7 @@ describe("Agent-specific sandbox config", () => {
   it("should override with agent-specific sandbox mode 'off'", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -396,7 +396,7 @@ describe("Agent-specific sandbox config", () => {
   it("should use agent-specific sandbox mode 'all'", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -429,7 +429,7 @@ describe("Agent-specific sandbox config", () => {
   it("should use agent-specific scope", async () => {
     const { resolveSandboxContext } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -463,7 +463,7 @@ describe("Agent-specific sandbox config", () => {
   it("includes session_status in default sandbox allowlist", async () => {
     const { resolveSandboxConfigForAgent } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -481,7 +481,7 @@ describe("Agent-specific sandbox config", () => {
   it("includes image in default sandbox allowlist", async () => {
     const { resolveSandboxConfigForAgent } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -499,7 +499,7 @@ describe("Agent-specific sandbox config", () => {
   it("injects image into explicit sandbox allowlists", async () => {
     const { resolveSandboxConfigForAgent } = await import("./sandbox.js");
 
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         sandbox: {
           tools: {

@@ -98,7 +98,7 @@ export type ImageDescriptionRequest = {
   profile?: string;
   preferredProfile?: string;
   agentDir: string;
-  cfg: import("../config/config.js").Nova EngineConfig;
+  cfg: import("../config/config.js").NovaEngineConfig;
 };
 
 export type ImageDescriptionResult = {

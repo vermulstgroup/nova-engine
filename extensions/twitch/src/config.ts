@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import type { TwitchAccountConfig } from "./types.js";
 
 /**
@@ -24,7 +24,7 @@ export function getAccountConfig(
     return null;
   }
 
-  const cfg = coreConfig as Nova EngineConfig;
+  const cfg = coreConfig as NovaEngineConfig;
   const twitch = cfg.channels?.twitch;
   // Access accounts via unknown to handle union type (single-account vs multi-account)
   const twitchRaw = twitch as Record<string, unknown> | undefined;
@@ -88,7 +88,7 @@ export function getAccountConfig(
  *
  * Includes both explicit accounts and implicit "default" from base-level config
  */
-export function listAccountIds(cfg: Nova EngineConfig): string[] {
+export function listAccountIds(cfg: NovaEngineConfig): string[] {
   const twitch = cfg.channels?.twitch;
   // Access accounts via unknown to handle union type (single-account vs multi-account)
   const twitchRaw = twitch as Record<string, unknown> | undefined;

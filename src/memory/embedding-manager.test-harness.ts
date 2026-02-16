@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, beforeEach, expect } from "vitest";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { getEmbedBatchMock, resetEmbeddingMocks } from "./embedding.test-mocks.js";
 import {
   getMemorySearchManager,
@@ -18,7 +18,7 @@ export function installEmbeddingManagerFixture(opts: {
     workspaceDir: string;
     indexPath: string;
     tokens: number;
-  }) => Nova EngineConfig;
+  }) => NovaEngineConfig;
   resetIndexEachTest?: boolean;
 }) {
   const embedBatch = getEmbedBatchMock();

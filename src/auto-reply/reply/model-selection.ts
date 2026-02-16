@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { ThinkLevel } from "./directives.js";
 import { clearSessionAuthProfileOverride } from "../../agents/auth-profiles/session-override.js";
 import { lookupContextTokens } from "../../agents/context.js";
@@ -259,8 +259,8 @@ function scoreFuzzyMatch(params: {
 }
 
 export async function createModelSelectionState(params: {
-  cfg: Nova EngineConfig;
-  agentCfg: NonNullable<NonNullable<Nova EngineConfig["agents"]>["defaults"]> | undefined;
+  cfg: NovaEngineConfig;
+  agentCfg: NonNullable<NonNullable<NovaEngineConfig["agents"]>["defaults"]> | undefined;
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
   sessionKey?: string;
@@ -582,7 +582,7 @@ export function resolveModelDirectiveSelection(params: {
 }
 
 export function resolveContextTokens(params: {
-  agentCfg: NonNullable<NonNullable<Nova EngineConfig["agents"]>["defaults"]> | undefined;
+  agentCfg: NonNullable<NonNullable<NovaEngineConfig["agents"]>["defaults"]> | undefined;
   model: string;
 }): number {
   return (

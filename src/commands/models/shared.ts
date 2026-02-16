@@ -8,7 +8,7 @@ import {
 } from "../../agents/model-selection.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import {
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   readConfigFileSnapshot,
   writeConfigFile,
 } from "../../config/config.js";
@@ -60,8 +60,8 @@ export const isLocalBaseUrl = (baseUrl: string) => {
 };
 
 export async function updateConfig(
-  mutator: (cfg: Nova EngineConfig) => Nova EngineConfig,
-): Promise<Nova EngineConfig> {
+  mutator: (cfg: NovaEngineConfig) => NovaEngineConfig,
+): Promise<NovaEngineConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = snapshot.issues.map((issue) => `- ${issue.path}: ${issue.message}`).join("\n");
@@ -72,7 +72,7 @@ export async function updateConfig(
   return next;
 }
 
-export function resolveModelTarget(params: { raw: string; cfg: Nova EngineConfig }): {
+export function resolveModelTarget(params: { raw: string; cfg: NovaEngineConfig }): {
   provider: string;
   model: string;
 } {
@@ -92,7 +92,7 @@ export function resolveModelTarget(params: { raw: string; cfg: Nova EngineConfig
 }
 
 export function resolveModelKeysFromEntries(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   entries: readonly string[];
 }): string[] {
   const aliasIndex = buildModelAliasIndex({
@@ -111,7 +111,7 @@ export function resolveModelKeysFromEntries(params: {
     .map((entry) => modelKey(entry.ref.provider, entry.ref.model));
 }
 
-export function buildAllowlistSet(cfg: Nova EngineConfig): Set<string> {
+export function buildAllowlistSet(cfg: NovaEngineConfig): Set<string> {
   const allowed = new Set<string>();
   const models = cfg.agents?.defaults?.models ?? {};
   for (const raw of Object.keys(models)) {
@@ -136,7 +136,7 @@ export function normalizeAlias(alias: string): string {
 }
 
 export function resolveKnownAgentId(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   rawAgentId?: string | null;
 }): string | undefined {
   const raw = params.rawAgentId?.trim();
@@ -170,10 +170,10 @@ export function mergePrimaryFallbackConfig(
 }
 
 export function applyDefaultModelPrimaryUpdate(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   modelRaw: string;
   field: "model" | "imageModel";
-}): Nova EngineConfig {
+}): NovaEngineConfig {
   const resolved = resolveModelTarget({ raw: params.modelRaw, cfg: params.cfg });
   const key = `${resolved.provider}/${resolved.model}`;
 

@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { ConfigFileSnapshot, Nova EngineConfig } from "../config/types.js";
+import type { ConfigFileSnapshot, NovaEngineConfig } from "../config/types.js";
 
 /**
  * Test for issue #6070:
@@ -9,11 +9,11 @@ import type { ConfigFileSnapshot, Nova EngineConfig } from "../config/types.js";
  */
 
 const mockReadConfigFileSnapshot = vi.fn<[], Promise<ConfigFileSnapshot>>();
-const mockWriteConfigFile = vi.fn<[Nova EngineConfig], Promise<void>>(async () => {});
+const mockWriteConfigFile = vi.fn<[NovaEngineConfig], Promise<void>>(async () => {});
 
 vi.mock("../config/config.js", () => ({
   readConfigFileSnapshot: () => mockReadConfigFileSnapshot(),
-  writeConfigFile: (cfg: Nova EngineConfig) => mockWriteConfigFile(cfg),
+  writeConfigFile: (cfg: NovaEngineConfig) => mockWriteConfigFile(cfg),
 }));
 
 const mockLog = vi.fn();
@@ -32,8 +32,8 @@ vi.mock("../runtime.js", () => ({
 }));
 
 function buildSnapshot(params: {
-  resolved: Nova EngineConfig;
-  config: Nova EngineConfig;
+  resolved: NovaEngineConfig;
+  config: NovaEngineConfig;
 }): ConfigFileSnapshot {
   return {
     path: "/tmp/nova-engine.json",
@@ -60,7 +60,7 @@ describe("config cli", () => {
 
   describe("config set - issue #6070", () => {
     it("preserves existing config keys when setting a new value", async () => {
-      const resolved: Nova EngineConfig = {
+      const resolved: NovaEngineConfig = {
         agents: {
           list: [{ id: "main" }, { id: "oracle", workspace: "~/oracle-workspace" }],
         },
@@ -68,7 +68,7 @@ describe("config cli", () => {
         tools: { allow: ["group:fs"] },
         logging: { level: "debug" },
       };
-      const runtimeMerged: Nova EngineConfig = {
+      const runtimeMerged: NovaEngineConfig = {
         ...resolved,
         agents: {
           ...resolved.agents,
@@ -99,10 +99,10 @@ describe("config cli", () => {
     });
 
     it("does not inject runtime defaults into the written config", async () => {
-      const resolved: Nova EngineConfig = {
+      const resolved: NovaEngineConfig = {
         gateway: { port: 18789 },
       };
-      const runtimeMerged: Nova EngineConfig = {
+      const runtimeMerged: NovaEngineConfig = {
         ...resolved,
         agents: {
           defaults: {
@@ -139,7 +139,7 @@ describe("config cli", () => {
 
   describe("config unset - issue #6070", () => {
     it("preserves existing config keys when unsetting a value", async () => {
-      const resolved: Nova EngineConfig = {
+      const resolved: NovaEngineConfig = {
         agents: { list: [{ id: "main" }] },
         gateway: { port: 18789 },
         tools: {
@@ -148,7 +148,7 @@ describe("config cli", () => {
         },
         logging: { level: "debug" },
       };
-      const runtimeMerged: Nova EngineConfig = {
+      const runtimeMerged: NovaEngineConfig = {
         ...resolved,
         agents: {
           ...resolved.agents,

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import type { MsgContext, TemplateContext } from "../templating.js";
 import { loadModelCatalog } from "../../agents/model-catalog.js";
@@ -86,7 +86,7 @@ function applySelectionToSession(params: {
 }
 
 export async function applyResetModelOverride(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   resetTriggered: boolean;
   bodyStripped?: string;
   sessionCtx: TemplateContext;

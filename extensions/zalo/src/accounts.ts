@@ -1,11 +1,11 @@
-import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
+import type { NovaEngineConfig } from "nova-engine/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "nova-engine/plugin-sdk/account-id";
 import type { ResolvedZaloAccount, ZaloAccountConfig, ZaloConfig } from "./types.js";
 import { resolveZaloToken } from "./token.js";
 
 export type { ResolvedZaloAccount };
 
-function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
+function listConfiguredAccountIds(cfg: NovaEngineConfig): string[] {
   const accounts = (cfg.channels?.zalo as ZaloConfig | undefined)?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -13,7 +13,7 @@ function listConfiguredAccountIds(cfg: Nova EngineConfig): string[] {
   return Object.keys(accounts).filter(Boolean);
 }
 
-export function listZaloAccountIds(cfg: Nova EngineConfig): string[] {
+export function listZaloAccountIds(cfg: NovaEngineConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     return [DEFAULT_ACCOUNT_ID];
@@ -21,7 +21,7 @@ export function listZaloAccountIds(cfg: Nova EngineConfig): string[] {
   return ids.toSorted((a, b) => a.localeCompare(b));
 }
 
-export function resolveDefaultZaloAccountId(cfg: Nova EngineConfig): string {
+export function resolveDefaultZaloAccountId(cfg: NovaEngineConfig): string {
   const zaloConfig = cfg.channels?.zalo as ZaloConfig | undefined;
   if (zaloConfig?.defaultAccount?.trim()) {
     return zaloConfig.defaultAccount.trim();
@@ -34,7 +34,7 @@ export function resolveDefaultZaloAccountId(cfg: Nova EngineConfig): string {
 }
 
 function resolveAccountConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   accountId: string,
 ): ZaloAccountConfig | undefined {
   const accounts = (cfg.channels?.zalo as ZaloConfig | undefined)?.accounts;
@@ -44,7 +44,7 @@ function resolveAccountConfig(
   return accounts[accountId] as ZaloAccountConfig | undefined;
 }
 
-function mergeZaloAccountConfig(cfg: Nova EngineConfig, accountId: string): ZaloAccountConfig {
+function mergeZaloAccountConfig(cfg: NovaEngineConfig, accountId: string): ZaloAccountConfig {
   const raw = (cfg.channels?.zalo ?? {}) as ZaloConfig;
   const { accounts: _ignored, defaultAccount: _ignored2, ...base } = raw;
   const account = resolveAccountConfig(cfg, accountId) ?? {};
@@ -52,7 +52,7 @@ function mergeZaloAccountConfig(cfg: Nova EngineConfig, accountId: string): Zalo
 }
 
 export function resolveZaloAccount(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   accountId?: string | null;
 }): ResolvedZaloAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -75,7 +75,7 @@ export function resolveZaloAccount(params: {
   };
 }
 
-export function listEnabledZaloAccounts(cfg: Nova EngineConfig): ResolvedZaloAccount[] {
+export function listEnabledZaloAccounts(cfg: NovaEngineConfig): ResolvedZaloAccount[] {
   return listZaloAccountIds(cfg)
     .map((accountId) => resolveZaloAccount({ cfg, accountId }))
     .filter((account) => account.enabled);

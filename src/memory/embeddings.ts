@@ -1,6 +1,6 @@
 import type { Llama, LlamaEmbeddingContext, LlamaModel } from "node-llama-cpp";
 import fsSync from "node:fs";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveUserPath } from "../utils.js";
 import { createGeminiEmbeddingProvider, type GeminiEmbeddingClient } from "./embeddings-gemini.js";
@@ -46,7 +46,7 @@ export type EmbeddingProviderResult = {
 };
 
 export type EmbeddingProviderOptions = {
-  config: Nova EngineConfig;
+  config: NovaEngineConfig;
   agentDir?: string;
   provider: EmbeddingProviderRequest;
   remote?: {

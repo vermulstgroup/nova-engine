@@ -1,5 +1,5 @@
 import { createRequire } from "node:module";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 const requireConfig = createRequire(import.meta.url);
 
@@ -108,10 +108,10 @@ function redactText(text: string, patterns: RegExp[]): string {
 }
 
 function resolveConfigRedaction(): RedactOptions {
-  let cfg: Nova EngineConfig["logging"] | undefined;
+  let cfg: NovaEngineConfig["logging"] | undefined;
   try {
     const loaded = requireConfig("../config/config.js") as {
-      loadConfig?: () => Nova EngineConfig;
+      loadConfig?: () => NovaEngineConfig;
     };
     cfg = loaded.loadConfig?.().logging;
   } catch {

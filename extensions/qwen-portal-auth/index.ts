@@ -1,6 +1,6 @@
 import {
   emptyPluginConfigSchema,
-  type Nova EnginePluginApi,
+  type NovaEnginePluginApi,
   type ProviderAuthContext,
 } from "nova-engine/plugin-sdk";
 import { loginQwenPortalOAuth } from "./oauth.js";
@@ -40,7 +40,7 @@ const qwenPortalPlugin = {
   name: "Qwen OAuth",
   description: "OAuth flow for Qwen (free-tier) models",
   configSchema: emptyPluginConfigSchema(),
-  register(api: Nova EnginePluginApi) {
+  register(api: NovaEnginePluginApi) {
     api.registerProvider({
       id: PROVIDER_ID,
       label: PROVIDER_LABEL,

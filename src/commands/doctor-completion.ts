@@ -11,14 +11,14 @@ import {
   resolveShellFromEnv,
   usesSlowDynamicCompletion,
 } from "../cli/completion-cli.js";
-import { resolveNova EnginePackageRoot } from "../infra/nova-engine-root.js";
+import { resolveNovaEnginePackageRoot } from "../infra/nova-engine-root.js";
 import { note } from "../terminal/note.js";
 
 type CompletionShell = "zsh" | "bash" | "fish" | "powershell";
 
 /** Generate the completion cache by spawning the CLI. */
 async function generateCompletionCache(): Promise<boolean> {
-  const root = await resolveNova EnginePackageRoot({
+  const root = await resolveNovaEnginePackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),

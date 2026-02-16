@@ -6,7 +6,7 @@ import type { ThemeMode } from "./theme.ts";
 import type { SessionsListResult } from "./types.ts";
 import { refreshChat } from "./app-chat.ts";
 import { syncUrlWithSessionKey } from "./app-settings.ts";
-import { Nova EngineApp } from "./app.ts";
+import { NovaEngineApp } from "./app.ts";
 import { ChatState, loadChatHistory } from "./controllers/chat.ts";
 import { icons } from "./icons.ts";
 import { iconForTab, pathForTab, titleForTab, type Tab } from "./navigation.ts";
@@ -35,10 +35,10 @@ function resetChatStateForSessionSwitch(state: AppViewState, sessionKey: string)
   state.sessionKey = sessionKey;
   state.chatMessage = "";
   state.chatStream = null;
-  (state as unknown as Nova EngineApp).chatStreamStartedAt = null;
+  (state as unknown as NovaEngineApp).chatStreamStartedAt = null;
   state.chatRunId = null;
-  (state as unknown as Nova EngineApp).resetToolStream();
-  (state as unknown as Nova EngineApp).resetChatScroll();
+  (state as unknown as NovaEngineApp).resetToolStream();
+  (state as unknown as NovaEngineApp).resetChatScroll();
   state.applySettings({
     ...state.settings,
     sessionKey,
@@ -137,10 +137,10 @@ export function renderChatControls(state: AppViewState) {
             state.sessionKey = next;
             state.chatMessage = "";
             state.chatStream = null;
-            (state as unknown as Nova EngineApp).chatStreamStartedAt = null;
+            (state as unknown as NovaEngineApp).chatStreamStartedAt = null;
             state.chatRunId = null;
-            (state as unknown as Nova EngineApp).resetToolStream();
-            (state as unknown as Nova EngineApp).resetChatScroll();
+            (state as unknown as NovaEngineApp).resetToolStream();
+            (state as unknown as NovaEngineApp).resetChatScroll();
             state.applySettings({
               ...state.settings,
               sessionKey: next,
@@ -169,7 +169,7 @@ export function renderChatControls(state: AppViewState) {
         class="btn btn--sm btn--icon"
         ?disabled=${state.chatLoading || !state.connected}
         @click=${async () => {
-          const app = state as unknown as Nova EngineApp;
+          const app = state as unknown as NovaEngineApp;
           app.chatManualRefreshInFlight = true;
           app.chatNewMessagesBelow = false;
           await app.updateComplete;

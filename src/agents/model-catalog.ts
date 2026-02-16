@@ -1,6 +1,6 @@
-import { type Nova EngineConfig, loadConfig } from "../config/config.js";
-import { resolveNova EngineAgentDir } from "./agent-paths.js";
-import { ensureNova EngineModelsJson } from "./models-config.js";
+import { type NovaEngineConfig, loadConfig } from "../config/config.js";
+import { resolveNovaEngineAgentDir } from "./agent-paths.js";
+import { ensureNovaEngineModelsJson } from "./models-config.js";
 
 export type ModelCatalogEntry = {
   id: string;
@@ -68,7 +68,7 @@ export function __setModelCatalogImportForTest(loader?: () => Promise<PiSdkModul
 }
 
 export async function loadModelCatalog(params?: {
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   useCache?: boolean;
 }): Promise<ModelCatalogEntry[]> {
   if (params?.useCache === false) {
@@ -90,16 +90,16 @@ export async function loadModelCatalog(params?: {
       });
     try {
       const cfg = params?.config ?? loadConfig();
-      await ensureNova EngineModelsJson(cfg);
+      await ensureNovaEngineModelsJson(cfg);
       await (
         await import("./pi-auth-json.js")
-      ).ensurePiAuthJsonFromAuthProfiles(resolveNova EngineAgentDir());
+      ).ensurePiAuthJsonFromAuthProfiles(resolveNovaEngineAgentDir());
       // IMPORTANT: keep the dynamic import *inside* the try/catch.
       // If this fails once (e.g. during a pnpm install that temporarily swaps node_modules),
       // we must not poison the cache with a rejected promise (otherwise all channel handlers
       // will keep failing until restart).
       const piSdk = await importPiSdk();
-      const agentDir = resolveNova EngineAgentDir();
+      const agentDir = resolveNovaEngineAgentDir();
       const { join } = await import("node:path");
       const authStorage = new piSdk.AuthStorage(join(agentDir, "auth.json"));
       const registry = new piSdk.ModelRegistry(authStorage, join(agentDir, "models.json")) as

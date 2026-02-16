@@ -1,10 +1,10 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveMemoryBackendConfig } from "../memory/backend-config.js";
 import { getMemorySearchManager } from "../memory/index.js";
 
 export async function startGatewayMemoryBackend(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   log: { info?: (msg: string) => void; warn: (msg: string) => void };
 }): Promise<void> {
   const agentId = resolveDefaultAgentId(params.cfg);

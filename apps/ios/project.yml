@@ -10,8 +10,8 @@ settings:
     SWIFT_VERSION: "6.0"
 
 packages:
-  Nova EngineKit:
-    path: ../shared/Nova EngineKit
+  NovaEngineKit:
+    path: ../shared/NovaEngineKit
   Swabble:
     path: ../../Swabble
 
@@ -23,7 +23,7 @@ schemes:
         Nova Engine: all
     test:
       targets:
-        - Nova EngineTests
+        - NovaEngineTests
 
 targets:
   Nova Engine:
@@ -32,11 +32,11 @@ targets:
     sources:
       - path: Sources
     dependencies:
-      - package: Nova EngineKit
-      - package: Nova EngineKit
-        product: Nova EngineChatUI
-      - package: Nova EngineKit
-        product: Nova EngineProtocol
+      - package: NovaEngineKit
+      - package: NovaEngineKit
+        product: NovaEngineChatUI
+      - package: NovaEngineKit
+        product: NovaEngineProtocol
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -109,7 +109,7 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  Nova EngineTests:
+  NovaEngineTests:
     type: bundle.unit-test
     platform: iOS
     sources:
@@ -129,6 +129,6 @@ targets:
     info:
       path: Tests/Info.plist
       properties:
-        CFBundleDisplayName: Nova EngineTests
+        CFBundleDisplayName: NovaEngineTests
         CFBundleShortVersionString: "2026.2.16"
         CFBundleVersion: "20260216"

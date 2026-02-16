@@ -19,11 +19,11 @@ vi.mock("./trash.js", () => ({
 }));
 
 vi.mock("./chrome.js", () => ({
-  resolveNova EngineUserDataDir: vi.fn(() => "/tmp/nova-engine-test/nova-engine/user-data"),
+  resolveNovaEngineUserDataDir: vi.fn(() => "/tmp/nova-engine-test/nova-engine/user-data"),
 }));
 
 import { loadConfig, writeConfigFile } from "../config/config.js";
-import { resolveNova EngineUserDataDir } from "./chrome.js";
+import { resolveNovaEngineUserDataDir } from "./chrome.js";
 import { movePathToTrash } from "./trash.js";
 
 function createCtx(resolved: BrowserServerState["resolved"]) {
@@ -136,7 +136,7 @@ describe("BrowserProfilesService", () => {
     const tempDir = fs.mkdtempSync(path.join("/tmp", "nova-engine-profile-"));
     const userDataDir = path.join(tempDir, "work", "user-data");
     fs.mkdirSync(path.dirname(userDataDir), { recursive: true });
-    vi.mocked(resolveNova EngineUserDataDir).mockReturnValue(userDataDir);
+    vi.mocked(resolveNovaEngineUserDataDir).mockReturnValue(userDataDir);
 
     const service = createBrowserProfilesService(ctx);
     const result = await service.deleteProfile("work");

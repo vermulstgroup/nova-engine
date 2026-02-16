@@ -596,7 +596,7 @@ Authorization 头仅附加到 `channels.msteams.mediaAuthAllowHosts` 中的主�
 
 ### 文件存储位置
 
-上传的文件存储在配置的 SharePoint 站点默认文档库中的 `/Nova EngineShared/` 文件夹中。
+上传的文件存储在配置的 SharePoint 站点默认文档库中的 `/NovaEngineShared/` 文件夹中。
 
 ## 投票（Adaptive Cards）
 

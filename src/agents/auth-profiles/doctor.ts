@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { AuthProfileStore } from "./types.js";
 import { formatCliCommand } from "../../cli/command-format.js";
 import { normalizeProviderId } from "../model-selection.js";
@@ -6,7 +6,7 @@ import { listProfilesForProvider } from "./profiles.js";
 import { suggestOAuthProfileIdForLegacyDefault } from "./repair.js";
 
 export function formatAuthDoctorHint(params: {
-  cfg?: Nova EngineConfig;
+  cfg?: NovaEngineConfig;
   store: AuthProfileStore;
   provider: string;
   profileId?: string;

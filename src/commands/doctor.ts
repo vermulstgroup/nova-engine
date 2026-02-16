@@ -1,6 +1,6 @@
 import { intro as clackIntro, outro as clackOutro } from "@clack/prompts";
 import fs from "node:fs";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
@@ -16,7 +16,7 @@ import { logConfigUpdated } from "../config/logging.js";
 import { resolveGatewayService } from "../daemon/service.js";
 import { resolveGatewayAuth } from "../gateway/auth.js";
 import { buildGatewayConnectionDetails } from "../gateway/call.js";
-import { resolveNova EnginePackageRoot } from "../infra/nova-engine-root.js";
+import { resolveNovaEnginePackageRoot } from "../infra/nova-engine-root.js";
 import { defaultRuntime } from "../runtime.js";
 import { note } from "../terminal/note.js";
 import { stylePromptTitle } from "../terminal/prompt-style.js";
@@ -59,7 +59,7 @@ import { ensureSystemdUserLingerInteractive } from "./systemd-linger.js";
 const intro = (message: string) => clackIntro(stylePromptTitle(message) ?? message);
 const outro = (message: string) => clackOutro(stylePromptTitle(message) ?? message);
 
-function resolveMode(cfg: Nova EngineConfig): "local" | "remote" {
+function resolveMode(cfg: NovaEngineConfig): "local" | "remote" {
   return cfg.gateway?.mode === "remote" ? "remote" : "local";
 }
 
@@ -71,7 +71,7 @@ export async function doctorCommand(
   printWizardHeader(runtime);
   intro("Nova Engine doctor");
 
-  const root = await resolveNova EnginePackageRoot({
+  const root = await resolveNovaEnginePackageRoot({
     moduleUrl: import.meta.url,
     argv1: process.argv[1],
     cwd: process.cwd(),
@@ -96,7 +96,7 @@ export async function doctorCommand(
     options,
     confirm: (p) => prompter.confirm(p),
   });
-  let cfg: Nova EngineConfig = configResult.cfg;
+  let cfg: NovaEngineConfig = configResult.cfg;
 
   const configPath = configResult.path ?? CONFIG_PATH;
   if (!cfg.gateway?.mode) {

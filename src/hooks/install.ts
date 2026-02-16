@@ -69,7 +69,7 @@ export function resolveHookInstallDir(hookId: string, hooksDir?: string): string
   return targetDirResult.path;
 }
 
-async function ensureNova EngineHooks(manifest: HookPackageManifest) {
+async function ensureNovaEngineHooks(manifest: HookPackageManifest) {
   const hooks = manifest[MANIFEST_KEY]?.hooks;
   if (!Array.isArray(hooks)) {
     throw new Error("package.json missing nova-engine.hooks");
@@ -135,7 +135,7 @@ async function installHookPackageFromDir(params: {
 
   let hookEntries: string[];
   try {
-    hookEntries = await ensureNova EngineHooks(manifest);
+    hookEntries = await ensureNovaEngineHooks(manifest);
   } catch (err) {
     return { ok: false, error: String(err) };
   }

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import { resolveAgentConfig } from "../agents/agent-scope.js";
 import {
@@ -33,7 +33,7 @@ type SandboxExplainOptions = {
 const SANDBOX_DOCS_URL = "https://docs.nova-engine.ai/sandbox";
 
 function normalizeExplainSessionKey(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   session?: string;
 }): string {
@@ -57,7 +57,7 @@ function normalizeExplainSessionKey(params: {
 }
 
 function inferProviderFromSessionKey(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   sessionKey: string;
 }): string | undefined {
   const parsed = parseAgentSessionKey(params.sessionKey);
@@ -87,7 +87,7 @@ function inferProviderFromSessionKey(params: {
 }
 
 function resolveActiveChannel(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   sessionKey: string;
 }): string | undefined {

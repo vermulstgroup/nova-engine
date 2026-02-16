@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ModelApi } from "../config/types.models.js";
 import {
   buildHuggingfaceModelDefinition,
@@ -73,9 +73,9 @@ import {
 } from "./onboard-auth.models.js";
 
 export function applyZaiProviderConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { endpoint?: string; modelId?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const modelId = params?.modelId?.trim() || ZAI_DEFAULT_MODEL_ID;
   const modelRef = `zai/${modelId}`;
 
@@ -129,16 +129,16 @@ export function applyZaiProviderConfig(
 }
 
 export function applyZaiConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params?: { endpoint?: string; modelId?: string },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const modelId = params?.modelId?.trim() || ZAI_DEFAULT_MODEL_ID;
   const modelRef = modelId === ZAI_DEFAULT_MODEL_ID ? ZAI_DEFAULT_MODEL_REF : `zai/${modelId}`;
   const next = applyZaiProviderConfig(cfg, params);
   return applyAgentDefaultModelPrimary(next, modelRef);
 }
 
-export function applyOpenrouterProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyOpenrouterProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[OPENROUTER_DEFAULT_MODEL_REF] = {
     ...models[OPENROUTER_DEFAULT_MODEL_REF],
@@ -157,23 +157,23 @@ export function applyOpenrouterProviderConfig(cfg: Nova EngineConfig): Nova Engi
   };
 }
 
-export function applyOpenrouterConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyOpenrouterConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyOpenrouterProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, OPENROUTER_DEFAULT_MODEL_REF);
 }
 
-export function applyMoonshotProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMoonshotProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   return applyMoonshotProviderConfigWithBaseUrl(cfg, MOONSHOT_BASE_URL);
 }
 
-export function applyMoonshotProviderConfigCn(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMoonshotProviderConfigCn(cfg: NovaEngineConfig): NovaEngineConfig {
   return applyMoonshotProviderConfigWithBaseUrl(cfg, MOONSHOT_CN_BASE_URL);
 }
 
 function applyMoonshotProviderConfigWithBaseUrl(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   baseUrl: string,
-): Nova EngineConfig {
+): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[MOONSHOT_DEFAULT_MODEL_REF] = {
     ...models[MOONSHOT_DEFAULT_MODEL_REF],
@@ -192,17 +192,17 @@ function applyMoonshotProviderConfigWithBaseUrl(
   });
 }
 
-export function applyMoonshotConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMoonshotConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyMoonshotProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, MOONSHOT_DEFAULT_MODEL_REF);
 }
 
-export function applyMoonshotConfigCn(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyMoonshotConfigCn(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyMoonshotProviderConfigCn(cfg);
   return applyAgentDefaultModelPrimary(next, MOONSHOT_DEFAULT_MODEL_REF);
 }
 
-export function applyKimiCodeProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyKimiCodeProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[KIMI_CODING_MODEL_REF] = {
     ...models[KIMI_CODING_MODEL_REF],
@@ -221,12 +221,12 @@ export function applyKimiCodeProviderConfig(cfg: Nova EngineConfig): Nova Engine
   };
 }
 
-export function applyKimiCodeConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyKimiCodeConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyKimiCodeProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, KIMI_CODING_MODEL_REF);
 }
 
-export function applySyntheticProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applySyntheticProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[SYNTHETIC_DEFAULT_MODEL_REF] = {
     ...models[SYNTHETIC_DEFAULT_MODEL_REF],
@@ -260,12 +260,12 @@ export function applySyntheticProviderConfig(cfg: Nova EngineConfig): Nova Engin
   return applyOnboardAuthAgentModelsAndProviders(cfg, { agentModels: models, providers });
 }
 
-export function applySyntheticConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applySyntheticConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applySyntheticProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, SYNTHETIC_DEFAULT_MODEL_REF);
 }
 
-export function applyXiaomiProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyXiaomiProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[XIAOMI_DEFAULT_MODEL_REF] = {
     ...models[XIAOMI_DEFAULT_MODEL_REF],
@@ -283,7 +283,7 @@ export function applyXiaomiProviderConfig(cfg: Nova EngineConfig): Nova EngineCo
   });
 }
 
-export function applyXiaomiConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyXiaomiConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyXiaomiProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, XIAOMI_DEFAULT_MODEL_REF);
 }
@@ -292,7 +292,7 @@ export function applyXiaomiConfig(cfg: Nova EngineConfig): Nova EngineConfig {
  * Apply Venice provider configuration without changing the default model.
  * Registers Venice models and sets up the provider, but preserves existing model selection.
  */
-export function applyVeniceProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyVeniceProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[VENICE_DEFAULT_MODEL_REF] = {
     ...models[VENICE_DEFAULT_MODEL_REF],
@@ -313,7 +313,7 @@ export function applyVeniceProviderConfig(cfg: Nova EngineConfig): Nova EngineCo
  * Apply Venice provider configuration AND set Venice as the default model.
  * Use this when Venice is the primary provider choice during onboarding.
  */
-export function applyVeniceConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyVeniceConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyVeniceProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, VENICE_DEFAULT_MODEL_REF);
 }
@@ -322,7 +322,7 @@ export function applyVeniceConfig(cfg: Nova EngineConfig): Nova EngineConfig {
  * Apply Together provider configuration without changing the default model.
  * Registers Together models and sets up the provider, but preserves existing model selection.
  */
-export function applyTogetherProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyTogetherProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[TOGETHER_DEFAULT_MODEL_REF] = {
     ...models[TOGETHER_DEFAULT_MODEL_REF],
@@ -343,7 +343,7 @@ export function applyTogetherProviderConfig(cfg: Nova EngineConfig): Nova Engine
  * Apply Together provider configuration AND set Together as the default model.
  * Use this when Together is the primary provider choice during onboarding.
  */
-export function applyTogetherConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyTogetherConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyTogetherProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, TOGETHER_DEFAULT_MODEL_REF);
 }
@@ -351,7 +351,7 @@ export function applyTogetherConfig(cfg: Nova EngineConfig): Nova EngineConfig {
 /**
  * Apply Hugging Face (Inference Providers) provider configuration without changing the default model.
  */
-export function applyHuggingfaceProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyHuggingfaceProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[HUGGINGFACE_DEFAULT_MODEL_REF] = {
     ...models[HUGGINGFACE_DEFAULT_MODEL_REF],
@@ -371,12 +371,12 @@ export function applyHuggingfaceProviderConfig(cfg: Nova EngineConfig): Nova Eng
 /**
  * Apply Hugging Face provider configuration AND set Hugging Face as the default model.
  */
-export function applyHuggingfaceConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyHuggingfaceConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyHuggingfaceProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, HUGGINGFACE_DEFAULT_MODEL_REF);
 }
 
-export function applyXaiProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyXaiProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[XAI_DEFAULT_MODEL_REF] = {
     ...models[XAI_DEFAULT_MODEL_REF],
@@ -395,13 +395,13 @@ export function applyXaiProviderConfig(cfg: Nova EngineConfig): Nova EngineConfi
   });
 }
 
-export function applyXaiConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyXaiConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyXaiProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, XAI_DEFAULT_MODEL_REF);
 }
 
 export function applyAuthProfileConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   params: {
     profileId: string;
     provider: string;
@@ -409,7 +409,7 @@ export function applyAuthProfileConfig(
     email?: string;
     preferProfileFirst?: boolean;
   },
-): Nova EngineConfig {
+): NovaEngineConfig {
   const profiles = {
     ...cfg.auth?.profiles,
     [params.profileId]: {
@@ -449,7 +449,7 @@ export function applyAuthProfileConfig(
   };
 }
 
-export function applyQianfanProviderConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyQianfanProviderConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[QIANFAN_DEFAULT_MODEL_REF] = {
     ...models[QIANFAN_DEFAULT_MODEL_REF],
@@ -480,7 +480,7 @@ export function applyQianfanProviderConfig(cfg: Nova EngineConfig): Nova EngineC
   });
 }
 
-export function applyQianfanConfig(cfg: Nova EngineConfig): Nova EngineConfig {
+export function applyQianfanConfig(cfg: NovaEngineConfig): NovaEngineConfig {
   const next = applyQianfanProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, QIANFAN_DEFAULT_MODEL_REF);
 }

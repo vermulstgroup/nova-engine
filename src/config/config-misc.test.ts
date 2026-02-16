@@ -9,11 +9,11 @@ import {
 } from "./config-paths.js";
 import { readConfigFileSnapshot, validateConfigObject } from "./config.js";
 import { withTempHome } from "./test-helpers.js";
-import { Nova EngineSchema } from "./zod-schema.js";
+import { NovaEngineSchema } from "./zod-schema.js";
 
 describe("$schema key in config (#14998)", () => {
   it("accepts config with $schema string", () => {
-    const result = Nova EngineSchema.safeParse({
+    const result = NovaEngineSchema.safeParse({
       $schema: "https://nova-engine.ai/config.json",
     });
     expect(result.success).toBe(true);
@@ -23,12 +23,12 @@ describe("$schema key in config (#14998)", () => {
   });
 
   it("accepts config without $schema", () => {
-    const result = Nova EngineSchema.safeParse({});
+    const result = NovaEngineSchema.safeParse({});
     expect(result.success).toBe(true);
   });
 
   it("rejects non-string $schema", () => {
-    const result = Nova EngineSchema.safeParse({ $schema: 123 });
+    const result = NovaEngineSchema.safeParse({ $schema: 123 });
     expect(result.success).toBe(false);
   });
 });
@@ -155,7 +155,7 @@ describe("gateway.tools config", () => {
 
 describe("cron webhook schema", () => {
   it("accepts cron.webhookToken and legacy cron.webhook", () => {
-    const res = Nova EngineSchema.safeParse({
+    const res = NovaEngineSchema.safeParse({
       cron: {
         enabled: true,
         webhook: "https://example.invalid/legacy-cron-webhook",
@@ -167,7 +167,7 @@ describe("cron webhook schema", () => {
   });
 
   it("rejects non-http cron.webhook URLs", () => {
-    const res = Nova EngineSchema.safeParse({
+    const res = NovaEngineSchema.safeParse({
       cron: {
         webhook: "ftp://example.invalid/legacy-cron-webhook",
       },

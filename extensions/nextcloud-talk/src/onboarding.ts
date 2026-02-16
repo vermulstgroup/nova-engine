@@ -6,7 +6,7 @@ import {
   normalizeAccountId,
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
-  type Nova EngineConfig,
+  type NovaEngineConfig,
   type WizardPrompter,
 } from "nova-engine/plugin-sdk";
 import type { CoreConfig, DmPolicy } from "./types.js";
@@ -161,10 +161,10 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
   getCurrent: (cfg) => cfg.channels?.["nextcloud-talk"]?.dmPolicy ?? "pairing",
   setPolicy: (cfg, policy) => setNextcloudTalkDmPolicy(cfg as CoreConfig, policy as DmPolicy),
   promptAllowFrom: promptNextcloudTalkAllowFromForAccount as (params: {
-    cfg: Nova EngineConfig;
+    cfg: NovaEngineConfig;
     prompter: WizardPrompter;
     accountId?: string | undefined;
-  }) => Promise<Nova EngineConfig>,
+  }) => Promise<NovaEngineConfig>,
 };
 
 export const nextcloudTalkOnboardingAdapter: ChannelOnboardingAdapter = {
@@ -201,7 +201,7 @@ export const nextcloudTalkOnboardingAdapter: ChannelOnboardingAdapter = {
         prompter,
         label: "Nextcloud Talk",
         currentId: accountId,
-        listAccountIds: listNextcloudTalkAccountIds as (cfg: Nova EngineConfig) => string[],
+        listAccountIds: listNextcloudTalkAccountIds as (cfg: NovaEngineConfig) => string[],
         defaultAccountId,
       });
     }

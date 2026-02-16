@@ -1,4 +1,4 @@
-import type { Nova EngineConfig, SkillConfig } from "../../config/config.js";
+import type { NovaEngineConfig, SkillConfig } from "../../config/config.js";
 import type { SkillEligibilityContext, SkillEntry } from "./types.js";
 import {
   hasBinary,
@@ -15,12 +15,12 @@ const DEFAULT_CONFIG_VALUES: Record<string, boolean> = {
 
 export { hasBinary, resolveConfigPath, resolveRuntimePlatform };
 
-export function isConfigPathTruthy(config: Nova EngineConfig | undefined, pathStr: string): boolean {
+export function isConfigPathTruthy(config: NovaEngineConfig | undefined, pathStr: string): boolean {
   return isConfigPathTruthyWithDefaults(config, pathStr, DEFAULT_CONFIG_VALUES);
 }
 
 export function resolveSkillConfig(
-  config: Nova EngineConfig | undefined,
+  config: NovaEngineConfig | undefined,
   skillKey: string,
 ): SkillConfig | undefined {
   const skills = config?.skills?.entries;
@@ -51,7 +51,7 @@ function isBundledSkill(entry: SkillEntry): boolean {
   return BUNDLED_SOURCES.has(entry.skill.source);
 }
 
-export function resolveBundledAllowlist(config?: Nova EngineConfig): string[] | undefined {
+export function resolveBundledAllowlist(config?: NovaEngineConfig): string[] | undefined {
   return normalizeAllowlist(config?.skills?.allowBundled);
 }
 
@@ -68,7 +68,7 @@ export function isBundledSkillAllowed(entry: SkillEntry, allowlist?: string[]): 
 
 export function shouldIncludeSkill(params: {
   entry: SkillEntry;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
   eligibility?: SkillEligibilityContext;
 }): boolean {
   const { entry, config, eligibility } = params;

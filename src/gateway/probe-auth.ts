@@ -1,7 +1,7 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 
 export function resolveGatewayProbeAuth(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   mode: "local" | "remote";
   env?: NodeJS.ProcessEnv;
 }): { token?: string; password?: string } {

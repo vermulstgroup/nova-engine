@@ -1,8 +1,8 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ApplyAuthChoiceParams, ApplyAuthChoiceResult } from "./auth-choice.apply.js";
 import { promptAndConfigureVllm } from "./vllm-setup.js";
 
-function applyVllmDefaultModel(cfg: Nova EngineConfig, modelRef: string): Nova EngineConfig {
+function applyVllmDefaultModel(cfg: NovaEngineConfig, modelRef: string): NovaEngineConfig {
   const existingModel = cfg.agents?.defaults?.model;
   const fallbacks =
     existingModel && typeof existingModel === "object" && "fallbacks" in existingModel

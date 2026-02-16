@@ -1,5 +1,5 @@
 import fsSync from "node:fs";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveAgentDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import { resolveMemorySearchConfig } from "../agents/memory-search.js";
 import { resolveApiKeyForProvider } from "../agents/model-auth.js";
@@ -11,7 +11,7 @@ import { resolveUserPath } from "../utils.js";
  * Check whether memory search has a usable embedding provider.
  * Runs as part of `nova-engine doctor` — config-only, no network calls.
  */
-export async function noteMemorySearchHealth(cfg: Nova EngineConfig): Promise<void> {
+export async function noteMemorySearchHealth(cfg: NovaEngineConfig): Promise<void> {
   const agentId = resolveDefaultAgentId(cfg);
   const agentDir = resolveAgentDir(cfg, agentId);
   const resolved = resolveMemorySearchConfig(cfg, agentId);
@@ -112,7 +112,7 @@ function hasLocalEmbeddings(local: { modelPath?: string }): boolean {
 
 async function hasApiKeyForProvider(
   provider: "openai" | "gemini" | "voyage",
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentDir: string,
 ): Promise<boolean> {
   // Map embedding provider names to model-auth provider names

@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { CliBackendConfig } from "../config/types.js";
 import {
   CLI_FRESH_WATCHDOG_DEFAULTS,
@@ -145,7 +145,7 @@ function mergeBackendConfig(base: CliBackendConfig, override?: CliBackendConfig)
   };
 }
 
-export function resolveCliBackendIds(cfg?: Nova EngineConfig): Set<string> {
+export function resolveCliBackendIds(cfg?: NovaEngineConfig): Set<string> {
   const ids = new Set<string>([
     normalizeBackendKey("claude-cli"),
     normalizeBackendKey("codex-cli"),
@@ -159,7 +159,7 @@ export function resolveCliBackendIds(cfg?: Nova EngineConfig): Set<string> {
 
 export function resolveCliBackendConfig(
   provider: string,
-  cfg?: Nova EngineConfig,
+  cfg?: NovaEngineConfig,
 ): ResolvedCliBackend | null {
   const normalized = normalizeBackendKey(provider);
   const configured = cfg?.agents?.defaults?.cliBackends ?? {};

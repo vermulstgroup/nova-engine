@@ -3,10 +3,10 @@ import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { SandboxDockerConfig } from "./sandbox.js";
 import type { SandboxFsBridge } from "./sandbox/fs-bridge.js";
-import { createNova EngineCodingTools } from "./pi-tools.js";
+import { createNovaEngineCodingTools } from "./pi-tools.js";
 
 type ToolWithExecute = {
   execute: (toolCallId: string, args: unknown, signal?: AbortSignal) => Promise<unknown>;
@@ -28,7 +28,7 @@ describe("Agent-specific tool filtering", () => {
   };
 
   it("should apply global tool policy when no agent-specific policy exists", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         allow: ["read", "write"],
         deny: ["bash"],
@@ -43,7 +43,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test",
@@ -58,7 +58,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should keep global tool policy when agent only sets tools.elevated", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         deny: ["write"],
       },
@@ -78,7 +78,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test",
@@ -93,7 +93,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should allow apply_patch when exec is allow-listed and applyPatch is enabled", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         allow: ["read", "exec"],
         exec: {
@@ -102,7 +102,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test",
@@ -126,7 +126,7 @@ describe("Agent-specific tool filtering", () => {
     const relativeEscape = path.relative(workspaceDir, escapedPath);
 
     try {
-      const cfg: Nova EngineConfig = {
+      const cfg: NovaEngineConfig = {
         tools: {
           allow: ["read", "exec"],
           exec: {
@@ -135,7 +135,7 @@ describe("Agent-specific tool filtering", () => {
         },
       };
 
-      const tools = createNova EngineCodingTools({
+      const tools = createNovaEngineCodingTools({
         config: cfg,
         sessionKey: "agent:main:main",
         workspaceDir,
@@ -173,7 +173,7 @@ describe("Agent-specific tool filtering", () => {
     const relativeEscape = path.relative(workspaceDir, escapedPath);
 
     try {
-      const cfg: Nova EngineConfig = {
+      const cfg: NovaEngineConfig = {
         tools: {
           allow: ["read", "exec"],
           exec: {
@@ -182,7 +182,7 @@ describe("Agent-specific tool filtering", () => {
         },
       };
 
-      const tools = createNova EngineCodingTools({
+      const tools = createNovaEngineCodingTools({
         config: cfg,
         sessionKey: "agent:main:main",
         workspaceDir,
@@ -211,7 +211,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply agent-specific tool policy", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         allow: ["read", "write", "exec"],
         deny: [],
@@ -230,7 +230,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:restricted:main",
       workspaceDir: "/tmp/test-restricted",
@@ -246,7 +246,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply provider-specific tool policy", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         allow: ["read", "write", "exec"],
         byProvider: {
@@ -257,7 +257,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test-provider",
@@ -274,7 +274,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply provider-specific tool profile overrides", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         profile: "coding",
         byProvider: {
@@ -285,7 +285,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test-provider-profile",
@@ -299,7 +299,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should allow different tool policies for different agents", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         list: [
           {
@@ -320,7 +320,7 @@ describe("Agent-specific tool filtering", () => {
     };
 
     // main agent: all tools
-    const mainTools = createNova EngineCodingTools({
+    const mainTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test-main",
@@ -333,7 +333,7 @@ describe("Agent-specific tool filtering", () => {
     expect(mainToolNames).not.toContain("apply_patch");
 
     // family agent: restricted
-    const familyTools = createNova EngineCodingTools({
+    const familyTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:family:whatsapp:group:123",
       workspaceDir: "/tmp/test-family",
@@ -348,7 +348,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply group tool policy overrides (group-specific beats wildcard)", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -363,7 +363,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const trustedTools = createNova EngineCodingTools({
+    const trustedTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:whatsapp:group:trusted",
       messageProvider: "whatsapp",
@@ -374,7 +374,7 @@ describe("Agent-specific tool filtering", () => {
     expect(trustedNames).toContain("read");
     expect(trustedNames).toContain("exec");
 
-    const defaultTools = createNova EngineCodingTools({
+    const defaultTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:whatsapp:group:unknown",
       messageProvider: "whatsapp",
@@ -387,7 +387,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply per-sender tool policies for group tools", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -402,7 +402,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const aliceTools = createNova EngineCodingTools({
+    const aliceTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:whatsapp:group:family",
       senderId: "alice",
@@ -413,7 +413,7 @@ describe("Agent-specific tool filtering", () => {
     expect(aliceNames).toContain("read");
     expect(aliceNames).toContain("exec");
 
-    const bobTools = createNova EngineCodingTools({
+    const bobTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:whatsapp:group:family",
       senderId: "bob",
@@ -426,7 +426,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should not let default sender policy override group tools", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -443,7 +443,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const adminTools = createNova EngineCodingTools({
+    const adminTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:whatsapp:group:locked",
       senderId: "admin",
@@ -456,7 +456,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should resolve telegram group tool policy for topic session keys", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       channels: {
         telegram: {
           groups: {
@@ -468,7 +468,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:telegram:group:123:topic:456",
       messageProvider: "telegram",
@@ -481,7 +481,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should inherit group tool policy for subagents from spawnedBy session keys", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       channels: {
         whatsapp: {
           groups: {
@@ -493,7 +493,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:subagent:test",
       spawnedBy: "agent:main:whatsapp:group:trusted",
@@ -506,7 +506,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply global tool policy before agent-specific policy", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         deny: ["browser"], // Global deny
       },
@@ -523,7 +523,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:work:slack:dm:user123",
       workspaceDir: "/tmp/test-work",
@@ -539,7 +539,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should work with sandbox tools filtering", () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       agents: {
         defaults: {
           sandbox: {
@@ -572,7 +572,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:restricted:main",
       workspaceDir: "/tmp/test-restricted",
@@ -613,13 +613,13 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should run exec synchronously when process is denied", async () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         deny: ["process"],
       },
     };
 
-    const tools = createNova EngineCodingTools({
+    const tools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test-main",
@@ -637,7 +637,7 @@ describe("Agent-specific tool filtering", () => {
   });
 
   it("should apply agent-specific exec host defaults over global defaults", async () => {
-    const cfg: Nova EngineConfig = {
+    const cfg: NovaEngineConfig = {
       tools: {
         exec: {
           host: "sandbox",
@@ -660,7 +660,7 @@ describe("Agent-specific tool filtering", () => {
       },
     };
 
-    const mainTools = createNova EngineCodingTools({
+    const mainTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:main:main",
       workspaceDir: "/tmp/test-main-exec-defaults",
@@ -675,7 +675,7 @@ describe("Agent-specific tool filtering", () => {
       }),
     ).rejects.toThrow("exec host not allowed");
 
-    const helperTools = createNova EngineCodingTools({
+    const helperTools = createNovaEngineCodingTools({
       config: cfg,
       sessionKey: "agent:helper:main",
       workspaceDir: "/tmp/test-helper-exec-defaults",

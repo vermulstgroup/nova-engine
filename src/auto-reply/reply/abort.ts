@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { FinalizedMsgContext, MsgContext } from "../templating.js";
 import { resolveSessionAgentId } from "../../agents/agent-scope.js";
 import { abortEmbeddedPiRun } from "../../agents/pi-embedded.js";
@@ -126,7 +126,7 @@ function resolveAbortTargetKey(ctx: MsgContext): string | undefined {
 }
 
 function normalizeRequesterSessionKey(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   key: string | undefined,
 ): string | undefined {
   const cleaned = key?.trim();
@@ -138,7 +138,7 @@ function normalizeRequesterSessionKey(
 }
 
 export function stopSubagentsForRequester(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   requesterSessionKey?: string;
 }): { stopped: number } {
   const requesterKey = normalizeRequesterSessionKey(params.cfg, params.requesterSessionKey);
@@ -201,7 +201,7 @@ export function stopSubagentsForRequester(params: {
 
 export async function tryFastAbortFromMessage(params: {
   ctx: FinalizedMsgContext;
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
 }): Promise<{ handled: boolean; aborted: boolean; stoppedSubagents?: number }> {
   const { ctx, cfg } = params;
   const targetKey = resolveAbortTargetKey(ctx);

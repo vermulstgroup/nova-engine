@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import type { ProviderAuthMethod, ProviderPlugin } from "../plugins/types.js";
 import { normalizeProviderId } from "../agents/model-selection.js";
 
@@ -58,7 +58,7 @@ export function mergeConfigPatch<T>(base: T, patch: unknown): T {
   return next as T;
 }
 
-export function applyDefaultModel(cfg: Nova EngineConfig, model: string): Nova EngineConfig {
+export function applyDefaultModel(cfg: NovaEngineConfig, model: string): NovaEngineConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[model] = models[model] ?? {};
 

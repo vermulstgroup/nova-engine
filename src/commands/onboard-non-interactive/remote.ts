@@ -1,4 +1,4 @@
-import type { Nova EngineConfig } from "../../config/config.js";
+import type { NovaEngineConfig } from "../../config/config.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { OnboardOptions } from "../onboard-types.js";
 import { formatCliCommand } from "../../cli/command-format.js";
@@ -9,7 +9,7 @@ import { applyWizardMetadata } from "../onboard-helpers.js";
 export async function runNonInteractiveOnboardingRemote(params: {
   opts: OnboardOptions;
   runtime: RuntimeEnv;
-  baseConfig: Nova EngineConfig;
+  baseConfig: NovaEngineConfig;
 }) {
   const { opts, runtime, baseConfig } = params;
   const mode = "remote" as const;
@@ -21,7 +21,7 @@ export async function runNonInteractiveOnboardingRemote(params: {
     return;
   }
 
-  let nextConfig: Nova EngineConfig = {
+  let nextConfig: NovaEngineConfig = {
     ...baseConfig,
     gateway: {
       ...baseConfig.gateway,

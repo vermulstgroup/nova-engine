@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { Nova EngineConfig } from "../config/config.js";
+import type { NovaEngineConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import {
   DEFAULT_AGENT_ID,
@@ -12,7 +12,7 @@ import { resolveDefaultAgentWorkspaceDir } from "./workspace.js";
 
 export { resolveAgentIdFromSessionKey } from "../routing/session-key.js";
 
-type AgentEntry = NonNullable<NonNullable<Nova EngineConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<NovaEngineConfig["agents"]>["list"]>[number];
 
 type ResolvedAgentConfig = {
   name?: string;
@@ -32,7 +32,7 @@ type ResolvedAgentConfig = {
 
 let defaultAgentWarned = false;
 
-function listAgents(cfg: Nova EngineConfig): AgentEntry[] {
+function listAgents(cfg: NovaEngineConfig): AgentEntry[] {
   const list = cfg.agents?.list;
   if (!Array.isArray(list)) {
     return [];
@@ -40,7 +40,7 @@ function listAgents(cfg: Nova EngineConfig): AgentEntry[] {
   return list.filter((entry): entry is AgentEntry => Boolean(entry && typeof entry === "object"));
 }
 
-export function listAgentIds(cfg: Nova EngineConfig): string[] {
+export function listAgentIds(cfg: NovaEngineConfig): string[] {
   const agents = listAgents(cfg);
   if (agents.length === 0) {
     return [DEFAULT_AGENT_ID];
@@ -58,7 +58,7 @@ export function listAgentIds(cfg: Nova EngineConfig): string[] {
   return ids.length > 0 ? ids : [DEFAULT_AGENT_ID];
 }
 
-export function resolveDefaultAgentId(cfg: Nova EngineConfig): string {
+export function resolveDefaultAgentId(cfg: NovaEngineConfig): string {
   const agents = listAgents(cfg);
   if (agents.length === 0) {
     return DEFAULT_AGENT_ID;
@@ -72,7 +72,7 @@ export function resolveDefaultAgentId(cfg: Nova EngineConfig): string {
   return normalizeAgentId(chosen || DEFAULT_AGENT_ID);
 }
 
-export function resolveSessionAgentIds(params: { sessionKey?: string; config?: Nova EngineConfig }): {
+export function resolveSessionAgentIds(params: { sessionKey?: string; config?: NovaEngineConfig }): {
   defaultAgentId: string;
   sessionAgentId: string;
 } {
@@ -86,18 +86,18 @@ export function resolveSessionAgentIds(params: { sessionKey?: string; config?: N
 
 export function resolveSessionAgentId(params: {
   sessionKey?: string;
-  config?: Nova EngineConfig;
+  config?: NovaEngineConfig;
 }): string {
   return resolveSessionAgentIds(params).sessionAgentId;
 }
 
-function resolveAgentEntry(cfg: Nova EngineConfig, agentId: string): AgentEntry | undefined {
+function resolveAgentEntry(cfg: NovaEngineConfig, agentId: string): AgentEntry | undefined {
   const id = normalizeAgentId(agentId);
   return listAgents(cfg).find((entry) => normalizeAgentId(entry.id) === id);
 }
 
 export function resolveAgentConfig(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
 ): ResolvedAgentConfig | undefined {
   const id = normalizeAgentId(agentId);
@@ -126,13 +126,13 @@ export function resolveAgentConfig(
 }
 
 export function resolveAgentSkillsFilter(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
 ): string[] | undefined {
   return normalizeSkillFilter(resolveAgentConfig(cfg, agentId)?.skills);
 }
 
-export function resolveAgentModelPrimary(cfg: Nova EngineConfig, agentId: string): string | undefined {
+export function resolveAgentModelPrimary(cfg: NovaEngineConfig, agentId: string): string | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
   if (!raw) {
     return undefined;
@@ -145,7 +145,7 @@ export function resolveAgentModelPrimary(cfg: Nova EngineConfig, agentId: string
 }
 
 export function resolveAgentModelFallbacksOverride(
-  cfg: Nova EngineConfig,
+  cfg: NovaEngineConfig,
   agentId: string,
 ): string[] | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.model;
@@ -160,7 +160,7 @@ export function resolveAgentModelFallbacksOverride(
 }
 
 export function resolveEffectiveModelFallbacks(params: {
-  cfg: Nova EngineConfig;
+  cfg: NovaEngineConfig;
   agentId: string;
   hasSessionModelOverride: boolean;
 }): string[] | undefined {
@@ -175,7 +175,7 @@ export function resolveEffectiveModelFallbacks(params: {
   return agentFallbacksOverride ?? defaultFallbacks;
 }
 
-export function resolveAgentWorkspaceDir(cfg: Nova EngineConfig, agentId: string) {
+export function resolveAgentWorkspaceDir(cfg: NovaEngineConfig, agentId: string) {
   const id = normalizeAgentId(agentId);
   const configured = resolveAgentConfig(cfg, id)?.workspace?.trim();
   if (configured) {
@@ -193,7 +193,7 @@ export function resolveAgentWorkspaceDir(cfg: Nova EngineConfig, agentId: string
   return path.join(stateDir, `workspace-${id}`);
 }
 
-export function resolveAgentDir(cfg: Nova EngineConfig, agentId: string) {
+export function resolveAgentDir(cfg: NovaEngineConfig, agentId: string) {
   const id = normalizeAgentId(agentId);
   const configured = resolveAgentConfig(cfg, id)?.agentDir?.trim();
   if (configured) {

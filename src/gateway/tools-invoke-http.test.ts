@@ -110,7 +110,7 @@ vi.mock("../agents/nova-engine-tools.js", () => {
   ];
 
   return {
-    createNova EngineTools: () => tools,
+    createNovaEngineTools: () => tools,
   };
 });
 

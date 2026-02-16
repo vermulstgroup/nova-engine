@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { Nova EngineSchema } from "./zod-schema.js";
+import { NovaEngineSchema } from "./zod-schema.js";
 
 describe("skills entries config schema", () => {
   it("accepts custom fields under config", () => {
-    const res = Nova EngineSchema.safeParse({
+    const res = NovaEngineSchema.safeParse({
       skills: {
         entries: {
           "custom-skill": {
@@ -21,7 +21,7 @@ describe("skills entries config schema", () => {
   });
 
   it("rejects unknown top-level fields", () => {
-    const res = Nova EngineSchema.safeParse({
+    const res = NovaEngineSchema.safeParse({
       skills: {
         entries: {
           "custom-skill": {
