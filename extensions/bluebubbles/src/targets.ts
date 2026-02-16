@@ -3,7 +3,7 @@ import {
   parseChatTargetPrefixesOrThrow,
   resolveServicePrefixedAllowTarget,
   resolveServicePrefixedTarget,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 
 export type BlueBubblesService = "imessage" | "sms" | "auto";
 

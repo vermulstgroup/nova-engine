@@ -1,0 +1,26 @@
+# Nova Engine gateway — Podman Quadlet (rootless)
+# Installed by setup-podman.sh into nova-engine's ~/.config/containers/systemd/
+# {{NOVA_HOME}} is replaced at install time.
+
+[Unit]
+Description=Nova Engine gateway (rootless Podman)
+
+[Container]
+Image=nova-engine:local
+ContainerName=nova-engine
+UserNS=keep-id
+Volume={{NOVA_HOME}}/.nova-engine:/home/node/.nova-engine
+EnvironmentFile={{NOVA_HOME}}/.nova-engine/.env
+Environment=HOME=/home/node
+Environment=TERM=xterm-256color
+PublishPort=18789:18789
+PublishPort=18790:18790
+Pull=never
+Exec=node dist/index.js gateway --bind lan --port 18789
+
+[Service]
+TimeoutStartSec=300
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

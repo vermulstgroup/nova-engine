@@ -1,4 +1,4 @@
-export type OpenClawVersion = {
+export type Nova EngineVersion = {
   major: number;
   minor: number;
   patch: number;
@@ -7,7 +7,7 @@ export type OpenClawVersion = {
 
 const VERSION_RE = /^v?(\d+)\.(\d+)\.(\d+)(?:-(\d+))?/;
 
-export function parseOpenClawVersion(raw: string | null | undefined): OpenClawVersion | null {
+export function parseNova EngineVersion(raw: string | null | undefined): Nova EngineVersion | null {
   if (!raw) {
     return null;
   }
@@ -24,12 +24,12 @@ export function parseOpenClawVersion(raw: string | null | undefined): OpenClawVe
   };
 }
 
-export function compareOpenClawVersions(
+export function compareNova EngineVersions(
   a: string | null | undefined,
   b: string | null | undefined,
 ): number | null {
-  const parsedA = parseOpenClawVersion(a);
-  const parsedB = parseOpenClawVersion(b);
+  const parsedA = parseNova EngineVersion(a);
+  const parsedB = parseNova EngineVersion(b);
   if (!parsedA || !parsedB) {
     return null;
   }

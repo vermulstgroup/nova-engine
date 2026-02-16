@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 
 export function applyOnboardingLocalWorkspaceConfig(
-  baseConfig: OpenClawConfig,
+  baseConfig: Nova EngineConfig,
   workspaceDir: string,
-): OpenClawConfig {
+): Nova EngineConfig {
   return {
     ...baseConfig,
     agents: {

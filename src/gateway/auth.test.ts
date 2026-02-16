@@ -18,13 +18,13 @@ function createLimiterSpy(): AuthRateLimiter & {
 }
 
 describe("gateway auth", () => {
-  it("resolves token/password from OPENCLAW gateway env vars", () => {
+  it("resolves token/password from NOVA ENGINE gateway env vars", () => {
     expect(
       resolveGatewayAuth({
         authConfig: {},
         env: {
-          OPENCLAW_GATEWAY_TOKEN: "env-token",
-          OPENCLAW_GATEWAY_PASSWORD: "env-password",
+          NOVA_GATEWAY_TOKEN: "env-token",
+          NOVA_GATEWAY_PASSWORD: "env-password",
         } as NodeJS.ProcessEnv,
       }),
     ).toMatchObject({

@@ -24,11 +24,11 @@ Use this page for day-1 startup and day-2 operations of the Gateway service.
   <Step title="Start the Gateway">
 
 ```bash
-openclaw gateway --port 18789
+nova-engine gateway --port 18789
 # debug/trace mirrored to stdio
-openclaw gateway --port 18789 --verbose
+nova-engine gateway --port 18789 --verbose
 # force-kill listener on selected port, then start
-openclaw gateway --force
+nova-engine gateway --force
 ```
 
   </Step>
@@ -36,9 +36,9 @@ openclaw gateway --force
   <Step title="Verify service health">
 
 ```bash
-openclaw gateway status
-openclaw status
-openclaw logs --follow
+nova-engine gateway status
+nova-engine status
+nova-engine logs --follow
 ```
 
 Healthy baseline: `Runtime: running` and `RPC probe: ok`.
@@ -48,14 +48,14 @@ Healthy baseline: `Runtime: running` and `RPC probe: ok`.
   <Step title="Validate channel readiness">
 
 ```bash
-openclaw channels status --probe
+nova-engine channels status --probe
 ```
 
   </Step>
 </Steps>
 
 <Note>
-Gateway config reload watches the active config file path (resolved from profile/state defaults, or `OPENCLAW_CONFIG_PATH` when set).
+Gateway config reload watches the active config file path (resolved from profile/state defaults, or `NOVA_CONFIG_PATH` when set).
 Default mode is `gateway.reload.mode="hybrid"`.
 </Note>
 
@@ -67,13 +67,13 @@ Default mode is `gateway.reload.mode="hybrid"`.
   - HTTP APIs (OpenAI-compatible, Responses, tools invoke)
   - Control UI and hooks
 - Default bind mode: `loopback`.
-- Auth is required by default (`gateway.auth.token` / `gateway.auth.password`, or `OPENCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`).
+- Auth is required by default (`gateway.auth.token` / `gateway.auth.password`, or `NOVA_GATEWAY_TOKEN` / `NOVA_GATEWAY_PASSWORD`).
 
 ### Port and bind precedence
 
 | Setting      | Resolution order                                              |
 | ------------ | ------------------------------------------------------------- |
-| Gateway port | `--port` → `OPENCLAW_GATEWAY_PORT` → `gateway.port` → `18789` |
+| Gateway port | `--port` → `NOVA_GATEWAY_PORT` → `gateway.port` → `18789` |
 | Bind mode    | CLI/override → `gateway.bind` → `loopback`                    |
 
 ### Hot reload modes
@@ -88,14 +88,14 @@ Default mode is `gateway.reload.mode="hybrid"`.
 ## Operator command set
 
 ```bash
-openclaw gateway status
-openclaw gateway status --deep
-openclaw gateway status --json
-openclaw gateway install
-openclaw gateway restart
-openclaw gateway stop
-openclaw logs --follow
-openclaw doctor
+nova-engine gateway status
+nova-engine gateway status --deep
+nova-engine gateway status --json
+nova-engine gateway install
+nova-engine gateway restart
+nova-engine gateway stop
+nova-engine logs --follow
+nova-engine doctor
 ```
 
 ## Remote access
@@ -123,22 +123,22 @@ Use supervised runs for production-like reliability.
   <Tab title="macOS (launchd)">
 
 ```bash
-openclaw gateway install
-openclaw gateway status
-openclaw gateway restart
-openclaw gateway stop
+nova-engine gateway install
+nova-engine gateway status
+nova-engine gateway restart
+nova-engine gateway stop
 ```
 
-LaunchAgent labels are `ai.openclaw.gateway` (default) or `ai.openclaw.<profile>` (named profile). `openclaw doctor` audits and repairs service config drift.
+LaunchAgent labels are `ai.nova-engine.gateway` (default) or `ai.nova-engine.<profile>` (named profile). `nova-engine doctor` audits and repairs service config drift.
 
   </Tab>
 
   <Tab title="Linux (systemd user)">
 
 ```bash
-openclaw gateway install
-systemctl --user enable --now openclaw-gateway[-<profile>].service
-openclaw gateway status
+nova-engine gateway install
+systemctl --user enable --now nova-engine-gateway[-<profile>].service
+nova-engine gateway status
 ```
 
 For persistence after logout, enable lingering:
@@ -155,7 +155,7 @@ Use a system unit for multi-user/always-on hosts.
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now openclaw-gateway[-<profile>].service
+sudo systemctl enable --now nova-engine-gateway[-<profile>].service
 ```
 
   </Tab>
@@ -169,15 +169,15 @@ Use multiple only for strict isolation/redundancy (for example a rescue profile)
 Checklist per instance:
 
 - Unique `gateway.port`
-- Unique `OPENCLAW_CONFIG_PATH`
-- Unique `OPENCLAW_STATE_DIR`
+- Unique `NOVA_CONFIG_PATH`
+- Unique `NOVA_STATE_DIR`
 - Unique `agents.defaults.workspace`
 
 Example:
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.openclaw/a.json OPENCLAW_STATE_DIR=~/.openclaw-a openclaw gateway --port 19001
-OPENCLAW_CONFIG_PATH=~/.openclaw/b.json OPENCLAW_STATE_DIR=~/.openclaw-b openclaw gateway --port 19002
+NOVA_CONFIG_PATH=~/.nova-engine/a.json NOVA_STATE_DIR=~/.nova-engine-a nova-engine gateway --port 19001
+NOVA_CONFIG_PATH=~/.nova-engine/b.json NOVA_STATE_DIR=~/.nova-engine-b nova-engine gateway --port 19002
 ```
 
 See: [Multiple gateways](/gateway/multiple-gateways).
@@ -185,9 +185,9 @@ See: [Multiple gateways](/gateway/multiple-gateways).
 ### Dev profile quick path
 
 ```bash
-openclaw --dev setup
-openclaw --dev gateway --allow-unconfigured
-openclaw --dev status
+nova-engine --dev setup
+nova-engine --dev gateway --allow-unconfigured
+nova-engine --dev status
 ```
 
 Defaults include isolated state/config and base gateway port `19001`.
@@ -216,9 +216,9 @@ See full protocol docs: [Gateway Protocol](/gateway/protocol).
 ### Readiness
 
 ```bash
-openclaw gateway status
-openclaw channels status --probe
-openclaw health
+nova-engine gateway status
+nova-engine channels status --probe
+nova-engine health
 ```
 
 ### Gap recovery

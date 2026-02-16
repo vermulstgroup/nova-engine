@@ -46,11 +46,11 @@ describe("memory manager atomic reindex", () => {
   let manager: MemoryIndexManager | null = null;
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mem-atomic-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-mem-atomic-"));
   });
 
   beforeEach(async () => {
-    vi.stubEnv("OPENCLAW_TEST_MEMORY_UNSAFE_REINDEX", "0");
+    vi.stubEnv("NOVA_TEST_MEMORY_UNSAFE_REINDEX", "0");
     shouldFail = false;
     workspaceDir = path.join(fixtureRoot, `case-${caseId++}`);
     await fs.mkdir(workspaceDir, { recursive: true });

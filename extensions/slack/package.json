@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/slack",
+  "name": "@nova-engine/slack",
   "version": "2026.2.16",
   "private": true,
-  "description": "OpenClaw Slack channel plugin",
+  "description": "Nova Engine Slack channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ]

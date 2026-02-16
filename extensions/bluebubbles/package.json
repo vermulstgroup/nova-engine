@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/bluebubbles",
+  "name": "@nova-engine/bluebubbles",
   "version": "2026.2.16",
-  "description": "OpenClaw BlueBubbles channel plugin",
+  "description": "Nova Engine BlueBubbles channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "order": 75
     },
     "install": {
-      "npmSpec": "@openclaw/bluebubbles",
+      "npmSpec": "@nova-engine/bluebubbles",
       "localPath": "extensions/bluebubbles",
       "defaultChoice": "npm"
     }

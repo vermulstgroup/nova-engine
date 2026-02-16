@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@nova-engine/mattermost",
   "version": "2026.2.16",
   "private": true,
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "Nova Engine Mattermost channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ],
@@ -21,7 +21,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@nova-engine/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

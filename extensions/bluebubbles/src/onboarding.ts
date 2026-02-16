@@ -1,17 +1,17 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  OpenClawConfig,
+  Nova EngineConfig,
   DmPolicy,
   WizardPrompter,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import {
   DEFAULT_ACCOUNT_ID,
   addWildcardAllowFrom,
   formatDocsLink,
   normalizeAccountId,
   promptAccountId,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import {
   listBlueBubblesAccountIds,
   resolveBlueBubblesAccount,
@@ -22,7 +22,7 @@ import { normalizeBlueBubblesServerUrl } from "./types.js";
 
 const channel = "bluebubbles" as const;
 
-function setBlueBubblesDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy): OpenClawConfig {
+function setBlueBubblesDmPolicy(cfg: Nova EngineConfig, dmPolicy: DmPolicy): Nova EngineConfig {
   const allowFrom =
     dmPolicy === "open" ? addWildcardAllowFrom(cfg.channels?.bluebubbles?.allowFrom) : undefined;
   return {
@@ -39,10 +39,10 @@ function setBlueBubblesDmPolicy(cfg: OpenClawConfig, dmPolicy: DmPolicy): OpenCl
 }
 
 function setBlueBubblesAllowFrom(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   accountId: string,
   allowFrom: string[],
-): OpenClawConfig {
+): Nova EngineConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
@@ -81,10 +81,10 @@ function parseBlueBubblesAllowFromInput(raw: string): string[] {
 }
 
 async function promptBlueBubblesAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: Nova EngineConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<Nova EngineConfig> {
   const accountId =
     params.accountId && normalizeAccountId(params.accountId)
       ? (normalizeAccountId(params.accountId) ?? DEFAULT_ACCOUNT_ID)
@@ -330,7 +330,7 @@ export const blueBubblesOnboardingAdapter: ChannelOnboardingAdapter = {
       [
         "Configure the webhook URL in BlueBubbles Server:",
         "1. Open BlueBubbles Server → Settings → Webhooks",
-        "2. Add your OpenClaw gateway URL + webhook path",
+        "2. Add your Nova Engine gateway URL + webhook path",
         "   Example: https://your-gateway-host:3000/bluebubbles-webhook",
         "3. Enable the webhook and save",
         "",

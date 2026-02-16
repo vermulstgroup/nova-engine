@@ -1,15 +1,15 @@
 ---
 name: boot-md
 description: "Run BOOT.md on gateway startup"
-homepage: https://docs.openclaw.ai/automation/hooks#boot-md
+homepage: https://docs.nova-engine.ai/automation/hooks#boot-md
 metadata:
   {
-    "openclaw":
+    "nova-engine":
       {
         "emoji": "🚀",
         "events": ["gateway:startup"],
         "requires": { "config": ["workspace.dir"] },
-        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with OpenClaw" }],
+        "install": [{ "id": "bundled", "kind": "bundled", "label": "Bundled with Nova Engine" }],
       },
   }
 ---

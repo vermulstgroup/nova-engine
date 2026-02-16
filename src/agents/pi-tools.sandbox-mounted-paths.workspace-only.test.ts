@@ -2,10 +2,10 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import type { SandboxContext } from "./sandbox.js";
 import type { SandboxFsBridge, SandboxResolvedPath } from "./sandbox/fs-bridge.js";
-import { createOpenClawCodingTools } from "./pi-tools.js";
+import { createNova EngineCodingTools } from "./pi-tools.js";
 import { createSandboxFsBridgeFromResolver } from "./test-helpers/host-sandbox-fs-bridge.js";
 
 vi.mock("../infra/shell-env.js", async (importOriginal) => {
@@ -69,12 +69,12 @@ function createSandbox(params: {
     workspaceDir: params.sandboxRoot,
     agentWorkspaceDir: params.agentRoot,
     workspaceAccess: "rw",
-    containerName: "openclaw-sbx-test",
+    containerName: "nova-engine-sbx-test",
     containerWorkdir: "/workspace",
     fsBridge: params.fsBridge,
     docker: {
-      image: "openclaw-sandbox:bookworm-slim",
-      containerPrefix: "openclaw-sbx-",
+      image: "nova-engine-sandbox:bookworm-slim",
+      containerPrefix: "nova-engine-sbx-",
       workdir: "/workspace",
       readOnlyRoot: true,
       tmpfs: [],
@@ -90,7 +90,7 @@ function createSandbox(params: {
 
 describe("tools.fs.workspaceOnly", () => {
   it("defaults to allowing sandbox mounts outside the workspace root", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sbx-mounts-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-sbx-mounts-"));
     const sandboxRoot = path.join(stateDir, "sandbox");
     const agentRoot = path.join(stateDir, "agent");
     await fs.mkdir(sandboxRoot, { recursive: true });
@@ -101,7 +101,7 @@ describe("tools.fs.workspaceOnly", () => {
       const bridge = createUnsafeMountedBridge({ root: sandboxRoot, agentHostRoot: agentRoot });
       const sandbox = createSandbox({ sandboxRoot, agentRoot, fsBridge: bridge });
 
-      const tools = createOpenClawCodingTools({ sandbox, workspaceDir: sandboxRoot });
+      const tools = createNova EngineCodingTools({ sandbox, workspaceDir: sandboxRoot });
       const readTool = tools.find((tool) => tool.name === "read");
       const writeTool = tools.find((tool) => tool.name === "write");
       expect(readTool).toBeDefined();
@@ -118,7 +118,7 @@ describe("tools.fs.workspaceOnly", () => {
   });
 
   it("rejects sandbox mounts outside the workspace root when enabled", async () => {
-    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sbx-mounts-"));
+    const stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-sbx-mounts-"));
     const sandboxRoot = path.join(stateDir, "sandbox");
     const agentRoot = path.join(stateDir, "agent");
     await fs.mkdir(sandboxRoot, { recursive: true });
@@ -129,8 +129,8 @@ describe("tools.fs.workspaceOnly", () => {
       const bridge = createUnsafeMountedBridge({ root: sandboxRoot, agentHostRoot: agentRoot });
       const sandbox = createSandbox({ sandboxRoot, agentRoot, fsBridge: bridge });
 
-      const cfg = { tools: { fs: { workspaceOnly: true } } } as unknown as OpenClawConfig;
-      const tools = createOpenClawCodingTools({ sandbox, workspaceDir: sandboxRoot, config: cfg });
+      const cfg = { tools: { fs: { workspaceOnly: true } } } as unknown as Nova EngineConfig;
+      const tools = createNova EngineCodingTools({ sandbox, workspaceDir: sandboxRoot, config: cfg });
       const readTool = tools.find((tool) => tool.name === "read");
       const writeTool = tools.find((tool) => tool.name === "write");
       const editTool = tools.find((tool) => tool.name === "edit");

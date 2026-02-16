@@ -1,4 +1,4 @@
-module github.com/openclaw/openclaw/scripts/docs-i18n
+module github.com/nova-engine/nova-engine/scripts/docs-i18n
 
 go 1.24.0
 

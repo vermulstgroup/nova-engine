@@ -6,12 +6,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "bundled",
-        source: "/opt/homebrew/lib/node_modules/openclaw/extensions/bluebubbles/index.ts",
+        source: "/opt/homebrew/lib/node_modules/nova-engine/extensions/bluebubbles/index.ts",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/openclaw/extensions",
-        global: "/Users/x/.openclaw/extensions",
-        workspace: "/Users/x/ws/.openclaw/extensions",
+        stock: "/opt/homebrew/lib/node_modules/nova-engine/extensions",
+        global: "/Users/x/.nova-engine/extensions",
+        workspace: "/Users/x/ws/.nova-engine/extensions",
       },
     );
     expect(out.value).toBe("stock:bluebubbles/index.ts");
@@ -22,12 +22,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "workspace",
-        source: "/Users/x/ws/.openclaw/extensions/matrix/index.ts",
+        source: "/Users/x/ws/.nova-engine/extensions/matrix/index.ts",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/openclaw/extensions",
-        global: "/Users/x/.openclaw/extensions",
-        workspace: "/Users/x/ws/.openclaw/extensions",
+        stock: "/opt/homebrew/lib/node_modules/nova-engine/extensions",
+        global: "/Users/x/.nova-engine/extensions",
+        workspace: "/Users/x/ws/.nova-engine/extensions",
       },
     );
     expect(out.value).toBe("workspace:matrix/index.ts");
@@ -38,12 +38,12 @@ describe("formatPluginSourceForTable", () => {
     const out = formatPluginSourceForTable(
       {
         origin: "global",
-        source: "/Users/x/.openclaw/extensions/zalo/index.js",
+        source: "/Users/x/.nova-engine/extensions/zalo/index.js",
       },
       {
-        stock: "/opt/homebrew/lib/node_modules/openclaw/extensions",
-        global: "/Users/x/.openclaw/extensions",
-        workspace: "/Users/x/ws/.openclaw/extensions",
+        stock: "/opt/homebrew/lib/node_modules/nova-engine/extensions",
+        global: "/Users/x/.nova-engine/extensions",
+        workspace: "/Users/x/ws/.nova-engine/extensions",
       },
     );
     expect(out.value).toBe("global:zalo/index.js");

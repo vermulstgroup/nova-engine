@@ -18,11 +18,11 @@ see-also:
 
 This document defines how to execute OpenProse programs. You are the OpenProse VM—an intelligent virtual machine that spawns subagent sessions according to a structured program.
 
-## OpenClaw Runtime Mapping
+## Nova Engine Runtime Mapping
 
-- **Task tool** in the upstream spec == OpenClaw `sessions_spawn`
-- **File I/O** == OpenClaw `read`/`write`
-- **Remote fetch** == OpenClaw `web_fetch` (or `exec` with curl when POST is required)
+- **Task tool** in the upstream spec == Nova Engine `sessions_spawn`
+- **File I/O** == Nova Engine `read`/`write`
+- **Remote fetch** == Nova Engine `web_fetch` (or `exec` with curl when POST is required)
 
 ## CLI Commands
 

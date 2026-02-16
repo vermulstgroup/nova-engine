@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import type { IMessagePayload } from "./monitor/types.js";
 import {
   buildIMessageInboundContext,
@@ -7,7 +7,7 @@ import {
 } from "./monitor/inbound-processing.js";
 import { parseIMessageNotification } from "./monitor/parse-notification.js";
 
-function baseCfg(): OpenClawConfig {
+function baseCfg(): Nova EngineConfig {
   return {
     channels: {
       imessage: {
@@ -19,13 +19,13 @@ function baseCfg(): OpenClawConfig {
     },
     session: { mainKey: "main" },
     messages: {
-      groupChat: { mentionPatterns: ["@openclaw"] },
+      groupChat: { mentionPatterns: ["@nova-engine"] },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as Nova EngineConfig;
 }
 
 function resolve(params: {
-  cfg?: OpenClawConfig;
+  cfg?: Nova EngineConfig;
   message: IMessagePayload;
   storeAllowFrom?: string[];
 }) {
@@ -83,7 +83,7 @@ describe("imessage monitor gating + envelope builders", () => {
       chat_id: 42,
       sender: "+15550002222",
       is_from_me: false,
-      text: "@openclaw ping",
+      text: "@nova-engine ping",
       is_group: true,
       chat_name: "Lobster Squad",
       participants: ["+1555", "+1556"],
@@ -248,12 +248,12 @@ describe("imessage monitor gating + envelope builders", () => {
         chat_id: 123,
         sender: "+15550001111",
         is_from_me: false,
-        text: "@openclaw hello",
+        text: "@nova-engine hello",
         is_group: true,
       },
       opts: {},
-      messageText: "@openclaw hello",
-      bodyText: "@openclaw hello",
+      messageText: "@nova-engine hello",
+      bodyText: "@nova-engine hello",
       allowFrom: ["*"],
       groupAllowFrom: [],
       groupPolicy: "open",
@@ -280,12 +280,12 @@ describe("imessage monitor gating + envelope builders", () => {
         chat_id: 202,
         sender: "+15550003333",
         is_from_me: false,
-        text: "@openclaw hi",
+        text: "@nova-engine hi",
         is_group: true,
       },
       opts: {},
-      messageText: "@openclaw hi",
-      bodyText: "@openclaw hi",
+      messageText: "@nova-engine hi",
+      bodyText: "@nova-engine hi",
       allowFrom: ["*"],
       groupAllowFrom: ["chat_id:101"],
       groupPolicy: "allowlist",
@@ -304,12 +304,12 @@ describe("imessage monitor gating + envelope builders", () => {
         chat_id: 101,
         sender: "+15550003333",
         is_from_me: false,
-        text: "@openclaw ok",
+        text: "@nova-engine ok",
         is_group: true,
       },
       opts: {},
-      messageText: "@openclaw ok",
-      bodyText: "@openclaw ok",
+      messageText: "@nova-engine ok",
+      bodyText: "@nova-engine ok",
       allowFrom: ["*"],
       groupAllowFrom: ["chat_id:101"],
       groupPolicy: "allowlist",
@@ -336,12 +336,12 @@ describe("imessage monitor gating + envelope builders", () => {
         chat_id: 303,
         sender: "+15550003333",
         is_from_me: false,
-        text: "@openclaw hi",
+        text: "@nova-engine hi",
         is_group: true,
       },
       opts: {},
-      messageText: "@openclaw hi",
-      bodyText: "@openclaw hi",
+      messageText: "@nova-engine hi",
+      bodyText: "@nova-engine hi",
       allowFrom: ["*"],
       groupAllowFrom: [],
       groupPolicy: "disabled",

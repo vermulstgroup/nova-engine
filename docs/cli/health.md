@@ -1,18 +1,18 @@
 ---
-summary: "CLI reference for `openclaw health` (gateway health endpoint via RPC)"
+summary: "CLI reference for `nova-engine health` (gateway health endpoint via RPC)"
 read_when:
   - You want to quickly check the running Gateway’s health
 title: "health"
 ---
 
-# `openclaw health`
+# `nova-engine health`
 
 Fetch health from the running Gateway.
 
 ```bash
-openclaw health
-openclaw health --json
-openclaw health --verbose
+nova-engine health
+nova-engine health --json
+nova-engine health --verbose
 ```
 
 Notes:

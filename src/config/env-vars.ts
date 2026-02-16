@@ -1,6 +1,6 @@
-import type { OpenClawConfig } from "./types.js";
+import type { Nova EngineConfig } from "./types.js";
 
-export function collectConfigEnvVars(cfg?: OpenClawConfig): Record<string, string> {
+export function collectConfigEnvVars(cfg?: Nova EngineConfig): Record<string, string> {
   const envConfig = cfg?.env;
   if (!envConfig) {
     return {};
@@ -31,7 +31,7 @@ export function collectConfigEnvVars(cfg?: OpenClawConfig): Record<string, strin
 }
 
 export function applyConfigEnvVars(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): void {
   const entries = collectConfigEnvVars(cfg);

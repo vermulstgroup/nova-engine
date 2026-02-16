@@ -1,4 +1,4 @@
-import type { ChannelMessageActionName, ChannelPlugin, OpenClawConfig } from "openclaw/plugin-sdk";
+import type { ChannelMessageActionName, ChannelPlugin, Nova EngineConfig } from "nova-engine/plugin-sdk";
 import {
   buildBaseChannelStatusSummary,
   buildChannelConfigSchema,
@@ -6,7 +6,7 @@ import {
   DEFAULT_ACCOUNT_ID,
   MSTeamsConfigSchema,
   PAIRING_APPROVED_MESSAGE,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import { listMSTeamsDirectoryGroupsLive, listMSTeamsDirectoryPeersLive } from "./directory-live.js";
 import { msteamsOnboardingAdapter } from "./onboarding.js";
 import { msteamsOutbound } from "./outbound.js";
@@ -101,7 +101,7 @@ export const msteamsPlugin: ChannelPlugin<ResolvedMSTeamsAccount> = {
       },
     }),
     deleteAccount: ({ cfg }) => {
-      const next = { ...cfg } as OpenClawConfig;
+      const next = { ...cfg } as Nova EngineConfig;
       const nextChannels = { ...cfg.channels };
       delete nextChannels.msteams;
       if (Object.keys(nextChannels).length > 0) {

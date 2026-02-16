@@ -1,5 +1,5 @@
-# Tlon (OpenClaw plugin)
+# Tlon (Nova Engine plugin)
 
-Tlon/Urbit channel plugin for OpenClaw. Supports DMs, group mentions, and thread replies.
+Tlon/Urbit channel plugin for Nova Engine. Supports DMs, group mentions, and thread replies.
 
-Docs: https://docs.openclaw.ai/channels/tlon
+Docs: https://docs.nova-engine.ai/channels/tlon

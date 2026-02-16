@@ -1,17 +1,17 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { ensureModelAllowlistEntry } from "./model-allowlist.js";
 
 export async function applyDefaultModelChoice(params: {
-  config: OpenClawConfig;
+  config: Nova EngineConfig;
   setDefaultModel: boolean;
   defaultModel: string;
-  applyDefaultConfig: (config: OpenClawConfig) => OpenClawConfig;
-  applyProviderConfig: (config: OpenClawConfig) => OpenClawConfig;
+  applyDefaultConfig: (config: Nova EngineConfig) => Nova EngineConfig;
+  applyProviderConfig: (config: Nova EngineConfig) => Nova EngineConfig;
   noteDefault?: string;
   noteAgentModel: (model: string) => Promise<void>;
   prompter: WizardPrompter;
-}): Promise<{ config: OpenClawConfig; agentModelOverride?: string }> {
+}): Promise<{ config: Nova EngineConfig; agentModelOverride?: string }> {
   if (params.setDefaultModel) {
     const next = params.applyDefaultConfig(params.config);
     if (params.noteDefault) {

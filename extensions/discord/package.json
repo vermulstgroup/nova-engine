@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/discord",
+  "name": "@nova-engine/discord",
   "version": "2026.2.16",
-  "description": "OpenClaw Discord channel plugin",
+  "description": "Nova Engine Discord channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ]

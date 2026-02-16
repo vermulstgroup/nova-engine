@@ -1,4 +1,4 @@
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk";
+import type { Nova EngineConfig, PluginRuntime } from "nova-engine/plugin-sdk";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -54,18 +54,18 @@ function createMockRuntime(): { runtime: PluginRuntime; mocks: RuntimeMocks } {
   };
 }
 
-function createConfig(overrides?: Record<string, unknown>): OpenClawConfig {
+function createConfig(overrides?: Record<string, unknown>): Nova EngineConfig {
   return {
     channels: {
       bluebubbles: {
         ...overrides,
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as Nova EngineConfig;
 }
 
 async function makeTempDir(): Promise<string> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-bb-media-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-bb-media-"));
   tempDirs.push(dir);
   return dir;
 }
