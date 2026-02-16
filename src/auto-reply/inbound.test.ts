@@ -322,7 +322,7 @@ describe("mention helpers", () => {
     const regexes = buildMentionRegexes({
       messages: { groupChat: { mentionPatterns: ["\\bnova-engine\\b"] } },
     });
-    expect(matchesMentionPatterns("OPENCLAW: hi", regexes)).toBe(true);
+    expect(matchesMentionPatterns("NOVA ENGINE: hi", regexes)).toBe(true);
   });
 
   it("uses per-agent mention patterns when configured", () => {

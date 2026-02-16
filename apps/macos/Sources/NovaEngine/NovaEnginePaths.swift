@@ -14,8 +14,8 @@ enum NovaEngineEnv {
 }
 
 enum NovaEnginePaths {
-    private static let configPathEnv = ["OPENCLAW_CONFIG_PATH"]
-    private static let stateDirEnv = ["OPENCLAW_STATE_DIR"]
+    private static let configPathEnv = ["NOVA_CONFIG_PATH"]
+    private static let stateDirEnv = ["NOVA_STATE_DIR"]
 
     static var stateDirURL: URL {
         for key in self.stateDirEnv {

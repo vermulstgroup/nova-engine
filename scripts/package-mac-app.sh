@@ -217,12 +217,12 @@ else
 fi
 
 echo "📦 Copying Nova EngineKit resources"
-OPENCLAWKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/Nova EngineKit_Nova EngineKit.bundle"
-if [ -d "$OPENCLAWKIT_BUNDLE" ]; then
+NOVAKIT_BUNDLE="$(build_path_for_arch "$PRIMARY_ARCH")/$BUILD_CONFIG/Nova EngineKit_Nova EngineKit.bundle"
+if [ -d "$NOVAKIT_BUNDLE" ]; then
   rm -rf "$APP_ROOT/Contents/Resources/Nova EngineKit_Nova EngineKit.bundle"
-  cp -R "$OPENCLAWKIT_BUNDLE" "$APP_ROOT/Contents/Resources/Nova EngineKit_Nova EngineKit.bundle"
+  cp -R "$NOVAKIT_BUNDLE" "$APP_ROOT/Contents/Resources/Nova EngineKit_Nova EngineKit.bundle"
 else
-  echo "WARN: Nova EngineKit resource bundle not found at $OPENCLAWKIT_BUNDLE (continuing)" >&2
+  echo "WARN: Nova EngineKit resource bundle not found at $NOVAKIT_BUNDLE (continuing)" >&2
 fi
 
 echo "📦 Copying Textual resources"

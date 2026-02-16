@@ -52,7 +52,7 @@ class GatewayDiscovery(
   private val connectivity = context.getSystemService(ConnectivityManager::class.java)
   private val dns = DnsResolver.getInstance()
   private val serviceType = "_nova-engine-gw._tcp."
-  private val wideAreaDomain = System.getenv("OPENCLAW_WIDE_AREA_DOMAIN")
+  private val wideAreaDomain = System.getenv("NOVA_WIDE_AREA_DOMAIN")
   private val logTag = "NovaEngine/GatewayDiscovery"
 
   private val localById = ConcurrentHashMap<String, GatewayEndpoint>()

@@ -11,7 +11,7 @@ struct NovaEngineConfigFileTests {
             .appendingPathComponent("nova-engine.json")
             .path
 
-        await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["NOVA_CONFIG_PATH": override]) {
             #expect(NovaEngineConfigFile.url().path == override)
         }
     }
@@ -24,7 +24,7 @@ struct NovaEngineConfigFileTests {
             .appendingPathComponent("nova-engine.json")
             .path
 
-        await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["NOVA_CONFIG_PATH": override]) {
             NovaEngineConfigFile.saveDict([
                 "gateway": [
                     "remote": [
@@ -47,7 +47,7 @@ struct NovaEngineConfigFileTests {
             .appendingPathComponent("nova-engine.json")
             .path
 
-        await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
+        await TestIsolation.withEnvValues(["NOVA_CONFIG_PATH": override]) {
             NovaEngineConfigFile.saveDict([
                 "gateway": [
                     "remote": [
@@ -69,8 +69,8 @@ struct NovaEngineConfigFileTests {
             .path
 
         await TestIsolation.withEnvValues([
-            "OPENCLAW_CONFIG_PATH": nil,
-            "OPENCLAW_STATE_DIR": dir,
+            "NOVA_CONFIG_PATH": nil,
+            "NOVA_STATE_DIR": dir,
         ]) {
             #expect(NovaEngineConfigFile.stateDirURL().path == dir)
             #expect(NovaEngineConfigFile.url().path == "\(dir)/nova-engine.json")
@@ -88,8 +88,8 @@ struct NovaEngineConfigFileTests {
         defer { try? FileManager().removeItem(at: stateDir) }
 
         try await TestIsolation.withEnvValues([
-            "OPENCLAW_STATE_DIR": stateDir.path,
-            "OPENCLAW_CONFIG_PATH": configPath.path,
+            "NOVA_STATE_DIR": stateDir.path,
+            "NOVA_CONFIG_PATH": configPath.path,
         ]) {
             NovaEngineConfigFile.saveDict([
                 "gateway": ["mode": "local"],

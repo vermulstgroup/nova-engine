@@ -9,8 +9,8 @@ import Testing
         let plist: [String: Any] = [
             "ProgramArguments": ["nova-engine", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
             "EnvironmentVariables": [
-                "OPENCLAW_GATEWAY_TOKEN": " secret ",
-                "OPENCLAW_GATEWAY_PASSWORD": "pw",
+                "NOVA_GATEWAY_TOKEN": " secret ",
+                "NOVA_GATEWAY_PASSWORD": "pw",
             ],
         ]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)

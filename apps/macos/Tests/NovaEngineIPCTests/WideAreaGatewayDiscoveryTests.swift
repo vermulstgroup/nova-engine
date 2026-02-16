@@ -5,7 +5,7 @@ import Testing
 @Suite
 struct WideAreaGatewayDiscoveryTests {
     @Test func discoversBeaconFromTailnetDnsSdFallback() {
-        setenv("OPENCLAW_WIDE_AREA_DOMAIN", "nova-engine.internal", 1)
+        setenv("NOVA_WIDE_AREA_DOMAIN", "nova-engine.internal", 1)
         let statusJson = """
         {
           "Self": { "TailscaleIPs": ["100.69.232.64"] },

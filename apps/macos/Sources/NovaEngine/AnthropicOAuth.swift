@@ -197,7 +197,7 @@ enum AnthropicOAuth {
 enum NovaEngineOAuthStore {
     static let oauthFilename = "oauth.json"
     private static let providerKey = "anthropic"
-    private static let nova-engineOAuthDirEnv = "OPENCLAW_OAUTH_DIR"
+    private static let nova-engineOAuthDirEnv = "NOVA_OAUTH_DIR"
     private static let legacyPiDirEnv = "PI_CODING_AGENT_DIR"
 
     enum AnthropicOAuthStatus: Equatable {

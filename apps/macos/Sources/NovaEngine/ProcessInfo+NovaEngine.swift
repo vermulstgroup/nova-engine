@@ -14,7 +14,7 @@ extension ProcessInfo {
         stableSuite: UserDefaults?,
         isAppBundle: Bool) -> Bool
     {
-        if environment["OPENCLAW_NIX_MODE"] == "1" { return true }
+        if environment["NOVA_NIX_MODE"] == "1" { return true }
         if standard.bool(forKey: "nova-engine.nixMode") { return true }
 
         // Only consult the stable suite when running as a .app bundle.
