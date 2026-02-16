@@ -44,7 +44,7 @@ describe("subagent registry persistence", () => {
   });
 
   it("persists runs to disk and resumes after restart", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-subagent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-subagent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
 
     registerSubagentRun({
@@ -100,7 +100,7 @@ describe("subagent registry persistence", () => {
   });
 
   it("skips cleanup when cleanupHandled was persisted", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-subagent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-subagent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
 
     const registryPath = path.join(tempStateDir, "subagents", "runs.json");
@@ -139,7 +139,7 @@ describe("subagent registry persistence", () => {
   });
 
   it("maps legacy announce fields into cleanup state", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-subagent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-subagent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
 
     const registryPath = path.join(tempStateDir, "subagents", "runs.json");
@@ -178,7 +178,7 @@ describe("subagent registry persistence", () => {
   });
 
   it("retries cleanup announce after a failed announce", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-subagent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-subagent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
 
     const registryPath = path.join(tempStateDir, "subagents", "runs.json");
@@ -226,7 +226,7 @@ describe("subagent registry persistence", () => {
   });
 
   it("keeps delete-mode runs retryable when announce is deferred", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-subagent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-subagent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
 
     const registryPath = path.join(tempStateDir, "subagents", "runs.json");
@@ -277,6 +277,6 @@ describe("subagent registry persistence", () => {
     vi.resetModules();
     const { resolveSubagentRegistryPath } = await import("./subagent-registry.store.js");
     const registryPath = resolveSubagentRegistryPath();
-    expect(registryPath).toContain(path.join(os.tmpdir(), "openclaw-test-state"));
+    expect(registryPath).toContain(path.join(os.tmpdir(), "nova-engine-test-state"));
   });
 });

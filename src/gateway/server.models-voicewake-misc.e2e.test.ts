@@ -85,7 +85,7 @@ describe("gateway server models + voicewake", () => {
     const prevHomeDrive = process.env.HOMEDRIVE;
     const prevHomePath = process.env.HOMEPATH;
     process.env.HOME = homeDir;
-    process.env.NOVA_STATE_DIR = path.join(homeDir, ".openclaw");
+    process.env.NOVA_STATE_DIR = path.join(homeDir, ".nova-engine");
     process.env.USERPROFILE = homeDir;
     if (process.platform === "win32") {
       const parsed = path.parse(homeDir);
@@ -127,12 +127,12 @@ describe("gateway server models + voicewake", () => {
     "voicewake.get returns defaults and voicewake.set broadcasts",
     { timeout: 60_000 },
     async () => {
-      const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-home-"));
+      const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-home-"));
       const restoreHome = setTempHome(homeDir);
 
       const initial = await rpcReq<{ triggers: string[] }>(ws, "voicewake.get");
       expect(initial.ok).toBe(true);
-      expect(initial.payload?.triggers).toEqual(["openclaw", "claude", "computer"]);
+      expect(initial.payload?.triggers).toEqual(["nova-engine", "claude", "computer"]);
 
       const changedP = onceMessage<{
         type: "event";
@@ -158,7 +158,7 @@ describe("gateway server models + voicewake", () => {
       expect(after.payload?.triggers).toEqual(["hi", "there"]);
 
       const onDisk = JSON.parse(
-        await fs.readFile(path.join(homeDir, ".openclaw", "settings", "voicewake.json"), "utf8"),
+        await fs.readFile(path.join(homeDir, ".nova-engine", "settings", "voicewake.json"), "utf8"),
       ) as { triggers?: unknown; updatedAtMs?: unknown };
       expect(onDisk.triggers).toEqual(["hi", "there"]);
       expect(typeof onDisk.updatedAtMs).toBe("number");
@@ -168,7 +168,7 @@ describe("gateway server models + voicewake", () => {
   );
 
   test("pushes voicewake.changed to nodes on connect and on updates", async () => {
-    const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-home-"));
+    const homeDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-home-"));
     const restoreHome = setTempHome(homeDir);
 
     const nodeWs = new WebSocket(`ws://127.0.0.1:${port}`);
@@ -190,7 +190,7 @@ describe("gateway server models + voicewake", () => {
     const first = await firstEventP;
     expect(first.event).toBe("voicewake.changed");
     expect((first.payload as { triggers?: unknown } | undefined)?.triggers).toEqual([
-      "openclaw",
+      "nova-engine",
       "claude",
       "computer",
     ]);
@@ -200,14 +200,14 @@ describe("gateway server models + voicewake", () => {
       (o) => o.type === "event" && o.event === "voicewake.changed",
     );
     const setRes = await rpcReq<{ triggers: string[] }>(ws, "voicewake.set", {
-      triggers: ["openclaw", "computer"],
+      triggers: ["nova-engine", "computer"],
     });
     expect(setRes.ok).toBe(true);
 
     const broadcast = await broadcastP;
     expect(broadcast.event).toBe("voicewake.changed");
     expect((broadcast.payload as { triggers?: unknown } | undefined)?.triggers).toEqual([
-      "openclaw",
+      "nova-engine",
       "computer",
     ]);
 

@@ -1,7 +1,7 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 
 export function resolveGatewayProbeAuth(params: {
-  cfg: OpenClawConfig;
+  cfg: Nova EngineConfig;
   mode: "local" | "remote";
   env?: NodeJS.ProcessEnv;
 }): { token?: string; password?: string } {

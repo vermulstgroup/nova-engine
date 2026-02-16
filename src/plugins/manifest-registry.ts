@@ -1,9 +1,9 @@
 import fs from "node:fs";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import type { PluginConfigUiHint, PluginDiagnostic, PluginKind, PluginOrigin } from "./types.js";
 import { resolveUserPath } from "../utils.js";
 import { normalizePluginsConfig, type NormalizedPluginsConfig } from "./config-state.js";
-import { discoverOpenClawPlugins, type PluginCandidate } from "./discovery.js";
+import { discoverNova EnginePlugins, type PluginCandidate } from "./discovery.js";
 import { loadPluginManifest, type PluginManifest } from "./manifest.js";
 
 type SeenIdEntry = {
@@ -145,7 +145,7 @@ function buildRecord(params: {
 }
 
 export function loadPluginManifestRegistry(params: {
-  config?: OpenClawConfig;
+  config?: Nova EngineConfig;
   workspaceDir?: string;
   cache?: boolean;
   env?: NodeJS.ProcessEnv;
@@ -169,7 +169,7 @@ export function loadPluginManifestRegistry(params: {
         candidates: params.candidates,
         diagnostics: params.diagnostics ?? [],
       }
-    : discoverOpenClawPlugins({
+    : discoverNova EnginePlugins({
         workspaceDir: params.workspaceDir,
         extraPaths: normalized.loadPaths,
       });

@@ -14,30 +14,30 @@ type CommandOptions = Record<string, unknown>;
 
 const SANDBOX_EXAMPLES = {
   main: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate agent containers."],
-    ["openclaw sandbox explain", "Explain effective sandbox config."],
+    ["nova-engine sandbox list", "List all sandbox containers."],
+    ["nova-engine sandbox list --browser", "List only browser containers."],
+    ["nova-engine sandbox recreate --all", "Recreate all containers."],
+    ["nova-engine sandbox recreate --session main", "Recreate a specific session."],
+    ["nova-engine sandbox recreate --agent mybot", "Recreate agent containers."],
+    ["nova-engine sandbox explain", "Explain effective sandbox config."],
   ],
   list: [
-    ["openclaw sandbox list", "List all sandbox containers."],
-    ["openclaw sandbox list --browser", "List only browser containers."],
-    ["openclaw sandbox list --json", "JSON output."],
+    ["nova-engine sandbox list", "List all sandbox containers."],
+    ["nova-engine sandbox list --browser", "List only browser containers."],
+    ["nova-engine sandbox list --json", "JSON output."],
   ],
   recreate: [
-    ["openclaw sandbox recreate --all", "Recreate all containers."],
-    ["openclaw sandbox recreate --session main", "Recreate a specific session."],
-    ["openclaw sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
-    ["openclaw sandbox recreate --browser --all", "Recreate only browser containers."],
-    ["openclaw sandbox recreate --all --force", "Skip confirmation."],
+    ["nova-engine sandbox recreate --all", "Recreate all containers."],
+    ["nova-engine sandbox recreate --session main", "Recreate a specific session."],
+    ["nova-engine sandbox recreate --agent mybot", "Recreate a specific agent (includes sub-agents)."],
+    ["nova-engine sandbox recreate --browser --all", "Recreate only browser containers."],
+    ["nova-engine sandbox recreate --all --force", "Skip confirmation."],
   ],
   explain: [
-    ["openclaw sandbox explain", "Show effective sandbox config."],
-    ["openclaw sandbox explain --session agent:main:main", "Explain a specific session."],
-    ["openclaw sandbox explain --agent work", "Explain an agent sandbox."],
-    ["openclaw sandbox explain --json", "JSON output."],
+    ["nova-engine sandbox explain", "Show effective sandbox config."],
+    ["nova-engine sandbox explain --session agent:main:main", "Explain a specific session."],
+    ["nova-engine sandbox explain --agent work", "Explain an agent sandbox."],
+    ["nova-engine sandbox explain --json", "JSON output."],
   ],
 } as const;
 
@@ -67,7 +67,7 @@ export function registerSandboxCli(program: Command) {
     .addHelpText(
       "after",
       () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.openclaw.ai/cli/sandbox")}\n`,
+        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/sandbox", "docs.nova-engine.ai/cli/sandbox")}\n`,
     )
     .action(() => {
       sandbox.help({ error: true });

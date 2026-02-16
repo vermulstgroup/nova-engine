@@ -1,4 +1,4 @@
-# OpenClaw Fly.io PRIVATE deployment configuration
+# Nova Engine Fly.io PRIVATE deployment configuration
 # Use this template for hardened deployments with no public IP exposure.
 #
 # This config is suitable when:
@@ -9,7 +9,7 @@
 #
 # See https://fly.io/docs/reference/configuration/
 
-app = "my-openclaw" # change to your app name
+app = "my-nova-engine" # change to your app name
 primary_region = "iad" # change to your closest region
 
 [build]
@@ -35,5 +35,5 @@ size = "shared-cpu-2x"
 memory = "2048mb"
 
 [mounts]
-source = "openclaw_data"
+source = "nova-engine_data"
 destination = "/data"

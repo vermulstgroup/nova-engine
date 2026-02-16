@@ -2,14 +2,14 @@
  * Twitch onboarding adapter for CLI setup wizard.
  */
 
-import type { OpenClawConfig } from "openclaw/plugin-sdk";
+import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
 import {
   formatDocsLink,
   promptChannelAccessConfig,
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import type { TwitchAccountConfig, TwitchRole } from "./types.js";
 import { DEFAULT_ACCOUNT_ID, getAccountConfig } from "./config.js";
 import { isAccountConfigured } from "./utils/twitch.js";
@@ -20,9 +20,9 @@ const channel = "twitch" as const;
  * Set Twitch account configuration
  */
 function setTwitchAccount(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   account: Partial<TwitchAccountConfig>,
-): OpenClawConfig {
+): Nova EngineConfig {
   const existing = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   const merged: TwitchAccountConfig = {
     username: account.username ?? existing?.username ?? "",
@@ -207,13 +207,13 @@ async function promptRefreshTokenSetup(
  * Configure with env token path (returns early if user chooses env token).
  */
 async function configureWithEnvToken(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   prompter: WizardPrompter,
   account: TwitchAccountConfig | null,
   envToken: string,
   forceAllowFrom: boolean,
   dmPolicy: ChannelOnboardingDmPolicy,
-): Promise<{ cfg: OpenClawConfig } | null> {
+): Promise<{ cfg: Nova EngineConfig } | null> {
   const useEnv = await prompter.confirm({
     message: "Twitch env var NOVA_TWITCH_ACCESS_TOKEN detected. Use env token?",
     initialValue: true,
@@ -243,10 +243,10 @@ async function configureWithEnvToken(
  * Set Twitch access control (role-based)
  */
 function setTwitchAccessControl(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   allowedRoles: TwitchRole[],
   requireMention: boolean,
-): OpenClawConfig {
+): Nova EngineConfig {
   const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   if (!account) {
     return cfg;

@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw voicecall` (voice-call plugin command surface)"
+summary: "CLI reference for `nova-engine voicecall` (voice-call plugin command surface)"
 read_when:
   - You use the voice-call plugin and want the CLI entry points
   - You want quick examples for `voicecall call|continue|status|tail|expose`
 title: "voicecall"
 ---
 
-# `openclaw voicecall`
+# `nova-engine voicecall`
 
 `voicecall` is a plugin-provided command. It only appears if the voice-call plugin is installed and enabled.
 
@@ -17,18 +17,18 @@ Primary doc:
 ## Common commands
 
 ```bash
-openclaw voicecall status --call-id <id>
-openclaw voicecall call --to "+15555550123" --message "Hello" --mode notify
-openclaw voicecall continue --call-id <id> --message "Any questions?"
-openclaw voicecall end --call-id <id>
+nova-engine voicecall status --call-id <id>
+nova-engine voicecall call --to "+15555550123" --message "Hello" --mode notify
+nova-engine voicecall continue --call-id <id> --message "Any questions?"
+nova-engine voicecall end --call-id <id>
 ```
 
 ## Exposing webhooks (Tailscale)
 
 ```bash
-openclaw voicecall expose --mode serve
-openclaw voicecall expose --mode funnel
-openclaw voicecall unexpose
+nova-engine voicecall expose --mode serve
+nova-engine voicecall expose --mode funnel
+nova-engine voicecall unexpose
 ```
 
 Security note: only expose the webhook endpoint to networks you trust. Prefer Tailscale Serve over Funnel when possible.

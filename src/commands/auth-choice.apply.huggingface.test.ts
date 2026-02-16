@@ -35,7 +35,7 @@ describe("applyAuthChoiceHuggingface", () => {
   });
 
   it("prompts for key and model, then writes config and auth profile", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-hf-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-hf-"));
     const agentDir = path.join(tempStateDir, "agent");
     process.env.NOVA_AGENT_DIR = agentDir;
     await fs.mkdir(agentDir, { recursive: true });
@@ -92,7 +92,7 @@ describe("applyAuthChoiceHuggingface", () => {
   });
 
   it("does not prompt to reuse env token when opts.token already provided", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-hf-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-hf-"));
     const agentDir = path.join(tempStateDir, "agent");
     process.env.NOVA_AGENT_DIR = agentDir;
     process.env.HF_TOKEN = "hf-env-token";

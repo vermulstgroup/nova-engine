@@ -23,7 +23,7 @@ actor GatewayEndpointStore {
         "custom",
     ]
     private static let remoteConnectingDetail = "Connecting to remote gateway…"
-    private static let staticLogger = Logger(subsystem: "ai.openclaw", category: "gateway-endpoint")
+    private static let staticLogger = Logger(subsystem: "ai.nova-engine", category: "gateway-endpoint")
     private enum EnvOverrideWarningKind: Sendable {
         case token
         case password
@@ -43,7 +43,7 @@ actor GatewayEndpointStore {
         static let live = Deps(
             mode: { await MainActor.run { AppStateStore.shared.connectionMode } },
             token: {
-                let root = OpenClawConfigFile.loadDict()
+                let root = NovaEngineConfigFile.loadDict()
                 let isRemote = ConnectionModeResolver.resolve(root: root).mode == .remote
                 return GatewayEndpointStore.resolveGatewayToken(
                     isRemote: isRemote,
@@ -52,7 +52,7 @@ actor GatewayEndpointStore {
                     launchdSnapshot: GatewayLaunchAgentManager.launchdConfigSnapshot())
             },
             password: {
-                let root = OpenClawConfigFile.loadDict()
+                let root = NovaEngineConfigFile.loadDict()
                 let isRemote = ConnectionModeResolver.resolve(root: root).mode == .remote
                 return GatewayEndpointStore.resolveGatewayPassword(
                     isRemote: isRemote,
@@ -62,7 +62,7 @@ actor GatewayEndpointStore {
             },
             localPort: { GatewayEnvironment.gatewayPort() },
             localHost: {
-                let root = OpenClawConfigFile.loadDict()
+                let root = NovaEngineConfigFile.loadDict()
                 let bind = GatewayEndpointStore.resolveGatewayBindMode(
                     root: root,
                     env: ProcessInfo.processInfo.environment)
@@ -230,7 +230,7 @@ actor GatewayEndpointStore {
     }
 
     private let deps: Deps
-    private let logger = Logger(subsystem: "ai.openclaw", category: "gateway-endpoint")
+    private let logger = Logger(subsystem: "ai.nova-engine", category: "gateway-endpoint")
 
     private var state: GatewayEndpointState
     private var subscribers: [UUID: AsyncStream<GatewayEndpointState>.Continuation] = [:]
@@ -243,17 +243,17 @@ actor GatewayEndpointStore {
         if let modeRaw {
             initialMode = AppState.ConnectionMode(rawValue: modeRaw) ?? .local
         } else {
-            let seen = UserDefaults.standard.bool(forKey: "openclaw.onboardingSeen")
+            let seen = UserDefaults.standard.bool(forKey: "nova-engine.onboardingSeen")
             initialMode = seen ? .local : .unconfigured
         }
 
         let port = deps.localPort()
         let bind = GatewayEndpointStore.resolveGatewayBindMode(
-            root: OpenClawConfigFile.loadDict(),
+            root: NovaEngineConfigFile.loadDict(),
             env: ProcessInfo.processInfo.environment)
-        let customBindHost = GatewayEndpointStore.resolveGatewayCustomBindHost(root: OpenClawConfigFile.loadDict())
+        let customBindHost = GatewayEndpointStore.resolveGatewayCustomBindHost(root: NovaEngineConfigFile.loadDict())
         let scheme = GatewayEndpointStore.resolveGatewayScheme(
-            root: OpenClawConfigFile.loadDict(),
+            root: NovaEngineConfigFile.loadDict(),
             env: ProcessInfo.processInfo.environment)
         let host = GatewayEndpointStore.resolveLocalGatewayHost(
             bindMode: bind,
@@ -303,7 +303,7 @@ actor GatewayEndpointStore {
             let port = self.deps.localPort()
             let host = await self.deps.localHost()
             let scheme = GatewayEndpointStore.resolveGatewayScheme(
-                root: OpenClawConfigFile.loadDict(),
+                root: NovaEngineConfigFile.loadDict(),
                 env: ProcessInfo.processInfo.environment)
             self.setState(.ready(
                 mode: .local,
@@ -311,7 +311,7 @@ actor GatewayEndpointStore {
                 token: token,
                 password: password))
         case .remote:
-            let root = OpenClawConfigFile.loadDict()
+            let root = NovaEngineConfigFile.loadDict()
             if GatewayRemoteConfig.resolveTransport(root: root) == .direct {
                 guard let url = GatewayRemoteConfig.resolveGatewayUrl(root: root) else {
                     self.cancelRemoteEnsure()
@@ -332,7 +332,7 @@ actor GatewayEndpointStore {
             }
             self.cancelRemoteEnsure()
             let scheme = GatewayEndpointStore.resolveGatewayScheme(
-                root: OpenClawConfigFile.loadDict(),
+                root: NovaEngineConfigFile.loadDict(),
                 env: ProcessInfo.processInfo.environment)
             self.setState(.ready(
                 mode: .remote,
@@ -354,7 +354,7 @@ actor GatewayEndpointStore {
                 code: 1,
                 userInfo: [NSLocalizedDescriptionKey: "Remote mode is not enabled"])
         }
-        let root = OpenClawConfigFile.loadDict()
+        let root = NovaEngineConfigFile.loadDict()
         if GatewayRemoteConfig.resolveTransport(root: root) == .direct {
             guard let url = GatewayRemoteConfig.resolveGatewayUrl(root: root) else {
                 throw NSError(
@@ -433,7 +433,7 @@ actor GatewayEndpointStore {
                 userInfo: [NSLocalizedDescriptionKey: "Remote mode is not enabled"])
         }
 
-        let root = OpenClawConfigFile.loadDict()
+        let root = NovaEngineConfigFile.loadDict()
         if GatewayRemoteConfig.resolveTransport(root: root) == .direct {
             guard let url = GatewayRemoteConfig.resolveGatewayUrl(root: root) else {
                 throw NSError(
@@ -470,7 +470,7 @@ actor GatewayEndpointStore {
             let token = self.deps.token()
             let password = self.deps.password()
             let scheme = GatewayEndpointStore.resolveGatewayScheme(
-                root: OpenClawConfigFile.loadDict(),
+                root: NovaEngineConfigFile.loadDict(),
                 env: ProcessInfo.processInfo.environment)
             let url = URL(string: "\(scheme)://127.0.0.1:\(Int(forwarded))")!
             self.setState(.ready(mode: .remote, url: url, token: token, password: password))
@@ -525,7 +525,7 @@ actor GatewayEndpointStore {
         let mode = await self.deps.mode()
         guard mode == .local else { return nil }
 
-        let root = OpenClawConfigFile.loadDict()
+        let root = NovaEngineConfigFile.loadDict()
         let bind = GatewayEndpointStore.resolveGatewayBindMode(
             root: root,
             env: ProcessInfo.processInfo.environment)
@@ -628,7 +628,7 @@ extension GatewayEndpointStore {
     }
 
     private static func localControlUiBasePath() -> String {
-        let root = OpenClawConfigFile.loadDict()
+        let root = NovaEngineConfigFile.loadDict()
         guard let gateway = root["gateway"] as? [String: Any],
               let controlUi = gateway["controlUi"] as? [String: Any]
         else {

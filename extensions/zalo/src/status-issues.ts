@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelStatusIssue } from "openclaw/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelStatusIssue } from "nova-engine/plugin-sdk";
 
 type ZaloAccountStatus = {
   accountId?: unknown;

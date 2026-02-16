@@ -47,7 +47,7 @@ Supported keys:
 - `seed`, `normalize`, `lang`, `output_format`, `latency_tier`
 - `once`
 
-## Config (`~/.openclaw/openclaw.json`)
+## Config (`~/.nova-engine/nova-engine.json`)
 
 ```json5
 {

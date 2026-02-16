@@ -1,10 +1,10 @@
-import OpenClawKit
+import NovaEngineKit
 import Foundation
 import Testing
 
 @Suite struct ToolDisplayRegistryTests {
     @Test func loadsToolDisplayConfigFromBundle() {
-        let url = OpenClawKitResources.bundle.url(forResource: "tool-display", withExtension: "json")
+        let url = NovaEngineKitResources.bundle.url(forResource: "tool-display", withExtension: "json")
         #expect(url != nil)
     }
 

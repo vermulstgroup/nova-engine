@@ -98,7 +98,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     }
     defaultRuntime.error(
       warnText(
-        `Recommendation: run "${formatCliCommand("openclaw doctor")}" (or "${formatCliCommand("openclaw doctor --repair")}").`,
+        `Recommendation: run "${formatCliCommand("nova-engine doctor")}" (or "${formatCliCommand("nova-engine doctor --repair")}").`,
       ),
     );
   }
@@ -132,7 +132,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
       );
       defaultRuntime.error(
         errorText(
-          `Fix: rerun \`${formatCliCommand("openclaw gateway install --force")}\` from the same --profile / NOVA_STATE_DIR you expect.`,
+          `Fix: rerun \`${formatCliCommand("nova-engine gateway install --force")}\` from the same --profile / NOVA_STATE_DIR you expect.`,
         ),
       );
     }
@@ -237,7 +237,7 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
       ),
     );
     defaultRuntime.error(
-      errorText(`Then reinstall: ${formatCliCommand("openclaw gateway install")}`),
+      errorText(`Then reinstall: ${formatCliCommand("nova-engine gateway install")}`),
     );
     spacer();
   }
@@ -312,6 +312,6 @@ export function printDaemonStatus(status: DaemonStatus, opts: { json: boolean })
     spacer();
   }
 
-  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("openclaw status")}`);
-  defaultRuntime.log(`${label("Troubleshooting:")} https://docs.openclaw.ai/troubleshooting`);
+  defaultRuntime.log(`${label("Troubles:")} run ${formatCliCommand("nova-engine status")}`);
+  defaultRuntime.log(`${label("Troubleshooting:")} https://docs.nova-engine.ai/troubleshooting`);
 }

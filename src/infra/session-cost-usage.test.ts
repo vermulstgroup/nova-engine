@@ -2,7 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import {
   discoverAllSessions,
   loadCostUsageSummary,
@@ -13,7 +13,7 @@ import {
 
 describe("session cost usage", () => {
   it("aggregates daily totals with log cost and pricing fallback", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cost-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-cost-"));
     const sessionsDir = path.join(root, "agents", "main", "sessions");
     await fs.mkdir(sessionsDir, { recursive: true });
     const sessionFile = path.join(sessionsDir, "sess-1.jsonl");
@@ -96,7 +96,7 @@ describe("session cost usage", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as Nova EngineConfig;
 
     const originalState = process.env.NOVA_STATE_DIR;
     process.env.NOVA_STATE_DIR = root;
@@ -115,7 +115,7 @@ describe("session cost usage", () => {
   });
 
   it("summarizes a single session file", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cost-session-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-cost-session-"));
     const sessionFile = path.join(root, "session.jsonl");
     const now = new Date();
 
@@ -148,7 +148,7 @@ describe("session cost usage", () => {
   });
 
   it("captures message counts, tool usage, and model usage", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cost-session-meta-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-cost-session-meta-"));
     const sessionFile = path.join(root, "session.jsonl");
     const start = new Date("2026-02-01T10:00:00.000Z");
     const end = new Date("2026-02-01T10:05:00.000Z");
@@ -216,7 +216,7 @@ describe("session cost usage", () => {
   });
 
   it("does not exclude sessions with mtime after endMs during discovery", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-discover-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-discover-"));
     const sessionsDir = path.join(root, "agents", "main", "sessions");
     await fs.mkdir(sessionsDir, { recursive: true });
     const sessionFile = path.join(sessionsDir, "sess-late.jsonl");
@@ -244,7 +244,7 @@ describe("session cost usage", () => {
   });
 
   it("resolves non-main absolute sessionFile using explicit agentId for cost summary", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-cost-agent-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-cost-agent-"));
     const workerSessionsDir = path.join(root, "agents", "worker1", "sessions");
     await fs.mkdir(workerSessionsDir, { recursive: true });
     const workerSessionFile = path.join(workerSessionsDir, "sess-worker-1.jsonl");
@@ -290,7 +290,7 @@ describe("session cost usage", () => {
   });
 
   it("resolves non-main absolute sessionFile using explicit agentId for timeseries", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-timeseries-agent-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-timeseries-agent-"));
     const workerSessionsDir = path.join(root, "agents", "worker2", "sessions");
     await fs.mkdir(workerSessionsDir, { recursive: true });
     const workerSessionFile = path.join(workerSessionsDir, "sess-worker-2.jsonl");
@@ -332,7 +332,7 @@ describe("session cost usage", () => {
   });
 
   it("resolves non-main absolute sessionFile using explicit agentId for logs", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-logs-agent-"));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-logs-agent-"));
     const workerSessionsDir = path.join(root, "agents", "worker3", "sessions");
     await fs.mkdir(workerSessionsDir, { recursive: true });
     const workerSessionFile = path.join(workerSessionsDir, "sess-worker-3.jsonl");

@@ -2,20 +2,20 @@
 name: tmux
 description: Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.
 metadata:
-  { "openclaw": { "emoji": "🧵", "os": ["darwin", "linux"], "requires": { "bins": ["tmux"] } } }
+  { "nova-engine": { "emoji": "🧵", "os": ["darwin", "linux"], "requires": { "bins": ["tmux"] } } }
 ---
 
-# tmux Skill (OpenClaw)
+# tmux Skill (Nova Engine)
 
 Use tmux only when you need an interactive TTY. Prefer exec background mode for long-running, non-interactive tasks.
 
 ## Quickstart (isolated socket, exec tool)
 
 ```bash
-SOCKET_DIR="${NOVA_TMUX_SOCKET_DIR:-${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/openclaw-tmux-sockets}}"
+SOCKET_DIR="${NOVA_TMUX_SOCKET_DIR:-${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/nova-engine-tmux-sockets}}"
 mkdir -p "$SOCKET_DIR"
-SOCKET="$SOCKET_DIR/openclaw.sock"
-SESSION=openclaw-python
+SOCKET="$SOCKET_DIR/nova-engine.sock"
+SESSION=nova-engine-python
 
 tmux -S "$SOCKET" new -d -s "$SESSION" -n shell
 tmux -S "$SOCKET" send-keys -t "$SESSION":0.0 -- 'PYTHON_BASIC_REPL=1 python3 -q' Enter
@@ -33,7 +33,7 @@ To monitor:
 ## Socket convention
 
 - Use `NOVA_TMUX_SOCKET_DIR` (legacy `CLAWDBOT_TMUX_SOCKET_DIR` also supported).
-- Default socket path: `"$NOVA_TMUX_SOCKET_DIR/openclaw.sock"`.
+- Default socket path: `"$NOVA_TMUX_SOCKET_DIR/nova-engine.sock"`.
 
 ## Targeting panes and naming
 

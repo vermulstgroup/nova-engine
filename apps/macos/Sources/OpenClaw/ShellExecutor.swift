@@ -1,5 +1,5 @@
 import Foundation
-import OpenClawIPC
+import NovaEngineIPC
 
 enum ShellExecutor {
     struct ShellResult {

@@ -1,5 +1,5 @@
 import type {
-  OpenClawHookMetadata,
+  Nova EngineHookMetadata,
   HookEntry,
   HookInstallSpec,
   HookInvocationPolicy,
@@ -10,10 +10,10 @@ import {
   getFrontmatterString,
   normalizeStringList,
   parseFrontmatterBool,
-  resolveOpenClawManifestBlock,
-  resolveOpenClawManifestInstall,
-  resolveOpenClawManifestOs,
-  resolveOpenClawManifestRequires,
+  resolveNova EngineManifestBlock,
+  resolveNova EngineManifestInstall,
+  resolveNova EngineManifestOs,
+  resolveNova EngineManifestRequires,
 } from "../shared/frontmatter.js";
 
 export function parseFrontmatter(content: string): ParsedHookFrontmatter {
@@ -56,16 +56,16 @@ function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
   return spec;
 }
 
-export function resolveOpenClawMetadata(
+export function resolveNova EngineMetadata(
   frontmatter: ParsedHookFrontmatter,
-): OpenClawHookMetadata | undefined {
-  const metadataObj = resolveOpenClawManifestBlock({ frontmatter });
+): Nova EngineHookMetadata | undefined {
+  const metadataObj = resolveNova EngineManifestBlock({ frontmatter });
   if (!metadataObj) {
     return undefined;
   }
-  const requires = resolveOpenClawManifestRequires(metadataObj);
-  const install = resolveOpenClawManifestInstall(metadataObj, parseInstallSpec);
-  const osRaw = resolveOpenClawManifestOs(metadataObj);
+  const requires = resolveNova EngineManifestRequires(metadataObj);
+  const install = resolveNova EngineManifestInstall(metadataObj, parseInstallSpec);
+  const osRaw = resolveNova EngineManifestOs(metadataObj);
   const eventsRaw = normalizeStringList(metadataObj.events);
   return {
     always: typeof metadataObj.always === "boolean" ? metadataObj.always : undefined,

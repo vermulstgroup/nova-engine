@@ -1,7 +1,7 @@
-import OpenClawIPC
+import NovaEngineIPC
 import CoreLocation
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite(.serialized)
 @MainActor

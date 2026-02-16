@@ -1,8 +1,8 @@
-import OpenClawKit
+import NovaEngineKit
 import Foundation
 import Testing
-@testable import OpenClaw
-@testable import OpenClawIPC
+@testable import NovaEngine
+@testable import NovaEngineIPC
 
 private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {
     var state: URLSessionTask.State = .running

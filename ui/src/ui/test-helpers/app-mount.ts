@@ -1,19 +1,19 @@
 import { afterEach, beforeEach } from "vitest";
-import { OpenClawApp } from "../app.ts";
+import { Nova EngineApp } from "../app.ts";
 
 // oxlint-disable-next-line typescript/unbound-method
-const originalConnect = OpenClawApp.prototype.connect;
+const originalConnect = Nova EngineApp.prototype.connect;
 
 export function mountApp(pathname: string) {
   window.history.replaceState({}, "", pathname);
-  const app = document.createElement("openclaw-app") as OpenClawApp;
+  const app = document.createElement("nova-engine-app") as Nova EngineApp;
   document.body.append(app);
   return app;
 }
 
 export function registerAppMountHooks() {
   beforeEach(() => {
-    OpenClawApp.prototype.connect = () => {
+    Nova EngineApp.prototype.connect = () => {
       // no-op: avoid real gateway WS connections in browser tests
     };
     window.__NOVA_CONTROL_UI_BASE_PATH__ = undefined;
@@ -22,7 +22,7 @@ export function registerAppMountHooks() {
   });
 
   afterEach(() => {
-    OpenClawApp.prototype.connect = originalConnect;
+    Nova EngineApp.prototype.connect = originalConnect;
     window.__NOVA_CONTROL_UI_BASE_PATH__ = undefined;
     localStorage.clear();
     document.body.innerHTML = "";

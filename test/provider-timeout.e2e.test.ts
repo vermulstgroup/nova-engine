@@ -157,7 +157,7 @@ describe("provider timeouts (e2e)", () => {
       };
       (globalThis as unknown as { fetch: unknown }).fetch = fetchImpl;
 
-      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-timeout-e2e-"));
+      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-timeout-e2e-"));
       process.env.HOME = tempHome;
       process.env.NOVA_SKIP_CHANNELS = "1";
       process.env.NOVA_SKIP_GMAIL_WATCHER = "1";
@@ -167,9 +167,9 @@ describe("provider timeouts (e2e)", () => {
       const token = `test-${randomUUID()}`;
       process.env.NOVA_GATEWAY_TOKEN = token;
 
-      const configDir = path.join(tempHome, ".openclaw");
+      const configDir = path.join(tempHome, ".nova-engine");
       await fs.mkdir(configDir, { recursive: true });
-      const configPath = path.join(configDir, "openclaw.json");
+      const configPath = path.join(configDir, "nova-engine.json");
 
       const cfg = {
         agents: {

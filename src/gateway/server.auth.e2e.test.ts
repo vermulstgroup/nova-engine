@@ -192,7 +192,7 @@ describe("gateway server auth/connect", () => {
       const path = await import("node:path");
       // Fresh identity: avoid leaking prior scopes (presence merges lists).
       const identity = loadOrCreateDeviceIdentity(
-        path.join(os.tmpdir(), `openclaw-test-device-${randomUUID()}.json`),
+        path.join(os.tmpdir(), `nova-engine-test-device-${randomUUID()}.json`),
       );
       const signedAtMs = Date.now();
       const payload = buildDeviceAuthPayload({
@@ -815,7 +815,7 @@ describe("gateway server auth/connect", () => {
     const { GATEWAY_CLIENT_MODES, GATEWAY_CLIENT_NAMES } =
       await import("../utils/message-channel.js");
     const { server, ws, port, prevToken } = await startServerWithClient("secret");
-    const identityDir = await mkdtemp(join(tmpdir(), "openclaw-device-scope-"));
+    const identityDir = await mkdtemp(join(tmpdir(), "nova-engine-device-scope-"));
     const identity = loadOrCreateDeviceIdentity(join(identityDir, "device.json"));
     const client = {
       id: GATEWAY_CLIENT_NAMES.TEST,

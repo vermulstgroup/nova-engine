@@ -58,7 +58,7 @@ describe("writeOAuthCredentials", () => {
   });
 
   it("writes auth-profiles.json under NOVA_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-oauth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-oauth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -105,7 +105,7 @@ describe("setMinimaxApiKey", () => {
   });
 
   it("writes to NOVA_AGENT_DIR when set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-minimax-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-minimax-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "custom-agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;

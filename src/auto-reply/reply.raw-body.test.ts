@@ -30,7 +30,7 @@ vi.mock("../web/session.js", () => ({
 
 import { getReplyFromConfig } from "./reply.js";
 
-const { withTempHome } = createTempHomeHarness({ prefix: "openclaw-rawbody-" });
+const { withTempHome } = createTempHomeHarness({ prefix: "nova-engine-rawbody-" });
 
 describe("RawBody directive parsing", () => {
   beforeEach(() => {

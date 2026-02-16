@@ -2,8 +2,8 @@ import type {
   AllowlistMatch,
   ChannelGroupContext,
   GroupToolPolicyConfig,
-} from "openclaw/plugin-sdk";
-import { resolveAllowlistMatchSimple } from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
+import { resolveAllowlistMatchSimple } from "nova-engine/plugin-sdk";
 import type { FeishuConfig, FeishuGroupConfig } from "./types.js";
 
 export type FeishuAllowlistMatch = AllowlistMatch<"wildcard" | "id" | "name">;

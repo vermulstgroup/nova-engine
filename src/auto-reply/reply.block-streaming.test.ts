@@ -56,11 +56,11 @@ let caseId = 0;
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   const home = path.join(fixtureRoot, `case-${++caseId}`);
-  await fs.mkdir(path.join(home, ".openclaw", "agents", "main", "sessions"), { recursive: true });
+  await fs.mkdir(path.join(home, ".nova-engine", "agents", "main", "sessions"), { recursive: true });
   const envSnapshot = snapshotHomeEnv();
   process.env.HOME = home;
   process.env.USERPROFILE = home;
-  process.env.NOVA_STATE_DIR = path.join(home, ".openclaw");
+  process.env.NOVA_STATE_DIR = path.join(home, ".nova-engine");
 
   if (process.platform === "win32") {
     const match = home.match(/^([A-Za-z]:)(.*)$/);
@@ -79,7 +79,7 @@ async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
 
 describe("block streaming", () => {
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-stream-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-stream-"));
   });
 
   afterAll(async () => {
@@ -160,7 +160,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "nova-engine"),
             },
           },
           channels: { telegram: { allowFrom: ["*"] } },
@@ -199,7 +199,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "nova-engine"),
             },
           },
           channels: { telegram: { allowFrom: ["*"], streamMode: "block" } },
@@ -248,7 +248,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "nova-engine"),
             },
           },
           channels: { telegram: { allowFrom: ["*"] } },
@@ -295,7 +295,7 @@ describe("block streaming", () => {
           agents: {
             defaults: {
               model: "anthropic/claude-opus-4-5",
-              workspace: path.join(home, "openclaw"),
+              workspace: path.join(home, "nova-engine"),
             },
           },
           channels: { telegram: { allowFrom: ["*"] } },

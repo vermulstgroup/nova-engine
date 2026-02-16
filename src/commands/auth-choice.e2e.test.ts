@@ -68,7 +68,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("does not throw when openai-codex oauth fails", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -105,7 +105,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("prompts and writes MiniMax API key when selecting minimax-api", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -158,7 +158,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("prompts and writes MiniMax API key when selecting minimax-api-key-cn", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -212,7 +212,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("prompts and writes Synthetic API key when selecting synthetic-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -265,7 +265,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("prompts and writes Hugging Face API key when selecting huggingface-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -319,7 +319,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("prompts for Z.AI endpoint when selecting zai-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -373,7 +373,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("uses endpoint-specific auth choice without prompting for Z.AI endpoint", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -414,7 +414,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("maps apiKey + tokenProvider=huggingface to huggingface-api-key flow", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -472,7 +472,7 @@ describe("applyAuthChoice", () => {
     expect(parsed.profiles?.["huggingface:default"]?.key).toBe("hf-token-provider-test");
   });
   it("does not override the global default model when selecting xai-api-key without setDefaultModel", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -526,7 +526,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("sets default model when selecting github-copilot", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -578,7 +578,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("does not override the default model when selecting opencode-zen without setDefaultModel", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -629,7 +629,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("does not persist literal 'undefined' when Anthropic API key prompt returns undefined", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -677,7 +677,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("does not persist literal 'undefined' when OpenRouter API key prompt returns undefined", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -725,7 +725,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("uses existing OPENROUTER_API_KEY when selecting openrouter-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -786,7 +786,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("ignores legacy LiteLLM oauth profiles when selecting litellm-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -876,7 +876,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("uses existing AI_GATEWAY_API_KEY when selecting ai-gateway-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -939,7 +939,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("uses existing CLOUDFLARE_AI_GATEWAY_API_KEY when selecting cloudflare-ai-gateway-api-key", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -1009,7 +1009,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("writes Chutes OAuth credentials when selecting chutes (remote/manual)", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -1108,7 +1108,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("writes Qwen credentials when selecting qwen-portal", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;
@@ -1203,7 +1203,7 @@ describe("applyAuthChoice", () => {
   });
 
   it("writes MiniMax credentials when selecting minimax-portal", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-auth-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-auth-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     process.env.NOVA_AGENT_DIR = path.join(tempStateDir, "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;

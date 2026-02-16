@@ -146,7 +146,7 @@ describe("gateway-cli coverage", () => {
     discoverGatewayBeacons.mockReset();
     discoverGatewayBeacons.mockResolvedValueOnce([
       {
-        instanceName: "Studio (OpenClaw)",
+        instanceName: "Studio (Nova Engine)",
         displayName: "Studio",
         domain: "local.",
         host: "studio.local",
@@ -178,10 +178,10 @@ describe("gateway-cli coverage", () => {
     discoverGatewayBeacons.mockReset();
     discoverGatewayBeacons.mockResolvedValueOnce([
       {
-        instanceName: "Studio (OpenClaw)",
+        instanceName: "Studio (Nova Engine)",
         displayName: "Studio",
-        domain: "openclaw.internal.",
-        host: "studio.openclaw.internal",
+        domain: "nova-engine.internal.",
+        host: "studio.nova-engine.internal",
         lanHost: "studio.local",
         tailnetDns: "studio.tailnet.ts.net",
         gatewayPort: 18789,
@@ -201,10 +201,10 @@ describe("gateway-cli coverage", () => {
     const out = runtimeLogs.join("\n");
     expect(out).toContain("Gateway Discovery");
     expect(out).toContain("Found 1 gateway(s)");
-    expect(out).toContain("- Studio openclaw.internal.");
+    expect(out).toContain("- Studio nova-engine.internal.");
     expect(out).toContain("  tailnet: studio.tailnet.ts.net");
-    expect(out).toContain("  host: studio.openclaw.internal");
-    expect(out).toContain("  ws: ws://studio.openclaw.internal:18789");
+    expect(out).toContain("  host: studio.nova-engine.internal");
+    expect(out).toContain("  ws: ws://studio.nova-engine.internal:18789");
   });
 
   it("validates gateway discover timeout", async () => {

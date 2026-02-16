@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import NovaEngineProtocol
 
 /// Server-push messages from the gateway websocket.
 ///

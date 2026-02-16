@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { DoctorOptions, DoctorPrompter } from "./doctor-prompter.js";
 import { resolveGatewayPort, resolveIsNixMode } from "../config/paths.js";
@@ -89,7 +89,7 @@ async function cleanupLegacyLaunchdService(params: {
 }
 
 export async function maybeRepairGatewayServiceConfig(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   mode: "local" | "remote",
   runtime: RuntimeEnv,
   prompter: DoctorPrompter,
@@ -262,7 +262,7 @@ export async function maybeScanExtraGatewayServices(
         note(failed.map((line) => `- ${line}`).join("\n"), "Legacy gateway cleanup skipped");
       }
       if (removed.length > 0) {
-        runtime.log("Legacy gateway services removed. Installing OpenClaw gateway next.");
+        runtime.log("Legacy gateway services removed. Installing Nova Engine gateway next.");
       }
     }
   }

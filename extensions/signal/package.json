@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/signal",
+  "name": "@nova-engine/signal",
   "version": "2026.2.16",
   "private": true,
-  "description": "OpenClaw Signal channel plugin",
+  "description": "Nova Engine Signal channel plugin",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ]

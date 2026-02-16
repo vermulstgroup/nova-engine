@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { Nova EngineConfig } from "../../config/config.js";
 import { isTruthyEnvValue } from "../../infra/env.js";
 import { getPrimaryCommand, hasHelpOrVersion } from "../argv.js";
 import { reparseProgramFromActionArgs } from "./action-reparse.js";
@@ -26,7 +26,7 @@ const shouldEagerRegisterSubcommands = (_argv: string[]) => {
   return isTruthyEnvValue(process.env.NOVA_DISABLE_LAZY_SUBCOMMANDS);
 };
 
-const loadConfig = async (): Promise<OpenClawConfig> => {
+const loadConfig = async (): Promise<Nova EngineConfig> => {
   const mod = await import("../../config/config.js");
   return mod.loadConfig();
 };

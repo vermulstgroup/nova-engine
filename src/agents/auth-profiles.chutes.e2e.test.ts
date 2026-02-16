@@ -31,7 +31,7 @@ describe("auth-profiles (chutes)", () => {
       "PI_CODING_AGENT_DIR",
       "CHUTES_CLIENT_ID",
     ]);
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-chutes-"));
+    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-chutes-"));
     process.env.NOVA_STATE_DIR = tempDir;
     process.env.NOVA_AGENT_DIR = path.join(tempDir, "agents", "main", "agent");
     process.env.PI_CODING_AGENT_DIR = process.env.NOVA_AGENT_DIR;

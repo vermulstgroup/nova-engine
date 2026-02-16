@@ -24,7 +24,7 @@ function makePrompter(confirmValue: boolean): DoctorPrompter {
 beforeEach(() => {
   originalAgentDir = process.env.NOVA_AGENT_DIR;
   originalPiAgentDir = process.env.PI_CODING_AGENT_DIR;
-  tempAgentDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-auth-"));
+  tempAgentDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-auth-"));
   process.env.NOVA_AGENT_DIR = tempAgentDir;
   process.env.PI_CODING_AGENT_DIR = tempAgentDir;
 });

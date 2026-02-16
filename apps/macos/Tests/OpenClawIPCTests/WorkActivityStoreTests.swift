@@ -1,7 +1,7 @@
-import OpenClawProtocol
+import NovaEngineProtocol
 import Foundation
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite
 @MainActor
@@ -68,7 +68,7 @@ struct WorkActivityStoreTests {
             meta: nil,
             args: [
                 "command": AnyCodable("echo hi\necho bye"),
-                "path": AnyCodable("\(home)/Projects/openclaw"),
+                "path": AnyCodable("\(home)/Projects/nova-engine"),
             ])
 
         #expect(store.current?.label == "bash: echo hi")

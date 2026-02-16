@@ -1,6 +1,6 @@
 services:
-  openclaw-gateway:
-    image: ${NOVA_IMAGE:-openclaw:local}
+  nova-engine-gateway:
+    image: ${NOVA_IMAGE:-nova-engine:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -9,8 +9,8 @@ services:
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${NOVA_CONFIG_DIR}:/home/node/.openclaw
-      - ${NOVA_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${NOVA_CONFIG_DIR}:/home/node/.nova-engine
+      - ${NOVA_WORKSPACE_DIR}:/home/node/.nova-engine/workspace
     ports:
       - "${NOVA_GATEWAY_PORT:-18789}:18789"
       - "${NOVA_BRIDGE_PORT:-18790}:18790"
@@ -27,8 +27,8 @@ services:
         "18789",
       ]
 
-  openclaw-cli:
-    image: ${NOVA_IMAGE:-openclaw:local}
+  nova-engine-cli:
+    image: ${NOVA_IMAGE:-nova-engine:local}
     environment:
       HOME: /home/node
       TERM: xterm-256color
@@ -38,8 +38,8 @@ services:
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
     volumes:
-      - ${NOVA_CONFIG_DIR}:/home/node/.openclaw
-      - ${NOVA_WORKSPACE_DIR}:/home/node/.openclaw/workspace
+      - ${NOVA_CONFIG_DIR}:/home/node/.nova-engine
+      - ${NOVA_WORKSPACE_DIR}:/home/node/.nova-engine/workspace
     stdin_open: true
     tty: true
     init: true

@@ -226,12 +226,12 @@ describe("buildServiceEnvironment", () => {
     }
     expect(env.NOVA_GATEWAY_PORT).toBe("18789");
     expect(env.NOVA_GATEWAY_TOKEN).toBe("secret");
-    expect(env.NOVA_SERVICE_MARKER).toBe("openclaw");
+    expect(env.NOVA_SERVICE_MARKER).toBe("nova-engine");
     expect(env.NOVA_SERVICE_KIND).toBe("gateway");
     expect(typeof env.NOVA_SERVICE_VERSION).toBe("string");
-    expect(env.NOVA_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
+    expect(env.NOVA_SYSTEMD_UNIT).toBe("nova-engine-gateway.service");
     if (process.platform === "darwin") {
-      expect(env.NOVA_LAUNCHD_LABEL).toBe("ai.openclaw.gateway");
+      expect(env.NOVA_LAUNCHD_LABEL).toBe("ai.nova-engine.gateway");
     }
   });
 
@@ -240,9 +240,9 @@ describe("buildServiceEnvironment", () => {
       env: { HOME: "/home/user", NOVA_PROFILE: "work" },
       port: 18789,
     });
-    expect(env.NOVA_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
+    expect(env.NOVA_SYSTEMD_UNIT).toBe("nova-engine-gateway-work.service");
     if (process.platform === "darwin") {
-      expect(env.NOVA_LAUNCHD_LABEL).toBe("ai.openclaw.work");
+      expect(env.NOVA_LAUNCHD_LABEL).toBe("ai.nova-engine.work");
     }
   });
 });
@@ -259,31 +259,31 @@ describe("buildNodeServiceEnvironment", () => {
 describe("resolveGatewayStateDir", () => {
   it("uses the default state dir when no overrides are set", () => {
     const env = { HOME: "/Users/test" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".nova-engine"));
   });
 
   it("appends the profile suffix when set", () => {
     const env = { HOME: "/Users/test", NOVA_PROFILE: "rescue" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw-rescue"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".nova-engine-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
     const env = { HOME: "/Users/test", NOVA_PROFILE: "Default" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".nova-engine"));
   });
 
   it("uses NOVA_STATE_DIR when provided", () => {
-    const env = { HOME: "/Users/test", NOVA_STATE_DIR: "/var/lib/openclaw" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/openclaw"));
+    const env = { HOME: "/Users/test", NOVA_STATE_DIR: "/var/lib/nova-engine" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/nova-engine"));
   });
 
   it("expands ~ in NOVA_STATE_DIR", () => {
-    const env = { HOME: "/Users/test", NOVA_STATE_DIR: "~/openclaw-state" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/openclaw-state"));
+    const env = { HOME: "/Users/test", NOVA_STATE_DIR: "~/nova-engine-state" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/nova-engine-state"));
   });
 
   it("preserves Windows absolute paths without HOME", () => {
-    const env = { NOVA_STATE_DIR: "C:\\State\\openclaw" };
-    expect(resolveGatewayStateDir(env)).toBe("C:\\State\\openclaw");
+    const env = { NOVA_STATE_DIR: "C:\\State\\nova-engine" };
+    expect(resolveGatewayStateDir(env)).toBe("C:\\State\\nova-engine");
   });
 });

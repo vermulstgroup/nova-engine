@@ -46,7 +46,7 @@ describe("memory manager atomic reindex", () => {
   let manager: MemoryIndexManager | null = null;
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-mem-atomic-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-mem-atomic-"));
   });
 
   beforeEach(async () => {

@@ -49,8 +49,8 @@ async function main() {
   const { loadDotEnv } = await import("../infra/dotenv.js");
   loadDotEnv({ quiet: true });
 
-  const { ensureOpenClawCliOnPath } = await import("../infra/path-env.js");
-  ensureOpenClawCliOnPath();
+  const { ensureNova EngineCliOnPath } = await import("../infra/path-env.js");
+  ensureNova EngineCliOnPath();
 
   const { enableConsoleCapture } = await import("../logging.js");
   enableConsoleCapture();
@@ -66,7 +66,7 @@ async function main() {
   installUnhandledRejectionHandler();
 
   process.on("uncaughtException", (error) => {
-    console.error("[openclaw] Uncaught exception:", formatUncaughtError(error));
+    console.error("[nova-engine] Uncaught exception:", formatUncaughtError(error));
     process.exit(1);
   });
 
@@ -75,7 +75,7 @@ async function main() {
 
 void main().catch((err) => {
   console.error(
-    "[openclaw] Relay failed:",
+    "[nova-engine] Relay failed:",
     err instanceof Error ? (err.stack ?? err.message) : err,
   );
   process.exit(1);

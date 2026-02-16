@@ -1,5 +1,5 @@
 import Foundation
-import OpenClawKit
+import NovaEngineKit
 
 @MainActor
 final class GatewayHealthMonitor {

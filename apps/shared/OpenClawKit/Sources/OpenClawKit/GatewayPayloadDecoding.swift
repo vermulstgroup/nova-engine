@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import NovaEngineProtocol
 import Foundation
 
 public enum GatewayPayloadDecoding {

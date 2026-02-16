@@ -88,8 +88,8 @@ describe("daemon-cli coverage", () => {
   };
 
   beforeEach(() => {
-    process.env.NOVA_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.NOVA_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
+    process.env.NOVA_STATE_DIR = "/tmp/nova-engine-cli-state";
+    process.env.NOVA_CONFIG_PATH = "/tmp/nova-engine-cli-state/nova-engine.json";
     delete process.env.NOVA_GATEWAY_PORT;
     delete process.env.NOVA_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
@@ -149,8 +149,8 @@ describe("daemon-cli coverage", () => {
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
         NOVA_PROFILE: "dev",
-        NOVA_STATE_DIR: "/tmp/openclaw-daemon-state",
-        NOVA_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
+        NOVA_STATE_DIR: "/tmp/nova-engine-daemon-state",
+        NOVA_CONFIG_PATH: "/tmp/nova-engine-daemon-state/nova-engine.json",
         NOVA_GATEWAY_PORT: "19001",
       },
       sourcePath: "/tmp/bot.molt.gateway.plist",

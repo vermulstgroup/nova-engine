@@ -1,18 +1,18 @@
 // swift-tools-version: 6.2
-// Package manifest for the OpenClaw macOS companion (menu bar app + IPC library).
+// Package manifest for the NovaEngine macOS companion (menu bar app + IPC library).
 
 import PackageDescription
 
 let package = Package(
-    name: "OpenClaw",
+    name: "NovaEngine",
     platforms: [
         .macOS(.v15),
     ],
     products: [
-        .library(name: "OpenClawIPC", targets: ["OpenClawIPC"]),
-        .library(name: "OpenClawDiscovery", targets: ["OpenClawDiscovery"]),
-        .executable(name: "OpenClaw", targets: ["OpenClaw"]),
-        .executable(name: "openclaw-mac", targets: ["OpenClawMacCLI"]),
+        .library(name: "NovaEngineIPC", targets: ["NovaEngineIPC"]),
+        .library(name: "NovaEngineDiscovery", targets: ["NovaEngineDiscovery"]),
+        .executable(name: "NovaEngine", targets: ["NovaEngine"]),
+        .executable(name: "nova-engine-mac", targets: ["NovaEngineMacCLI"]),
     ],
     dependencies: [
         .package(url: "https://github.com/orchetect/MenuBarExtraAccess", exact: "1.2.2"),
@@ -20,33 +20,33 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-log.git", from: "1.8.0"),
         .package(url: "https://github.com/sparkle-project/Sparkle", from: "2.8.1"),
         .package(url: "https://github.com/steipete/Peekaboo.git", branch: "main"),
-        .package(path: "../shared/OpenClawKit"),
+        .package(path: "../shared/NovaEngineKit"),
         .package(path: "../../Swabble"),
     ],
     targets: [
         .target(
-            name: "OpenClawIPC",
+            name: "NovaEngineIPC",
             dependencies: [],
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .target(
-            name: "OpenClawDiscovery",
+            name: "NovaEngineDiscovery",
             dependencies: [
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
+                .product(name: "NovaEngineKit", package: "NovaEngineKit"),
             ],
-            path: "Sources/OpenClawDiscovery",
+            path: "Sources/NovaEngineDiscovery",
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .executableTarget(
-            name: "OpenClaw",
+            name: "NovaEngine",
             dependencies: [
-                "OpenClawIPC",
-                "OpenClawDiscovery",
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
-                .product(name: "OpenClawChatUI", package: "OpenClawKit"),
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "NovaEngineIPC",
+                "NovaEngineDiscovery",
+                .product(name: "NovaEngineKit", package: "NovaEngineKit"),
+                .product(name: "NovaEngineChatUI", package: "NovaEngineKit"),
+                .product(name: "NovaEngineProtocol", package: "NovaEngineKit"),
                 .product(name: "SwabbleKit", package: "swabble"),
                 .product(name: "MenuBarExtraAccess", package: "MenuBarExtraAccess"),
                 .product(name: "Subprocess", package: "swift-subprocess"),
@@ -59,30 +59,30 @@ let package = Package(
                 "Resources/Info.plist",
             ],
             resources: [
-                .copy("Resources/OpenClaw.icns"),
+                .copy("Resources/NovaEngine.icns"),
                 .copy("Resources/DeviceModels"),
             ],
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .executableTarget(
-            name: "OpenClawMacCLI",
+            name: "NovaEngineMacCLI",
             dependencies: [
-                "OpenClawDiscovery",
-                .product(name: "OpenClawKit", package: "OpenClawKit"),
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "NovaEngineDiscovery",
+                .product(name: "NovaEngineKit", package: "NovaEngineKit"),
+                .product(name: "NovaEngineProtocol", package: "NovaEngineKit"),
             ],
-            path: "Sources/OpenClawMacCLI",
+            path: "Sources/NovaEngineMacCLI",
             swiftSettings: [
                 .enableUpcomingFeature("StrictConcurrency"),
             ]),
         .testTarget(
-            name: "OpenClawIPCTests",
+            name: "NovaEngineIPCTests",
             dependencies: [
-                "OpenClawIPC",
-                "OpenClaw",
-                "OpenClawDiscovery",
-                .product(name: "OpenClawProtocol", package: "OpenClawKit"),
+                "NovaEngineIPC",
+                "NovaEngine",
+                "NovaEngineDiscovery",
+                .product(name: "NovaEngineProtocol", package: "NovaEngineKit"),
                 .product(name: "SwabbleKit", package: "swabble"),
             ],
             swiftSettings: [

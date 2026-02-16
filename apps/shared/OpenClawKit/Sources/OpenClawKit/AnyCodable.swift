@@ -1,4 +1,4 @@
-import OpenClawProtocol
+import NovaEngineProtocol
 
-public typealias AnyCodable = OpenClawProtocol.AnyCodable
+public typealias AnyCodable = NovaEngineProtocol.AnyCodable
 

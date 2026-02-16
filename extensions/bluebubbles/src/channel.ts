@@ -1,4 +1,4 @@
-import type { ChannelAccountSnapshot, ChannelPlugin, OpenClawConfig } from "openclaw/plugin-sdk";
+import type { ChannelAccountSnapshot, ChannelPlugin, Nova EngineConfig } from "nova-engine/plugin-sdk";
 import {
   applyAccountNameToChannelSection,
   buildChannelConfigSchema,
@@ -12,7 +12,7 @@ import {
   resolveBlueBubblesGroupRequireMention,
   resolveBlueBubblesGroupToolPolicy,
   setAccountEnabledInConfigSection,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import {
   listBlueBubblesAccountIds,
   type ResolvedBlueBubblesAccount,
@@ -262,7 +262,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
               ...(input.webhookPath ? { webhookPath: input.webhookPath } : {}),
             },
           },
-        } as OpenClawConfig;
+        } as Nova EngineConfig;
       }
       return {
         ...next,
@@ -283,7 +283,7 @@ export const bluebubblesPlugin: ChannelPlugin<ResolvedBlueBubblesAccount> = {
             },
           },
         },
-      } as OpenClawConfig;
+      } as Nova EngineConfig;
     },
   },
   pairing: {

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk";
+import type { Nova EngineConfig } from "nova-engine/plugin-sdk";
 import {
   createReplyPrefixOptions,
   logAckFailure,
@@ -6,7 +6,7 @@ import {
   logTypingFailure,
   resolveAckReaction,
   resolveControlCommandGate,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import type {
   BlueBubblesCoreRuntime,
   BlueBubblesRuntimeEnv,
@@ -81,7 +81,7 @@ function logGroupAllowlistHint(params: {
 }
 
 function resolveBlueBubblesAckReaction(params: {
-  cfg: OpenClawConfig;
+  cfg: Nova EngineConfig;
   agentId: string;
   core: BlueBubblesCoreRuntime;
   runtime: BlueBubblesRuntimeEnv;

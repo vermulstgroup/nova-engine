@@ -183,14 +183,14 @@ describe("fetchBrowserJson loopback auth (bridge auth registry)", () => {
 describe("browser server-context listKnownProfileNames", () => {
   it("includes configured and runtime-only profile names", () => {
     const resolved = resolveBrowserConfig({
-      defaultProfile: "openclaw",
+      defaultProfile: "nova-engine",
       profiles: {
-        openclaw: { cdpPort: 18800, color: "#FF4500" },
+        nova-engine: { cdpPort: 18800, color: "#FF4500" },
       },
     });
-    const openclaw = resolveProfile(resolved, "openclaw");
-    if (!openclaw) {
-      throw new Error("expected openclaw profile");
+    const nova-engine = resolveProfile(resolved, "nova-engine");
+    if (!nova-engine) {
+      throw new Error("expected nova-engine profile");
     }
 
     const state: BrowserServerState = {
@@ -201,7 +201,7 @@ describe("browser server-context listKnownProfileNames", () => {
         [
           "stale-removed",
           {
-            profile: { ...openclaw, name: "stale-removed" },
+            profile: { ...nova-engine, name: "stale-removed" },
             running: null,
           },
         ],
@@ -210,7 +210,7 @@ describe("browser server-context listKnownProfileNames", () => {
 
     expect(listKnownProfileNames(state).toSorted()).toEqual([
       "chrome",
-      "openclaw",
+      "nova-engine",
       "stale-removed",
     ]);
   });

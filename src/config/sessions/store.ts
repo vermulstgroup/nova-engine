@@ -275,7 +275,7 @@ function resolveRotateBytes(maintenance?: SessionMaintenanceConfig): number {
 }
 
 /**
- * Resolve maintenance settings from openclaw.json (`session.maintenance`).
+ * Resolve maintenance settings from nova-engine.json (`session.maintenance`).
  * Falls back to built-in defaults when config is missing or unset.
  */
 export function resolveMaintenanceConfig(): ResolvedSessionMaintenanceConfig {

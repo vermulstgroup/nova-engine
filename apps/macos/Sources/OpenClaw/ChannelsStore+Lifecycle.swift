@@ -1,5 +1,5 @@
 import Foundation
-import OpenClawProtocol
+import NovaEngineProtocol
 
 extension ChannelsStore {
     func start() {

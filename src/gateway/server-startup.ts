@@ -1,6 +1,6 @@
 import type { CliDeps } from "../cli/deps.js";
 import type { loadConfig } from "../config/config.js";
-import type { loadOpenClawPlugins } from "../plugins/loader.js";
+import type { loadNova EnginePlugins } from "../plugins/loader.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../agents/defaults.js";
 import { loadModelCatalog } from "../agents/model-catalog.js";
 import {
@@ -26,7 +26,7 @@ import { startGatewayMemoryBackend } from "./server-startup-memory.js";
 
 export async function startGatewaySidecars(params: {
   cfg: ReturnType<typeof loadConfig>;
-  pluginRegistry: ReturnType<typeof loadOpenClawPlugins>;
+  pluginRegistry: ReturnType<typeof loadNova EnginePlugins>;
   defaultWorkspaceDir: string;
   deps: CliDeps;
   startChannels: () => Promise<void>;
@@ -39,7 +39,7 @@ export async function startGatewaySidecars(params: {
   logChannels: { info: (msg: string) => void; error: (msg: string) => void };
   logBrowser: { error: (msg: string) => void };
 }) {
-  // Start OpenClaw browser control server (unless disabled via config).
+  // Start Nova Engine browser control server (unless disabled via config).
   let browserControl: Awaited<ReturnType<typeof startBrowserControlServerIfEnabled>> = null;
   try {
     browserControl = await startBrowserControlServerIfEnabled();

@@ -25,7 +25,7 @@ export const confirm = vi.fn().mockResolvedValue(true) as unknown as MockFn;
 export const select = vi.fn().mockResolvedValue("node") as unknown as MockFn;
 export const note = vi.fn() as unknown as MockFn;
 export const writeConfigFile = vi.fn().mockResolvedValue(undefined) as unknown as MockFn;
-export const resolveOpenClawPackageRoot = vi.fn().mockResolvedValue(null) as unknown as MockFn;
+export const resolveNova EnginePackageRoot = vi.fn().mockResolvedValue(null) as unknown as MockFn;
 export const runGatewayUpdate = vi.fn().mockResolvedValue({
   status: "skipped",
   mode: "unknown",
@@ -54,7 +54,7 @@ export const ensureAuthProfileStore = vi
   .mockReturnValue({ version: 1, profiles: {} }) as unknown as MockFn;
 
 export const legacyReadConfigFileSnapshot = vi.fn().mockResolvedValue({
-  path: "/tmp/openclaw.json",
+  path: "/tmp/nova-engine.json",
   exists: false,
   raw: null,
   parsed: {},
@@ -142,14 +142,14 @@ vi.mock("../agents/skills-status.js", () => ({
 }));
 
 vi.mock("../plugins/loader.js", () => ({
-  loadOpenClawPlugins: () => ({ plugins: [], diagnostics: [] }),
+  loadNova EnginePlugins: () => ({ plugins: [], diagnostics: [] }),
 }));
 
 vi.mock("../config/config.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("../config/config.js")>();
   return {
     ...actual,
-    CONFIG_PATH: "/tmp/openclaw.json",
+    CONFIG_PATH: "/tmp/nova-engine.json",
     createConfigIO,
     readConfigFileSnapshot,
     writeConfigFile,
@@ -184,8 +184,8 @@ vi.mock("../process/exec.js", () => ({
   runCommandWithTimeout,
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
-  resolveOpenClawPackageRoot,
+vi.mock("../infra/nova-engine-root.js", () => ({
+  resolveNova EnginePackageRoot,
 }));
 
 vi.mock("../infra/update-runner.js", () => ({
@@ -268,7 +268,7 @@ export async function arrangeLegacyStateMigrationTest(): Promise<{
   runLegacyStateMigrations: MockFn;
 }> {
   readConfigFileSnapshot.mockResolvedValue({
-    path: "/tmp/openclaw.json",
+    path: "/tmp/nova-engine.json",
     exists: true,
     raw: "{}",
     parsed: {},
@@ -340,7 +340,7 @@ beforeEach(() => {
 
   readConfigFileSnapshot.mockReset();
   writeConfigFile.mockReset().mockResolvedValue(undefined);
-  resolveOpenClawPackageRoot.mockReset().mockResolvedValue(null);
+  resolveNova EnginePackageRoot.mockReset().mockResolvedValue(null);
   runGatewayUpdate.mockReset().mockResolvedValue({
     status: "skipped",
     mode: "unknown",
@@ -348,7 +348,7 @@ beforeEach(() => {
     durationMs: 0,
   });
   legacyReadConfigFileSnapshot.mockReset().mockResolvedValue({
-    path: "/tmp/openclaw.json",
+    path: "/tmp/nova-engine.json",
     exists: false,
     raw: null,
     parsed: {},
@@ -392,7 +392,7 @@ beforeEach(() => {
   originalStateDir = process.env.NOVA_STATE_DIR;
   originalUpdateInProgress = process.env.NOVA_UPDATE_IN_PROGRESS;
   process.env.NOVA_UPDATE_IN_PROGRESS = "1";
-  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-doctor-state-"));
+  tempStateDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-doctor-state-"));
   process.env.NOVA_STATE_DIR = tempStateDir;
   fs.mkdirSync(path.join(tempStateDir, "agents", "main", "sessions"), {
     recursive: true,

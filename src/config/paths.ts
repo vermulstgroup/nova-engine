@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "./types.js";
+import type { Nova EngineConfig } from "./types.js";
 import { expandHomePrefix, resolveRequiredHomeDir } from "../infra/home-dir.js";
 
 /**
@@ -19,8 +19,8 @@ export const isNixMode = resolveIsNixMode();
 
 // Support historical (and occasionally misspelled) legacy state dirs.
 const LEGACY_STATE_DIRNAMES = [".clawdbot", ".moldbot", ".moltbot"] as const;
-const NEW_STATE_DIRNAME = ".openclaw";
-const CONFIG_FILENAME = "openclaw.json";
+const NEW_STATE_DIRNAME = ".nova-engine";
+const CONFIG_FILENAME = "nova-engine.json";
 const LEGACY_CONFIG_FILENAMES = ["clawdbot.json", "moldbot.json", "moltbot.json"] as const;
 
 function resolveDefaultHomeDir(): string {
@@ -55,7 +55,7 @@ export function resolveNewStateDir(homedir: () => string = resolveDefaultHomeDir
 /**
  * State directory for mutable data (sessions, logs, caches).
  * Can be overridden via NOVA_STATE_DIR.
- * Default: ~/.openclaw
+ * Default: ~/.nova-engine
  */
 export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
@@ -110,7 +110,7 @@ export const STATE_DIR = resolveStateDir();
 /**
  * Config file path (JSON5).
  * Can be overridden via NOVA_CONFIG_PATH.
- * Default: ~/.openclaw/openclaw.json (or $NOVA_STATE_DIR/openclaw.json)
+ * Default: ~/.nova-engine/nova-engine.json (or $NOVA_STATE_DIR/nova-engine.json)
  */
 export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
@@ -199,9 +199,9 @@ export function resolveDefaultConfigCandidates(
   }
 
   const candidates: string[] = [];
-  const openclawStateDir = env.NOVA_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
-  if (openclawStateDir) {
-    const resolved = resolveUserPath(openclawStateDir, env, effectiveHomedir);
+  const nova-engineStateDir = env.NOVA_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  if (nova-engineStateDir) {
+    const resolved = resolveUserPath(nova-engineStateDir, env, effectiveHomedir);
     candidates.push(path.join(resolved, CONFIG_FILENAME));
     candidates.push(...LEGACY_CONFIG_FILENAMES.map((name) => path.join(resolved, name)));
   }
@@ -218,12 +218,12 @@ export const DEFAULT_GATEWAY_PORT = 18789;
 
 /**
  * Gateway lock directory (ephemeral).
- * Default: os.tmpdir()/openclaw-<uid> (uid suffix when available).
+ * Default: os.tmpdir()/nova-engine-<uid> (uid suffix when available).
  */
 export function resolveGatewayLockDir(tmpdir: () => string = os.tmpdir): string {
   const base = tmpdir();
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
-  const suffix = uid != null ? `openclaw-${uid}` : "openclaw";
+  const suffix = uid != null ? `nova-engine-${uid}` : "nova-engine";
   return path.join(base, suffix);
 }
 
@@ -255,7 +255,7 @@ export function resolveOAuthPath(
 }
 
 export function resolveGatewayPort(
-  cfg?: OpenClawConfig,
+  cfg?: Nova EngineConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): number {
   const envRaw = env.NOVA_GATEWAY_PORT?.trim() || env.CLAWDBOT_GATEWAY_PORT?.trim();

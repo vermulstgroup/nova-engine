@@ -7,7 +7,7 @@ import { note, readConfigFileSnapshot } from "./doctor.e2e-harness.js";
 describe("doctor command", () => {
   it("warns when the state directory is missing", async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/nova-engine.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -17,7 +17,7 @@ describe("doctor command", () => {
       legacyIssues: [],
     });
 
-    const missingDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-missing-state-"));
+    const missingDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-missing-state-"));
     fs.rmSync(missingDir, { recursive: true, force: true });
     process.env.NOVA_STATE_DIR = missingDir;
     note.mockClear();
@@ -35,7 +35,7 @@ describe("doctor command", () => {
 
   it("warns about opencode provider overrides", async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/nova-engine.json",
       exists: true,
       raw: "{}",
       parsed: {},
@@ -69,7 +69,7 @@ describe("doctor command", () => {
 
   it("skips gateway auth warning when NOVA_GATEWAY_TOKEN is set", async () => {
     readConfigFileSnapshot.mockResolvedValue({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/nova-engine.json",
       exists: true,
       raw: "{}",
       parsed: {},

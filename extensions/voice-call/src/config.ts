@@ -3,7 +3,7 @@ import {
   TtsConfigSchema,
   TtsModeSchema,
   TtsProviderSchema,
-} from "openclaw/plugin-sdk";
+} from "nova-engine/plugin-sdk";
 import { z } from "zod";
 
 // -----------------------------------------------------------------------------

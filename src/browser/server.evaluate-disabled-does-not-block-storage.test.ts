@@ -43,9 +43,9 @@ vi.mock("../config/config.js", async (importOriginal) => {
       browser: {
         enabled: true,
         evaluateEnabled: false,
-        defaultProfile: "openclaw",
+        defaultProfile: "nova-engine",
         profiles: {
-          openclaw: { cdpPort: testPort + 1, color: "#FF4500" },
+          nova-engine: { cdpPort: testPort + 1, color: "#FF4500" },
         },
       },
     }),

@@ -1,38 +1,38 @@
 import Foundation
 
-public enum OpenClawCameraCommand: String, Codable, Sendable {
+public enum NovaEngineCameraCommand: String, Codable, Sendable {
     case list = "camera.list"
     case snap = "camera.snap"
     case clip = "camera.clip"
 }
 
-public enum OpenClawCameraFacing: String, Codable, Sendable {
+public enum NovaEngineCameraFacing: String, Codable, Sendable {
     case back
     case front
 }
 
-public enum OpenClawCameraImageFormat: String, Codable, Sendable {
+public enum NovaEngineCameraImageFormat: String, Codable, Sendable {
     case jpg
     case jpeg
 }
 
-public enum OpenClawCameraVideoFormat: String, Codable, Sendable {
+public enum NovaEngineCameraVideoFormat: String, Codable, Sendable {
     case mp4
 }
 
-public struct OpenClawCameraSnapParams: Codable, Sendable, Equatable {
-    public var facing: OpenClawCameraFacing?
+public struct NovaEngineCameraSnapParams: Codable, Sendable, Equatable {
+    public var facing: NovaEngineCameraFacing?
     public var maxWidth: Int?
     public var quality: Double?
-    public var format: OpenClawCameraImageFormat?
+    public var format: NovaEngineCameraImageFormat?
     public var deviceId: String?
     public var delayMs: Int?
 
     public init(
-        facing: OpenClawCameraFacing? = nil,
+        facing: NovaEngineCameraFacing? = nil,
         maxWidth: Int? = nil,
         quality: Double? = nil,
-        format: OpenClawCameraImageFormat? = nil,
+        format: NovaEngineCameraImageFormat? = nil,
         deviceId: String? = nil,
         delayMs: Int? = nil)
     {
@@ -45,18 +45,18 @@ public struct OpenClawCameraSnapParams: Codable, Sendable, Equatable {
     }
 }
 
-public struct OpenClawCameraClipParams: Codable, Sendable, Equatable {
-    public var facing: OpenClawCameraFacing?
+public struct NovaEngineCameraClipParams: Codable, Sendable, Equatable {
+    public var facing: NovaEngineCameraFacing?
     public var durationMs: Int?
     public var includeAudio: Bool?
-    public var format: OpenClawCameraVideoFormat?
+    public var format: NovaEngineCameraVideoFormat?
     public var deviceId: String?
 
     public init(
-        facing: OpenClawCameraFacing? = nil,
+        facing: NovaEngineCameraFacing? = nil,
         durationMs: Int? = nil,
         includeAudio: Bool? = nil,
-        format: OpenClawCameraVideoFormat? = nil,
+        format: NovaEngineCameraVideoFormat? = nil,
         deviceId: String? = nil)
     {
         self.facing = facing

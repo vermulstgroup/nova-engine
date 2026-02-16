@@ -1,18 +1,18 @@
 import Foundation
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite(.serialized)
-struct OpenClawConfigFileTests {
+struct NovaEngineConfigFileTests {
     @Test
     func configPathRespectsEnvOverride() async {
         let override = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-config-\(UUID().uuidString)")
-            .appendingPathComponent("openclaw.json")
+            .appendingPathComponent("nova-engine-config-\(UUID().uuidString)")
+            .appendingPathComponent("nova-engine.json")
             .path
 
         await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
-            #expect(OpenClawConfigFile.url().path == override)
+            #expect(NovaEngineConfigFile.url().path == override)
         }
     }
 
@@ -20,22 +20,22 @@ struct OpenClawConfigFileTests {
     @Test
     func remoteGatewayPortParsesAndMatchesHost() async {
         let override = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-config-\(UUID().uuidString)")
-            .appendingPathComponent("openclaw.json")
+            .appendingPathComponent("nova-engine-config-\(UUID().uuidString)")
+            .appendingPathComponent("nova-engine.json")
             .path
 
         await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
-            OpenClawConfigFile.saveDict([
+            NovaEngineConfigFile.saveDict([
                 "gateway": [
                     "remote": [
                         "url": "ws://gateway.ts.net:19999",
                     ],
                 ],
             ])
-            #expect(OpenClawConfigFile.remoteGatewayPort() == 19999)
-            #expect(OpenClawConfigFile.remoteGatewayPort(matchingHost: "gateway.ts.net") == 19999)
-            #expect(OpenClawConfigFile.remoteGatewayPort(matchingHost: "gateway") == 19999)
-            #expect(OpenClawConfigFile.remoteGatewayPort(matchingHost: "other.ts.net") == nil)
+            #expect(NovaEngineConfigFile.remoteGatewayPort() == 19999)
+            #expect(NovaEngineConfigFile.remoteGatewayPort(matchingHost: "gateway.ts.net") == 19999)
+            #expect(NovaEngineConfigFile.remoteGatewayPort(matchingHost: "gateway") == 19999)
+            #expect(NovaEngineConfigFile.remoteGatewayPort(matchingHost: "other.ts.net") == nil)
         }
     }
 
@@ -43,20 +43,20 @@ struct OpenClawConfigFileTests {
     @Test
     func setRemoteGatewayUrlPreservesScheme() async {
         let override = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-config-\(UUID().uuidString)")
-            .appendingPathComponent("openclaw.json")
+            .appendingPathComponent("nova-engine-config-\(UUID().uuidString)")
+            .appendingPathComponent("nova-engine.json")
             .path
 
         await TestIsolation.withEnvValues(["OPENCLAW_CONFIG_PATH": override]) {
-            OpenClawConfigFile.saveDict([
+            NovaEngineConfigFile.saveDict([
                 "gateway": [
                     "remote": [
                         "url": "wss://old-host:111",
                     ],
                 ],
             ])
-            OpenClawConfigFile.setRemoteGatewayUrl(host: "new-host", port: 2222)
-            let root = OpenClawConfigFile.loadDict()
+            NovaEngineConfigFile.setRemoteGatewayUrl(host: "new-host", port: 2222)
+            let root = NovaEngineConfigFile.loadDict()
             let url = ((root["gateway"] as? [String: Any])?["remote"] as? [String: Any])?["url"] as? String
             #expect(url == "wss://new-host:2222")
         }
@@ -65,15 +65,15 @@ struct OpenClawConfigFileTests {
     @Test
     func stateDirOverrideSetsConfigPath() async {
         let dir = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("nova-engine-state-\(UUID().uuidString)", isDirectory: true)
             .path
 
         await TestIsolation.withEnvValues([
             "OPENCLAW_CONFIG_PATH": nil,
             "OPENCLAW_STATE_DIR": dir,
         ]) {
-            #expect(OpenClawConfigFile.stateDirURL().path == dir)
-            #expect(OpenClawConfigFile.url().path == "\(dir)/openclaw.json")
+            #expect(NovaEngineConfigFile.stateDirURL().path == dir)
+            #expect(NovaEngineConfigFile.url().path == "\(dir)/nova-engine.json")
         }
     }
 
@@ -81,8 +81,8 @@ struct OpenClawConfigFileTests {
     @Test
     func saveDictAppendsConfigAuditLog() async throws {
         let stateDir = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-state-\(UUID().uuidString)", isDirectory: true)
-        let configPath = stateDir.appendingPathComponent("openclaw.json")
+            .appendingPathComponent("nova-engine-state-\(UUID().uuidString)", isDirectory: true)
+        let configPath = stateDir.appendingPathComponent("nova-engine.json")
         let auditPath = stateDir.appendingPathComponent("logs/config-audit.jsonl")
 
         defer { try? FileManager().removeItem(at: stateDir) }
@@ -91,7 +91,7 @@ struct OpenClawConfigFileTests {
             "OPENCLAW_STATE_DIR": stateDir.path,
             "OPENCLAW_CONFIG_PATH": configPath.path,
         ]) {
-            OpenClawConfigFile.saveDict([
+            NovaEngineConfigFile.saveDict([
                 "gateway": ["mode": "local"],
             ])
 
@@ -109,7 +109,7 @@ struct OpenClawConfigFileTests {
                 return
             }
             let auditRoot = try JSONSerialization.jsonObject(with: Data(last.utf8)) as? [String: Any]
-            #expect(auditRoot?["source"] as? String == "macos-openclaw-config-file")
+            #expect(auditRoot?["source"] as? String == "macos-nova-engine-config-file")
             #expect(auditRoot?["event"] as? String == "config.write")
             #expect(auditRoot?["result"] as? String == "success")
             #expect(auditRoot?["configPath"] as? String == configPath.path)

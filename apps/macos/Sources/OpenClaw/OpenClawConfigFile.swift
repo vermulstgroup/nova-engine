@@ -1,20 +1,20 @@
 import Foundation
-import OpenClawProtocol
+import NovaEngineProtocol
 
-enum OpenClawConfigFile {
-    private static let logger = Logger(subsystem: "ai.openclaw", category: "config")
+enum NovaEngineConfigFile {
+    private static let logger = Logger(subsystem: "ai.nova-engine", category: "config")
     private static let configAuditFileName = "config-audit.jsonl"
 
     static func url() -> URL {
-        OpenClawPaths.configURL
+        NovaEnginePaths.configURL
     }
 
     static func stateDirURL() -> URL {
-        OpenClawPaths.stateDirURL
+        NovaEnginePaths.stateDirURL
     }
 
     static func defaultWorkspaceURL() -> URL {
-        OpenClawPaths.workspaceURL
+        NovaEnginePaths.workspaceURL
     }
 
     static func loadDict() -> [String: Any] {
@@ -325,7 +325,7 @@ enum OpenClawConfigFile {
     private static func appendConfigWriteAudit(_ fields: [String: Any]) {
         var record: [String: Any] = [
             "ts": ISO8601DateFormatter().string(from: Date()),
-            "source": "macos-openclaw-config-file",
+            "source": "macos-nova-engine-config-file",
             "event": "config.write",
             "pid": ProcessInfo.processInfo.processIdentifier,
             "argv": Array(ProcessInfo.processInfo.arguments.prefix(8)),

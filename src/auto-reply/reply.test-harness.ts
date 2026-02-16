@@ -52,13 +52,13 @@ export function createTempHomeHarness(options: { prefix: string; beforeEachCase?
 
   async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
     const home = path.join(fixtureRoot, `case-${++caseId}`);
-    await fs.mkdir(path.join(home, ".openclaw", "agents", "main", "sessions"), { recursive: true });
+    await fs.mkdir(path.join(home, ".nova-engine", "agents", "main", "sessions"), { recursive: true });
     const envSnapshot = snapshotHomeEnv();
     process.env.HOME = home;
     process.env.USERPROFILE = home;
-    process.env.NOVA_STATE_DIR = path.join(home, ".openclaw");
-    process.env.NOVA_AGENT_DIR = path.join(home, ".openclaw", "agent");
-    process.env.PI_CODING_AGENT_DIR = path.join(home, ".openclaw", "agent");
+    process.env.NOVA_STATE_DIR = path.join(home, ".nova-engine");
+    process.env.NOVA_AGENT_DIR = path.join(home, ".nova-engine", "agent");
+    process.env.PI_CODING_AGENT_DIR = path.join(home, ".nova-engine", "agent");
 
     if (process.platform === "win32") {
       const match = home.match(/^([A-Za-z]:)(.*)$/);
@@ -84,7 +84,7 @@ export function makeReplyConfig(home: string) {
     agents: {
       defaults: {
         model: "anthropic/claude-opus-4-5",
-        workspace: path.join(home, "openclaw"),
+        workspace: path.join(home, "nova-engine"),
       },
     },
     channels: {

@@ -17,7 +17,7 @@ describe("readFirstUserMessageFromTranscript", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-session-fs-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-session-fs-test-"));
     storePath = path.join(tmpDir, "sessions.json");
   });
 
@@ -184,7 +184,7 @@ describe("readLastMessagePreviewFromTranscript", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-session-fs-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-session-fs-test-"));
     storePath = path.join(tmpDir, "sessions.json");
   });
 
@@ -373,7 +373,7 @@ describe("readSessionTitleFieldsFromTranscript cache", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-session-fs-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-session-fs-test-"));
     storePath = path.join(tmpDir, "sessions.json");
   });
 
@@ -437,7 +437,7 @@ describe("readSessionMessages", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-session-fs-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-session-fs-test-"));
     storePath = path.join(tmpDir, "sessions.json");
   });
 
@@ -468,13 +468,13 @@ describe("readSessionMessages", () => {
     const marker = out[1] as {
       role: string;
       content?: Array<{ text?: string }>;
-      __openclaw?: { kind?: string; id?: string };
+      __nova-engine?: { kind?: string; id?: string };
       timestamp?: number;
     };
     expect(marker.role).toBe("system");
     expect(marker.content?.[0]?.text).toBe("Compaction");
-    expect(marker.__openclaw?.kind).toBe("compaction");
-    expect(marker.__openclaw?.id).toBe("comp-1");
+    expect(marker.__nova-engine?.kind).toBe("compaction");
+    expect(marker.__nova-engine?.id).toBe("comp-1");
     expect(typeof marker.timestamp).toBe("number");
   });
 
@@ -536,7 +536,7 @@ describe("readSessionPreviewItemsFromTranscript", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-session-preview-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-session-preview-test-"));
     storePath = path.join(tmpDir, "sessions.json");
   });
 
@@ -636,21 +636,21 @@ describe("resolveSessionTranscriptCandidates", () => {
   });
 
   test("fallback candidate uses NOVA_HOME instead of os.homedir()", () => {
-    vi.stubEnv("NOVA_HOME", "/srv/openclaw-home");
+    vi.stubEnv("NOVA_HOME", "/srv/nova-engine-home");
     vi.stubEnv("HOME", "/home/other");
 
     const candidates = resolveSessionTranscriptCandidates("sess-1", undefined);
     const fallback = candidates[candidates.length - 1];
     expect(fallback).toBe(
-      path.join(path.resolve("/srv/openclaw-home"), ".openclaw", "sessions", "sess-1.jsonl"),
+      path.join(path.resolve("/srv/nova-engine-home"), ".nova-engine", "sessions", "sess-1.jsonl"),
     );
   });
 });
 
 describe("resolveSessionTranscriptCandidates safety", () => {
   test("keeps cross-agent absolute sessionFile when storePath agent context differs", () => {
-    const storePath = "/tmp/openclaw/agents/main/sessions/sessions.json";
-    const sessionFile = "/tmp/openclaw/agents/ops/sessions/sess-safe.jsonl";
+    const storePath = "/tmp/nova-engine/agents/main/sessions/sessions.json";
+    const sessionFile = "/tmp/nova-engine/agents/ops/sessions/sess-safe.jsonl";
     const candidates = resolveSessionTranscriptCandidates("sess-safe", storePath, sessionFile);
 
     expect(candidates.map((value) => path.resolve(value))).toContain(path.resolve(sessionFile));
@@ -667,14 +667,14 @@ describe("resolveSessionTranscriptCandidates safety", () => {
   test("drops unsafe session IDs instead of producing traversal paths", () => {
     const candidates = resolveSessionTranscriptCandidates(
       "../etc/passwd",
-      "/tmp/openclaw/agents/main/sessions/sessions.json",
+      "/tmp/nova-engine/agents/main/sessions/sessions.json",
     );
 
     expect(candidates).toEqual([]);
   });
 
   test("drops unsafe sessionFile candidates and keeps safe fallbacks", () => {
-    const storePath = "/tmp/openclaw/agents/main/sessions/sessions.json";
+    const storePath = "/tmp/nova-engine/agents/main/sessions/sessions.json";
     const candidates = resolveSessionTranscriptCandidates(
       "sess-safe",
       storePath,
@@ -693,7 +693,7 @@ describe("archiveSessionTranscripts", () => {
   let storePath: string;
 
   beforeAll(() => {
-    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-archive-test-"));
+    tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "nova-engine-archive-test-"));
     storePath = path.join(tmpDir, "sessions.json");
     vi.stubEnv("NOVA_HOME", tmpDir);
   });

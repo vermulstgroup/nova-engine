@@ -4,8 +4,8 @@ import path from "node:path";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import type { UpdateCheckResult } from "./update-check.js";
 
-vi.mock("./openclaw-root.js", () => ({
-  resolveOpenClawPackageRoot: vi.fn(),
+vi.mock("./nova-engine-root.js", () => ({
+  resolveNova EnginePackageRoot: vi.fn(),
 }));
 
 vi.mock("./update-check.js", async () => {
@@ -45,14 +45,14 @@ describe("update-startup", () => {
   let hadNodeEnv = false;
   let hadVitest = false;
 
-  let resolveOpenClawPackageRoot: (typeof import("./openclaw-root.js"))["resolveOpenClawPackageRoot"];
+  let resolveNova EnginePackageRoot: (typeof import("./nova-engine-root.js"))["resolveNova EnginePackageRoot"];
   let checkUpdateStatus: (typeof import("./update-check.js"))["checkUpdateStatus"];
   let resolveNpmChannelTag: (typeof import("./update-check.js"))["resolveNpmChannelTag"];
   let runGatewayUpdateCheck: (typeof import("./update-startup.js"))["runGatewayUpdateCheck"];
   let loaded = false;
 
   beforeAll(async () => {
-    suiteRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-check-suite-"));
+    suiteRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-update-check-suite-"));
   });
 
   beforeEach(async () => {
@@ -75,7 +75,7 @@ describe("update-startup", () => {
 
     // Perf: load mocked modules once (after timers/env are set up).
     if (!loaded) {
-      ({ resolveOpenClawPackageRoot } = await import("./openclaw-root.js"));
+      ({ resolveNova EnginePackageRoot } = await import("./nova-engine-root.js"));
       ({ checkUpdateStatus, resolveNpmChannelTag } = await import("./update-check.js"));
       ({ runGatewayUpdateCheck } = await import("./update-startup.js"));
       loaded = true;
@@ -110,9 +110,9 @@ describe("update-startup", () => {
   });
 
   it("logs update hint for npm installs when newer tag exists", async () => {
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue("/opt/openclaw");
+    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue("/opt/nova-engine");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
-      root: "/opt/openclaw",
+      root: "/opt/nova-engine",
       installKind: "package",
       packageManager: "npm",
     } satisfies UpdateCheckResult);
@@ -140,9 +140,9 @@ describe("update-startup", () => {
   });
 
   it("uses latest when beta tag is older than release", async () => {
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue("/opt/openclaw");
+    vi.mocked(resolveNova EnginePackageRoot).mockResolvedValue("/opt/nova-engine");
     vi.mocked(checkUpdateStatus).mockResolvedValue({
-      root: "/opt/openclaw",
+      root: "/opt/nova-engine",
       installKind: "package",
       packageManager: "npm",
     } satisfies UpdateCheckResult);

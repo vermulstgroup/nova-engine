@@ -1,14 +1,14 @@
 ---
-summary: "CLI reference for `openclaw setup` (initialize config + workspace)"
+summary: "CLI reference for `nova-engine setup` (initialize config + workspace)"
 read_when:
   - You’re doing first-run setup without the full onboarding wizard
   - You want to set the default workspace path
 title: "setup"
 ---
 
-# `openclaw setup`
+# `nova-engine setup`
 
-Initialize `~/.openclaw/openclaw.json` and the agent workspace.
+Initialize `~/.nova-engine/nova-engine.json` and the agent workspace.
 
 Related:
 
@@ -18,12 +18,12 @@ Related:
 ## Examples
 
 ```bash
-openclaw setup
-openclaw setup --workspace ~/.openclaw/workspace
+nova-engine setup
+nova-engine setup --workspace ~/.nova-engine/workspace
 ```
 
 To run the wizard via setup:
 
 ```bash
-openclaw setup --wizard
+nova-engine setup --wizard
 ```

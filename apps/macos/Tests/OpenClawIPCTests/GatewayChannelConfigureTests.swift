@@ -1,8 +1,8 @@
-import OpenClawKit
+import NovaEngineKit
 import Foundation
 import os
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite struct GatewayConnectionTests {
     private final class FakeWebSocketTask: WebSocketTasking, @unchecked Sendable {

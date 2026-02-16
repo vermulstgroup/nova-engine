@@ -58,7 +58,7 @@ describe("startBrowserBridgeServer auth", () => {
     expect(authed.status).toBe(200);
   });
 
-  it("accepts x-openclaw-password when authPassword is set", async () => {
+  it("accepts x-nova-engine-password when authPassword is set", async () => {
     const bridge = await startBrowserBridgeServer({
       resolved: buildResolvedConfig(),
       authPassword: "secret-password",
@@ -69,7 +69,7 @@ describe("startBrowserBridgeServer auth", () => {
     expect(unauth.status).toBe(401);
 
     const authed = await fetch(`${bridge.baseUrl}/`, {
-      headers: { "x-openclaw-password": "secret-password" },
+      headers: { "x-nova-engine-password": "secret-password" },
     });
     expect(authed.status).toBe(200);
   });

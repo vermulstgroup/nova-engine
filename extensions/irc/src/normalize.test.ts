@@ -8,7 +8,7 @@ import {
 
 describe("irc normalize", () => {
   it("normalizes targets", () => {
-    expect(normalizeIrcMessagingTarget("irc:channel:openclaw")).toBe("#openclaw");
+    expect(normalizeIrcMessagingTarget("irc:channel:nova-engine")).toBe("#nova-engine");
     expect(normalizeIrcMessagingTarget("user:alice")).toBe("alice");
     expect(normalizeIrcMessagingTarget("\n")).toBeUndefined();
   });

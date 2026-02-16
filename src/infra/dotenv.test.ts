@@ -10,11 +10,11 @@ async function writeEnvFile(filePath: string, contents: string) {
 }
 
 describe("loadDotEnv", () => {
-  it("loads ~/.openclaw/.env as fallback without overriding CWD .env", async () => {
+  it("loads ~/.nova-engine/.env as fallback without overriding CWD .env", async () => {
     const prevEnv = { ...process.env };
     const prevCwd = process.cwd();
 
-    const base = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-dotenv-test-"));
+    const base = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-dotenv-test-"));
     const cwdDir = path.join(base, "cwd");
     const stateDir = path.join(base, "state");
 
@@ -51,7 +51,7 @@ describe("loadDotEnv", () => {
     const prevEnv = { ...process.env };
     const prevCwd = process.cwd();
 
-    const base = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-dotenv-test-"));
+    const base = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-dotenv-test-"));
     const cwdDir = path.join(base, "cwd");
     const stateDir = path.join(base, "state");
 

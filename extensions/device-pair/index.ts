@@ -1,6 +1,6 @@
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk";
+import type { Nova EnginePluginApi } from "nova-engine/plugin-sdk";
 import os from "node:os";
-import { approveDevicePairing, listDevicePairing } from "openclaw/plugin-sdk";
+import { approveDevicePairing, listDevicePairing } from "nova-engine/plugin-sdk";
 
 const DEFAULT_GATEWAY_PORT = 18789;
 
@@ -59,7 +59,7 @@ function normalizeUrl(raw: string, schemeFallback: "ws" | "wss"): string | null 
   return `${schemeFallback}://${withoutPath}`;
 }
 
-function resolveGatewayPort(cfg: OpenClawPluginApi["config"]): number {
+function resolveGatewayPort(cfg: Nova EnginePluginApi["config"]): number {
   const envRaw =
     process.env.NOVA_GATEWAY_PORT?.trim() || process.env.CLAWDBOT_GATEWAY_PORT?.trim();
   if (envRaw) {
@@ -76,7 +76,7 @@ function resolveGatewayPort(cfg: OpenClawPluginApi["config"]): number {
 }
 
 function resolveScheme(
-  cfg: OpenClawPluginApi["config"],
+  cfg: Nova EnginePluginApi["config"],
   opts?: { forceSecure?: boolean },
 ): "ws" | "wss" {
   if (opts?.forceSecure) {
@@ -170,7 +170,7 @@ function pickTailnetIPv4(): string | null {
   return null;
 }
 
-async function resolveTailnetHost(api: OpenClawPluginApi): Promise<string | null> {
+async function resolveTailnetHost(api: Nova EnginePluginApi): Promise<string | null> {
   const candidates = ["tailscale", "/Applications/Tailscale.app/Contents/MacOS/Tailscale"];
   for (const candidate of candidates) {
     try {
@@ -220,7 +220,7 @@ function parsePossiblyNoisyJsonObject(raw: string): Record<string, unknown> {
   }
 }
 
-function resolveAuth(cfg: OpenClawPluginApi["config"]): ResolveAuthResult {
+function resolveAuth(cfg: Nova EnginePluginApi["config"]): ResolveAuthResult {
   const mode = cfg.gateway?.auth?.mode;
   const token =
     process.env.NOVA_GATEWAY_TOKEN?.trim() ||
@@ -252,7 +252,7 @@ function resolveAuth(cfg: OpenClawPluginApi["config"]): ResolveAuthResult {
   return { error: "Gateway auth is not configured (no token or password)." };
 }
 
-async function resolveGatewayUrl(api: OpenClawPluginApi): Promise<ResolveUrlResult> {
+async function resolveGatewayUrl(api: Nova EnginePluginApi): Promise<ResolveUrlResult> {
   const cfg = api.config;
   const pluginCfg = (api.pluginConfig ?? {}) as DevicePairPluginConfig;
   const scheme = resolveScheme(cfg);
@@ -376,7 +376,7 @@ function formatPendingRequests(pending: PendingPairingRequest[]): string {
   return lines.join("\n");
 }
 
-export default function register(api: OpenClawPluginApi) {
+export default function register(api: Nova EnginePluginApi) {
   api.registerCommand({
     name: "pair",
     description: "Generate setup codes and approve device pairing requests.",

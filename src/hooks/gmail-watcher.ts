@@ -6,7 +6,7 @@
  */
 
 import { type ChildProcess, spawn } from "node:child_process";
-import type { OpenClawConfig } from "../config/config.js";
+import type { Nova EngineConfig } from "../config/config.js";
 import { hasBinary } from "../agents/skills.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { runCommandWithTimeout } from "../process/exec.js";
@@ -129,7 +129,7 @@ export type GmailWatcherStartResult = {
  * Start the Gmail watcher service.
  * Called automatically by the gateway if hooks.gmail is configured.
  */
-export async function startGmailWatcher(cfg: OpenClawConfig): Promise<GmailWatcherStartResult> {
+export async function startGmailWatcher(cfg: Nova EngineConfig): Promise<GmailWatcherStartResult> {
   // Check if gmail hooks are configured
   if (!cfg.hooks?.enabled) {
     return { started: false, reason: "hooks not enabled" };

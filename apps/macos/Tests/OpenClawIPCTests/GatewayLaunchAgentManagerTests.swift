@@ -1,13 +1,13 @@
 import Foundation
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite struct GatewayLaunchAgentManagerTests {
     @Test func launchAgentPlistSnapshotParsesArgsAndEnv() throws {
         let url = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-launchd-\(UUID().uuidString).plist")
+            .appendingPathComponent("nova-engine-launchd-\(UUID().uuidString).plist")
         let plist: [String: Any] = [
-            "ProgramArguments": ["openclaw", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
+            "ProgramArguments": ["nova-engine", "gateway-daemon", "--port", "18789", "--bind", "loopback"],
             "EnvironmentVariables": [
                 "OPENCLAW_GATEWAY_TOKEN": " secret ",
                 "OPENCLAW_GATEWAY_PASSWORD": "pw",
@@ -26,9 +26,9 @@ import Testing
 
     @Test func launchAgentPlistSnapshotAllowsMissingBind() throws {
         let url = FileManager().temporaryDirectory
-            .appendingPathComponent("openclaw-launchd-\(UUID().uuidString).plist")
+            .appendingPathComponent("nova-engine-launchd-\(UUID().uuidString).plist")
         let plist: [String: Any] = [
-            "ProgramArguments": ["openclaw", "gateway-daemon", "--port", "18789"],
+            "ProgramArguments": ["nova-engine", "gateway-daemon", "--port", "18789"],
         ]
         let data = try PropertyListSerialization.data(fromPropertyList: plist, format: .xml, options: 0)
         try data.write(to: url, options: [.atomic])

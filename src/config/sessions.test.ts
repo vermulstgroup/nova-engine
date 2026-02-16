@@ -26,7 +26,7 @@ describe("sessions", () => {
   };
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sessions-suite-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-sessions-suite-"));
   });
 
   afterAll(async () => {
@@ -72,11 +72,11 @@ describe("sessions", () => {
       buildGroupDisplayName({
         provider: "discord",
         groupChannel: "#general",
-        space: "friends-of-openclaw",
+        space: "friends-of-nova-engine",
         id: "123",
         key: "discord:group:123",
       }),
-    ).toBe("discord:friends-of-openclaw#general");
+    ).toBe("discord:friends-of-nova-engine#general");
   });
 
   it("collapses direct chats to main by default", () => {

@@ -7,7 +7,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vites
 import { captureEnv } from "../test-utils/env.js";
 import { saveMediaSource, setMediaStoreNetworkDepsForTest } from "./store.js";
 
-const HOME = path.join(os.tmpdir(), "openclaw-home-redirect");
+const HOME = path.join(os.tmpdir(), "nova-engine-home-redirect");
 const mockRequest = vi.fn();
 
 describe("media store redirects", () => {

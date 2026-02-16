@@ -1,8 +1,8 @@
 import Foundation
 
-public enum OpenClawBonjour {
+public enum NovaEngineBonjour {
     // v0: internal-only, subject to rename.
-    public static let gatewayServiceType = "_openclaw-gw._tcp"
+    public static let gatewayServiceType = "_nova-engine-gw._tcp"
     public static let gatewayServiceDomain = "local."
     public static var wideAreaGatewayServiceDomain: String? {
         let env = ProcessInfo.processInfo.environment

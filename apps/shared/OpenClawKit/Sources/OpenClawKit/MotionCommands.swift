@@ -1,11 +1,11 @@
 import Foundation
 
-public enum OpenClawMotionCommand: String, Codable, Sendable {
+public enum NovaEngineMotionCommand: String, Codable, Sendable {
     case activity = "motion.activity"
     case pedometer = "motion.pedometer"
 }
 
-public struct OpenClawMotionActivityParams: Codable, Sendable, Equatable {
+public struct NovaEngineMotionActivityParams: Codable, Sendable, Equatable {
     public var startISO: String?
     public var endISO: String?
     public var limit: Int?
@@ -17,7 +17,7 @@ public struct OpenClawMotionActivityParams: Codable, Sendable, Equatable {
     }
 }
 
-public struct OpenClawMotionActivityEntry: Codable, Sendable, Equatable {
+public struct NovaEngineMotionActivityEntry: Codable, Sendable, Equatable {
     public var startISO: String
     public var endISO: String
     public var confidence: String
@@ -51,15 +51,15 @@ public struct OpenClawMotionActivityEntry: Codable, Sendable, Equatable {
     }
 }
 
-public struct OpenClawMotionActivityPayload: Codable, Sendable, Equatable {
-    public var activities: [OpenClawMotionActivityEntry]
+public struct NovaEngineMotionActivityPayload: Codable, Sendable, Equatable {
+    public var activities: [NovaEngineMotionActivityEntry]
 
-    public init(activities: [OpenClawMotionActivityEntry]) {
+    public init(activities: [NovaEngineMotionActivityEntry]) {
         self.activities = activities
     }
 }
 
-public struct OpenClawPedometerParams: Codable, Sendable, Equatable {
+public struct NovaEnginePedometerParams: Codable, Sendable, Equatable {
     public var startISO: String?
     public var endISO: String?
 
@@ -69,7 +69,7 @@ public struct OpenClawPedometerParams: Codable, Sendable, Equatable {
     }
 }
 
-public struct OpenClawPedometerPayload: Codable, Sendable, Equatable {
+public struct NovaEnginePedometerPayload: Codable, Sendable, Equatable {
     public var startISO: String
     public var endISO: String
     public var steps: Int?

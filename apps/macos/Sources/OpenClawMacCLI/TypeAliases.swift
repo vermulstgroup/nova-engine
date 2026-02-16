@@ -1,5 +1,5 @@
-import OpenClawKit
-import OpenClawProtocol
+import NovaEngineKit
+import NovaEngineProtocol
 
-typealias ProtoAnyCodable = OpenClawProtocol.AnyCodable
-typealias KitAnyCodable = OpenClawKit.AnyCodable
+typealias ProtoAnyCodable = NovaEngineProtocol.AnyCodable
+typealias KitAnyCodable = NovaEngineKit.AnyCodable

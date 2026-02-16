@@ -1,9 +1,9 @@
 import Foundation
-import OpenClawKit
+import NovaEngineKit
 
-// Prefer the OpenClawKit wrapper to keep gateway request payloads consistent.
-typealias AnyCodable = OpenClawKit.AnyCodable
-typealias InstanceIdentity = OpenClawKit.InstanceIdentity
+// Prefer the NovaEngineKit wrapper to keep gateway request payloads consistent.
+typealias AnyCodable = NovaEngineKit.AnyCodable
+typealias InstanceIdentity = NovaEngineKit.InstanceIdentity
 
 extension AnyCodable {
     var stringValue: String? {

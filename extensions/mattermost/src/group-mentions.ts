@@ -1,4 +1,4 @@
-import type { ChannelGroupContext } from "openclaw/plugin-sdk";
+import type { ChannelGroupContext } from "nova-engine/plugin-sdk";
 import { resolveMattermostAccount } from "./mattermost/accounts.js";
 
 export function resolveMattermostGroupRequireMention(

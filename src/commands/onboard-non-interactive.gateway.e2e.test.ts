@@ -130,7 +130,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
     delete process.env.NOVA_GATEWAY_TOKEN;
     delete process.env.NOVA_GATEWAY_PASSWORD;
 
-    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-onboard-"));
+    tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-onboard-"));
     process.env.HOME = tempHome;
   });
 
@@ -153,7 +153,7 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
   it("writes gateway token auth into config and gateway enforces it", async () => {
     const stateDir = await initStateDir("state-noninteractive-");
     const token = "tok_test_123";
-    const workspace = path.join(stateDir, "openclaw");
+    const workspace = path.join(stateDir, "nova-engine");
 
     const { runNonInteractiveOnboarding } = await import("./onboard-non-interactive.js");
     await runNonInteractiveOnboarding(
@@ -237,10 +237,10 @@ describe("onboard (non-interactive): gateway and remote auth", () => {
     }
     const stateDir = await initStateDir("state-lan-");
     process.env.NOVA_STATE_DIR = stateDir;
-    process.env.NOVA_CONFIG_PATH = path.join(stateDir, "openclaw.json");
+    process.env.NOVA_CONFIG_PATH = path.join(stateDir, "nova-engine.json");
 
     const port = await getFreeGatewayPort();
-    const workspace = path.join(stateDir, "openclaw");
+    const workspace = path.join(stateDir, "nova-engine");
 
     const { runNonInteractiveOnboarding } = await import("./onboard-non-interactive.js");
     await runNonInteractiveOnboarding(

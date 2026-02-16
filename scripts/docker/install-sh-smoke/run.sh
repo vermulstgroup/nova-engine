@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALL_URL="${NOVA_INSTALL_URL:-https://openclaw.bot/install.sh}"
+INSTALL_URL="${NOVA_INSTALL_URL:-https://nova-engine.bot/install.sh}"
 SMOKE_PREVIOUS_VERSION="${NOVA_INSTALL_SMOKE_PREVIOUS:-}"
 SKIP_PREVIOUS="${NOVA_INSTALL_SMOKE_SKIP_PREVIOUS:-0}"
-DEFAULT_PACKAGE="openclaw"
+DEFAULT_PACKAGE="nova-engine"
 PACKAGE_NAME="${NOVA_INSTALL_PACKAGE:-$DEFAULT_PACKAGE}"
 
 echo "==> Resolve npm versions"

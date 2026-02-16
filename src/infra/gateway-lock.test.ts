@@ -13,7 +13,7 @@ let fixtureCount = 0;
 async function makeEnv() {
   const dir = path.join(fixtureRoot, `case-${fixtureCount++}`);
   await fs.mkdir(dir, { recursive: true });
-  const configPath = path.join(dir, "openclaw.json");
+  const configPath = path.join(dir, "nova-engine.json");
   await fs.writeFile(configPath, "{}", "utf8");
   await fs.mkdir(resolveGatewayLockDir(), { recursive: true });
   return {
@@ -64,7 +64,7 @@ function makeProcStat(pid: number, startTime: number) {
 
 describe("gateway lock", () => {
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-lock-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-gateway-lock-"));
   });
 
   beforeEach(() => {

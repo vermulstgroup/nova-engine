@@ -1,5 +1,5 @@
 import Testing
-@testable import OpenClaw
+@testable import NovaEngine
 
 @Suite struct VoicePushToTalkTests {
     @Test func deltaTrimsCommittedPrefix() {

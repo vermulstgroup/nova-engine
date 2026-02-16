@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk";
+import type { PluginRuntime } from "nova-engine/plugin-sdk";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -15,7 +15,7 @@ const runtimeStub = {
         return override;
       }
       const resolvedHome = homedir ? homedir() : os.homedir();
-      return path.join(resolvedHome, ".openclaw");
+      return path.join(resolvedHome, ".nova-engine");
     },
   },
 } as unknown as PluginRuntime;
@@ -26,7 +26,7 @@ describe("msteams conversation store (fs)", () => {
   });
 
   it("filters and prunes expired entries (but keeps legacy ones)", async () => {
-    const stateDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "openclaw-msteams-store-"));
+    const stateDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), "nova-engine-msteams-store-"));
 
     const env: NodeJS.ProcessEnv = {
       ...process.env,

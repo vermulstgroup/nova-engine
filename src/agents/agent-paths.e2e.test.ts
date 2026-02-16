@@ -3,9 +3,9 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { captureEnv } from "../test-utils/env.js";
-import { resolveOpenClawAgentDir } from "./agent-paths.js";
+import { resolveNova EngineAgentDir } from "./agent-paths.js";
 
-describe("resolveOpenClawAgentDir", () => {
+describe("resolveNova EngineAgentDir", () => {
   const env = captureEnv(["NOVA_STATE_DIR", "NOVA_AGENT_DIR", "PI_CODING_AGENT_DIR"]);
   let tempStateDir: string | null = null;
 
@@ -18,23 +18,23 @@ describe("resolveOpenClawAgentDir", () => {
   });
 
   it("defaults to the multi-agent path when no overrides are set", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-agent-"));
     process.env.NOVA_STATE_DIR = tempStateDir;
     delete process.env.NOVA_AGENT_DIR;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveOpenClawAgentDir();
+    const resolved = resolveNova EngineAgentDir();
 
     expect(resolved).toBe(path.join(tempStateDir, "agents", "main", "agent"));
   });
 
   it("honors NOVA_AGENT_DIR overrides", async () => {
-    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-agent-"));
+    tempStateDir = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-agent-"));
     const override = path.join(tempStateDir, "agent");
     process.env.NOVA_AGENT_DIR = override;
     delete process.env.PI_CODING_AGENT_DIR;
 
-    const resolved = resolveOpenClawAgentDir();
+    const resolved = resolveNova EngineAgentDir();
 
     expect(resolved).toBe(path.resolve(override));
   });

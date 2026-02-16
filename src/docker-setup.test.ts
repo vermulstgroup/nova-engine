@@ -39,7 +39,7 @@ exit 0
 }
 
 async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
-  const rootDir = await mkdtemp(join(tmpdir(), "openclaw-docker-setup-"));
+  const rootDir = await mkdtemp(join(tmpdir(), "nova-engine-docker-setup-"));
   const scriptPath = join(rootDir, "docker-setup.sh");
   const dockerfilePath = join(rootDir, "Dockerfile");
   const composePath = join(rootDir, "docker-compose.yml");
@@ -51,7 +51,7 @@ async function createDockerSetupSandbox(): Promise<DockerSetupSandbox> {
   await writeFile(dockerfilePath, "FROM scratch\n");
   await writeFile(
     composePath,
-    "services:\n  openclaw-gateway:\n    image: noop\n  openclaw-cli:\n    image: noop\n",
+    "services:\n  nova-engine-gateway:\n    image: noop\n  nova-engine-cli:\n    image: noop\n",
   );
   await writeDockerStub(binDir, logPath);
 
@@ -71,7 +71,7 @@ function createEnv(
     DOCKER_STUB_LOG: sandbox.logPath,
     NOVA_GATEWAY_TOKEN: "test-token",
     NOVA_CONFIG_DIR: join(sandbox.rootDir, "config"),
-    NOVA_WORKSPACE_DIR: join(sandbox.rootDir, "openclaw"),
+    NOVA_WORKSPACE_DIR: join(sandbox.rootDir, "nova-engine"),
   };
 
   for (const [key, value] of Object.entries(overrides)) {
@@ -120,7 +120,7 @@ describe("docker-setup.sh", () => {
       env: createEnv(sandbox, {
         NOVA_DOCKER_APT_PACKAGES: "ffmpeg build-essential",
         NOVA_EXTRA_MOUNTS: undefined,
-        NOVA_HOME_VOLUME: "openclaw-home",
+        NOVA_HOME_VOLUME: "nova-engine-home",
       }),
       stdio: ["ignore", "ignore", "pipe"],
     });
@@ -128,11 +128,11 @@ describe("docker-setup.sh", () => {
     const envFile = await readFile(join(sandbox.rootDir, ".env"), "utf8");
     expect(envFile).toContain("NOVA_DOCKER_APT_PACKAGES=ffmpeg build-essential");
     expect(envFile).toContain("NOVA_EXTRA_MOUNTS=");
-    expect(envFile).toContain("NOVA_HOME_VOLUME=openclaw-home");
+    expect(envFile).toContain("NOVA_HOME_VOLUME=nova-engine-home");
     const extraCompose = await readFile(join(sandbox.rootDir, "docker-compose.extra.yml"), "utf8");
-    expect(extraCompose).toContain("openclaw-home:/home/node");
+    expect(extraCompose).toContain("nova-engine-home:/home/node");
     expect(extraCompose).toContain("volumes:");
-    expect(extraCompose).toContain("openclaw-home:");
+    expect(extraCompose).toContain("nova-engine-home:");
     const log = await readFile(sandbox.logPath, "utf8");
     expect(log).toContain("--build-arg NOVA_DOCKER_APT_PACKAGES=ffmpeg build-essential");
   });

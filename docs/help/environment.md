@@ -1,5 +1,5 @@
 ---
-summary: "Where OpenClaw loads environment variables and the precedence order"
+summary: "Where Nova Engine loads environment variables and the precedence order"
 read_when:
   - You need to know which env vars are loaded, and in what order
   - You are debugging missing API keys in the Gateway
@@ -9,14 +9,14 @@ title: "Environment Variables"
 
 # Environment variables
 
-OpenClaw pulls environment variables from multiple sources. The rule is **never override existing values**.
+Nova Engine pulls environment variables from multiple sources. The rule is **never override existing values**.
 
 ## Precedence (highest → lowest)
 
 1. **Process environment** (what the Gateway process already has from the parent shell/daemon).
 2. **`.env` in the current working directory** (dotenv default; does not override).
-3. **Global `.env`** at `~/.openclaw/.env` (aka `$NOVA_STATE_DIR/.env`; does not override).
-4. **Config `env` block** in `~/.openclaw/openclaw.json` (applied only if missing).
+3. **Global `.env`** at `~/.nova-engine/.env` (aka `$NOVA_STATE_DIR/.env`; does not override).
+4. **Config `env` block** in `~/.nova-engine/nova-engine.json` (applied only if missing).
 5. **Optional login-shell import** (`env.shellEnv.enabled` or `NOVA_LOAD_SHELL_ENV=1`), applied only for missing expected keys.
 
 If the config file is missing entirely, step 4 is skipped; shell import still runs if enabled.
@@ -78,9 +78,9 @@ See [Configuration: Env var substitution](/gateway/configuration#env-var-substit
 
 | Variable               | Purpose                                                                                                                                                                          |
 | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NOVA_HOME`        | Override the home directory used for all internal path resolution (`~/.openclaw/`, agent dirs, sessions, credentials). Useful when running OpenClaw as a dedicated service user. |
-| `NOVA_STATE_DIR`   | Override the state directory (default `~/.openclaw`).                                                                                                                            |
-| `NOVA_CONFIG_PATH` | Override the config file path (default `~/.openclaw/openclaw.json`).                                                                                                             |
+| `NOVA_HOME`        | Override the home directory used for all internal path resolution (`~/.nova-engine/`, agent dirs, sessions, credentials). Useful when running Nova Engine as a dedicated service user. |
+| `NOVA_STATE_DIR`   | Override the state directory (default `~/.nova-engine`).                                                                                                                            |
+| `NOVA_CONFIG_PATH` | Override the config file path (default `~/.nova-engine/nova-engine.json`).                                                                                                             |
 
 ### `NOVA_HOME`
 

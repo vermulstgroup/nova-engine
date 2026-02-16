@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSE_FILE="$ROOT_DIR/docker-compose.yml"
 EXTRA_COMPOSE_FILE="$ROOT_DIR/docker-compose.extra.yml"
-IMAGE_NAME="${NOVA_IMAGE:-openclaw:local}"
+IMAGE_NAME="${NOVA_IMAGE:-nova-engine:local}"
 EXTRA_MOUNTS="${NOVA_EXTRA_MOUNTS:-}"
 HOME_VOLUME_NAME="${NOVA_HOME_VOLUME:-}"
 
@@ -21,8 +21,8 @@ if ! docker compose version >/dev/null 2>&1; then
   exit 1
 fi
 
-NOVA_CONFIG_DIR="${NOVA_CONFIG_DIR:-$HOME/.openclaw}"
-NOVA_WORKSPACE_DIR="${NOVA_WORKSPACE_DIR:-$HOME/.openclaw/workspace}"
+NOVA_CONFIG_DIR="${NOVA_CONFIG_DIR:-$HOME/.nova-engine}"
+NOVA_WORKSPACE_DIR="${NOVA_WORKSPACE_DIR:-$HOME/.nova-engine/workspace}"
 
 mkdir -p "$NOVA_CONFIG_DIR"
 mkdir -p "$NOVA_WORKSPACE_DIR"
@@ -60,14 +60,14 @@ write_extra_compose() {
 
   cat >"$EXTRA_COMPOSE_FILE" <<'YAML'
 services:
-  openclaw-gateway:
+  nova-engine-gateway:
     volumes:
 YAML
 
   if [[ -n "$home_volume" ]]; then
     printf '      - %s:/home/node\n' "$home_volume" >>"$EXTRA_COMPOSE_FILE"
-    printf '      - %s:/home/node/.openclaw\n' "$NOVA_CONFIG_DIR" >>"$EXTRA_COMPOSE_FILE"
-    printf '      - %s:/home/node/.openclaw/workspace\n' "$NOVA_WORKSPACE_DIR" >>"$EXTRA_COMPOSE_FILE"
+    printf '      - %s:/home/node/.nova-engine\n' "$NOVA_CONFIG_DIR" >>"$EXTRA_COMPOSE_FILE"
+    printf '      - %s:/home/node/.nova-engine/workspace\n' "$NOVA_WORKSPACE_DIR" >>"$EXTRA_COMPOSE_FILE"
   fi
 
   for mount in "$@"; do
@@ -75,14 +75,14 @@ YAML
   done
 
   cat >>"$EXTRA_COMPOSE_FILE" <<'YAML'
-  openclaw-cli:
+  nova-engine-cli:
     volumes:
 YAML
 
   if [[ -n "$home_volume" ]]; then
     printf '      - %s:/home/node\n' "$home_volume" >>"$EXTRA_COMPOSE_FILE"
-    printf '      - %s:/home/node/.openclaw\n' "$NOVA_CONFIG_DIR" >>"$EXTRA_COMPOSE_FILE"
-    printf '      - %s:/home/node/.openclaw/workspace\n' "$NOVA_WORKSPACE_DIR" >>"$EXTRA_COMPOSE_FILE"
+    printf '      - %s:/home/node/.nova-engine\n' "$NOVA_CONFIG_DIR" >>"$EXTRA_COMPOSE_FILE"
+    printf '      - %s:/home/node/.nova-engine/workspace\n' "$NOVA_WORKSPACE_DIR" >>"$EXTRA_COMPOSE_FILE"
   fi
 
   for mount in "$@"; do
@@ -192,21 +192,21 @@ echo "  - Gateway token: $NOVA_GATEWAY_TOKEN"
 echo "  - Tailscale exposure: Off"
 echo "  - Install Gateway daemon: No"
 echo ""
-docker compose "${COMPOSE_ARGS[@]}" run --rm openclaw-cli onboard --no-install-daemon
+docker compose "${COMPOSE_ARGS[@]}" run --rm nova-engine-cli onboard --no-install-daemon
 
 echo ""
 echo "==> Provider setup (optional)"
 echo "WhatsApp (QR):"
-echo "  ${COMPOSE_HINT} run --rm openclaw-cli channels login"
+echo "  ${COMPOSE_HINT} run --rm nova-engine-cli channels login"
 echo "Telegram (bot token):"
-echo "  ${COMPOSE_HINT} run --rm openclaw-cli channels add --channel telegram --token <token>"
+echo "  ${COMPOSE_HINT} run --rm nova-engine-cli channels add --channel telegram --token <token>"
 echo "Discord (bot token):"
-echo "  ${COMPOSE_HINT} run --rm openclaw-cli channels add --channel discord --token <token>"
-echo "Docs: https://docs.openclaw.ai/channels"
+echo "  ${COMPOSE_HINT} run --rm nova-engine-cli channels add --channel discord --token <token>"
+echo "Docs: https://docs.nova-engine.ai/channels"
 
 echo ""
 echo "==> Starting gateway"
-docker compose "${COMPOSE_ARGS[@]}" up -d openclaw-gateway
+docker compose "${COMPOSE_ARGS[@]}" up -d nova-engine-gateway
 
 echo ""
 echo "Gateway running with host port mapping."
@@ -216,5 +216,5 @@ echo "Workspace: $NOVA_WORKSPACE_DIR"
 echo "Token: $NOVA_GATEWAY_TOKEN"
 echo ""
 echo "Commands:"
-echo "  ${COMPOSE_HINT} logs -f openclaw-gateway"
-echo "  ${COMPOSE_HINT} exec openclaw-gateway node dist/index.js health --token \"$NOVA_GATEWAY_TOKEN\""
+echo "  ${COMPOSE_HINT} logs -f nova-engine-gateway"
+echo "  ${COMPOSE_HINT} exec nova-engine-gateway node dist/index.js health --token \"$NOVA_GATEWAY_TOKEN\""

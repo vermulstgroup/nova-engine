@@ -1,4 +1,4 @@
-import OpenClawIPC
+import NovaEngineIPC
 import Foundation
 import Testing
 

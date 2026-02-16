@@ -99,10 +99,10 @@ async function setupGatewayTestHome() {
   previousSkipProviders = process.env.NOVA_SKIP_PROVIDERS;
   previousSkipCron = process.env.NOVA_SKIP_CRON;
   previousMinimalGateway = process.env.NOVA_TEST_MINIMAL_GATEWAY;
-  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-home-"));
+  tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-gateway-home-"));
   process.env.HOME = tempHome;
   process.env.USERPROFILE = tempHome;
-  process.env.NOVA_STATE_DIR = path.join(tempHome, ".openclaw");
+  process.env.NOVA_STATE_DIR = path.join(tempHome, ".nova-engine");
   delete process.env.NOVA_CONFIG_PATH;
 }
 
@@ -115,8 +115,8 @@ function applyGatewaySkipEnv() {
   process.env.NOVA_SKIP_CRON = "1";
   process.env.NOVA_TEST_MINIMAL_GATEWAY = "1";
   process.env.NOVA_BUNDLED_PLUGINS_DIR = tempHome
-    ? path.join(tempHome, "openclaw-test-no-bundled-extensions")
-    : "openclaw-test-no-bundled-extensions";
+    ? path.join(tempHome, "nova-engine-test-no-bundled-extensions")
+    : "nova-engine-test-no-bundled-extensions";
 }
 
 async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
@@ -128,9 +128,9 @@ async function resetGatewayTestState(options: { uniqueConfigRoot: boolean }) {
   }
   applyGatewaySkipEnv();
   if (options.uniqueConfigRoot) {
-    tempConfigRoot = await fs.mkdtemp(path.join(tempHome, "openclaw-test-"));
+    tempConfigRoot = await fs.mkdtemp(path.join(tempHome, "nova-engine-test-"));
   } else {
-    tempConfigRoot = path.join(tempHome, ".openclaw-test");
+    tempConfigRoot = path.join(tempHome, ".nova-engine-test");
     await fs.rm(tempConfigRoot, { recursive: true, force: true });
     await fs.mkdir(tempConfigRoot, { recursive: true });
   }

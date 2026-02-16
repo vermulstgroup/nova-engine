@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-INSTALL_URL="${NOVA_INSTALL_URL:-https://openclaw.bot/install.sh}"
-DEFAULT_PACKAGE="openclaw"
+INSTALL_URL="${NOVA_INSTALL_URL:-https://nova-engine.bot/install.sh}"
+DEFAULT_PACKAGE="nova-engine"
 PACKAGE_NAME="${NOVA_INSTALL_PACKAGE:-$DEFAULT_PACKAGE}"
 
 echo "==> Pre-flight: ensure git absent"

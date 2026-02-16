@@ -1,11 +1,11 @@
 import Foundation
 
-public struct OpenClawChatSessionsDefaults: Codable, Sendable {
+public struct NovaEngineChatSessionsDefaults: Codable, Sendable {
     public let model: String?
     public let contextTokens: Int?
 }
 
-public struct OpenClawChatSessionEntry: Codable, Identifiable, Sendable, Hashable {
+public struct NovaEngineChatSessionEntry: Codable, Identifiable, Sendable, Hashable {
     public var id: String { self.key }
 
     public let key: String
@@ -31,10 +31,10 @@ public struct OpenClawChatSessionEntry: Codable, Identifiable, Sendable, Hashabl
     public let contextTokens: Int?
 }
 
-public struct OpenClawChatSessionsListResponse: Codable, Sendable {
+public struct NovaEngineChatSessionsListResponse: Codable, Sendable {
     public let ts: Double?
     public let path: String?
     public let count: Int?
-    public let defaults: OpenClawChatSessionsDefaults?
-    public let sessions: [OpenClawChatSessionEntry]
+    public let defaults: NovaEngineChatSessionsDefaults?
+    public let sessions: [NovaEngineChatSessionEntry]
 }

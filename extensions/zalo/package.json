@@ -1,15 +1,15 @@
 {
-  "name": "@openclaw/zalo",
+  "name": "@nova-engine/zalo",
   "version": "2026.2.16",
-  "description": "OpenClaw Zalo channel plugin",
+  "description": "Nova Engine Zalo channel plugin",
   "type": "module",
   "dependencies": {
     "undici": "7.22.0"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ],
@@ -27,7 +27,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/zalo",
+      "npmSpec": "@nova-engine/zalo",
       "localPath": "extensions/zalo",
       "defaultChoice": "npm"
     }

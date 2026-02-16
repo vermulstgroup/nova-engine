@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/open-prose",
+  "name": "@nova-engine/open-prose",
   "version": "2026.2.16",
   "private": true,
   "description": "OpenProse VM skill pack plugin (slash command + telemetry).",
   "type": "module",
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "nova-engine": "workspace:*"
   },
-  "openclaw": {
+  "nova-engine": {
     "extensions": [
       "./index.ts"
     ]

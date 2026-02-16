@@ -1,4 +1,4 @@
-import type { OpenClawConfig, ConfigFileSnapshot } from "../../config/types.js";
+import type { Nova EngineConfig, ConfigFileSnapshot } from "../../config/types.js";
 import type { GatewayProbeResult } from "../../gateway/probe.js";
 import { resolveGatewayPort } from "../../config/config.js";
 import { pickPrimaryTailnetIPv4 } from "../../infra/tailnet.js";
@@ -88,7 +88,7 @@ function normalizeWsUrl(value: string): string | null {
   return trimmed;
 }
 
-export function resolveTargets(cfg: OpenClawConfig, explicitUrl?: string): GatewayStatusTarget[] {
+export function resolveTargets(cfg: Nova EngineConfig, explicitUrl?: string): GatewayStatusTarget[] {
   const targets: GatewayStatusTarget[] = [];
   const add = (t: GatewayStatusTarget) => {
     if (!targets.some((x) => x.url === t.url)) {
@@ -145,7 +145,7 @@ export function sanitizeSshTarget(value: unknown): string | null {
 }
 
 export function resolveAuthForTarget(
-  cfg: OpenClawConfig,
+  cfg: Nova EngineConfig,
   target: GatewayStatusTarget,
   overrides: { token?: string; password?: string },
 ): { token?: string; password?: string } {
@@ -244,7 +244,7 @@ export function extractConfigSummary(snapshotUnknown: unknown): GatewayConfigSum
   };
 }
 
-export function buildNetworkHints(cfg: OpenClawConfig) {
+export function buildNetworkHints(cfg: Nova EngineConfig) {
   const tailnetIPv4 = pickPrimaryTailnetIPv4();
   const port = resolveGatewayPort(cfg);
   return {

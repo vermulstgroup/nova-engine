@@ -39,7 +39,7 @@ vi.mock("../web/session.js", () => webMocks);
 import { getReplyFromConfig } from "./reply.js";
 
 const { withTempHome } = createTempHomeHarness({
-  prefix: "openclaw-typing-",
+  prefix: "nova-engine-typing-",
   beforeEachCase: () => runEmbeddedPiAgentMock.mockClear(),
 });
 

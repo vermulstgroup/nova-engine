@@ -4,7 +4,7 @@ import path from "node:path";
 import { resolveBrewPathDirs } from "./brew.js";
 import { isTruthyEnvValue } from "./env.js";
 
-type EnsureOpenClawPathOpts = {
+type EnsureNova EnginePathOpts = {
   execPath?: string;
   cwd?: string;
   homeDir?: string;
@@ -49,7 +49,7 @@ function mergePath(params: { existing: string; prepend?: string[]; append?: stri
   return merged.join(path.delimiter);
 }
 
-function candidateBinDirs(opts: EnsureOpenClawPathOpts): { prepend: string[]; append: string[] } {
+function candidateBinDirs(opts: EnsureNova EnginePathOpts): { prepend: string[]; append: string[] } {
   const execPath = opts.execPath ?? process.execPath;
   const cwd = opts.cwd ?? process.cwd();
   const homeDir = opts.homeDir ?? os.homedir();
@@ -58,10 +58,10 @@ function candidateBinDirs(opts: EnsureOpenClawPathOpts): { prepend: string[]; ap
   const prepend: string[] = [];
   const append: string[] = [];
 
-  // Bundled macOS app: `openclaw` lives next to the executable (process.execPath).
+  // Bundled macOS app: `nova-engine` lives next to the executable (process.execPath).
   try {
     const execDir = path.dirname(execPath);
-    const siblingCli = path.join(execDir, "openclaw");
+    const siblingCli = path.join(execDir, "nova-engine");
     if (isExecutable(siblingCli)) {
       prepend.push(execDir);
     }
@@ -76,7 +76,7 @@ function candidateBinDirs(opts: EnsureOpenClawPathOpts): { prepend: string[]; ap
     isTruthyEnvValue(process.env.NOVA_ALLOW_PROJECT_LOCAL_BIN);
   if (allowProjectLocalBin) {
     const localBinDir = path.join(cwd, "node_modules", ".bin");
-    if (isExecutable(path.join(localBinDir, "openclaw"))) {
+    if (isExecutable(path.join(localBinDir, "nova-engine"))) {
       append.push(localBinDir);
     }
   }
@@ -106,10 +106,10 @@ function candidateBinDirs(opts: EnsureOpenClawPathOpts): { prepend: string[]; ap
 }
 
 /**
- * Best-effort PATH bootstrap so skills that require the `openclaw` CLI can run
+ * Best-effort PATH bootstrap so skills that require the `nova-engine` CLI can run
  * under launchd/minimal environments (and inside the macOS app bundle).
  */
-export function ensureOpenClawCliOnPath(opts: EnsureOpenClawPathOpts = {}) {
+export function ensureNova EngineCliOnPath(opts: EnsureNova EnginePathOpts = {}) {
   if (isTruthyEnvValue(process.env.NOVA_PATH_BOOTSTRAPPED)) {
     return;
   }

@@ -86,7 +86,7 @@ jobs:
             case "$path" in
               # Generated protocol models are already covered by protocol:check and
               # should not force the full native macOS lane.
-              apps/macos/Sources/OpenClawProtocol/*|apps/shared/OpenClawKit/Sources/OpenClawProtocol/*)
+              apps/macos/Sources/Nova EngineProtocol/*|apps/shared/Nova EngineKit/Sources/Nova EngineProtocol/*)
                 ;;
               apps/macos/*|apps/ios/*|apps/shared/*|Swabble/*)
                 run_macos=true
@@ -100,7 +100,7 @@ jobs:
             esac
 
             case "$path" in
-              src/*|test/*|extensions/*|packages/*|scripts/*|ui/*|.github/*|openclaw.mjs|package.json|pnpm-lock.yaml|pnpm-workspace.yaml|tsconfig*.json|vitest*.ts|tsdown.config.ts|.oxlintrc.json|.oxfmtrc.jsonc)
+              src/*|test/*|extensions/*|packages/*|scripts/*|ui/*|.github/*|nova-engine.mjs|package.json|pnpm-lock.yaml|pnpm-workspace.yaml|tsconfig*.json|vitest*.ts|tsdown.config.ts|.oxlintrc.json|.oxfmtrc.jsonc)
                 run_node=true
                 ;;
             esac

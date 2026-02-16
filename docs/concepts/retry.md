@@ -38,7 +38,7 @@ title: "Retry Policy"
 
 ## Configuration
 
-Set retry policy per provider in `~/.openclaw/openclaw.json`:
+Set retry policy per provider in `~/.nova-engine/nova-engine.json`:
 
 ```json5
 {

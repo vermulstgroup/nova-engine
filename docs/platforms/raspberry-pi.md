@@ -1,17 +1,17 @@
 ---
-summary: "OpenClaw on Raspberry Pi (budget self-hosted setup)"
+summary: "Nova Engine on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up OpenClaw on a Raspberry Pi
-  - Running OpenClaw on ARM devices
+  - Setting up Nova Engine on a Raspberry Pi
+  - Running Nova Engine on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi"
 ---
 
-# OpenClaw on Raspberry Pi
+# Nova Engine on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on Nova Engine Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 
@@ -107,19 +107,19 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install OpenClaw
+## 6) Install Nova Engine
 
 ### Option A: Standard Install (Recommended)
 
 ```bash
-curl -fsSL https://openclaw.ai/install.sh | bash
+curl -fsSL https://nova-engine.ai/install.sh | bash
 ```
 
 ### Option B: Hackable Install (For tinkering)
 
 ```bash
-git clone https://github.com/openclaw/openclaw.git
-cd openclaw
+git clone https://github.com/nova-engine/nova-engine.git
+cd nova-engine
 npm install
 npm run build
 npm link
@@ -130,7 +130,7 @@ The hackable install gives you direct access to logs and code — useful for deb
 ## 7) Run Onboarding
 
 ```bash
-openclaw onboard --install-daemon
+nova-engine onboard --install-daemon
 ```
 
 Follow the wizard:
@@ -144,13 +144,13 @@ Follow the wizard:
 
 ```bash
 # Check status
-openclaw status
+nova-engine status
 
 # Check service
-sudo systemctl status openclaw
+sudo systemctl status nova-engine
 
 # View logs
-journalctl -u openclaw -f
+journalctl -u nova-engine -f
 ```
 
 ## 9) Access the Dashboard
@@ -173,8 +173,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 
 # Update config
-openclaw config set gateway.bind tailnet
-sudo systemctl restart openclaw
+nova-engine config set gateway.bind tailnet
+sudo systemctl restart nova-engine
 ```
 
 ---
@@ -221,7 +221,7 @@ htop
 
 ### Binary Compatibility
 
-Most OpenClaw features work on ARM64, but some external binaries may need ARM builds:
+Most Nova Engine features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool               | ARM64 Status | Notes                               |
 | ------------------ | ------------ | ----------------------------------- |
@@ -271,13 +271,13 @@ The onboarding wizard sets this up, but to verify:
 
 ```bash
 # Check service is enabled
-sudo systemctl is-enabled openclaw
+sudo systemctl is-enabled nova-engine
 
 # Enable if not
-sudo systemctl enable openclaw
+sudo systemctl enable nova-engine
 
 # Start on boot
-sudo systemctl start openclaw
+sudo systemctl start nova-engine
 ```
 
 ---
@@ -304,12 +304,12 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u openclaw --no-pager -n 100
+journalctl -u nova-engine --no-pager -n 100
 
 # Common fix: rebuild
-cd ~/openclaw  # if using hackable install
+cd ~/nova-engine  # if using hackable install
 npm run build
-sudo systemctl restart openclaw
+sudo systemctl restart nova-engine
 ```
 
 ### ARM Binary Issues

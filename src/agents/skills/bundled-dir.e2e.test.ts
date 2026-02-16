@@ -28,8 +28,8 @@ describe("resolveBundledSkillsDir", () => {
   it("resolves bundled skills under a flattened dist layout", async () => {
     delete process.env.NOVA_BUNDLED_SKILLS_DIR;
 
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-bundled-"));
-    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "openclaw" }));
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "nova-engine-bundled-"));
+    await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ name: "nova-engine" }));
 
     await writeSkill(path.join(root, "skills", "peekaboo"), "peekaboo");
 

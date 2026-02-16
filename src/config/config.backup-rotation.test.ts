@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "./types.js";
+import type { Nova EngineConfig } from "./types.js";
 import { rotateConfigBackups } from "./backup-rotation.js";
 import { withTempHome } from "./test-helpers.js";
 
@@ -12,11 +12,11 @@ describe("config backup rotation", () => {
       if (!stateDir) {
         throw new Error("Expected NOVA_STATE_DIR to be set by withTempHome");
       }
-      const configPath = path.join(stateDir, "openclaw.json");
-      const buildConfig = (version: number): OpenClawConfig =>
+      const configPath = path.join(stateDir, "nova-engine.json");
+      const buildConfig = (version: number): Nova EngineConfig =>
         ({
           agents: { list: [{ id: `v${version}` }] },
-        }) as OpenClawConfig;
+        }) as Nova EngineConfig;
 
       const writeVersion = async (version: number) => {
         const json = JSON.stringify(buildConfig(version), null, 2).trimEnd().concat("\n");

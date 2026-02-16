@@ -1,6 +1,6 @@
-name: OpenClaw
+name: Nova Engine
 options:
-  bundleIdPrefix: ai.openclaw
+  bundleIdPrefix: ai.nova-engine
   deploymentTarget:
     iOS: "18.0"
   xcodeVersion: "16.0"
@@ -10,33 +10,33 @@ settings:
     SWIFT_VERSION: "6.0"
 
 packages:
-  OpenClawKit:
-    path: ../shared/OpenClawKit
+  Nova EngineKit:
+    path: ../shared/Nova EngineKit
   Swabble:
     path: ../../Swabble
 
 schemes:
-  OpenClaw:
+  Nova Engine:
     shared: true
     build:
       targets:
-        OpenClaw: all
+        Nova Engine: all
     test:
       targets:
-        - OpenClawTests
+        - Nova EngineTests
 
 targets:
-  OpenClaw:
+  Nova Engine:
     type: application
     platform: iOS
     sources:
       - path: Sources
     dependencies:
-      - package: OpenClawKit
-      - package: OpenClawKit
-        product: OpenClawChatUI
-      - package: OpenClawKit
-        product: OpenClawProtocol
+      - package: Nova EngineKit
+      - package: Nova EngineKit
+        product: Nova EngineChatUI
+      - package: Nova EngineKit
+        product: Nova EngineProtocol
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -71,15 +71,15 @@ targets:
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: Y5PE65HELJ
-        PRODUCT_BUNDLE_IDENTIFIER: ai.openclaw.ios
-        PROVISIONING_PROFILE_SPECIFIER: "ai.openclaw.ios Development"
+        PRODUCT_BUNDLE_IDENTIFIER: ai.nova-engine.ios
+        PROVISIONING_PROFILE_SPECIFIER: "ai.nova-engine.ios Development"
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
         ENABLE_APPINTENTS_METADATA: NO
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: OpenClaw
+        CFBundleDisplayName: Nova Engine
         CFBundleIconName: AppIcon
         CFBundleShortVersionString: "2026.2.16"
         CFBundleVersion: "20260216"
@@ -88,16 +88,16 @@ targets:
           UIApplicationSupportsMultipleScenes: false
         UIBackgroundModes:
           - audio
-        NSLocalNetworkUsageDescription: OpenClaw discovers and connects to your OpenClaw gateway on the local network.
+        NSLocalNetworkUsageDescription: Nova Engine discovers and connects to your Nova Engine gateway on the local network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
         NSBonjourServices:
-          - _openclaw-gw._tcp
-        NSCameraUsageDescription: OpenClaw can capture photos or short video clips when requested via the gateway.
-        NSLocationWhenInUseUsageDescription: OpenClaw uses your location when you allow location sharing.
-        NSLocationAlwaysAndWhenInUseUsageDescription: OpenClaw can share your location in the background when you enable Always.
-        NSMicrophoneUsageDescription: OpenClaw needs microphone access for voice wake.
-        NSSpeechRecognitionUsageDescription: OpenClaw uses on-device speech recognition for voice wake.
+          - _nova-engine-gw._tcp
+        NSCameraUsageDescription: Nova Engine can capture photos or short video clips when requested via the gateway.
+        NSLocationWhenInUseUsageDescription: Nova Engine uses your location when you allow location sharing.
+        NSLocationAlwaysAndWhenInUseUsageDescription: Nova Engine can share your location in the background when you enable Always.
+        NSMicrophoneUsageDescription: Nova Engine needs microphone access for voice wake.
+        NSSpeechRecognitionUsageDescription: Nova Engine uses on-device speech recognition for voice wake.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
@@ -109,26 +109,26 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  OpenClawTests:
+  Nova EngineTests:
     type: bundle.unit-test
     platform: iOS
     sources:
       - path: Tests
     dependencies:
-      - target: OpenClaw
+      - target: Nova Engine
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: ai.openclaw.ios.tests
+        PRODUCT_BUNDLE_IDENTIFIER: ai.nova-engine.ios.tests
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/OpenClaw.app/OpenClaw"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Nova Engine.app/Nova Engine"
         BUNDLE_LOADER: "$(TEST_HOST)"
     info:
       path: Tests/Info.plist
       properties:
-        CFBundleDisplayName: OpenClawTests
+        CFBundleDisplayName: Nova EngineTests
         CFBundleShortVersionString: "2026.2.16"
         CFBundleVersion: "20260216"

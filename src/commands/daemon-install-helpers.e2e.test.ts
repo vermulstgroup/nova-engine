@@ -34,11 +34,11 @@ afterEach(() => {
 
 describe("resolveGatewayDevMode", () => {
   it("detects dev mode for src ts entrypoints", () => {
-    expect(resolveGatewayDevMode(["node", "/Users/me/openclaw/src/cli/index.ts"])).toBe(true);
-    expect(resolveGatewayDevMode(["node", "C:\\Users\\me\\openclaw\\src\\cli\\index.ts"])).toBe(
+    expect(resolveGatewayDevMode(["node", "/Users/me/nova-engine/src/cli/index.ts"])).toBe(true);
+    expect(resolveGatewayDevMode(["node", "C:\\Users\\me\\nova-engine\\src\\cli\\index.ts"])).toBe(
       true,
     );
-    expect(resolveGatewayDevMode(["node", "/Users/me/openclaw/dist/cli/index.js"])).toBe(false);
+    expect(resolveGatewayDevMode(["node", "/Users/me/nova-engine/dist/cli/index.js"])).toBe(false);
   });
 });
 
@@ -235,7 +235,7 @@ describe("gatewayInstallErrorHint", () => {
   it("returns platform-specific hints", () => {
     expect(gatewayInstallErrorHint("win32")).toContain("Run as administrator");
     expect(gatewayInstallErrorHint("linux")).toMatch(
-      /(?:openclaw|openclaw)( --profile isolated)? gateway install/,
+      /(?:nova-engine|nova-engine)( --profile isolated)? gateway install/,
     );
   });
 });

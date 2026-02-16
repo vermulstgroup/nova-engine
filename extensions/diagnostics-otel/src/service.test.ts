@@ -96,15 +96,15 @@ vi.mock("@opentelemetry/semantic-conventions", () => ({
   },
 }));
 
-vi.mock("openclaw/plugin-sdk", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk")>("openclaw/plugin-sdk");
+vi.mock("nova-engine/plugin-sdk", async () => {
+  const actual = await vi.importActual<typeof import("nova-engine/plugin-sdk")>("nova-engine/plugin-sdk");
   return {
     ...actual,
     registerLogTransport: registerLogTransportMock,
   };
 });
 
-import { emitDiagnosticEvent } from "openclaw/plugin-sdk";
+import { emitDiagnosticEvent } from "nova-engine/plugin-sdk";
 import { createDiagnosticsOtelService } from "./service.js";
 
 describe("diagnostics-otel service", () => {
@@ -192,26 +192,26 @@ describe("diagnostics-otel service", () => {
       attempt: 2,
     });
 
-    expect(telemetryState.counters.get("openclaw.webhook.received")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("nova-engine.webhook.received")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("openclaw.webhook.duration_ms")?.record,
+      telemetryState.histograms.get("nova-engine.webhook.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("openclaw.message.queued")?.add).toHaveBeenCalled();
-    expect(telemetryState.counters.get("openclaw.message.processed")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("nova-engine.message.queued")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("nova-engine.message.processed")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("openclaw.message.duration_ms")?.record,
+      telemetryState.histograms.get("nova-engine.message.duration_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.histograms.get("openclaw.queue.wait_ms")?.record).toHaveBeenCalled();
-    expect(telemetryState.counters.get("openclaw.session.stuck")?.add).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("nova-engine.queue.wait_ms")?.record).toHaveBeenCalled();
+    expect(telemetryState.counters.get("nova-engine.session.stuck")?.add).toHaveBeenCalled();
     expect(
-      telemetryState.histograms.get("openclaw.session.stuck_age_ms")?.record,
+      telemetryState.histograms.get("nova-engine.session.stuck_age_ms")?.record,
     ).toHaveBeenCalled();
-    expect(telemetryState.counters.get("openclaw.run.attempt")?.add).toHaveBeenCalled();
+    expect(telemetryState.counters.get("nova-engine.run.attempt")?.add).toHaveBeenCalled();
 
     const spanNames = telemetryState.tracer.startSpan.mock.calls.map((call) => call[0]);
-    expect(spanNames).toContain("openclaw.webhook.processed");
-    expect(spanNames).toContain("openclaw.message.processed");
-    expect(spanNames).toContain("openclaw.session.stuck");
+    expect(spanNames).toContain("nova-engine.webhook.processed");
+    expect(spanNames).toContain("nova-engine.message.processed");
+    expect(spanNames).toContain("nova-engine.session.stuck");
 
     expect(registerLogTransportMock).toHaveBeenCalledTimes(1);
     expect(registeredTransports).toHaveLength(1);
