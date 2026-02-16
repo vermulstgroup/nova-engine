@@ -468,13 +468,13 @@ describe("readSessionMessages", () => {
     const marker = out[1] as {
       role: string;
       content?: Array<{ text?: string }>;
-      __nova-engine?: { kind?: string; id?: string };
+      __novaEngine?: { kind?: string; id?: string };
       timestamp?: number;
     };
     expect(marker.role).toBe("system");
     expect(marker.content?.[0]?.text).toBe("Compaction");
-    expect(marker.__nova-engine?.kind).toBe("compaction");
-    expect(marker.__nova-engine?.id).toBe("comp-1");
+    expect(marker.__novaEngine?.kind).toBe("compaction");
+    expect(marker.__novaEngine?.id).toBe("comp-1");
     expect(typeof marker.timestamp).toBe("number");
   });
 

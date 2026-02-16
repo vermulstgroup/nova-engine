@@ -1,4 +1,4 @@
-export const CONTROL_UI_BOOTSTRAP_CONFIG_PATH = "/__nova-engine/control-ui-config.json";
+export const CONTROL_UI_BOOTSTRAP_CONFIG_PATH = "/__novaEngine/control-ui-config.json";
 
 export type ControlUiBootstrapConfig = {
   basePath: string;

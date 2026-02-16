@@ -329,7 +329,7 @@ export async function collectPluginsTrustFindings(params: {
         sandboxMode,
         agentId: context.agentId,
       });
-      const broadPolicy = isToolAllowedByPolicies("__nova-engine_plugin_probe__", policies);
+      const broadPolicy = isToolAllowedByPolicies("__novaEngine_plugin_probe__", policies);
       const explicitPluginAllow =
         !restrictiveProfile &&
         (hasExplicitPluginAllow({
