@@ -342,7 +342,7 @@ openclaw onboard
 
 - 打开 `http://127.0.0.1:18789/`。
 - 如果要求认证，运行 `openclaw dashboard` 并使用带令牌的链接（`?token=...`）。
-- 令牌与 `gateway.auth.token`（或 `OPENCLAW_GATEWAY_TOKEN`）的值相同，UI 在首次加载后会存储它。
+- 令牌与 `gateway.auth.token`（或 `NOVA_GATEWAY_TOKEN`）的值相同，UI 在首次加载后会存储它。
 
 **非本地环境：**
 
@@ -406,7 +406,7 @@ openclaw doctor
 可以。复制**状态目录**和**工作区**，然后运行一次 Doctor。只要你同时复制**两个**位置，就能保持你的机器人“完全一样”（记忆、会话历史、认证和渠道状态）：
 
 1. 在新机器上安装 OpenClaw。
-2. 从旧机器复制 `$OPENCLAW_STATE_DIR`（默认：`~/.openclaw`）。
+2. 从旧机器复制 `$NOVA_STATE_DIR`（默认：`~/.openclaw`）。
 3. 复制你的工作区（默认：`~/.openclaw/workspace`）。
 4. 运行 `openclaw doctor` 并重启 Gateway 网关服务。
 
@@ -967,7 +967,7 @@ OpenClaw 是一个**个人助手**和协调层，不是 IDE 替代品。使用 C
 
 检查清单：
 
-- 确认 cron 已启用（`cron.enabled`）且未设置 `OPENCLAW_SKIP_CRON`。
+- 确认 cron 已启用（`cron.enabled`）且未设置 `NOVA_SKIP_CRON`。
 - 检查 Gateway 网关是否 24/7 运行（无休眠/重启）。
 - 验证任务的时区设置（`--tz` 与主机时区）。
 
@@ -1147,18 +1147,18 @@ OpenClaw 还会运行**静默的预压缩记忆刷新**，以提醒模型在自�
 
 ### OpenClaw 将数据存储在哪里
 
-所有内容位于 `$OPENCLAW_STATE_DIR`（默认：`~/.openclaw`）下：
+所有内容位于 `$NOVA_STATE_DIR`（默认：`~/.openclaw`）下：
 
 | 路径                                                            | 用途                                                 |
 | --------------------------------------------------------------- | ---------------------------------------------------- |
-| `$OPENCLAW_STATE_DIR/openclaw.json`                             | 主配置（JSON5）                                      |
-| `$OPENCLAW_STATE_DIR/credentials/oauth.json`                    | 旧版 OAuth 导入（首次使用时复制到认证配置文件）      |
-| `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | 认证配置文件（OAuth + API 密钥）                     |
-| `$OPENCLAW_STATE_DIR/agents/<agentId>/agent/auth.json`          | 运行时认证缓存（自动管理）                           |
-| `$OPENCLAW_STATE_DIR/credentials/`                              | 提供商状态（例如 `whatsapp/<accountId>/creds.json`） |
-| `$OPENCLAW_STATE_DIR/agents/`                                   | 按智能体的状态（agentDir + 会话）                    |
-| `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/`                | 对话历史和状态（按智能体）                           |
-| `$OPENCLAW_STATE_DIR/agents/<agentId>/sessions/sessions.json`   | 会话元数据（按智能体）                               |
+| `$NOVA_STATE_DIR/openclaw.json`                             | 主配置（JSON5）                                      |
+| `$NOVA_STATE_DIR/credentials/oauth.json`                    | 旧版 OAuth 导入（首次使用时复制到认证配置文件）      |
+| `$NOVA_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | 认证配置文件（OAuth + API 密钥）                     |
+| `$NOVA_STATE_DIR/agents/<agentId>/agent/auth.json`          | 运行时认证缓存（自动管理）                           |
+| `$NOVA_STATE_DIR/credentials/`                              | 提供商状态（例如 `whatsapp/<accountId>/creds.json`） |
+| `$NOVA_STATE_DIR/agents/`                                   | 按智能体的状态（agentDir + 会话）                    |
+| `$NOVA_STATE_DIR/agents/<agentId>/sessions/`                | 对话历史和状态（按智能体）                           |
+| `$NOVA_STATE_DIR/agents/<agentId>/sessions/sessions.json`   | 会话元数据（按智能体）                               |
 
 旧版单智能体路径：`~/.openclaw/agent/*`（通过 `openclaw doctor` 迁移）。
 
@@ -1222,17 +1222,17 @@ OpenClaw 还会运行**静默的预压缩记忆刷新**，以提醒模型在自�
 
 ### 配置文件是什么格式？在哪里
 
-OpenClaw 从 `$OPENCLAW_CONFIG_PATH`（默认：`~/.openclaw/openclaw.json`）读取可选的 **JSON5** 配置：
+OpenClaw 从 `$NOVA_CONFIG_PATH`（默认：`~/.openclaw/openclaw.json`）读取可选的 **JSON5** 配置：
 
 ```
-$OPENCLAW_CONFIG_PATH
+$NOVA_CONFIG_PATH
 ```
 
 如果文件不存在，使用安全的默认值（包括默认工作区 `~/.openclaw/workspace`）。
 
 ### 我设置了 gateway.bind: "lan"（或 "tailnet"），现在什么都监听不了 / UI 显示未授权
 
-非 local loopback 绑定**需要认证**。配置 `gateway.auth.mode` + `gateway.auth.token`（或使用 `OPENCLAW_GATEWAY_TOKEN`）。
+非 local loopback 绑定**需要认证**。配置 `gateway.auth.mode` + `gateway.auth.token`（或使用 `NOVA_GATEWAY_TOKEN`）。
 
 ```json5
 {
@@ -1512,7 +1512,7 @@ Serve 暴露 **Gateway 网关控制 UI + WS**。节点通过同一个 Gateway �
 OpenClaw 从父进程（shell、launchd/systemd、CI 等）读取环境变量，并额外加载：
 
 - 当前工作目录下的 `.env`
-- `~/.openclaw/.env`（即 `$OPENCLAW_STATE_DIR/.env`）的全局回退 `.env`
+- `~/.openclaw/.env`（即 `$NOVA_STATE_DIR/.env`）的全局回退 `.env`
 
 两个 `.env` 文件都不会覆盖已有的环境变量。
 
@@ -1548,7 +1548,7 @@ OpenClaw 从父进程（shell、launchd/systemd、CI 等）读取环境变量，
 ```
 
 这会运行你的登录 shell 并仅导入缺失的预期键名（从不覆盖）。环境变量等效项：
-`OPENCLAW_LOAD_SHELL_ENV=1`、`OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000`。
+`NOVA_LOAD_SHELL_ENV=1`、`NOVA_SHELL_ENV_TIMEOUT_MS=15000`。
 
 ### 我设置了 COPILOT_GITHUB_TOKEN，但 models status 显示"Shell env: off"，为什么
 
@@ -1633,7 +1633,7 @@ openclaw onboard --install-daemon
 注意：
 
 - 新手引导向导在看到现有配置时也提供**重置**选项。参阅[向导](/start/wizard)。
-- 如果你使用了配置文件（`--profile` / `OPENCLAW_PROFILE`），重置每个状态目录（默认为 `~/.openclaw-<profile>`）。
+- 如果你使用了配置文件（`--profile` / `NOVA_PROFILE`），重置每个状态目录（默认为 `~/.openclaw-<profile>`）。
 - 开发重置：`openclaw gateway --dev --reset`（仅限开发；清除开发配置 + 凭据 + 会话 + 工作区）。
 
 ### 我遇到了 context too large 错误——如何重置或压缩
@@ -2146,7 +2146,7 @@ OpenClaw 两者都支持：
 优先级：
 
 ```
---port > OPENCLAW_GATEWAY_PORT > gateway.port > 默认 18789
+--port > NOVA_GATEWAY_PORT > gateway.port > 默认 18789
 ```
 
 ### 为什么 openclaw gateway status 显示 Runtime: running 但 RPC probe: failed
@@ -2161,7 +2161,7 @@ OpenClaw 两者都支持：
 
 ### 为什么 openclaw gateway status 显示 Config (cli) 和 Config (service) 不同
 
-你正在编辑一个配置文件，而服务运行的是另一个（通常是 `--profile` / `OPENCLAW_STATE_DIR` 不匹配）。
+你正在编辑一个配置文件，而服务运行的是另一个（通常是 `--profile` / `NOVA_STATE_DIR` 不匹配）。
 
 修复：
 
@@ -2213,7 +2213,7 @@ OpenClaw 通过在启动时立即绑定 WebSocket 监听器来强制运行时锁
 - 最快：`openclaw dashboard`（打印 + 复制带令牌的链接，尝试打开；如果无头则显示 SSH 提示）。
 - 如果你还没有令牌：`openclaw doctor --generate-gateway-token`。
 - 如果是远程，先建隧道：`ssh -N -L 18789:127.0.0.1:18789 user@host` 然后打开 `http://127.0.0.1:18789/?token=...`。
-- 在 Gateway 网关主机上设置 `gateway.auth.token`（或 `OPENCLAW_GATEWAY_TOKEN`）。
+- 在 Gateway 网关主机上设置 `gateway.auth.token`（或 `NOVA_GATEWAY_TOKEN`）。
 - 在控制 UI 设置中粘贴相同的令牌（或使用一次性 `?token=...` 链接刷新）。
 - 仍然卡住？运行 `openclaw status --all` 并按[故障排除](/gateway/troubleshooting)操作。参阅[仪表板](/web/dashboard)了解认证详情。
 
@@ -2234,8 +2234,8 @@ OpenClaw 通过在启动时立即绑定 WebSocket 监听器来强制运行时锁
 
 可以，但你必须隔离：
 
-- `OPENCLAW_CONFIG_PATH`（每实例配置）
-- `OPENCLAW_STATE_DIR`（每实例状态）
+- `NOVA_CONFIG_PATH`（每实例配置）
+- `NOVA_STATE_DIR`（每实例状态）
 - `agents.defaults.workspace`（工作区隔离）
 - `gateway.port`（唯一端口）
 
@@ -2292,7 +2292,7 @@ openclaw logs --follow
 
 服务/supervisor 日志（当 Gateway 网关通过 launchd/systemd 运行时）：
 
-- macOS：`$OPENCLAW_STATE_DIR/logs/gateway.log` 和 `gateway.err.log`（默认：`~/.openclaw/logs/...`；配置文件使用 `~/.openclaw-<profile>/logs/...`）
+- macOS：`$NOVA_STATE_DIR/logs/gateway.log` 和 `gateway.err.log`（默认：`~/.openclaw/logs/...`；配置文件使用 `~/.openclaw-<profile>/logs/...`）
 - Linux：`journalctl --user -u openclaw-gateway[-<profile>].service -n 200 --no-pager`
 - Windows：`schtasks /Query /TN "OpenClaw Gateway 网关 (<profile>)" /V /FO LIST`
 

@@ -99,7 +99,7 @@ gateway:
     - "127.0.0.1" # 如果你的代理运行在 localhost
   auth:
     mode: password
-    password: ${OPENCLAW_GATEWAY_PASSWORD}
+    password: ${NOVA_GATEWAY_PASSWORD}
 ```
 
 配置 `trustedProxies` 后，Gateway 网关将使用 `X-Forwarded-For` 头来确定真实客户端 IP 以进行本地客户端检测。确保你的代理覆盖（而不是追加）传入的 `X-Forwarded-For` 头以防止欺骗。
@@ -165,7 +165,7 @@ OpenClaw 的立场：
 - 在启用之前审查插件配置。
 - 在插件更改后重启 Gateway 网关。
 - 如果你从 npm 安装插件（`openclaw plugins install <npm-spec>`），将其视为运行不受信任的代码：
-  - 安装路径是 `~/.openclaw/extensions/<pluginId>/`（或 `$OPENCLAW_STATE_DIR/extensions/<pluginId>/`）。
+  - 安装路径是 `~/.openclaw/extensions/<pluginId>/`（或 `$NOVA_STATE_DIR/extensions/<pluginId>/`）。
   - OpenClaw 使用 `npm pack` 然后在该目录中运行 `npm install --omit=dev`（npm 生命周期脚本可以在安装期间执行代码）。
   - 优先使用固定的精确版本（`@scope/pkg@1.2.3`），并在启用之前检查磁盘上解压的代码。
 
@@ -319,7 +319,7 @@ OpenClaw 有两个独立的"谁可以触发我？"层：
 Gateway 网关在单个端口上复用 **WebSocket + HTTP**：
 
 - 默认：`18789`
-- 配置/标志/环境变量：`gateway.port`、`--port`、`OPENCLAW_GATEWAY_PORT`
+- 配置/标志/环境变量：`gateway.port`、`--port`、`NOVA_GATEWAY_PORT`
 
 绑定模式控制 Gateway 网关在哪里监听：
 
@@ -374,7 +374,7 @@ Gateway 网关通过 mDNS（端口 5353 上的 `_openclaw-gw._tcp`）广播其�
    }
    ```
 
-4. **环境变量**（替代方案）：设置 `OPENCLAW_DISABLE_BONJOUR=1` 以在不更改配置的情况下禁用 mDNS。
+4. **环境变量**（替代方案）：设置 `NOVA_DISABLE_BONJOUR=1` 以在不更改配置的情况下禁用 mDNS。
 
 在最小模式下，Gateway 网关仍然广播足够的设备发现信息（`role`、`gatewayPort`、`transport`），但省略 `cliPath` 和 `sshPort`。需要 CLI 路径信息的应用可以通过经过认证的 WebSocket 连接获取它。
 
@@ -407,11 +407,11 @@ Doctor 可以为你生成一个：`openclaw doctor --generate-gateway-token`。
 认证模式：
 
 - `gateway.auth.mode: "token"`：共享承载令牌（推荐用于大多数设置）。
-- `gateway.auth.mode: "password"`：密码认证（优先通过环境变量设置：`OPENCLAW_GATEWAY_PASSWORD`）。
+- `gateway.auth.mode: "password"`：密码认证（优先通过环境变量设置：`NOVA_GATEWAY_PASSWORD`）。
 
 轮换清单（令牌/密码）：
 
-1. 生成/设置一个新的秘密（`gateway.auth.token` 或 `OPENCLAW_GATEWAY_PASSWORD`）。
+1. 生成/设置一个新的秘密（`gateway.auth.token` 或 `NOVA_GATEWAY_PASSWORD`）。
 2. 重启 Gateway 网关（或者如果 macOS 应用监督 Gateway 网关，重启 macOS 应用）。
 3. 更新任何远程客户端（调用 Gateway 网关的机器上的 `gateway.remote.token` / `.password`）。
 4. 验证你不能再用旧凭证连接。
@@ -446,7 +446,7 @@ Doctor 可以为你生成一个：`openclaw doctor --generate-gateway-token`。
 
 ### 0.7）磁盘上的秘密（什么是敏感的）
 
-假设 `~/.openclaw/`（或 `$OPENCLAW_STATE_DIR/`）下的任何内容都可能包含秘密或私有数据：
+假设 `~/.openclaw/`（或 `$NOVA_STATE_DIR/`）下的任何内容都可能包含秘密或私有数据：
 
 - `openclaw.json`：配置可能包含令牌（Gateway 网关、远程 Gateway 网关）、提供商设置和白名单。
 - `credentials/**`：渠道凭证（例如：WhatsApp 凭证）、配对白名单、旧版 OAuth 导入。
@@ -704,7 +704,7 @@ Doctor 可以为你生成一个：`openclaw doctor --generate-gateway-token`。
 
 ### 轮换（如果秘密泄露则假设被入侵）
 
-1. 轮换 Gateway 网关认证（`gateway.auth.token` / `OPENCLAW_GATEWAY_PASSWORD`）并重启。
+1. 轮换 Gateway 网关认证（`gateway.auth.token` / `NOVA_GATEWAY_PASSWORD`）并重启。
 2. 轮换任何可以调用 Gateway 网关的机器上的远程客户端秘密（`gateway.remote.token` / `.password`）。
 3. 轮换提供商/API 凭证（WhatsApp 凭证、Slack/Discord 令牌、`auth-profiles.json` 中的模型/API 密钥）。
 

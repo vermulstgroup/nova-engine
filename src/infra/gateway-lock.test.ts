@@ -19,8 +19,8 @@ async function makeEnv() {
   return {
     env: {
       ...process.env,
-      OPENCLAW_STATE_DIR: dir,
-      OPENCLAW_CONFIG_PATH: configPath,
+      NOVA_STATE_DIR: dir,
+      NOVA_CONFIG_PATH: configPath,
     },
     cleanup: async () => {},
   };

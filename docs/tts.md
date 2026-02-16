@@ -294,7 +294,7 @@ Optional allowlist (disable specific overrides while keeping tags enabled):
 ## Per-user preferences
 
 Slash commands write local overrides to `prefsPath` (default:
-`~/.openclaw/settings/tts.json`, override with `OPENCLAW_TTS_PREFS` or
+`~/.openclaw/settings/tts.json`, override with `NOVA_TTS_PREFS` or
 `messages.tts.prefsPath`).
 
 Stored fields:

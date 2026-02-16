@@ -63,8 +63,8 @@ macOS 应用会检查 Gateway 网关版本与其自身版本是否匹配。如�
 ```bash
 openclaw --version
 
-OPENCLAW_SKIP_CHANNELS=1 \
-OPENCLAW_SKIP_CANVAS_HOST=1 \
+NOVA_SKIP_CHANNELS=1 \
+NOVA_SKIP_CANVAS_HOST=1 \
 openclaw gateway --port 18999 --bind loopback
 ```
 

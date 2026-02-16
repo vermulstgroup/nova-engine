@@ -35,31 +35,31 @@ describe("schtasks runtime parsing", () => {
 });
 
 describe("resolveTaskScriptPath", () => {
-  it("uses default path when OPENCLAW_PROFILE is unset", () => {
+  it("uses default path when NOVA_PROFILE is unset", () => {
     const env = { USERPROFILE: "C:\\Users\\test" };
     expect(resolveTaskScriptPath(env)).toBe(
       path.join("C:\\Users\\test", ".openclaw", "gateway.cmd"),
     );
   });
 
-  it("uses profile-specific path when OPENCLAW_PROFILE is set to a custom value", () => {
-    const env = { USERPROFILE: "C:\\Users\\test", OPENCLAW_PROFILE: "jbphoenix" };
+  it("uses profile-specific path when NOVA_PROFILE is set to a custom value", () => {
+    const env = { USERPROFILE: "C:\\Users\\test", NOVA_PROFILE: "jbphoenix" };
     expect(resolveTaskScriptPath(env)).toBe(
       path.join("C:\\Users\\test", ".openclaw-jbphoenix", "gateway.cmd"),
     );
   });
 
-  it("prefers OPENCLAW_STATE_DIR over profile-derived defaults", () => {
+  it("prefers NOVA_STATE_DIR over profile-derived defaults", () => {
     const env = {
       USERPROFILE: "C:\\Users\\test",
-      OPENCLAW_PROFILE: "rescue",
-      OPENCLAW_STATE_DIR: "C:\\State\\openclaw",
+      NOVA_PROFILE: "rescue",
+      NOVA_STATE_DIR: "C:\\State\\openclaw",
     };
     expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\State\\openclaw", "gateway.cmd"));
   });
 
   it("falls back to HOME when USERPROFILE is not set", () => {
-    const env = { HOME: "/home/test", OPENCLAW_PROFILE: "default" };
+    const env = { HOME: "/home/test", NOVA_PROFILE: "default" };
     expect(resolveTaskScriptPath(env)).toBe(path.join("/home/test", ".openclaw", "gateway.cmd"));
   });
 });
@@ -77,7 +77,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["C:/Program Files/Node/node.exe", "gateway.js"],
@@ -90,7 +90,7 @@ describe("readScheduledTaskCommand", () => {
   it("returns null when script does not exist", async () => {
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-schtasks-test-"));
     try {
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toBeNull();
     } finally {
@@ -109,7 +109,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toBeNull();
     } finally {
@@ -129,20 +129,20 @@ describe("readScheduledTaskCommand", () => {
           "rem OpenClaw Gateway",
           "cd /d C:\\Projects\\openclaw",
           "set NODE_ENV=production",
-          "set OPENCLAW_PORT=18789",
+          "set NOVA_PORT=18789",
           "node gateway.js --verbose",
         ].join("\r\n"),
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: ["node", "gateway.js", "--verbose"],
         workingDirectory: "C:\\Projects\\openclaw",
         environment: {
           NODE_ENV: "production",
-          OPENCLAW_PORT: "18789",
+          NOVA_PORT: "18789",
         },
       });
     } finally {
@@ -163,7 +163,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: [
@@ -193,7 +193,7 @@ describe("readScheduledTaskCommand", () => {
         "utf8",
       );
 
-      const env = { USERPROFILE: tmpDir, OPENCLAW_PROFILE: "default" };
+      const env = { USERPROFILE: tmpDir, NOVA_PROFILE: "default" };
       const result = await readScheduledTaskCommand(env);
       expect(result).toEqual({
         programArguments: [

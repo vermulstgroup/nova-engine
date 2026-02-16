@@ -295,7 +295,7 @@ Telegram 通过 `message_thread_id` 支持论坛主题。对于定时任务投�
 完全禁用定时任务：
 
 - `cron.enabled: false`（配置）
-- `OPENCLAW_SKIP_CRON=1`（环境变量）
+- `NOVA_SKIP_CRON=1`（环境变量）
 
 ## CLI 快速开始
 
@@ -414,7 +414,7 @@ openclaw system event --mode now --text "Next heartbeat: check battery."
 
 ### "没有任何任务运行"
 
-- 检查定时任务是否已启用：`cron.enabled` 和 `OPENCLAW_SKIP_CRON`。
+- 检查定时任务是否已启用：`cron.enabled` 和 `NOVA_SKIP_CRON`。
 - 检查 Gateway网关是否持续运行（定时任务运行在 Gateway网关进程内部）。
 - 对于 `cron` 调度：确认时区（`--tz`）与主机时区的关系。
 

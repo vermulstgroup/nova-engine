@@ -10,13 +10,13 @@ const runCommandWithTimeoutMock = vi.fn();
 const scanDirectoryWithSummaryMock = vi.fn();
 const fetchWithSsrFGuardMock = vi.fn();
 
-const originalOpenClawStateDir = process.env.OPENCLAW_STATE_DIR;
+const originalOpenClawStateDir = process.env.NOVA_STATE_DIR;
 
 afterEach(() => {
   if (originalOpenClawStateDir === undefined) {
-    delete process.env.OPENCLAW_STATE_DIR;
+    delete process.env.NOVA_STATE_DIR;
   } else {
-    process.env.OPENCLAW_STATE_DIR = originalOpenClawStateDir;
+    process.env.NOVA_STATE_DIR = originalOpenClawStateDir;
   }
 });
 
@@ -89,7 +89,7 @@ async function fileExists(filePath: string): Promise<boolean> {
 
 function setTempStateDir(workspaceDir: string): string {
   const stateDir = path.join(workspaceDir, "state");
-  process.env.OPENCLAW_STATE_DIR = stateDir;
+  process.env.NOVA_STATE_DIR = stateDir;
   return stateDir;
 }
 

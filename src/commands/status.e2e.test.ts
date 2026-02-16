@@ -4,8 +4,8 @@ import { captureEnv } from "../test-utils/env.js";
 let envSnapshot: ReturnType<typeof captureEnv>;
 
 beforeAll(() => {
-  envSnapshot = captureEnv(["OPENCLAW_PROFILE"]);
-  process.env.OPENCLAW_PROFILE = "isolated";
+  envSnapshot = captureEnv(["NOVA_PROFILE"]);
+  process.env.NOVA_PROFILE = "isolated";
 });
 
 afterAll(() => {
@@ -399,8 +399,8 @@ describe("statusCommand", () => {
   });
 
   it("shows gateway auth when reachable", async () => {
-    const prevToken = process.env.OPENCLAW_GATEWAY_TOKEN;
-    process.env.OPENCLAW_GATEWAY_TOKEN = "abcd1234";
+    const prevToken = process.env.NOVA_GATEWAY_TOKEN;
+    process.env.NOVA_GATEWAY_TOKEN = "abcd1234";
     try {
       mocks.probeGateway.mockResolvedValueOnce({
         ok: true,
@@ -419,9 +419,9 @@ describe("statusCommand", () => {
       expect(logs.some((l) => l.includes("auth token"))).toBe(true);
     } finally {
       if (prevToken === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_TOKEN;
+        delete process.env.NOVA_GATEWAY_TOKEN;
       } else {
-        process.env.OPENCLAW_GATEWAY_TOKEN = prevToken;
+        process.env.NOVA_GATEWAY_TOKEN = prevToken;
       }
     }
   });

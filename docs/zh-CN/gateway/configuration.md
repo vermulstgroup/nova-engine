@@ -277,7 +277,7 @@ OpenClaw 从父进程（shell、launchd/systemd、CI 等）读取环境变量。
 此外，它还会加载：
 
 - 当前工作目录中的 `.env`（如果存在）
-- `~/.openclaw/.env`（即 `$OPENCLAW_STATE_DIR/.env`）作为全局回退 `.env`
+- `~/.openclaw/.env`（即 `$NOVA_STATE_DIR/.env`）作为全局回退 `.env`
 
 两个 `.env` 文件都不会覆盖已有的环境变量。
 
@@ -314,8 +314,8 @@ OpenClaw 从父进程（shell、launchd/systemd、CI 等）读取环境变量。
 
 等效环境变量：
 
-- `OPENCLAW_LOAD_SHELL_ENV=1`
-- `OPENCLAW_SHELL_ENV_TIMEOUT_MS=15000`
+- `NOVA_LOAD_SHELL_ENV=1`
+- `NOVA_SHELL_ENV_TIMEOUT_MS=15000`
 
 ### 配置中的环境变量替换
 
@@ -332,7 +332,7 @@ OpenClaw 从父进程（shell、launchd/systemd、CI 等）读取环境变量。
   },
   gateway: {
     auth: {
-      token: "${OPENCLAW_GATEWAY_TOKEN}",
+      token: "${NOVA_GATEWAY_TOKEN}",
     },
   },
 }
@@ -369,7 +369,7 @@ OpenClaw 在以下位置存储**每个智能体的**认证配置文件（OAuth +
 
 旧版 OAuth 导入：
 
-- `~/.openclaw/credentials/oauth.json`（或 `$OPENCLAW_STATE_DIR/credentials/oauth.json`）
+- `~/.openclaw/credentials/oauth.json`（或 `$NOVA_STATE_DIR/credentials/oauth.json`）
 
 内置 Pi 智能体在以下位置维护运行时缓存：
 
@@ -381,8 +381,8 @@ OpenClaw 在以下位置存储**每个智能体的**认证配置文件（OAuth +
 
 覆盖：
 
-- OAuth 目录（仅旧版导入）：`OPENCLAW_OAUTH_DIR`
-- 智能体目录（默认智能体根目录覆盖）：`OPENCLAW_AGENT_DIR`（推荐）、`PI_CODING_AGENT_DIR`（旧版）
+- OAuth 目录（仅旧版导入）：`NOVA_OAUTH_DIR`
+- 智能体目录（默认智能体根目录覆盖）：`NOVA_AGENT_DIR`（推荐）、`PI_CODING_AGENT_DIR`（旧版）
 
 首次使用时，OpenClaw 会将 `oauth.json` 条目导入到 `auth-profiles.json` 中。
 
@@ -2668,7 +2668,7 @@ Z.AI 模型通过内置的 `zai` 提供商提供。在环境中设置 `ZAI_API_K
 - 支持的 API：`openai-completions`、`openai-responses`、`anthropic-messages`、
   `google-generative-ai`
 - 对于自定义认证需求使用 `authHeader: true` + `headers`。
-- 如果你希望 `models.json` 存储在其他位置，请使用 `OPENCLAW_AGENT_DIR`（或 `PI_CODING_AGENT_DIR`）覆盖智能体配置根目录（默认：`~/.openclaw/agents/main/agent`）。
+- 如果你希望 `models.json` 存储在其他位置，请使用 `NOVA_AGENT_DIR`（或 `PI_CODING_AGENT_DIR`）覆盖智能体配置根目录（默认：`~/.openclaw/agents/main/agent`）。
 
 ### `session`
 
@@ -2923,7 +2923,7 @@ OpenClaw 可以为 OpenClaw 启动一个**专用、隔离的** Chrome/Brave/Edge
 - `openclaw gateway` 拒绝启动，除非 `gateway.mode` 设为 `local`（或你传递了覆盖标志）。
 - `gateway.port` 控制用于 WebSocket + HTTP（控制台 UI、hooks、A2UI）的单一多路复用端口。
 - OpenAI Chat Completions 端点：**默认禁用**；通过 `gateway.http.endpoints.chatCompletions.enabled: true` 启用。
-- 优先级：`--port` > `OPENCLAW_GATEWAY_PORT` > `gateway.port` > 默认 `18789`。
+- 优先级：`--port` > `NOVA_GATEWAY_PORT` > `gateway.port` > 默认 `18789`。
 - 默认需要 Gateway 网关认证（token/密码或 Tailscale Serve 身份）。非 local loopback 绑定需要共享 token/密码。
 - 新手引导向导默认生成 gateway token（即使在 local loopback 上）。
 - `gateway.remote.token` **仅**用于远程 CLI 调用；它不启用本地 gateway 认证。`gateway.token` 被忽略。
@@ -2933,7 +2933,7 @@ OpenClaw 可以为 OpenClaw 启动一个**专用、隔离的** Chrome/Brave/Edge
 - `gateway.auth.mode` 设置握手要求（`token` 或 `password`）。未设置时，假定 token 认证。
 - `gateway.auth.token` 存储 token 认证的共享 token（同一机器上的 CLI 使用）。
 - 当设置了 `gateway.auth.mode` 时，仅接受该方法（加上可选的 Tailscale 头部）。
-- `gateway.auth.password` 可在此设置，或通过 `OPENCLAW_GATEWAY_PASSWORD`（推荐）。
+- `gateway.auth.password` 可在此设置，或通过 `NOVA_GATEWAY_PASSWORD`（推荐）。
 - `gateway.auth.allowTailscale` 允许 Tailscale Serve 身份头部
   （`tailscale-user-login`）在请求通过 local loopback 到达且带有 `x-forwarded-for`、
   `x-forwarded-proto` 和 `x-forwarded-host` 时满足认证。OpenClaw 在接受之前
@@ -2987,7 +2987,7 @@ macOS 应用行为：
 
 ### `gateway.reload`（配置热重载）
 
-Gateway 网关监视 `~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）并自动应用更改。
+Gateway 网关监视 `~/.openclaw/openclaw.json`（或 `NOVA_CONFIG_PATH`）并自动应用更改。
 
 模式：
 
@@ -3011,7 +3011,7 @@ Gateway 网关监视 `~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）
 
 监视的文件：
 
-- `~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）
+- `~/.openclaw/openclaw.json`（或 `NOVA_CONFIG_PATH`）
 
 热应用（无需完全重启 Gateway 网关）：
 
@@ -3036,8 +3036,8 @@ Gateway 网关监视 `~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）
 
 要在一台主机上运行多个 Gateway 网关（用于冗余或救援机器人），请隔离每个实例的状态 + 配置并使用唯一端口：
 
-- `OPENCLAW_CONFIG_PATH`（每实例配置）
-- `OPENCLAW_STATE_DIR`（会话/凭据）
+- `NOVA_CONFIG_PATH`（每实例配置）
+- `NOVA_STATE_DIR`（会话/凭据）
 - `agents.defaults.workspace`（记忆）
 - `gateway.port`（每实例唯一）
 
@@ -3052,8 +3052,8 @@ Gateway 网关监视 `~/.openclaw/openclaw.json`（或 `OPENCLAW_CONFIG_PATH`）
 示例：
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.openclaw/a.json \
-OPENCLAW_STATE_DIR=~/.openclaw-a \
+NOVA_CONFIG_PATH=~/.openclaw/a.json \
+NOVA_STATE_DIR=~/.openclaw-a \
 openclaw gateway --port 19001
 ```
 
@@ -3156,7 +3156,7 @@ Gateway 网关自动启动：
 
 - 如果 `hooks.enabled=true` 且 `hooks.gmail.account` 已设置，Gateway 网关在启动时
   启动 `gog gmail watch serve` 并自动续期监视。
-- 设置 `OPENCLAW_SKIP_GMAIL_WATCHER=1` 禁用自动启动（用于手动运行）。
+- 设置 `NOVA_SKIP_GMAIL_WATCHER=1` 禁用自动启动（用于手动运行）。
 - 避免在 Gateway 网关旁边单独运行 `gog gmail watch serve`；它会
   因 `listen tcp 127.0.0.1:8788: bind: address already in use` 而失败。
 
@@ -3201,7 +3201,7 @@ Gateway 网关通过 HTTP 提供 HTML/CSS/JS 目录服务，以便 iOS/Android �
 禁用方式：
 
 - 配置：`canvasHost: { enabled: false }`
-- 环境变量：`OPENCLAW_SKIP_CANVAS_HOST=1`
+- 环境变量：`NOVA_SKIP_CANVAS_HOST=1`
 
 ### `bridge`（旧版 TCP 桥接，已移除）
 
@@ -3258,7 +3258,7 @@ TLS：
 - `minimal`（默认）：从 TXT 记录中省略 `cliPath` + `sshPort`
 - `full`：在 TXT 记录中包含 `cliPath` + `sshPort`
 - `off`：完全禁用 mDNS 广播
-- 主机名：默认为 `openclaw`（通告 `openclaw.local`）。通过 `OPENCLAW_MDNS_HOSTNAME` 覆盖。
+- 主机名：默认为 `openclaw`（通告 `openclaw.local`）。通过 `NOVA_MDNS_HOSTNAME` 覆盖。
 
 ```json5
 {

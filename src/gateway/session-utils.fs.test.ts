@@ -635,8 +635,8 @@ describe("resolveSessionTranscriptCandidates", () => {
     vi.unstubAllEnvs();
   });
 
-  test("fallback candidate uses OPENCLAW_HOME instead of os.homedir()", () => {
-    vi.stubEnv("OPENCLAW_HOME", "/srv/openclaw-home");
+  test("fallback candidate uses NOVA_HOME instead of os.homedir()", () => {
+    vi.stubEnv("NOVA_HOME", "/srv/openclaw-home");
     vi.stubEnv("HOME", "/home/other");
 
     const candidates = resolveSessionTranscriptCandidates("sess-1", undefined);
@@ -695,7 +695,7 @@ describe("archiveSessionTranscripts", () => {
   beforeAll(() => {
     tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-archive-test-"));
     storePath = path.join(tmpDir, "sessions.json");
-    vi.stubEnv("OPENCLAW_HOME", tmpDir);
+    vi.stubEnv("NOVA_HOME", tmpDir);
   });
 
   afterAll(() => {

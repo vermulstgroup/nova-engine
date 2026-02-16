@@ -11,13 +11,13 @@ import {
 import { setNostrRuntime } from "./runtime.js";
 
 async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
-  const previous = process.env.OPENCLAW_STATE_DIR;
+  const previous = process.env.NOVA_STATE_DIR;
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-nostr-"));
-  process.env.OPENCLAW_STATE_DIR = dir;
+  process.env.NOVA_STATE_DIR = dir;
   setNostrRuntime({
     state: {
       resolveStateDir: (env, homedir) => {
-        const override = env.OPENCLAW_STATE_DIR?.trim() || env.OPENCLAW_STATE_DIR?.trim();
+        const override = env.NOVA_STATE_DIR?.trim() || env.NOVA_STATE_DIR?.trim();
         if (override) {
           return override;
         }
@@ -29,9 +29,9 @@ async function withTempStateDir<T>(fn: (dir: string) => Promise<T>) {
     return await fn(dir);
   } finally {
     if (previous === undefined) {
-      delete process.env.OPENCLAW_STATE_DIR;
+      delete process.env.NOVA_STATE_DIR;
     } else {
-      process.env.OPENCLAW_STATE_DIR = previous;
+      process.env.NOVA_STATE_DIR = previous;
     }
     await fs.rm(dir, { recursive: true, force: true });
   }

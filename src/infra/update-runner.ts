@@ -741,7 +741,7 @@ export async function runGatewayUpdate(opts: UpdateRunnerOptions = {}): Promise<
 
     const doctorArgv = [process.execPath, doctorEntry, "doctor", "--non-interactive"];
     const doctorStep = await runStep(
-      step("openclaw doctor", doctorArgv, gitRoot, { OPENCLAW_UPDATE_IN_PROGRESS: "1" }),
+      step("openclaw doctor", doctorArgv, gitRoot, { NOVA_UPDATE_IN_PROGRESS: "1" }),
     );
     steps.push(doctorStep);
 
